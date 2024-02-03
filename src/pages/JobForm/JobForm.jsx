@@ -38,18 +38,18 @@ const schema = z.object({
         .transform(val => parseFloat(val)) // Transform the string to a number for validation.
         .refine(val => !isNaN(val), {message: 'Salary must be a number.'}),
     experience: string().optional(),
-    /*availability: z.object({
-        Monday: z.array(z.boolean()),
-        Tuesday: z.array(z.boolean()),
-        Wednesday: z.array(z.boolean()),
-        Thursday: z.array(z.boolean()),
-        Friday: z.array(z.boolean()),
+    availability: z.object({
+        Montag: z.array(z.boolean().optional()).optional(),
+        Dienstag: z.array(z.boolean().optional()).optional(),
+        Mittwoch: z.array(z.boolean().optional()).optional(),
+        Donnerstag: z.array(z.boolean().optional()).optional(),
+        Freitag: z.array(z.boolean().optional()).optional(),
     }).refine(availability =>
             Object.values(availability).some(day => day.includes(true)),
         {
             message: "You must be available for at least one shift on any day.",
         }
-    ),*/
+    ),
     motivation: string().optional()
 })
 
@@ -60,10 +60,10 @@ function JobForm(props) {
         formState,
         setValue
     } = useForm({
-        resolver: zodResolver(schema),
+        resolver: zodResolver(schema)/*,
         defaultValues: {
-            availability: days.reduce((acc, day) => ({...acc, [day]: [false, false, false]}), {}),
-        },
+            availability: days.reduce((acc, day) => ({...acc, [day]: [false, false, false, false]}), {}),
+        }*/,
     });
 
     const {errors} = formState
@@ -111,7 +111,8 @@ function JobForm(props) {
                 <input type={"text"} {...register('nationality')} placeholder={"Nationality"}/>
                 <div style={{color: 'red'}}>{errors.nationality?.message}</div>
             </div>
-            ,
+        </>,
+        <>
             <div>
                 <p>E-Mail address</p>
                 <input type={"email"} {...register('mail')} placeholder={"E-Mail address"}/>
@@ -122,8 +123,8 @@ function JobForm(props) {
                 <input type={"tel"} {...register('phone')} placeholder={"Phone number"}/>
                 <div style={{color: 'red'}}>{errors.phone?.message}</div>
             </div>
-        </>,
-        <>
+
+
             <div>
                 <p>Street and house number</p>
                 <input type={"text"} {...register('street')} placeholder={"Street + House number"}/>
@@ -200,7 +201,7 @@ function JobForm(props) {
                     </tbody>
                 </table>
             </div>
-            <div style={{color: 'red'}}>{errors.availability?.message}</div>
+            <div style={{color: 'red'}}>{errors.availability?.root?.message}</div>
             <div>
                 <button type="button" onClick={fillAllAvailability}>Always available</button>
                 <button type="button" onClick={clearAllAvailability}>Clear selection</button>
