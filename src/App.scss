@@ -1,0 +1,222 @@
+@import "variables.scss";
+
+body, html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  font-family: var(--body-font-family);
+  color-scheme: light dark;
+  color: var(--text-primary);
+  background-color: var(--background);
+  transition: color, background-color 500ms;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  /*  min-height: 100vh;*/
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  /* FallBackFonts */
+  a, p, h1, h2, h3, h4, h5, h6 {
+    font-family: var(--standard-font-family);
+  }
+
+  /* Heading and body texts */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--heading-font-family-font-family);
+    line-height: var(--heading-line-height);
+    letter-spacing: var(--heading-letter-spacing);
+    font-weight: var(--heading-font-weight);
+  }
+
+  a, p {
+    font-family: var(--body-font-family);
+    font-size: var(--body-font-size);
+    line-height: var(--body-line-height);
+    letter-spacing: var(--body-letter-spacing);
+  }
+
+  h1 {
+    font-size: 4rem;
+    margin: 1rem 0 .2rem 0;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+    margin: .8rem 0 .15rem 0;
+  }
+
+  h3 {
+    font-size: 2rem;
+    margin: .6rem 0 .1rem 0;
+  }
+
+  h4 {
+    font-size: 1.75rem;
+    margin: .4rem 0 .05rem 0;
+  }
+
+  h5 {
+    font-size: 1.5rem;
+    margin: .2rem 0 .05rem 0;
+  }
+
+  h6 {
+    font-size: 1.25rem;
+    margin: .1rem 0 .05rem 0;
+  }
+
+  a {
+    text-decoration: underline;
+    color: var(--text-primary);
+    transition: var(--transition-duration-500);
+
+    &:hover {
+      color: var(--text-secondary);
+    }
+  }
+
+  li {
+    list-style: none;
+  }
+
+  section {
+    width: 100%;
+  }
+
+  button {
+    color: var(--light-shades-admin-100op);
+    border: none;
+    font-size: var(--button-font-size);
+    border-radius: var(--button-border-radius);
+    padding: var(--button-padding);
+    font-weight: var(--button-font-weight);
+    transition: background-color 0.3s ease, filter 0.3s ease;
+
+    &.primary {
+      background-color: var(--primary-admin);
+    }
+
+    &.secondary {
+      background-color: var(--secondary-admin);
+    }
+
+    &.button-warning {
+      background-color: var(--warning-admin);
+    }
+
+    &.button-confirm {
+      background-color: var(--confirm-admin);
+    }
+
+    &.button-cancel {
+      background-color: var(--delete-admin);
+    }
+
+    &.button-disabled {
+      background-color: var(--disabled-admin);
+
+      &:hover {
+        cursor: default;
+      }
+    }
+
+    &.button-warning, &.button-confirm, &.button-cancel, &.primary, &.secondary {
+
+      &:hover {
+        filter: brightness(1.1);
+        cursor: pointer;
+      }
+    }
+  }
+
+  input, textarea, select {
+    background-color: var(--form-background);
+    border: 1px solid var(--form-border);
+    color: var(--text-primary);
+    font-family: var(--body-font-family);
+    font-size: var(--body-font-size);
+    padding: 10px;
+    border-radius: 5px;
+    transition: border 0.3s ease;
+
+    &[type="date"] {
+      &::-webkit-calendar-picker-indicator {
+        filter: var(--form-filter);
+
+        &:hover {
+          cursor: pointer;
+          filter: invert(0.5);
+        }
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    &::placeholder {
+      color: var(--form-placeholder);
+      opacity: 1; /* Firefox */
+    }
+
+    &::-ms-input-placeholder { /* Edge 12 -18 */
+      color: var(--form-placeholder);
+    }
+
+    &:focus {
+      outline: none;
+      border: 1px solid var(--form-border-focus);
+    }
+  }
+
+
+  textarea {
+    min-height: 150px;
+  }
+}
+
+.container {
+  margin: 0 auto;
+  width: 1080px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+.reverseOrder {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.reverseOrder > p {
+  padding: 0;
+  margin: 0 0 .75rem;
+}
+
+.reverseOrder {
+  h1, h2, h3, h4, h5, h6 {
+    padding: 0;
+    margin: 0 0 .5rem;
+  }
+
+  p {
+    padding: 1rem 0 0;
+    margin: 0;
+    font-weight: 500;
+  }
+}

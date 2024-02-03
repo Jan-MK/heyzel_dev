@@ -1,0 +1,85 @@
+// ThemeSwitch.module.scss
+$slider-width: 45px; // Base width for the slider
+$slider-height-ratio: 34 / 60; // Ratio of height to width based on initial values
+$slider-height: $slider-width * $slider-height-ratio; // Height depends on width
+$knob-size: $slider-height * 0.75; // Knob size based on height
+$knob-offset: ($slider-height - $knob-size) / 2; // Center knob within slider
+$knob-move-distance: $slider-width - $knob-size - ($knob-offset * 2); // Distance knob should move
+$transition-duration: 500ms; // Transition duration
+
+.themeSwitch {
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  --background-color-slider: var(--disabled);
+
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: $slider-width;
+    height: $slider-height;
+
+    input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: var(--background);
+      transition: $transition-duration;
+      border-radius: $slider-height;
+      box-shadow: 0 0 1px var(--background-color-slider);
+
+      &:before {
+        position: absolute;
+        content: "";
+        height: $knob-size;
+        width: $knob-size;
+        left: $knob-offset;
+        bottom: $knob-offset;
+        background-color: white;
+        transition: $transition-duration;
+        border-radius: 50%;
+        z-index: 5;
+      }
+    }
+
+    input:checked + .slider {
+      background-color: var(--background-color-slider);
+
+      &:before {
+        transform: translateX($knob-move-distance);
+      }
+    }
+
+    input:focus + .slider {
+      box-shadow: 0 0 1px var(--background-color-slider);
+    }
+  }
+
+  .icon {
+    position: absolute;
+    color: var(--text-primary);
+    font-size: calc(#{$slider-height} / 2); // Icon size based on slider height
+    top: 50%;
+    transform: translateY(-50%);
+    transition: color $transition-duration ease-in-out;
+
+    &.left {
+      left: calc(#{$knob-offset} + 10%);
+      opacity: 1;
+    }
+
+    &.right {
+      right: calc(#{$knob-offset} + 10%);
+    }
+  }
+}

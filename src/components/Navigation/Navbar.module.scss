@@ -1,0 +1,30 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  right: 50%;
+  transform: translateX(100%-50%);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  .navLinks {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 25px;
+    ul {
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+      li {
+        user-select: none;
+        cursor: pointer;
+        font-weight: 500;
+        color: #2a2728;
+      }
+    }
+  }
+}

@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Rokkitt:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bitter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.cdnfonts.com/css/sf-pro-display');
+
+[data-theme='light'] {
+  --transition-pulse-color: var(--dark-shades-100op);
+  --background: var(--light-shades-100op);
+  --text-primary: var(--dark-shades-100op);
+  --text-contrary: var(--light-accent-100op);
+  --accent: var(--dark-accent-100op);
+  --accent2: var(--main-brand-color-100op);
+  --accent3: var(--light-accent-100op);
+
+  --form-border: var(--dark-shades-25op);
+  --form-border-focus: var(--dark-shades-50op);
+  --form-background: var(--light-shades-100op);
+  --form-placeholder: var(--dark-shades-50op);
+  --form-filter: invert(1);
+
+  --transition: 500ms ease;
+  --info: var(--light-accent-100op);
+
+}
+
+[data-theme='dark'] {
+  --transition-pulse-color: var(--light-shades-100op);
+  --background: var(--dark-shades-100op);;
+  --text-primary: var(--light-shades-100op);
+  --text-secondary: var(--dark-accent-100op);
+  --accent: var(--dark-accent-100op);
+  --accent2: var(--main-brand-color-100op);
+  --accent3: var(--light-accent-100op);
+
+  --form-border: var(--light-shades-50op);
+  --form-border-focus: var(--light-shades-75op);
+  --form-background: var(--light-shades-5op);
+  --form-placeholder: var(--light-shades-50op);
+  --form-filter: invert(0);
+
+  --transition: var(--transition-duration-500) ease;
+  --info: var(--dark-accent-100op);
+}
+
+:root {
+  /* Light shades */
+  --light-shades-hex: #f1f0f3;
+  --light-shades-r: 241;
+  --light-shades-g: 240;
+  --light-shades-b: 243;
+  --light-shades-100op: rgb(var(--light-shades-r), var(--light-shades-g), var(--light-shades-b));
+  --light-shades-75op: rgba(var(--light-shades-r), var(--light-shades-g), var(--light-shades-b), 0.75);
+  --light-shades-50op: rgba(var(--light-shades-r), var(--light-shades-g), var(--light-shades-b), 0.5);
+  --light-shades-25op: rgba(var(--light-shades-r), var(--light-shades-g), var(--light-shades-b), 0.25);
+  --light-shades-5op: rgba(var(--light-shades-r), var(--light-shades-g), var(--light-shades-b), 0.05);
+  /* Light accent */
+  --light-accent-hex: #ff9d3b;
+  --light-accent-r: 255;
+  --light-accent-g: 157;
+  --light-accent-b: 59;
+  --light-accent-100op: rgb(var(--light-accent-r), var(--light-accent-g), var(--light-accent-b));
+  --light-accent-75op: rgba(var(--light-accent-r), var(--light-accent-g), var(--light-accent-b), 0.75);
+  --light-accent-50op: rgba(var(--light-accent-r), var(--light-accent-g), var(--light-accent-b), 0.5);
+  --light-accent-25op: rgba(var(--light-accent-r), var(--light-accent-g), var(--light-accent-b), 0.25);
+  /* Main brand color */
+  --main-brand-color-hex: #7d939b;
+  --main-brand-color-r: 125;
+  --main-brand-color-g: 147;
+  --main-brand-color-b: 155;
+  --main-brand-color-100op: rgb(var(--main-brand-color-r), var(--main-brand-color-g), var(--main-brand-color-b));
+  --main-brand-color-75op: rgba(var(--main-brand-color-r), var(--main-brand-color-g), var(--main-brand-color-b), 0.75);
+  --main-brand-color-50op: rgba(var(--main-brand-color-r), var(--main-brand-color-g), var(--main-brand-color-b), 0.5);
+  --main-brand-color-25op: rgba(var(--main-brand-color-r), var(--main-brand-color-g), var(--main-brand-color-b), 0.25);
+  /* Dark accent */
+  --dark-accent-hex: #962829;
+  --dark-accent-r: 150;
+  --dark-accent-g: 40;
+  --dark-accent-b: 41;
+  --dark-accent-100op: rgb(var(--dark-accent-r), var(--dark-accent-g), var(--dark-accent-b));
+  --dark-accent-75op: rgba(var(--dark-accent-r), var(--dark-accent-g), var(--dark-accent-b), 0.75);
+  --dark-accent-50op: rgba(var(--dark-accent-r), var(--dark-accent-g), var(--dark-accent-b), 0.5);
+  --dark-accent-25op: rgba(var(--dark-accent-r), var(--dark-accent-g), var(--dark-accent-b), 0.25);
+  /* Dark shades */
+  --dark-shades-hex: #2a2728;
+  --dark-shades-r: 42;
+  --dark-shades-g: 39;
+  --dark-shades-b: 40;
+  --dark-shades-100op: rgb(var(--dark-shades-r), var(--dark-shades-g), var(--dark-shades-b));
+  --dark-shades-75op: rgba(var(--dark-shades-r), var(--dark-shades-g), var(--dark-shades-b), 0.75);
+  --dark-shades-50op: rgba(var(--dark-shades-r), var(--dark-shades-g), var(--dark-shades-b), 0.5);
+  --dark-shades-25op: rgba(var(--dark-shades-r), var(--dark-shades-g), var(--dark-shades-b), 0.25);
+  /* UI Component coloring */
+  --primary: var(--main-brand-color-100op);
+  --secondary: var(--light-accent-100op);
+  --accent: var(--dark-accent-100op);
+  --warning: #E0C061;
+  --confirm: #479079;
+  --delete: #F44336;
+  --disabled: #999999;
+  /* Media variables and break points */
+  --content-max-width: 1040px;
+  --breakpoint-min-width-tablet: 1000px;
+  --breakpoint-min-width-desktop: 992px;
+  /* Animation times */
+  --modal-animation-time: 500ms;
+  /* header- & footer-height */
+  --header-height: 50px;
+  --footer-height: 100px;
+  /* Fonts*/
+  /* - Font families */
+  --font-family-montserrat: "Montserrat", sans-serif;
+  --font-family-rokkitt: "Rokkitt", sans-serif;
+  --font-family-inter: "Inter", sans-serif;
+  --font-family-roboto: "Roboto", sans-serif;
+  --font-family-sf-display: "SF Pro Display", sans-serif;
+  --font-family-bitter: "Bitter", sans-serif;
+  /* - Fallback */
+  --standard-font-family: var(--font-family-inter);
+  /* - Heading */
+  --heading-font-family-font-family: var(--font-family-montserrat);
+  --heading-line-height: 1.1em;
+  --heading-letter-spacing: -0.02em;
+  --heading-font-weight: 600;
+  /* - Body text */
+  --body-font-family: var(--font-family-montserrat);
+  --body-font-size: 1rem;
+  --body-line-height: 1.47em;
+  --body-letter-spacing: 0.01em;
+
+  /* button */
+  --button-font-size: 1rem;
+  --button-border-radius: 5px;
+  --button-padding: 15px 30px;
+  --button-font-weight: 500;
+}
