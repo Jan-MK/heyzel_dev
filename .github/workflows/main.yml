@@ -1,0 +1,48 @@
+name: Deploy on push and merge master
+
+on: 
+  push:
+    branches:    
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install and Build
+      run: |
+        npm install
+        CI=false npm run build
+    - name: Upload build directory
+      uses: actions/upload-artifact@v2
+      with:
+        name: build-artifact
+        path: ./build/
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download build directory
+        uses: actions/download-artifact@v2
+        with:
+          name: build-artifact
+          path: ./build/
+
+      - name: Deploy to FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.0.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: ${{ secrets.FTP_DIR }}
+          local-dir: ./build/
+          dangerous-clean-slate: true
