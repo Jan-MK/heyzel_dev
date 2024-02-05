@@ -2,6 +2,7 @@ import classes from "./Navbar.module.scss"
 import Logo from "../Logo/Logo.jsx";
 import ThemeSwitch from "../ThemeSwitch/ThemeSwitch.jsx";
 import React from "react";
+import {Link} from "react-router-dom";
 
 function Navbar(props) {
     return (
@@ -22,12 +23,12 @@ function Navbar(props) {
                             behavior: 'smooth'
                         })
                     }}>
-                        <li href={"#home"}>Home</li>
-                        <li href={"#about"}>About us</li>
-                        <li href={"#events"}>Events</li>
-                        <li href={"#locations"}>Locations</li>
-                        <li href={"#contact"}>Contact</li>
-                        <li href={"#jobs"}>Jobs</li>
+                        <li className={"navLink"}><a href={"#home"}>Home</a></li>
+                        <li className={"navLink"}><a href={"#about"}>About us</a></li>
+                        <li className={"navLink"}><a href={"#events"}>Events</a></li>
+                        <li className={"navLink"}><a href={"#locations"}>Locations</a></li>
+                        <li className={"navLink"}><a href={"#contact"}>Contact</a></li>
+                        <li className={"navLink"}><Link to={"/jobs"}>Jobs</Link></li>
                     </ul>
                     <div>
                         <ThemeSwitch />

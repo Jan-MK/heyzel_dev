@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react'
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext.jsx';
 import './App.scss'
-import Test from "./pages/Test/Test.jsx";
+import HorizontalMultiStep from "./pages/HorizontalMultiStep/HorizontalMultiStep.jsx";
 import Home from "./pages/Home.jsx";
 import JobForm from "./pages/JobForm/JobForm.jsx";
 import Gsap from "./pages/GSAP/Gsap.jsx";
@@ -43,7 +43,7 @@ function App() {
             <ThemeProvider>
                     <Routes>
                         <Route path="/" element={<Layout><Home /></Layout>} />
-                        <Route path="/test" element={<Test />} />
+                        <Route path="/test" element={<HorizontalMultiStep />} />
                         <Route path="/jobs" element={<JobForm />} />
                         <Route path="/gsap" element={<Gsap />} />
                     </Routes>

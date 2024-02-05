@@ -1,26 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import classes from './Step.module.scss'
 
-function Step({ children, isFirstStep, isLastStep, goBack, goForward, canProceed }) {
+function Step({ children }) {
     return (
-        <div>
+        <div className={classes.stepWrapper} style={{}}>
             {children}
-            <div>
-                {!isFirstStep && <button type="button" onClick={goBack}>Back</button>}
-                {!isLastStep && (
-                    <button
-                        type="button"
-                        onClick={goForward}
-                        disabled={!canProceed}
-                        style={{
-                            backgroundColor: canProceed ? 'black' : 'grey',
-                            color: canProceed ? 'white' : 'black',
-                        }}
-                    >
-                        Next
-                    </button>
-                )}
-                {isLastStep && <button type="submit" style={{ backgroundColor: 'black', color: 'white' }}>Submit</button>}
-            </div>
         </div>
     );
 }

@@ -91,11 +91,25 @@ body, html {
 
   li {
     list-style: none;
+
+    &.navLink {
+      a {
+        text-decoration: none;
+        color: var(--accent3);
+        transition: color, 150ms;
+
+        &:visited {
+          color: var(--accent3);
+        }
+
+        &:hover {
+          color: var(--accent);
+          transition: color, 150ms;
+        }
+      }
+    }
   }
 
-  section {
-    width: 100%;
-  }
 
   button {
     color: var(--light-shades-admin-100op);
