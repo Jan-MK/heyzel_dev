@@ -71,6 +71,10 @@ function JobForm(props) {
     const [submitted, setSubmitted] = useState(false);
     const [resetting, setResetting] = useState(true)
     const [buttonDisabled, setButtonDisabled] = useState(true)
+    const [, setWindowSize] = useState({
+        width: window.innerWidth,
+        height: window.innerHeight,
+    });
     const sectionWrapperRef = useRef(null);
 /*
     const cookie = new Cookies()
@@ -121,17 +125,53 @@ function JobForm(props) {
         });
     }
 
+
+
     useEffect(() => {
         setResetting(true)
         document.body.style.overflowX = 'hidden'; // Prevent manual scrolling
         resetForm()
-        const preventTouchMove = (e) => e.preventDefault();
-        document.body.addEventListener('touchmove', preventTouchMove, { passive: false });
-
-        return () => document.body.removeEventListener('touchmove', preventTouchMove);
+        //prefill(5)
     }, []);
 
     useEffect(() => {
+        const handleResize = () => {
+            setWindowSize({
+                width: window.innerWidth,
+                height: window.innerHeight,
+            });
+            const viewportWidth = window.innerWidth;
+            const distanceToTranslate = -currentSection * viewportWidth;
+            gsap.to(sectionWrapperRef.current, {
+                x: distanceToTranslate,
+                duration: 0,
+                ease: "none"
+            });
+        };
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [window.innerWidth])
+
+    useEffect(() => {
+
+
+        // Recalculate transform on resize
+        const updateTransform = () => {
+            const viewportWidth = window.innerWidth;
+            const distanceToTranslate = -currentSection * viewportWidth;
+            gsap.to(sectionWrapperRef.current, {
+                x: distanceToTranslate,
+                duration: 0.5,
+                ease: "power2.inOut",
+            });
+        };
+
+
+        updateTransform(); // Call on resize to adjust the section position
+
+    }, [currentSection]);
+
+/*    useEffect(() => {
         // Calculate the width of the viewport
         const viewportWidth = window.innerWidth;
         // Calculate the distance to translate based on the current section
@@ -142,7 +182,7 @@ function JobForm(props) {
             duration: 1,
             ease: "power2.inOut", // Add easing for smoother transition
         });
-    }, [currentSection]);
+    }, [currentSection]);*/
 
     const fillAllAvailability = () => {
         days.forEach(day => {
@@ -205,13 +245,13 @@ function JobForm(props) {
                         <p>Welcome to our</p>
                     </div>
                     <div className={classes.sameRow}>
+                        <input className={classes.cbSmall} tabIndex={currentSection === 0 ? 0 : -1}
+                               type={"checkbox"} {...register('confirmation')}/>
                         <p>To proceed with the application process confirm that you have read and agreed to our <a
                             href={"#"} target={'_blank'}>terms
                             of privacy</a> on how we use the data.<span className={classes.required}>*</span></p>
-                        <input className={classes.cbSmall} tabIndex={currentSection === 0 ? 0 : -1}
-                               type={"checkbox"} {...register('confirmation')}/>
                     </div>
-                    <div style={{color: 'red'}}>{errors.confirmation?.message}</div>
+                    <div className={`${errors.confirmation?.message ? classes.error : classes.noError}`}>{errors.confirmation?.message}</div>
                 </>
             </>
         },
@@ -223,25 +263,25 @@ function JobForm(props) {
                     <p>First name<span className={classes.required}>*</span></p>
                     <input tabIndex={currentSection === 1 ? 0 : -1} type={"text"} {...register('firstName')}
                            placeholder={"First name"}/>
-                    <div style={{color: 'red'}}>{errors.firstName?.message}</div>
+                    <div className={`${errors.firstName?.message ? classes.error : classes.noError}`}>{errors.firstName?.message || ' '}</div>
                 </div>
                 <div>
                     <p>Last Name<span className={classes.required}>*</span></p>
                     <input tabIndex={currentSection === 1 ? 1 : -1}
                            type={"text"} {...register('lastName')} placeholder={"Last name"}/>
-                    <div style={{color: 'red'}}>{errors.lastName?.message}</div>
+                    <div className={`${errors.lastName?.message ? classes.error : classes.noError}`}>{errors.lastName?.message}</div>
                 </div>
                 <div>
                     <p>Birthday<span className={classes.required}>*</span></p>
                     <input tabIndex={currentSection === 1 ? 2 : -1}
                            type={"date"} {...register('birthday')} />
-                    <div style={{color: 'red'}}>{errors.birthday?.message}</div>
+                    <div className={`${errors.birthday?.message ? classes.error : classes.noError}`}>{errors.birthday?.message}</div>
                 </div>
                 <div>
                     <p>Nationality<span className={classes.required}>*</span></p>
                     <input tabIndex={currentSection === 1 ? 3 : -1}
                            type={"text"} {...register('nationality')} placeholder={"Nationality"}/>
-                    <div style={{color: 'red'}}>{errors.nationality?.message}</div>
+                    <div className={`${errors.nationality?.message ? classes.error : classes.noError}`}>{errors.nationality?.message}</div>
                 </div>
             </>
         },
@@ -253,31 +293,31 @@ function JobForm(props) {
                     <p>E-Mail address<span className={classes.required}>*</span></p>
                     <input tabIndex={currentSection === 2 ? 0 : -1}
                            type={"email"} {...register('mail')} placeholder={"E-Mail address"}/>
-                    <div style={{color: 'red'}}>{errors.mail?.message}</div>
+                    <div className={`${errors.mail?.message ? classes.error : classes.noError}`}>{errors.mail?.message}</div>
                 </div>
                 <div>
                     <p>Phone number<span className={classes.required}>*</span></p>
                     <input tabIndex={currentSection === 2 ? 1 : -1}
                            type={"tel"} {...register('phone')} placeholder={"Phone number"}/>
-                    <div style={{color: 'red'}}>{errors.phone?.message}</div>
+                    <div className={`${errors.phone?.message ? classes.error : classes.noError}`}>{errors.phone?.message}</div>
                 </div>
                 <div>
                     <p>Street and house number<span className={classes.required}>*</span></p>
                     <input tabIndex={currentSection === 2 ? 2 : -1}
                            type={"text"} {...register('street')} placeholder={"Street + House number"}/>
-                    <div style={{color: 'red'}}>{errors.street?.message}</div>
+                    <div className={`${errors.street?.message ? classes.error : classes.noError}`}>{errors.street?.message}</div>
                 </div>
                 <div>
                     <p>ZIP<span className={classes.required}>*</span></p>
                     <input tabIndex={currentSection === 2 ? 3 : -1} type={"text"} {...register('zip')}
                            placeholder={"Zip code"}/>
-                    <div style={{color: 'red'}}>{errors.zip?.message}</div>
+                    <div className={`${errors.zip?.message ? classes.error : classes.noError}`}>{errors.zip?.message}</div>
                 </div>
                 <div>
                     <p>City<span className={classes.required}>*</span></p>
                     <input tabIndex={currentSection === 2 ? 4 : -1}
                            type={"text"} {...register('city')} placeholder={"City"}/>
-                    <div style={{color: 'red'}}>{errors.city?.message}</div>
+                    <div className={`${errors.city?.message ? classes.error : classes.noError}`}>{errors.city?.message}</div>
                 </div>
             </>
         },
@@ -313,7 +353,7 @@ function JobForm(props) {
                         <p>Desired salary (net in €)<span className={classes.required}>*</span></p>
                         <input tabIndex={currentSection === 3 ? 2 : -1}
                                type={"number"} {...register('salary')} placeholder={"Salary"}/>
-                        <div style={{color: 'red'}}>{errors.salary?.message}</div>
+                        <div className={`${errors.salary?.message ? classes.error : classes.noError}`}>{errors.salary?.message}</div>
                     </div>
                 </div>
                 <div>
@@ -321,14 +361,14 @@ function JobForm(props) {
                         <p>Entry date<span className={classes.required}>*</span></p>
                         <input tabIndex={currentSection === 3 ? 3 : -1}
                                type={"date"} {...register('entry')} />
-                        <div style={{color: 'red'}}>{errors.entry?.message}</div>
+                        <div className={`${errors.entry?.message ? classes.error : classes.noError}`}>{errors.entry?.message}</div>
                     </div>
                 </div>
                 <div>
                     <p>Previous experience</p>
                     <textarea tabIndex={currentSection === 3 ? 4 : -1} rows={5} {...register('experience')}
                               placeholder={"Tell us about your experience"}/>
-                    <div style={{color: 'red'}}>{errors.experience?.message}</div>
+                    <div className={`${errors.experience?.message ? classes.error : classes.noError}`}>{errors.experience?.message}</div>
                 </div>
             </>
         },
@@ -363,7 +403,7 @@ function JobForm(props) {
                         </tbody>
                     </table>
                 </div>
-                <div style={{color: 'red'}}>{errors.availability?.message}</div>
+                <div className={`${errors.availability?.message ? classes.error : classes.noError}`}>{errors.availability?.message}</div>
                 <div className={classes.availabilityButtons}>
                     <button tabIndex={currentSection === 4 ? (shifts.length * days.length) : -1} type="button"
                             onClick={fillAllAvailability}>Always available
@@ -385,7 +425,7 @@ function JobForm(props) {
                             <textarea tabIndex={currentSection === 5 ? 0 : -1}
                                       rows={5} {...register('motivation')}
                                       placeholder={"Tell us about you or your motivation"}/>
-                            <div style={{color: 'red'}}>{errors.motivation?.message}</div>
+                            <div className={`${errors.motivation?.message ? classes.error : classes.noError}`}>{errors.motivation?.message}</div>
                         </div>
                     </div>
                 </>
@@ -456,6 +496,40 @@ function JobForm(props) {
         resetForm();
     }
 
+    // TODO: REMOVE IF NOT NECESSARY ANYMORE
+    function prefill(number) {
+        if (number >= 0) {
+            setValue('confirmation', true)
+        }
+        if (number > 0) {
+            setValue('firstName', "JAN")
+            setValue('lastName', "KRÄMER")
+            setValue('birthday', "1990-05-16")
+            setValue('nationality', "DE")
+        }
+        if (number > 1) {
+            setValue('mail', "j.k@web.de")
+            setValue('phone', "+49 151 51005000")
+            setValue('street', "STREE XX")
+            setValue('zip', "123456")
+            setValue('city', "MUC")
+        }
+        if (number > 2) {
+            setValue('currentEmployment', 'Student')
+            setValue('desiredEmployment', 'Teilzeit')
+            setValue('salary', "1")
+            setValue('entry', "2025-01-01")
+        }
+        if (number > 3) {
+            setValue('availability.Montag[0]', true)
+        }
+        const arr = []
+        for (let i = 0; i < number + 1; i++) {
+            arr.push(i);
+        }
+        setVisited(arr)
+    }
+
     return (
         <>
             {resetting && <Reset text={"Preparing job form..."}/>}
@@ -464,7 +538,7 @@ function JobForm(props) {
                 <div className={classes.sectionWrapper} ref={sectionWrapperRef} id={"jfsw"}>
                     {steps.map((step, index) => (
                         <section key={index}
-                                 className={`${classes.scrollable}`}>
+                                 className={`${classes.scrollable} ${currentSection === index && classes.current}`}>
                             <Step currentSection={currentSection} sectionIndex={index}>
                                 {step.html}
                             </Step>

@@ -1,24 +1,26 @@
 .availabilityTable {
   border-collapse: separate;
   border-spacing: 0;
-  max-width: 100%;
+  width: 100%;
+  max-width: 95vw;
   overflow-x: auto;
   display: block;
   // box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); // Optional: adds shadow around the table
   border-radius: 10px; // Optional: adds rounded corners to the table
-  background: var(--form-bg); // Optional: in case your body background isn't white
+  background: var(--form-background-matrix-basic); // Optional: in case your body background isn't white
   margin-bottom: 20px; // Space below the table
+  touch-action: initial;
 
   thead {
     th {
-      background-color: var(--form-background); // Light grey background for the header
+      background-color: var(--form-background-matrix-highlight); // Light grey background for the header
       text-align: left;
       padding: 10px 15px; // Adjust the padding to control the spacing
 
       &:first-child {
         position: sticky;
         left: 0;
-        z-index: 2;
+        z-index: 5;
       }
     }
   }
@@ -31,8 +33,8 @@
       &:first-child {
         position: sticky;
         left: 0;
-        z-index: 2;
-        background-color: var(--form-background);
+        z-index: 5;
+        background-color: var(--form-background-matrix-highlight);
       }
 
       input[type="checkbox"] {
@@ -79,10 +81,13 @@
   .sectionWrapper {
     display: flex;
     flex-wrap: nowrap;
+    touch-action: initial;
+
   }
 
   section.scrollable {
-    min-width: 100vw;
+    width: 100vw;
+    max-width: 100%;
     height: 100vh;
     z-index: 5;
 
@@ -92,12 +97,40 @@
     justify-content: center;
     align-items: center;
 
-    div {
-      width: fit-content;
+    .sameRow {
+      display: flex;
+      gap: 25px;
+      flex-wrap: wrap;
+      align-items: center;
+      p {
+        max-width: 50%;
+      }
     }
 
     span.required {
       color: var(--delete);
+    }
+
+    .noError, .error {
+      //min-height: 20px;
+      display: block;
+      transition: opacity 0.5s ease-in-out;
+      opacity: 0;
+    }
+
+    .error {
+      color: var(--delete);
+      opacity: 1;
+      animation: fadeIn .5s;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
     }
 
 
@@ -105,7 +138,9 @@
     div > input,
     div > textarea,
     div > select {
-      min-width: 25vw;
+      min-width: 40vw;
+      max-width: 75vw;
+      max-height: 50vh;
     }
 
     div > input[type="checkbox"].cbSmall {
@@ -129,30 +164,6 @@
         }
       }
     }
-/*
-    &.one {
-      background-color: #6188b9;
-    }
-
-    &.two {
-      background-color: #588d58;
-    }
-
-    &.three {
-      background-color: blueviolet;
-    }
-
-    &.four {
-      background-color: #c07ec0;
-    }
-
-    &.five {
-      background-color: #7f7fe3;
-    }
-
-    &.six {
-      background-color: #e6c3c7;
-    }*/
   }
 
   .toPage {
@@ -265,5 +276,32 @@
       width: 25px;
       height: auto;
     }
+  }
+}
+
+@media (max-width: 600px) {
+  section.scrollable {
+    .sameRow {
+      p {
+        min-width: 75%;
+        max-width: 95%;
+      }
+    }
+
+    div > input,
+    div > textarea,
+    div > select {
+      width: 75vw;
+      max-height: 50vh;
+    }
+
+    input[type='checkbox'] {
+      width: inherit;
+    }
+  }
+
+
+  .navigationElements {
+    display: none !important;
   }
 }

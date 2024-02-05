@@ -17,6 +17,7 @@
   --form-border: var(--dark-shades-25op);
   --form-border-focus: var(--dark-shades-50op);
   --form-background: var(--light-shades-100op);
+  --form-background-solid: var(--light-shades-100op);
   --form-placeholder: var(--dark-shades-50op);
   --form-filter: invert(1);
 
@@ -37,6 +38,8 @@
   --form-border: var(--light-shades-50op);
   --form-border-focus: var(--light-shades-75op);
   --form-background: var(--light-shades-5op);
+  --form-background-matrix-basic: #424242;
+  --form-background-matrix-highlight: #313131;
   --form-placeholder: var(--light-shades-50op);
   --form-filter: invert(0);
 
