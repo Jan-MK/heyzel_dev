@@ -458,7 +458,7 @@ function JobForm(props) {
 
     return (
         <>
-            {resetting && <Reset/>}
+            {resetting && <Reset text={"Preparing job form..."}/>}
             {!resetting && !submitted && <form onSubmit={handleSubmit(handleSave)}
                    className={`${classes.formContainer}`}>
                 <div className={classes.sectionWrapper} ref={sectionWrapperRef} id={"jfsw"}>

@@ -1,7 +1,7 @@
 import classes from "./Reset.module.scss"
 import {PuffLoader} from "react-spinners";
 
-function Reset(props) {
+function Reset({ text }) {
 
     return (
         <div className={classes.resetScreen}>
@@ -10,7 +10,7 @@ function Reset(props) {
                 loading
                 speedMultiplier={1}
             />
-            <p>Preparing reset...</p>
+            <p>{text}</p>
         </div>
     );
 }
