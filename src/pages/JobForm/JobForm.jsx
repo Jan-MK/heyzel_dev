@@ -64,7 +64,7 @@ const schema = z.object({
     motivation: string().optional()
 })
 
-function JobForm() {
+function JobForm(props) {
 
     const [currentSection, setCurrentSection] = useState(0);
     const [submitted, setSubmitted] = useState(false);
@@ -102,7 +102,7 @@ function JobForm() {
         })
         reset();
         setCurrentSection(0)
-        setVisited(0)
+        setVisited([0])
         setSubmitted(false)
     }, [])
 
