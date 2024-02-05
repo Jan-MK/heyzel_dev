@@ -5,19 +5,21 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {string, z} from 'zod'
 import Step from "./Step/Step.jsx";
 import gsap from 'gsap';
-import {IoArrowBackCircle, IoChevronBackOutline, IoTrashOutline} from "react-icons/io5";
+import {IoChevronBackOutline, IoTrashOutline} from "react-icons/io5";
 import ThemeSwitch from "../../components/ThemeSwitch/ThemeSwitch.jsx";
+/*
 import Cookies from 'universal-cookie';
+*/
 import Submitted from "./Submitted/Submitted.jsx";
 
 
 const currentEmploymentOptions = ["Schüler", "Student", "Vollzeitanstellung", "Teilzeitanstellung", "Selbstständig", "Arbeitssuchend"]
 const desiredEmploymentOptions = ["Vollzeit", "Teilzeit", "Werksstudent", "Minijob (450€ Basis)"]
-const countryOptions = [
+/*const countryOptions = [
     {value: "asgard", label: "Asgard"},
     {value: "germany", label: "Germany"},
     {value: "usa", label: "USA"},
-]
+]*/
 const days = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
 const shifts = ['Frühschicht', 'Mittagsschicht', 'Spätschicht', 'Abendschicht'];
 
@@ -62,13 +64,15 @@ const schema = z.object({
     motivation: string().optional()
 })
 
-function JobForm(props) {
+function JobForm() {
 
     const [currentSection, setCurrentSection] = useState(0);
     const [submitted, setSubmitted] = useState(false);
     const [buttonDisabled, setButtonDisabled] = useState(true)
     const sectionWrapperRef = useRef(null);
+/*
     const cookie = new Cookies()
+*/
 
     const [visited, setVisited] = useState([0])
     const {
@@ -91,6 +95,15 @@ function JobForm(props) {
 
     useEffect(() => {
         document.body.style.overflowX = 'hidden'
+        gsap.to(sectionWrapperRef.current, {
+            x: 0,
+            duration: 0.5,
+            ease: "power2.inOut",
+        })
+        reset();
+        setCurrentSection(0)
+        setVisited(0)
+        setSubmitted(false)
     }, [])
 
     useEffect(() => {
