@@ -1,5 +1,5 @@
 import classes from "./JobForm.module.scss"
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useLayoutEffect, useRef, useState} from 'react';
 import {useForm} from 'react-hook-form'
 import {zodResolver} from "@hookform/resolvers/zod";
 import {string, z} from 'zod'
@@ -11,6 +11,7 @@ import ThemeSwitch from "../../components/ThemeSwitch/ThemeSwitch.jsx";
 import Cookies from 'universal-cookie';
 */
 import Submitted from "./Submitted/Submitted.jsx";
+import Reset from "./Reset/Reset.jsx";
 
 
 const currentEmploymentOptions = ["Schüler", "Student", "Vollzeitanstellung", "Teilzeitanstellung", "Selbstständig", "Arbeitssuchend"]
@@ -68,6 +69,7 @@ function JobForm(props) {
 
     const [currentSection, setCurrentSection] = useState(0);
     const [submitted, setSubmitted] = useState(false);
+    const [resetting, setResetting] = useState(true)
     const [buttonDisabled, setButtonDisabled] = useState(true)
     const sectionWrapperRef = useRef(null);
 /*
@@ -92,19 +94,41 @@ function JobForm(props) {
         },
     });
 
-
-    useEffect(() => {
-        document.body.style.overflowX = 'hidden'
+    function resetForm() {
+        setResetting(true)
+        setVisited([0])
+        setCurrentSection(0);
+        reset();
+        watched = steps.map(step => {
+            return step.fields.map(field => {
+                return watch(field)
+            })
+        })
         gsap.to(sectionWrapperRef.current, {
             x: 0,
-            duration: 0.5,
-            ease: "power2.inOut",
-        })
-        reset();
-        setCurrentSection(0)
-        setVisited([0])
-        setSubmitted(false)
-    }, [])
+            duration: 1,
+            ease: "power2.inOut", // Add easing for smoother transition
+            onComplete: () => {
+                // Ensure the first section scrolls into view after the GSAP animation completes
+                requestAnimationFrame(() => {
+                    const firstSection = document.querySelector('section');
+                    if (firstSection) {
+                        firstSection.scrollIntoView({behavior: 'instant', block: 'nearest', inline: 'start'});
+                    }
+                    requestAnimationFrame(() => setResetting(false))
+                });
+            }
+        });
+    }
+
+    useEffect(() => {
+        setResetting(true)
+        // Ensure the body doesn't horizontally overflow
+        document.body.style.overflowX = 'hidden';
+
+        // Reset state and form
+        resetForm()
+    }, []);
 
     useEffect(() => {
         // Calculate the width of the viewport
@@ -195,25 +219,25 @@ function JobForm(props) {
             fields: ['firstName', 'lastName', 'birthday', 'nationality'], // Required Fields
             html: <>
                 <div>
-                    <p>First name</p>
+                    <p>First name<span className={classes.required}>*</span></p>
                     <input tabIndex={currentSection === 1 ? 0 : -1} type={"text"} {...register('firstName')}
                            placeholder={"First name"}/>
                     <div style={{color: 'red'}}>{errors.firstName?.message}</div>
                 </div>
                 <div>
-                    <p>Last Name</p>
+                    <p>Last Name<span className={classes.required}>*</span></p>
                     <input tabIndex={currentSection === 1 ? 1 : -1}
                            type={"text"} {...register('lastName')} placeholder={"Last name"}/>
                     <div style={{color: 'red'}}>{errors.lastName?.message}</div>
                 </div>
                 <div>
-                    <p>Birthday</p>
+                    <p>Birthday<span className={classes.required}>*</span></p>
                     <input tabIndex={currentSection === 1 ? 2 : -1}
                            type={"date"} {...register('birthday')} />
                     <div style={{color: 'red'}}>{errors.birthday?.message}</div>
                 </div>
                 <div>
-                    <p>Nationality</p>
+                    <p>Nationality<span className={classes.required}>*</span></p>
                     <input tabIndex={currentSection === 1 ? 3 : -1}
                            type={"text"} {...register('nationality')} placeholder={"Nationality"}/>
                     <div style={{color: 'red'}}>{errors.nationality?.message}</div>
@@ -225,31 +249,31 @@ function JobForm(props) {
             fields: ['mail', 'phone', 'street', 'zip', 'city'], // Required fields
             html: <>
                 <div>
-                    <p>E-Mail address</p>
+                    <p>E-Mail address<span className={classes.required}>*</span></p>
                     <input tabIndex={currentSection === 2 ? 0 : -1}
                            type={"email"} {...register('mail')} placeholder={"E-Mail address"}/>
                     <div style={{color: 'red'}}>{errors.mail?.message}</div>
                 </div>
                 <div>
-                    <p>Phone number</p>
+                    <p>Phone number<span className={classes.required}>*</span></p>
                     <input tabIndex={currentSection === 2 ? 1 : -1}
                            type={"tel"} {...register('phone')} placeholder={"Phone number"}/>
                     <div style={{color: 'red'}}>{errors.phone?.message}</div>
                 </div>
                 <div>
-                    <p>Street and house number</p>
+                    <p>Street and house number<span className={classes.required}>*</span></p>
                     <input tabIndex={currentSection === 2 ? 2 : -1}
                            type={"text"} {...register('street')} placeholder={"Street + House number"}/>
                     <div style={{color: 'red'}}>{errors.street?.message}</div>
                 </div>
                 <div>
-                    <p>ZIP</p>
+                    <p>ZIP<span className={classes.required}>*</span></p>
                     <input tabIndex={currentSection === 2 ? 3 : -1} type={"text"} {...register('zip')}
                            placeholder={"Zip code"}/>
                     <div style={{color: 'red'}}>{errors.zip?.message}</div>
                 </div>
                 <div>
-                    <p>City</p>
+                    <p>City<span className={classes.required}>*</span></p>
                     <input tabIndex={currentSection === 2 ? 4 : -1}
                            type={"text"} {...register('city')} placeholder={"City"}/>
                     <div style={{color: 'red'}}>{errors.city?.message}</div>
@@ -262,20 +286,22 @@ function JobForm(props) {
             html: <>
 
                 <div>
-                    <p>Current Employment</p>
-                    <select autoFocus={false}
+                    <p>Current Employment<span className={classes.required}>*</span></p>
+                    <select
                             defaultValue={"Please select..."}
                             tabIndex={currentSection === 3 ? 0 : -1} {...register('currentEmployment')}>
+                        <option key={"Please select..."} value={"Please select..."} hidden={true}>{"Please select..."}</option>
                         {currentEmploymentOptions.map(option => (
                             <option key={option} value={option}>{option}</option>
                         ))}
                     </select>
                 </div>
                 <div>
-                    <p>Desired Employment</p>
-                    <select autoFocus={false}
+                    <p>Desired Employment<span className={classes.required}>*</span></p>
+                    <select
                             defaultValue={"Please select..."}
                             tabIndex={currentSection === 3 ? 1 : -1} {...register('desiredEmployment')}>
+                        <option key={"Please select..."} value={"Please select..."} hidden={true}>{"Please select..."}</option>
                         {desiredEmploymentOptions.map(option => (
                             <option key={option} value={option}>{option}</option>
                         ))}
@@ -283,7 +309,7 @@ function JobForm(props) {
                 </div>
                 <div>
                     <div>
-                        <p>Desired salary (net in €)</p>
+                        <p>Desired salary (net in €)<span className={classes.required}>*</span></p>
                         <input tabIndex={currentSection === 3 ? 2 : -1}
                                type={"number"} {...register('salary')} placeholder={"Salary"}/>
                         <div style={{color: 'red'}}>{errors.salary?.message}</div>
@@ -291,7 +317,7 @@ function JobForm(props) {
                 </div>
                 <div>
                     <div>
-                        <p>Entry date</p>
+                        <p>Entry date<span className={classes.required}>*</span></p>
                         <input tabIndex={currentSection === 3 ? 3 : -1}
                                type={"date"} {...register('entry')} />
                         <div style={{color: 'red'}}>{errors.entry?.message}</div>
@@ -310,7 +336,7 @@ function JobForm(props) {
             fields: ['availability'],
             html: <>
                 <div>
-                    <p>When are you available?</p>
+                    <p>When are you available?<span className={classes.required}>*</span></p>
                     <table className={classes.availabilityTable}>
                         <thead>
                         <tr>
@@ -354,7 +380,7 @@ function JobForm(props) {
                 <>
                     <div>
                         <div>
-                            <p>More about you: If you have anything you want to tell us about you, feel free:</p>
+                            <p>More about you!<br/>If you have anything you want to tell us about you, feel free:</p>
                             <textarea tabIndex={currentSection === 5 ? 0 : -1}
                                       rows={5} {...register('motivation')}
                                       placeholder={"Tell us about you or your motivation"}/>
@@ -420,30 +446,19 @@ function JobForm(props) {
     });
 
     function handleSave(formValues) {
-        setSubmitted(true);
+        setSubmitted(true); // TODO: Handle answer and transport it to Submitted.jsx
         console.log(formValues)
     }
 
     function handleReset(event) {
         event.preventDefault()
-        setVisited([])
-        setCurrentSection(0);
-        gsap.to(sectionWrapperRef.current, {
-            x: 0,
-            duration: 1,
-            ease: "power2.inOut", // Add easing for smoother transition
-        });
-        reset();
-        watched = steps.map(step => {
-            return step.fields.map(field => {
-                return watch(field)
-            })
-        })
+        resetForm();
     }
 
     return (
         <>
-            {!submitted && <form onSubmit={handleSubmit(handleSave)}
+            {resetting && <Reset/>}
+            {!resetting && !submitted && <form onSubmit={handleSubmit(handleSave)}
                    className={`${classes.formContainer}`}>
                 <div className={classes.sectionWrapper} ref={sectionWrapperRef} id={"jfsw"}>
                     {steps.map((step, index) => (
@@ -481,7 +496,7 @@ function JobForm(props) {
                     </div>
                 </div>
             </form>}
-            <Submitted show={submitted} response={"SOME RESPONSE"}/>
+            {!resetting && submitted && <Submitted show={submitted} response={"SOME RESPONSE"}/>}
         </>
     );
 }
