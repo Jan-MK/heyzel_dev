@@ -1,5 +1,5 @@
 import classes from "./JobForm.module.scss"
-import {useEffect, useLayoutEffect, useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {useForm} from 'react-hook-form'
 import {zodResolver} from "@hookform/resolvers/zod";
 import {string, z} from 'zod'
@@ -66,7 +66,7 @@ const schema = z.object({
 })
 
 function JobForm(props) {
-    // TODO: TabIndex for each section.
+    // TODO: TabIndex for each section, prevent back from leaving this form
     const [currentSection, setCurrentSection] = useState(0);
     const [submitted, setSubmitted] = useState(false);
     const [resetting, setResetting] = useState(true)
@@ -125,6 +125,10 @@ function JobForm(props) {
         setResetting(true)
         document.body.style.overflowX = 'hidden'; // Prevent manual scrolling
         resetForm()
+        const preventTouchMove = (e) => e.preventDefault();
+        document.body.addEventListener('touchmove', preventTouchMove, { passive: false });
+
+        return () => document.body.removeEventListener('touchmove', preventTouchMove);
     }, []);
 
     useEffect(() => {
