@@ -87,6 +87,7 @@ body, html {
     &:hover {
       color: var(--accent2);
       transition-duration: 150ms;
+      cursor: pointer;
     }
   }
 

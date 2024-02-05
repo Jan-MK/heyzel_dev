@@ -7,26 +7,25 @@ export function prepareData(formData) {
     content.push(`Vorname:\t\t${formData.firstName}`);
     content.push(`Nachname:\t\t${formData.lastName}`);
     // Calculate age in years from birthday
-    const birthday = new Date(formData.birthday);
-    const birthdayDateFormat = `${birthday.getDate()}. ${birthday.toLocaleString('de-DE', {month: 'long'})} ${birthday.getFullYear()}`;
-    const age = new Date(Date.now() - birthday.getTime()).getUTCFullYear() - 1970;
+    const birthdayDateFormat = formatDate(formData.birthday);
+    const age = calculateAge(formData.birthday);
     content.push(`Birthday:\t\t${birthdayDateFormat} (${age} Jahre)`); // In Klammern das Alter in Jahre
     content.push(`Nationalität:\t${formData.nationality}`);
+
     content.push('\nKontaktinformationen');
     content.push(`Mail:\t\t${formData.mail}`);
     content.push(`Telefon:\t${formData.phone}`);
+
     content.push('\nAdresse');
     content.push(`Straße:\t${formData.street}`);
     content.push(`PLZ:\t${formData.zip}`);
     content.push(`Stadt:\t${formData.city}`);
+
     content.push('\nÜber');
     content.push(`Aktuelle Anstellung:\t${formData.currentEmployment}`);
     content.push(`Gewünschte Anstellung:\t${formData.desiredEmployment}`);
     content.push(`Wunschgehalt:\t\t\t${formData.salary} €`);
-    // Format entry date as 1. January 2025
-    const entryDate = new Date(formData.entry);
-    const entryDateFormat = `${entryDate.getDate()}. ${entryDate.toLocaleString('de-DE', {month: 'long'})} ${entryDate.getFullYear()}`;
-    content.push(`Möglicher Beginn:\t\t${entryDateFormat}`);
+    content.push(`Möglicher Beginn:\t\t${formatDate(formData.entry)}`);
     content.push(`Erfahrung:\n${formData.experience}`);
     content.push('\nVerfügbarkeit');
     // Construct availability matrix
@@ -54,4 +53,15 @@ export function prepareData(formData) {
     content.push(`${str}`);
     content.push(`\nMotivation:\n${formData.motivation}`);
     return content.join('\n'); // Return the entire content as a single string
+}
+
+
+function calculateAge(date) {
+    const birthday = new Date(date);
+    return `${new Date(Date.now() - birthday.getTime()).getUTCFullYear() - 1970}`;
+}
+
+function formatDate(date) {
+    const entryDate = new Date(date);
+    return `${entryDate.getDate()}. ${entryDate.toLocaleString('de-DE', {month: 'long'})} ${entryDate.getFullYear()}`;
 }

@@ -4,24 +4,21 @@ import {PuffLoader} from "react-spinners";
 import Reset from "../Reset/Reset.jsx";
 import {prepareData} from "../../../utility/Utility.jsx";
 
-function Submitted({ show, successful, formData}) {
-    const [content, setContent] = useState(<Reset />)
+function Submitted({show, successful, formData}) {
+    const [content, setContent] = useState(<Reset/>)
     useEffect(() => {
         const subject = encodeURIComponent("Form Submission");
-        console.log(formData)
         const content = prepareData(formData)
-        const body = encodeURIComponent(
-            `Name: ${formData.name}\nEmail: ${formData.email}\nMessage: ${formData.message}`
-        );
         console.log(content)
+        const mailSubject = encodeURIComponent(`Bewerbung ${formData.firstName} ${formData.lastName}`)
+        const mailBody = encodeURIComponent(content);
+        const mailtoLink = `mailto:jan.kraemer@selfmail.eu?subject=${mailSubject}&body=${mailBody}`;
 
-            setContent(<>
-                <div>
-                    <h2>Something went wrong...</h2>
-                    <p>No worries, you can send it via your local e-mail client.</p>
-                    <a >Send my application via mail.</a>
-                </div>
-            </>)
+        setContent(<>
+            <h2>Something went wrong...</h2>
+            <p>No worries, you can send it via your local e-mail client.</p>
+            <a href={mailtoLink}>Send my application via mail.</a>
+        </>)
     }, [successful])
 
     return (
