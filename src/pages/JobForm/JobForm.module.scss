@@ -82,7 +82,6 @@
     display: flex;
     flex-wrap: nowrap;
     touch-action: initial;
-
   }
 
   section.scrollable {
@@ -97,11 +96,14 @@
     justify-content: center;
     align-items: center;
 
+
     .sameRow {
       display: flex;
       gap: 25px;
       flex-wrap: wrap;
       align-items: center;
+      justify-content: center;
+
       p {
         max-width: 50%;
       }
@@ -134,7 +136,6 @@
     }
 
 
-
     div > input,
     div > textarea,
     div > select {
@@ -164,6 +165,11 @@
         }
       }
     }
+  }
+
+  .preventoverscroll {
+    background-color: red;
+    overscroll-behavior: none;
   }
 
   .toPage {
@@ -210,9 +216,12 @@
       display: flex;
       align-items: center;
       gap: 20px;
+      width: 50%;
 
       li {
-        font-weight: 600;
+        font-size: 14px;
+        font-weight: 500;
+        text-align: center;
 
         &.current {
           color: var(--accent3);
@@ -240,14 +249,6 @@
       .ctrlBtn {
         min-width: 150px;
         cursor: pointer;
-
-
-        &.enabled {
-
-          &:active {
-            scale: .98;
-          }
-        }
 
         &:disabled {
           cursor: not-allowed;
@@ -279,29 +280,66 @@
   }
 }
 
-@media (max-width: 600px) {
-  section.scrollable {
-    .sameRow {
-      p {
-        min-width: 75%;
-        max-width: 95%;
+body, #root, div, section, p, h1, h2, h3, h4, h5, h6, span, input, form, textarea, select, a {
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+@media (max-width: 900px) {
+
+  .formContainer {
+    section.scrollable {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      justify-content: flex-start;
+      align-items: center;
+      overscroll-behavior: none;
+
+      .scrollContainer {
+
       }
-    }
 
-    div > input,
-    div > textarea,
-    div > select {
-      width: 75vw;
-      max-height: 50vh;
-    }
+      .sameRow {
+        p {
+          min-width: 75%;
+          max-width: 95%;
+        }
+      }
 
-    input[type='checkbox'] {
-      width: inherit;
+      div > input,
+      div > textarea,
+      div > select {
+        width: 75vw;
+        max-height: 50vh;
+        overscroll-behavior: contain;
+      }
+
+      input[type='checkbox'] {
+        width: inherit;
+      }
     }
   }
 
 
   .navigationElements {
     display: none !important;
+  }
+
+
+  .availabilityTable {
+    tbody {
+      td {
+        input[type="checkbox"] {
+          max-width: 20px; // Width of the checkbox
+          height: 20px; // Height of the checkbox
+
+          &:checked {
+            background-color: #007bff; // Change to your preferred color
+            border-color: #007bff;
+          }
+
+        }
+      }
+    }
   }
 }

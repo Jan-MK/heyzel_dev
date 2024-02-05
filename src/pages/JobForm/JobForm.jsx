@@ -56,29 +56,36 @@ const schema = z.object({
         Mittwoch: z.array(z.boolean().optional()).optional(),
         Donnerstag: z.array(z.boolean().optional()).optional(),
         Freitag: z.array(z.boolean().optional()).optional(),
+        Samstag: z.array(z.boolean().optional()).optional(),
+        Sonntag: z.array(z.boolean().optional()).optional(),
     }).refine(availability =>
             Object.values(availability).some(day => day.includes(true)),
         {
             message: "You must be available for at least one shift on any day.",
         }
     ),
-    motivation: string().optional()
+    motivation: string().optional(),
+    currentEmployment: string().optional(),
+    desiredEmployment: string().optional(),
 })
+
 
 function JobForm(props) {
     // TODO: TabIndex for each section, prevent back from leaving this form
+    const [formData, setFormData] = useState("")
     const [currentSection, setCurrentSection] = useState(0);
     const [submitted, setSubmitted] = useState(false);
     const [resetting, setResetting] = useState(true)
     const [buttonDisabled, setButtonDisabled] = useState(true)
+    const [successful, setSuccessful] = useState(null);
     const [, setWindowSize] = useState({
         width: window.innerWidth,
         height: window.innerHeight,
     });
     const sectionWrapperRef = useRef(null);
-/*
-    const cookie = new Cookies()
-*/
+    /*
+        const cookie = new Cookies()
+    */
 
     const [visited, setVisited] = useState([0])
     const {
@@ -93,6 +100,8 @@ function JobForm(props) {
         resolver: zodResolver(schema),
         mode: 'all',
         defaultValues: {
+            currentEmployment: "Please select...",
+            desiredEmployment: "Please select...",
             confirmation: false,
             availability: days.reduce((acc, day) => ({...acc, [day]: [false, false, false, false]}), {}),
         },
@@ -126,12 +135,14 @@ function JobForm(props) {
     }
 
 
-
     useEffect(() => {
         setResetting(true)
         document.body.style.overflowX = 'hidden'; // Prevent manual scrolling
+        document.body.style.position = 'fixed'; // Prevent manual scrolling
+        document.body.style.overscrollBehavior = 'none';
+
         resetForm()
-        //prefill(5)
+        prefill(5)
     }, []);
 
     useEffect(() => {
@@ -152,9 +163,8 @@ function JobForm(props) {
         return () => window.removeEventListener('resize', handleResize);
     }, [window.innerWidth])
 
+
     useEffect(() => {
-
-
         // Recalculate transform on resize
         const updateTransform = () => {
             const viewportWidth = window.innerWidth;
@@ -170,19 +180,6 @@ function JobForm(props) {
         updateTransform(); // Call on resize to adjust the section position
 
     }, [currentSection]);
-
-/*    useEffect(() => {
-        // Calculate the width of the viewport
-        const viewportWidth = window.innerWidth;
-        // Calculate the distance to translate based on the current section
-        const distanceToTranslate = -currentSection * viewportWidth;
-
-        gsap.to(sectionWrapperRef.current, {
-            x: distanceToTranslate,
-            duration: 1,
-            ease: "power2.inOut", // Add easing for smoother transition
-        });
-    }, [currentSection]);*/
 
     const fillAllAvailability = () => {
         days.forEach(day => {
@@ -328,10 +325,8 @@ function JobForm(props) {
 
                 <div>
                     <p>Current Employment<span className={classes.required}>*</span></p>
-                    <select
-                            defaultValue={"Please select..."}
-                            tabIndex={currentSection === 3 ? 0 : -1} {...register('currentEmployment')}>
-                        <option key={"Please select..."} value={"Please select..."} hidden={true}>{"Please select..."}</option>
+                    <select defaultValue={"Please select..."} tabIndex={currentSection === 3 ? 0 : -1} {...register('currentEmployment')}>
+                        <option value={"Please select..."} hidden={true}>Please select...</option>
                         {currentEmploymentOptions.map(option => (
                             <option key={option} value={option}>{option}</option>
                         ))}
@@ -339,10 +334,8 @@ function JobForm(props) {
                 </div>
                 <div>
                     <p>Desired Employment<span className={classes.required}>*</span></p>
-                    <select
-                            defaultValue={"Please select..."}
-                            tabIndex={currentSection === 3 ? 1 : -1} {...register('desiredEmployment')}>
-                        <option key={"Please select..."} value={"Please select..."} hidden={true}>{"Please select..."}</option>
+                    <select defaultValue={"Please select..."} tabIndex={currentSection === 3 ? 1 : -1} {...register('desiredEmployment')}>
+                        <option value={"Please select..."} hidden={true}>Please select...</option>
                         {desiredEmploymentOptions.map(option => (
                             <option key={option} value={option}>{option}</option>
                         ))}
@@ -352,7 +345,7 @@ function JobForm(props) {
                     <div>
                         <p>Desired salary (net in €)<span className={classes.required}>*</span></p>
                         <input tabIndex={currentSection === 3 ? 2 : -1}
-                               type={"number"} {...register('salary')} placeholder={"Salary"}/>
+                               type={"tel"} {...register('salary')} placeholder={"Salary"}/>
                         <div className={`${errors.salary?.message ? classes.error : classes.noError}`}>{errors.salary?.message}</div>
                     </div>
                 </div>
@@ -403,13 +396,14 @@ function JobForm(props) {
                         </tbody>
                     </table>
                 </div>
-                <div className={`${errors.availability?.message ? classes.error : classes.noError}`}>{errors.availability?.message}</div>
+                <div
+                    className={`${errors.availability?.message ? classes.error : classes.noError} ${classes.preventoverscroll}`}>{errors.availability?.message}</div>
                 <div className={classes.availabilityButtons}>
                     <button tabIndex={currentSection === 4 ? (shifts.length * days.length) : -1} type="button"
-                            onClick={fillAllAvailability}>Always available
+                            onClick={fillAllAvailability} className={"button-confirm"}>Always available
                     </button>
                     <button tabIndex={currentSection === 4 ? (shifts.length * days.length) + 1 : -1} type="button"
-                            onClick={clearAllAvailability}>Clear selection
+                            onClick={clearAllAvailability} className={"button-warning"}>Clear selection
                     </button>
                 </div>
             </>
@@ -425,7 +419,8 @@ function JobForm(props) {
                             <textarea tabIndex={currentSection === 5 ? 0 : -1}
                                       rows={5} {...register('motivation')}
                                       placeholder={"Tell us about you or your motivation"}/>
-                            <div className={`${errors.motivation?.message ? classes.error : classes.noError}`}>{errors.motivation?.message}</div>
+                            <div
+                                className={`${errors.motivation?.message ? classes.error : classes.noError}`}>{errors.motivation?.message}</div>
                         </div>
                     </div>
                 </>
@@ -453,7 +448,6 @@ function JobForm(props) {
                     )))
         }
 
-        console.log(watched)
         if (requiredHaveContent()) {
             setButtonDisabled(false)
         } else {
@@ -488,7 +482,10 @@ function JobForm(props) {
 
     function handleSave(formValues) {
         setSubmitted(true); // TODO: Handle answer and transport it to Submitted.jsx
-        console.log(formValues)
+        setFormData(formValues);
+
+
+        setSuccessful(false);
     }
 
     function handleReset(event) {
@@ -533,45 +530,47 @@ function JobForm(props) {
     return (
         <>
             {resetting && <Reset text={"Preparing job form..."}/>}
-            {!resetting && !submitted && <form onSubmit={handleSubmit(handleSave)}
-                   className={`${classes.formContainer}`}>
-                <div className={classes.sectionWrapper} ref={sectionWrapperRef} id={"jfsw"}>
-                    {steps.map((step, index) => (
-                        <section key={index}
-                                 className={`${classes.scrollable} ${currentSection === index && classes.current}`}>
-                            <Step currentSection={currentSection} sectionIndex={index}>
-                                {step.html}
-                            </Step>
-                        </section>
-                    ))}
-                </div>
-                <div className={classes.toPage}><a tabIndex={995} href={"/"} target={'_self'}><IoChevronBackOutline/>
-                    <p>Back home</p>
-                </a><ThemeSwitch/>
-                    <button tabIndex={996} className={classes.borderlessBtn} onClick={handleReset}><IoTrashOutline
-                        color={"#F44336FF"}/> Reset
-                    </button>
-                </div>
-                <div className={classes.controlBar}>
-                    <div>
-                        <ul className={classes.navigationElements}>
-                            {navigationElements}
-                        </ul>
+            {!resetting && !submitted &&
+                <form onSubmit={handleSubmit(handleSave)}
+                      className={`${classes.formContainer}`}>
+                    <div className={classes.sectionWrapper} ref={sectionWrapperRef} id={"jfsw"}>
+                        {steps.map((step, index) => (
+                            <section key={index}
+                                     className={`${classes.scrollable} ${currentSection === index ? classes.current : classes.hidden}`}>
+                                <Step currentSection={currentSection} sectionIndex={index}>
+                                    {step.html}
+                                </Step>
+                            </section>
+                        ))}
                     </div>
-                    <div className={classes.buttons}>
-                        {currentSection !== 0 && <button tabIndex={991} onClick={handleBackClick}
-                                                         className={`${classes.ctrlBtn} ${classes.enabled}`}>BACK
-                        </button>}
-                        {currentSection !== steps.length - 1 ?
-                            <button disabled={buttonDisabled} tabIndex={990} onClick={handleNextClick}
-                                    className={`${classes.ctrlBtn}`}>NEXT
-                            </button> : <button disabled={buttonDisabled} tabIndex={990} type={"submit"}
-                                                className={`${classes.ctrlBtn}`}>SUBMIT
+                    <div className={classes.toPage}><a tabIndex={995} href={"/"}
+                                                       target={'_self'}><IoChevronBackOutline/>
+                        <p>Back home</p>
+                    </a><ThemeSwitch/>
+                        <button tabIndex={996} className={classes.borderlessBtn} onClick={handleReset}><IoTrashOutline
+                            color={"#F44336FF"}/> Reset
+                        </button>
+                    </div>
+                    <div className={classes.controlBar}>
+                        <div>
+                            <ul className={classes.navigationElements}>
+                                {navigationElements}
+                            </ul>
+                        </div>
+                        <div className={classes.buttons}>
+                            {currentSection !== 0 && <button tabIndex={991} onClick={handleBackClick}
+                                                             className={`${classes.ctrlBtn} ${classes.enabled} secondary`}>BACK
                             </button>}
+                            {currentSection !== steps.length - 1 ?
+                                <button disabled={buttonDisabled} tabIndex={990} onClick={handleNextClick}
+                                        className={`${classes.ctrlBtn}  ${buttonDisabled ? 'button-disabled' : 'button-confirm'}`}>NEXT
+                                </button> : <button disabled={buttonDisabled} tabIndex={990} type={"submit"}
+                                                    className={`${classes.ctrlBtn} button-confirm`}>SUBMIT
+                                </button>}
+                        </div>
                     </div>
-                </div>
-            </form>}
-            {!resetting && submitted && <Submitted show={submitted} response={"SOME RESPONSE"}/>}
+                </form>}
+            {!resetting && submitted && <Submitted show={submitted} successful={successful} formData={formData} />}
         </>
     );
 }

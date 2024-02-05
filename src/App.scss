@@ -82,10 +82,11 @@ body, html {
   a {
     text-decoration: underline;
     color: var(--text-primary);
-    transition: var(--transition-duration-500);
+    transition: color 150ms;
 
     &:hover {
-      color: var(--text-secondary);
+      color: var(--accent2);
+      transition-duration: 150ms;
     }
   }
 
@@ -121,27 +122,31 @@ body, html {
     transition: background-color 0.3s ease, filter 0.3s ease;
 
     &.primary {
-      background-color: var(--primary-admin);
+      background-color: var(--primary);
     }
 
     &.secondary {
-      background-color: var(--secondary-admin);
+      background-color: var(--secondary);
+      color: white;
     }
 
     &.button-warning {
-      background-color: var(--warning-admin);
+      background-color: var(--warning);
+      color: white;
     }
 
     &.button-confirm {
-      background-color: var(--confirm-admin);
+      background-color: var(--confirm);
+      color: white;
     }
 
     &.button-cancel {
-      background-color: var(--delete-admin);
+      background-color: var(--delete);
+      color: white;
     }
 
     &.button-disabled {
-      background-color: var(--disabled-admin);
+      background-color: var(--disabled);
 
       &:hover {
         cursor: default;
@@ -153,6 +158,10 @@ body, html {
       &:hover {
         filter: brightness(1.1);
         cursor: pointer;
+      }
+
+      &:active {
+        scale: 0.98;
       }
     }
   }

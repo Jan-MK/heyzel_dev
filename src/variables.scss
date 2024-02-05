@@ -17,7 +17,8 @@
   --form-border: var(--dark-shades-25op);
   --form-border-focus: var(--dark-shades-50op);
   --form-background: var(--light-shades-100op);
-  --form-background-solid: var(--light-shades-100op);
+  --form-background-matrix-basic: var(--light-shades-100op);
+  --form-background-matrix-highlight: var(--light-shades-100op);
   --form-placeholder: var(--dark-shades-50op);
   --form-filter: invert(1);
 
@@ -95,8 +96,8 @@
   --dark-shades-50op: rgba(var(--dark-shades-r), var(--dark-shades-g), var(--dark-shades-b), 0.5);
   --dark-shades-25op: rgba(var(--dark-shades-r), var(--dark-shades-g), var(--dark-shades-b), 0.25);
   /* UI Component coloring */
-  --primary: var(--main-brand-color-100op);
-  --secondary: var(--light-accent-100op);
+  --primary: var(--light-accent-100op);
+  --secondary: var(--main-brand-color-100op);
   --accent: var(--dark-accent-100op);
   --warning: #E0C061;
   --confirm: #479079;
