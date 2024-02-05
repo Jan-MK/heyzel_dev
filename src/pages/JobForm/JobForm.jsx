@@ -66,7 +66,7 @@ const schema = z.object({
 })
 
 function JobForm(props) {
-
+    // TODO: TabIndex for each section.
     const [currentSection, setCurrentSection] = useState(0);
     const [submitted, setSubmitted] = useState(false);
     const [resetting, setResetting] = useState(true)
@@ -123,10 +123,7 @@ function JobForm(props) {
 
     useEffect(() => {
         setResetting(true)
-        // Ensure the body doesn't horizontally overflow
-        document.body.style.overflowX = 'hidden';
-
-        // Reset state and form
+        document.body.style.overflowX = 'hidden'; // Prevent manual scrolling
         resetForm()
     }, []);
 
