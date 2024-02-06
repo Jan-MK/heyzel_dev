@@ -1,6 +1,7 @@
 import classes from "./Events.module.scss"
 import PostCard from "./EventCard/PostCard";
 import {useEffect, useState} from "react";
+import instagram from "/public/instagram_data.json"
 import axios from 'axios';
 
 const wordFilter = [" "]
@@ -21,9 +22,22 @@ function Events(props) {
     const [error, setError] = useState();
 
     function instaDataFetch() {
-        axios.get('http://api.heyzel.de/instagram_data.json')
+        console.log(instagram)
+        setInstaData(instagram?.data.filter(isValidPost).slice(0, postCount))
+        /*axios.get('http://api.heyzel.de/instagram_data.json', {
+            method: 'post',
+            timeout: 1000,
+            headers: {
+                "Content-Type": "application/json",
+                'Access-Control-Allow-Origin': '*' // Could work and fix the previous problem, but not in all APIs
+
+            },
+            data: {
+                property: "value",
+            },})
             .then(response => {
                 const data = response.data;
+                console.log(data)
                 setInstaData(data?.data.filter(isValidPost).slice(0, postCount).map((post) => (
                     <PostCard key={post.id} post={post}/>
                 )));
@@ -31,7 +45,7 @@ function Events(props) {
             .catch(error => {
                 setError("Could not fetch the data.");
                 console.error('There has been a problem with your fetch operation:', error);
-            });
+            });*/
     }
 
 
