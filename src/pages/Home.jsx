@@ -8,11 +8,11 @@ function Home(props) {
     return (
         <div>
             <section className={`${classes.home}`} id={"home"}>
-                <div className={classes.heroWrapper}>
+{/*                <div className={classes.heroWrapper}>
                     <img className={classes.hero}
                          src={"https://cdn.pixabay.com/photo/2021/01/18/12/45/coffee-beans-5928036_1280.jpg"}
                          alt={"Hero pic"}/>
-                </div>
+                </div>*/}
                 <div className={`container`}>
                     <h1>Welcome to Heyzel</h1>
                     <p>{content}</p>
