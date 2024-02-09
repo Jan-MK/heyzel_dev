@@ -138,6 +138,7 @@ function JobForm(props) {
     useEffect(() => {
         setResetting(true)
         document.body.style.overflowX = 'hidden'; // Prevent manual scrolling
+        console.log(document.body.style.position)
         document.body.style.position = 'fixed'; // Prevent manual scrolling
         document.body.style.overscrollBehavior = 'none';
 

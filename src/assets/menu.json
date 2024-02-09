@@ -1,0 +1,221 @@
+{
+  "categories": [
+    {
+      "name": "Coffee",
+      "description": "Enjoy our variation of coffees.",
+      "images": [
+        "/media/images/coffees.jpg"
+      ],
+      "items": [
+        {
+          "name": "SALADE THAÏ asdfsd fds",
+          "description": "Iceberg lettuce, carrots, cucumber, soy bean, marinated chicken, fresh mint, cilantro, peanuts",
+          "price": "13.90€"
+        },
+        {
+          "name": "SALADE POULET MARINÉ, AVOCAT",
+          "description": "Romaine, lamb's lettuce, red cabbage, carrots, marinated chicken, avocado, cashews",
+          "price": "13.90€"
+        },
+        {
+          "name": "SALADE MINI PENNE",
+          "description": "Mini penne, cherry tomatoes, pesto, pine nuts, shaved parmesan",
+          "price": "13.90€"
+        },
+        {
+          "name": "SALADE P'TITE LENTILLES",
+          "description": "Green lentils, Red onions, Chickpeas, Cherry tomatoes, Fêta, Coriander, Hazelnuts",
+          "price": "13.90€"
+        },
+        {
+          "name": "SALADE GREQUE",
+          "description": "Arugula, Fêta, Cherry tomatoes, Cucumber, Onions, Black olives.",
+          "price": "13.90€"
+        },
+        {
+          "name": "SALADE QUINOA GOURMAND",
+          "description": "Bulghour, Quinoa, Broccoli, Chicken, Basil, Cherry tomatoes, Parmesan, Olive oil.",
+          "price": "13.90€"
+        },
+        {
+          "name": "SALADE BRESAOLA",
+          "description": "Iceberg Salad, Cherry Tomatoes, Artichoke Heart, Nuts, Bresaola, Parmesan . Served with Bresaola sauce.",
+          "price": "13.90€"
+        },
+        {
+          "name": "SALADE MEKONG",
+          "description": "Chinese cabbage, Carrot, Soybean Sprouts, Vermicelli transparent, Lemongrass, Ginger, Coriander, Peanuts, sautéed marinated beef.",
+          "price": "13.90€"
+        },
+        {
+          "name": "POKE BOWL SAUMON",
+          "description": "Sushi Rice, Marinated Salmon, Mango, Radish, Cucumber, Red Cabbage, Red Pepper, Ketone, Sauce (Soy, Sesame Oil, Rice Vinegar, Ginger, Garlic)",
+          "price": "16.90€"
+        },
+        {
+          "name": "BURRATA",
+          "description": "Seasoned with candied tomatoes and cashews. Accompanied by its tomato farandole: Pineapple, Cocktail, Heart of Beef, Crimean black, Green Zebra, fleur de sel and olive oil",
+          "price": "14.60€"
+        },
+        {
+          "name": "MILLE FEUILLE DE LÉGUMES",
+          "description": "With Zucchini, Eggplant, Tomato, Tapenade, Sesame seed, balsamic cream",
+          "price": "14.90€"
+        },
+        {
+          "name": "TARTARE DE SAUMON",
+          "description": "Served with Roasted Sesame Sheathed Rice, Soy Sauce and Cucumber",
+          "price": "21.00€"
+        }
+      ]
+    },
+    {
+      "name": "Drinks",
+      "description": "Enjoy our selection of drinks",
+      "images": [
+        "/media/images/drinks.jpg"
+      ],
+      "items": [
+        {
+        "name":"LE NORDIQUE TOASTÉ JAMBON",
+        "description":"Ham, cheddar, arugula, tomato, mayonnaise",
+        "price":"6.9€"
+        },
+        {
+        "name":"LE NORDIQUE TOASTÉ POULET",
+        "description":"Chicken, curry sauce, arugula, tomato, mayonnaise",
+        "price":"6.9€"
+        },
+        {
+        "name":"LE CLUB (EXCLU DE LA FORMULE DÉJEUNER)",
+        "description":"White bread, Pastrami, bacon, Swiss cheese, lettuce, tomato, mayonnaise",
+        "price":"9€"
+        },
+        {
+        "name":"QUICHE CHÈVRE, ÉPINARD",
+        "description":"Goat cheese and spinach quiche",
+        "price":"6.9€"
+        },
+        {
+        "name":"QUICHE LORRAINE",
+        "description":"Bacon bits, egg and cream quiche",
+        "price":"6.9€"
+        },
+        {
+        "name":"LA QUICHE MÉDITERRANÉENNE",
+        "description":"Tuna, Mustard, Tomato, Basil",
+        "price":"6.9€"
+        },
+        {
+        "name":"PANINI CALIFORNIEN",
+        "description":"Chicken, cheddar, tomato, olive oil, basil",
+        "price":"7.80€"
+        },
+        {
+        "name":"PANINI 3 FROMAGES",
+        "description":"Swiss cheese, gorgonzola, goat cheese, tomato, olive oil, basil",
+        "price":"7.80€"
+        },
+        {
+        "name":"PANINI VÉGÉTARIEN",
+        "description":"Eggplant, tomato and marinated zucchini, goat cheese, olive oil, basil",
+        "price":"7.80€"
+        },
+        {
+        "name":"FOCACCIA",
+        "description":"Goat Cheese, Marinated eggplant, tomato, Arugula, ham,swiss cheese",
+        "price":"6.9€"
+        },
+        {
+        "name":"PLANCHA CHARCUTERIE",
+        "description":"Serrano ham, herb ham, thinly cut Chorizo, coppa, homemade country terrine (may vary according to season)",
+        "price":"15€"
+        },
+        {
+        "name":"PLANCHA FROMAGES",
+        "description":"Saint-Nectaire, Comté, Bleu cheese, chèvre cendré, fig jam (may vary according to season)",
+        "price":"14€"
+        },
+        {
+        "name":"LES RILLETTES DE THON",
+        "description":"Tuna rillettes (shredded tuna terrine) served with toasted bread",
+        "price":"14€"
+        },
+        {
+        "name":"LE P’TIT CAMEMBERT AU FOUR",
+        "description":"small oven toasted Camembert with a side of toasted bread",
+        "price":"9€"
+        },
+        {
+        "name":"FRITES FRAICHES MAISON",
+        "description":"Side of french fries (thick cut)",
+        "price":"5€"
+        }
+      ]
+    },
+    {
+      "name": "Food",
+      "description": "See some main dishes here",
+      "images": [
+        "/media/images/food.jpg"
+      ],
+      "items": [
+        {
+        "name":"BURGER L’AUTHENTIQUE",
+        "description":"Lettuce, tomato, marinated ground beef, caramelized onions, cheddar, Cornichons (tangy French pickles)",
+        "price":"15.50€"
+        },
+        {
+        "name":"BURGER PROVENÇAL",
+        "description":"Rare cooking recommended! Salad, Tomato, Cheddar, Prepared Beef (with tomato caviar, grated counting, herbs from Provence), French fries",
+        "price":"15.50€"
+        },
+        {
+        "name":"BURGER LE FERMIER",
+        "description":"Lettuce, tomato, braised and marinated chicken, Swiss cheese, chive ,mustard,& garlic sauce",
+        "price":"15.50€"
+        },
+        {
+        "name":"BURGER IBÉRIQUE",
+        "description":"Salad, Tomato, Emmental, Chorizo/Mayo Sauce. Marinated chicken (with tomato caviar and snacky chorizo), French fries",
+        "price":"15.50€"
+        },
+        {
+        "name":"BURGER VÉGÉTARIEN",
+        "description":"Galette de Légumes (carrot, corn, potato, onion, curry, egg), Salad, Tomato, White sauce (Saint-Morêt, dill, cucumber, citrus juice), French fries",
+        "price":"15.50€"
+        },
+        {
+        "name":"MAGRET DE CANARD",
+        "description":"Whole pan seared duck breast served with fig chutney, mixed green salad and french fries",
+        "price":"22.50€"
+        },
+        {
+        "name":"TARTARE DE BŒUF CHAROLAIS",
+        "description":"Beef tartare: Raw prime beef, marinated soy sauce, olive oil, Worcester sauce, Tabasco, served with black olives,sun dried tomatoes, parmesan and a side of french fries",
+        "price":"18.50€"
+        },
+        {
+        "name":"CARPACCIO DE BOEUF",
+        "description":"thinly sliced prime beef, served raw with cold pressed citrus olive oil, sun dried tomatoes,capers and a side of mixed greens",
+        "price":"14.90€"
+        },
+        {
+        "name":"BROCHETTES DE POULET SATÉ",
+        "description":"Trio of Marinated Chicken Skewers, Saté Sauce, Steamed Rice, Small Salad. 100% FRENCH POULTRY",
+        "price":"15.90€"
+        },
+        {
+        "name":"CÔTE DE BOEUF",
+        "description":"Served on his board with Fleur de Sel and Pink Berries, accompanied by a Homemade Pepper Sauce, Baked Potato, White Sauce, Small Salad. 500 gr, PATURAGES IRELAND",
+        "price":"29.00€"
+        },
+        {
+        "name":"FILET DE BOEUF",
+        "description":"Served with Salad and Fresh Homemade Fries with your choice: Its Pepper Sauce or its Maître d'Hôtel Butter. 200 GR, SELECTION & FRENCH QUALITY",
+        "price":"22.50€"
+        }
+      ]
+    }
+  ]
+}

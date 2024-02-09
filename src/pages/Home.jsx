@@ -1,6 +1,7 @@
 import classes from "./Home.module.scss"
 import Navbar from "../components/Navigation/Navbar.jsx";
 import Events from "../components/Events/Events.jsx";
+import Menu from "../components/Menu/Menu.jsx";
 
 function Home(props) {
 
@@ -28,6 +29,11 @@ function Home(props) {
                 <div className={`container`}>
                     <h1>EVENTS</h1>
                     <p>{content}</p>
+                </div>
+            </section>
+            <section className={`${classes.home}`} id={"menu"}>
+                <div className={`container`}>
+                    <Menu />
                 </div>
             </section>
             <section className={`${classes.home}`} id={"locations"}>
