@@ -1,13 +1,43 @@
 import classes from "./Menu.module.scss";
 import menuArray from '../../assets/menu.json'
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import Modal from "../Modal/Modal.jsx";
+import { IoChevronUpOutline, IoChevronDownOutline } from 'react-icons/io5';
+
 
 export default function Menu() {
     let menuCats = menuArray.categories
     const [isMounted, setIsMounted] = useState(false);
     const [currentModalContent, setCurrentModalContent] = useState("")
     const [currentIdx, setCurrentIdx] = useState(-1)
+    const [showUpArrow, setShowUpArrow] = useState(false);
+    const [showDownArrow, setShowDownArrow] = useState(false);
+    const itemListWrapperRef = useRef(null);
+
+
+    useEffect(() => {
+        // Function to call when the itemListWrapper is scrolled
+        const handleScroll = () => {
+            console.log('SCROLLED');
+        };
+
+        // Access the current element of the ref
+        const element = itemListWrapperRef.current;
+
+        // Check if the element is not null
+        if (element) {
+            // Add scroll event listener to the itemListWrapper
+            element.addEventListener('scroll', handleScroll);
+        }
+
+        // Cleanup function to remove the event listener
+        return () => {
+            if (element) {
+                element.removeEventListener('scroll', handleScroll);
+            }
+        };
+    }, []);
+
 
     function toggleMount(idx) {
         if (!isMounted) {
@@ -21,10 +51,6 @@ export default function Menu() {
         }
     }
 
-    useEffect(() => {
-        console.log(currentModalContent)
-        console.log(currentIdx)
-    }, [currentModalContent, currentIdx]);
 
     const rendered = menuCats.map((cat, idx) => {
         return <div key={idx} className={classes.singleCatWrapper}>
@@ -33,7 +59,8 @@ export default function Menu() {
             </div>
             <div className={classes.rightWrapper}>
                 <div><h2 className={classes.rightCatHeading}>{cat.name}</h2></div>
-                <div className={classes.itemListWrapper}>
+                {showUpArrow && <IoChevronUpOutline />}
+                <div className={classes.itemListWrapper}  ref={itemListWrapperRef}>
                     <ul className={classes.itemList}>
                         {cat.items.map(item => {
                             return <li key={item.name} className={classes.listItem}>
@@ -47,7 +74,9 @@ export default function Menu() {
                             </li>
                         })}
                     </ul>
+
                 </div>
+                {showDownArrow && <IoChevronDownOutline />}
             </div>
         </div>
     })
