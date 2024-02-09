@@ -2,99 +2,99 @@ import classes from "./Menu.module.scss";
 import menuArray from '../../assets/menu.json'
 import {useEffect, useRef, useState} from "react";
 import Modal from "../Modal/Modal.jsx";
-import { IoChevronUpOutline, IoChevronDownOutline } from 'react-icons/io5';
-
+import {IoChevronUpOutline, IoChevronDownOutline} from 'react-icons/io5';
 
 export default function Menu() {
     let menuCats = menuArray.categories
     const [isMounted, setIsMounted] = useState(false);
-    const [currentModalContent, setCurrentModalContent] = useState("")
-    const [currentIdx, setCurrentIdx] = useState(-1)
+    const [currentModalContent, setCurrentModalContent] = useState("");
+    const [currentIdx, setCurrentIdx] = useState(-1);
+    const itemListWrapperRef = useRef(null)
     const [showUpArrow, setShowUpArrow] = useState(false);
     const [showDownArrow, setShowDownArrow] = useState(false);
-    const itemListWrapperRef = useRef(null);
 
+    // Handler for scroll events
+    const handleScroll = () => {
+        console.log('SCROLLED');
+        checkScrollability();
+
+    };
 
     useEffect(() => {
-        // Function to call when the itemListWrapper is scrolled
-        const handleScroll = () => {
-            console.log('SCROLLED');
-        };
+        checkScrollability()
+    }, [currentModalContent]);
 
-        // Access the current element of the ref
-        const element = itemListWrapperRef.current;
+    const checkScrollability = () => {
+        if (!itemListWrapperRef.current) return;
 
-        // Check if the element is not null
-        if (element) {
-            // Add scroll event listener to the itemListWrapper
-            element.addEventListener('scroll', handleScroll);
-        }
+        const wrapper = itemListWrapperRef.current;
+        const isScrollable = wrapper.scrollHeight > wrapper.clientHeight;
+        const isScrolledToTop = wrapper.scrollTop === 0;
+        const isScrolledToBottom = wrapper.scrollHeight - wrapper.scrollTop < wrapper.clientHeight + 5 ;
+        console.log(wrapper.scrollHeight)
+        console.log(wrapper.scrollTop)
+        console.log(wrapper.scrollHeight - wrapper.scrollTop)
+        console.log(wrapper.clientHeight + 5 )
 
-        // Cleanup function to remove the event listener
-        return () => {
-            if (element) {
-                element.removeEventListener('scroll', handleScroll);
-            }
-        };
-    }, []);
-
+        setShowUpArrow(isScrollable && !isScrolledToTop);
+        setShowDownArrow(isScrollable && !isScrolledToBottom);
+    };
 
     function toggleMount(idx) {
         if (!isMounted) {
-
-            setCurrentModalContent(rendered[idx])
-            setCurrentIdx(idx)
-            setIsMounted(true)
-        }
-        else {
-            setIsMounted(false)
+            setCurrentModalContent({
+                image: renderedImg[idx],
+                name: renderedName[idx],
+                content: renderedContent[idx]
+            });
+            setCurrentIdx(idx);
+            setIsMounted(true);
+        } else {
+            setIsMounted(false);
         }
     }
 
+    const renderedImg = menuCats.map((cat, idx) => (
+        <div key={idx} className={classes.leftWrapper}>
+            <img className={classes.slideImage} src={cat.images[0]} alt={cat.name}/>
+        </div>))
 
-    const rendered = menuCats.map((cat, idx) => {
-        return <div key={idx} className={classes.singleCatWrapper}>
-            <div className={classes.leftWrapper}>
-                {<img className={classes.slideImage} src={cat.images[0]} alt={cat.name}/>}
-            </div>
-            <div className={classes.rightWrapper}>
-                <div><h2 className={classes.rightCatHeading}>{cat.name}</h2></div>
-                {showUpArrow && <IoChevronUpOutline />}
-                <div className={classes.itemListWrapper}  ref={itemListWrapperRef}>
-                    <ul className={classes.itemList}>
-                        {cat.items.map(item => {
-                            return <li key={item.name} className={classes.listItem}>
-                                <div className={classes.itemTopLine}>
-                                    <h3 className={classes.rightItemHeading}>{item.name}</h3>
-                                    <p className={classes.itemPrice}>{item.price}</p>
-                                </div>
-                                <div >
-                                    <p className={classes.itemDescription}>{item.description}</p>
-                                </div>
-                            </li>
-                        })}
-                    </ul>
+    const renderedName = menuCats.map((cat, idx) => (
+        <div key={idx}><h2 className={classes.rightCatHeading}>{cat.name}</h2></div>
+    ))
 
+    const renderedContent = menuCats.map((cat, idx) => (
+        <ul key={idx} className={classes.itemList}>
+            {cat.items.map(item => (
+                <li key={item.name} className={classes.listItem}>
+                    <div className={classes.itemTopLine}>
+                        <h3 className={classes.rightItemHeading}>{item.name}</h3>
+                        <p className={classes.itemPrice}>{item.price}</p>
+                    </div>
+                    <div>
+                        <p className={classes.itemDescription}>{item.description}</p>
+                    </div>
+                </li>
+            ))}
+        </ul>
+    ));
+
+    const categoriesThumbnail = menuCats.map((cat, idx) => (
+        <div key={cat.name} className={classes.categoryWrapper} style={{
+            backgroundImage: `url("${cat.images[0]}")`
+        }}>
+            <div className={classes.categoryContent}>
+                <div><h3 className={classes.heading}>{cat.name}</h3></div>
+                <div>
+                    <button onClick={() => toggleMount(idx)}>show items</button>
                 </div>
-                {showDownArrow && <IoChevronDownOutline />}
             </div>
         </div>
-    })
+    ));
 
-
-    const categoriesThumbnail = menuCats.map((cat, idx) => {
-        return (
-            <div key={cat.name} className={classes.categoryWrapper} style={{
-                backgroundImage: `url("${cat.images[0]}")`
-            }}>
-                <div className={classes.categoryContent}>
-                    <div><h3 className={classes.heading}>{cat.name}</h3></div>
-                    <div><button onClick={() => toggleMount(idx)}>show items</button>
-                    </div>
-                </div>
-            </div>
-        )
-    })
+    useEffect(() => {
+        console.log("UP: ", showUpArrow, " DOWN: ", showDownArrow)
+    }, [showUpArrow, showDownArrow]);
 
     return (
         <>
@@ -102,8 +102,18 @@ export default function Menu() {
             <div className={classes.allCategoryWrapper}>
                 {categoriesThumbnail}
             </div>
-            <Modal show={isMounted} toggleOpen={toggleMount}>
-                {currentModalContent}
+            <Modal show={isMounted} toggleOpen={() => toggleMount(currentIdx)}>
+                <div className={classes.singleCatWrapper}>
+                    {currentModalContent.image}
+                    <div className={classes.rightWrapper}>
+                        {currentModalContent.name}
+                        <div className={`${classes.scrollIndicator} ${classes.top}`}>{showUpArrow && <IoChevronUpOutline/>}</div>
+                        <div className={classes.itemListWrapper} onScroll={handleScroll} ref={itemListWrapperRef}>
+                            {currentModalContent.content}
+                        </div>
+                        <div className={`${classes.scrollIndicator} ${classes.bottom}`}>{showDownArrow && <IoChevronDownOutline/>}</div>
+                    </div>
+                </div>
             </Modal>
         </>
     );

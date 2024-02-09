@@ -67,15 +67,29 @@
     width: 50%;
     height: 100%;
     overflow: hidden;
-    padding: 25px;
+    padding:25px 25px 0 25px ;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    position: relative;
+
 
     .rightCatHeading {
       font-size: 1.8rem;
       font-weight: 600;
+    }
+
+    .scrollIndicator {
+      height: 25px;
+      z-index: 15;
+
+      svg {
+        padding: 0;
+        margin: 0;
+        width: 25px;
+        height: 25px;
+      }
     }
 
     .itemListWrapper {
@@ -84,6 +98,7 @@
       overflow-y: auto;
       -ms-overflow-style: none; /* IE and Edge */
       scrollbar-width: none; /* Firefox */
+
 
 
       &::-webkit-scrollbar {
