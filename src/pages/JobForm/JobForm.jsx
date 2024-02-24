@@ -8,6 +8,7 @@ import ThemeSwitch from "../../components/ThemeSwitch/ThemeSwitch.jsx";
 import Submitted from "./Submitted/Submitted.jsx";
 import Reset from "./Reset/Reset.jsx";
 import Cookies from 'universal-cookie';
+import {prepareData} from "../../utility/Utility.jsx";
 
 const days = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
 const defaultValues = {
@@ -522,25 +523,34 @@ function JobForm(props) {
     });
 
     function handleSave(formValues) {
-        setSubmitted(true); // TODO: Handle answer and transport it to Submitted.jsx
+        setSubmitted(true);
         setFormData(formValues);
 
-        // Fügen Sie dem FormData-Objekt bei Bedarf weitere Daten hinzu
-        // formData.append('schluessel', 'wert');
+        const encodedData = "SOMECONTENT"; // Beispiel-Daten
 
         fetch('https://api.heyzel.de/send.php', {
             method: 'POST',
-            body: formData,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: encodedData,
         })
-            .then(response => response.text())
-            .then(data => console.log(data))
+            .then(response => {
+                if (!response.ok) { // Überprüft, ob der HTTP-Statuscode Erfolg signalisiert
+                    throw new Error('Netzwerkantwort war nicht ok');
+                }
+                return response.text();
+            })
+            .then(data => {
+                console.log(data);
+                setSuccessful(true);
+            })
             .catch(error => {
-                setSuccessful(false)
-                console.error('Fehler:', error)
+                console.error('Error:', error);
+                setSuccessful(false);
             });
-
-        setSuccessful(true);
     }
+
 
     function handleReset(event) {
         event.preventDefault()

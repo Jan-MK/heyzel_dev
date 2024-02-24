@@ -9,7 +9,6 @@ function Submitted({show, successful, formData}) {
     useEffect(() => {
         const subject = encodeURIComponent("Form Submission");
         const content = prepareData(formData)
-        console.log(content)
         const mailSubject = encodeURIComponent(`Bewerbung ${formData.firstName} ${formData.lastName}`)
         const mailBody = encodeURIComponent(content);
         const mailtoLink = `mailto:jan.kraemer@selfmail.eu?subject=${mailSubject}&body=${mailBody}`;

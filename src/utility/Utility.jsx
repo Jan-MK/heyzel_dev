@@ -44,12 +44,10 @@ export function prepareData(formData) {
     shifts.forEach((shift, idx) => {
         str += `${shift}\t${(shift === 'Frühschicht' || shift === 'Spätschicht') ? '\t' : ''}`
         daysArr.forEach((day, dayIdx) => {
-            console.log(day[idx], day[idx] === true)
             str += `${day[idx] ? 'J' : 'N'}\t`
         })
         str += "\n"
     })
-    console.log(str)
     content.push(`${str}`);
     content.push(`\nMotivation:\n${formData.motivation}`);
     return content.join('\n'); // Return the entire content as a single string
