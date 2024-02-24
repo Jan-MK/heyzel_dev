@@ -15,9 +15,9 @@ function Navbar(props) {
                         const navBarElement = document.getElementById("navBar").clientHeight
                         const target = event.target;
                         const id = target.getAttribute('href')?.replace('#', '');
-                        console.log(id)
+                       /* console.log(id)  TODO WHY WAS THERE SOME log?*/
                         const element = document.getElementById(id);
-                        console.log(element)
+                       /* console.log(element)*/
                         element?.scrollIntoView({
                             block: 'start',
                             behavior: 'smooth'

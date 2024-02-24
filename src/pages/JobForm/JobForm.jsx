@@ -8,8 +8,9 @@ import ThemeSwitch from "../../components/ThemeSwitch/ThemeSwitch.jsx";
 import Submitted from "./Submitted/Submitted.jsx";
 import Reset from "./Reset/Reset.jsx";
 import Cookies from 'universal-cookie';
-import {prepareData} from "../../utility/Utility.jsx";
+import {prepareData, prepareDataHTML} from "../../utility/Utility.jsx";
 import {days, shifts} from "../../utility/Utility.jsx";
+import axios from "axios";
 
 const defaultValues = {
     confirmation: false,
@@ -84,15 +85,13 @@ function JobForm(props) {
     const refArray = useRef([]);
     const [formData, setFormData] = useState("")
     const [currentStep, setCurrentStep] = useState(0);
+    const [answered, setAnswered] = useState(false)
     const [submitted, setSubmitted] = useState(false);
     const [resetting, setResetting] = useState(true)
     const [buttonDisabled, setButtonDisabled] = useState(true)
     const [successful, setSuccessful] = useState(null);
-    const [, setWindowSize] = useState({
-        width: window.innerWidth,
-        height: window.innerHeight,
-    });
     const [visited, setVisited] = useState([0])
+    const [selectedFile, setSelectedFile] = useState(null);
     const {
         register,
         handleSubmit,
@@ -107,6 +106,15 @@ function JobForm(props) {
         defaultValues: defaultValues,
     });
     const cookies = new Cookies()
+
+
+    const handleFileChange = (event) => {
+        if (event.target.files[0]) {
+            setSelectedFile(event.target.files[0]);
+        } else {
+            setSelectedFile(null);
+        }
+    };
 
     function resetForm() {
         setResetting(true)
@@ -152,7 +160,7 @@ function JobForm(props) {
 
     const saveFormDataToCookie = () => {
         const formValues = watch(); // Get all current form values
-        cookies.set('jobform', formValues, { path: '/' });
+        cookies.set('jobform', formValues, {path: '/'});
     };
 
     const registerWithSave = (fieldName, options) => {
@@ -451,18 +459,26 @@ function JobForm(props) {
             </>
         },
         {
-            name: "Motivation",
+            name: "Additional",
             fields: [],
             html:
                 <>
-                        <div className={classes.fieldWrapper}>
-                            <p>More about you!<br/>If you have anything you want to tell us about you, feel free:</p>
-                            <textarea tabIndex={currentStep === 5 ? 0 : -1}
-                                      rows={5} {...registerWithSave('motivation')}
-                                      placeholder={"Tell us about you or your motivation"}/>
-                            <div
-                                className={`${errors.motivation?.message ? classes.error : classes.noError}`}>{errors.motivation?.message}</div>
-                        </div>
+                    <div className={classes.fieldWrapper}>
+                        <p>Application Photo<span className={classes.required}>*</span></p>
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleFileChange}
+                        />
+                    </div>
+                    <div className={classes.fieldWrapper}>
+                        <p>More about you!<br/>If you have anything you want to tell us about you, feel free:</p>
+                        <textarea tabIndex={currentStep === 5 ? 0 : -1}
+                                  rows={5} {...registerWithSave('motivation')}
+                                  placeholder={"Tell us about you or your motivation"}/>
+                        <div
+                            className={`${errors.motivation?.message ? classes.error : classes.noError}`}>{errors.motivation?.message}</div>
+                    </div>
                 </>
         }
     ]
@@ -515,40 +531,44 @@ function JobForm(props) {
         );
     });
 
-    function handleSave(formData) {
-        setSubmitted(true);
-        setFormData(formData);
+    function handleSave(formContent) {
+        /*
+        const dataPrepared = prepareData(formData)
+        console.log(dataPrepared)
+        */
+        setSubmitted(true)
+        const dataToSend = new FormData();
+        dataToSend.append('emailContent', prepareDataHTML(formContent));
 
-        // Prepare the email content in HTML or plain text
-        const emailContent = prepareData(formData);
-        const encodedData = `emailContent=${encodeURIComponent(emailContent)}`;
+        if (selectedFile) {
+            dataToSend.append('applicationPhoto', selectedFile);
+        }
 
-
-        fetch('https://api.heyzel.de/send.php', {
-            method: 'POST',
+        axios.post('https://api.heyzel.de/send.php', dataToSend, {
             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Type': 'multipart/form-data',
             },
-            body: encodedData,
         })
             .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                if (response.status === 202) {
+                    console.log('Message sent but photo could not be attached');
+                    /*console.warn('Message sent but photo could not be attached');
+                    alert('Message sent but photo could not be attached'); // Or handle this more gracefully in your UI*/
+                } else {
+                    console.log('Message sent successfully');
                 }
-                return response.text();
-            })
-            .then(data => {
-                console.log(data);
+                setAnswered(true)
                 setSuccessful(true);
             })
             .catch(error => {
-                console.error('Error:', error);
+                console.log('Error sending data', error)
+                /*console.error('Error:', error);
+                alert('Message could not be sent'); // Or display this error more gracefully*/
+                setFormData(formContent)
+                setAnswered(true)
                 setSuccessful(false);
             });
     }
-
-
-
 
     function handleReset(event) {
         event.preventDefault()
@@ -636,7 +656,8 @@ function JobForm(props) {
                         </div>
                     </div>
                 </form>}
-            {!resetting && submitted && <Submitted show={submitted} successful={successful} formData={formData}/>}
+            {!resetting && submitted &&
+                <Submitted show={submitted} answered={answered} successful={successful} formData={formData}/>}
         </>
     );
 }

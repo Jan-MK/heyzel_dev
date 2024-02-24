@@ -91,10 +91,10 @@ export default function Menu() {
             </div>
         </div>
     ));
-
-    useEffect(() => {
+    //TODO IS IT COMPLETE?
+    /*useEffect(() => {
         console.log("UP: ", showUpArrow, " DOWN: ", showDownArrow)
-    }, [showUpArrow, showDownArrow]);
+    }, [showUpArrow, showDownArrow]);*/
 
     return (
         <>

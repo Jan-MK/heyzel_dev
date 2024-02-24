@@ -22,7 +22,7 @@ function Events(props) {
     const [error, setError] = useState();
 
     function instaDataFetch() {
-        console.log(instagram)
+        /*console.log(instagram) TODO WHY PRINT LOG?*/
         setInstaData(instagram?.data.filter(isValidPost).slice(0, postCount))
         /*axios.get('http://api.heyzel.de/instagram_data.json', {
             method: 'post',
