@@ -1,34 +1,18 @@
-import classes from "./JobForm.module.scss"
+import classes from "./JobFormOld.module.scss"
 import {useEffect, useRef, useState} from 'react';
 import {useForm} from 'react-hook-form'
 import {zodResolver} from "@hookform/resolvers/zod";
 import {string, z} from 'zod'
+import gsap from 'gsap';
 import {IoChevronBackOutline, IoTrashOutline} from "react-icons/io5";
 import ThemeSwitch from "../../components/ThemeSwitch/ThemeSwitch.jsx";
-import Submitted from "./Submitted/Submitted.jsx";
-import Reset from "./Reset/Reset.jsx";
+import Submitted from "../JobForm/Submitted/Submitted.jsx";
+import Reset from "../JobForm/Reset/Reset.jsx";
+/*
 import Cookies from 'universal-cookie';
+*/
 
-const days = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
-const defaultValues = {
-    confirmation: false,
-    firstName: '',
-    lastName: '',
-    birthday: '',
-    nationality: '',
-    phone: '',
-    mail: '',
-    street: '',
-    zip: '',
-    city: '',
-    currentEmployment: "Please select...",
-    desiredEmployment: "Please select...",
-    salary: '',
-    entry: '',
-    experience: '',
-    availability: days.reduce((acc, day) => ({...acc, [day]: [false, false, false]}), {}),
-    motivation: '',
-}
+
 const currentEmploymentOptions = ["Schüler", "Student", "Vollzeitanstellung", "Teilzeitanstellung", "Selbstständig", "Arbeitssuchend"]
 const desiredEmploymentOptions = ["Vollzeit", "Teilzeit", "Werksstudent", "Minijob (450€ Basis)"]
 /*const countryOptions = [
@@ -36,8 +20,8 @@ const desiredEmploymentOptions = ["Vollzeit", "Teilzeit", "Werksstudent", "Minij
     {value: "germany", label: "Germany"},
     {value: "usa", label: "USA"},
 ]*/
-
-const shifts = ['7:30', '13:00', '16:00'];
+const days = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
+const shifts = ['Frühschicht', 'Mittagsschicht', 'Spätschicht', 'Abendschicht'];
 
 const today = new Date();
 const eighteenYearsAgo = new Date();
@@ -85,11 +69,10 @@ const schema = z.object({
 })
 
 
-function JobForm(props) {
+function JobFormOld(props) {
     // TODO: TabIndex for each section, prevent back from leaving this form
-    const refArray = useRef([]);
     const [formData, setFormData] = useState("")
-    const [currentStep, setCurrentStep] = useState(0);
+    const [currentSection, setCurrentSection] = useState(0);
     const [submitted, setSubmitted] = useState(false);
     const [resetting, setResetting] = useState(true)
     const [buttonDisabled, setButtonDisabled] = useState(true)
@@ -98,6 +81,11 @@ function JobForm(props) {
         width: window.innerWidth,
         height: window.innerHeight,
     });
+    const sectionWrapperRef = useRef(null);
+    /*
+        const cookie = new Cookies()
+    */
+
     const [visited, setVisited] = useState([0])
     const {
         register,
@@ -110,68 +98,88 @@ function JobForm(props) {
     } = useForm({
         resolver: zodResolver(schema),
         mode: 'all',
-        defaultValues: defaultValues,
+        defaultValues: {
+            currentEmployment: "Please select...",
+            desiredEmployment: "Please select...",
+            confirmation: false,
+            availability: days.reduce((acc, day) => ({...acc, [day]: [false, false, false, false]}), {}),
+        },
     });
-    const cookies = new Cookies()
 
     function resetForm() {
         setResetting(true)
-        cookies.remove('jobform')
-        cookies.remove('progress')
         setVisited([0])
-        setCurrentStep(0);
-        reset(defaultValues);
+        setCurrentSection(0);
+        reset();
         watched = steps.map(step => {
             return step.fields.map(field => {
                 return watch(field)
             })
         })
-        handleGoTo(0)
-        requestAnimationFrame(() => setResetting(false))
+        gsap.to(sectionWrapperRef.current, {
+            x: 0,
+            duration: 1,
+            ease: "power2.inOut", // Add easing for smoother transition
+            onComplete: () => {
+                // Ensure the first section scrolls into view after the GSAP animation completes
+                requestAnimationFrame(() => {
+                    const firstSection = document.querySelector('section');
+                    if (firstSection) {
+                        firstSection.scrollIntoView({behavior: 'instant', block: 'nearest', inline: 'start'});
+                    }
+                    requestAnimationFrame(() => setResetting(false))
+                });
+            }
+        });
     }
 
 
     useEffect(() => {
         setResetting(true)
-        const savedFormData = cookies.get('jobform')
-        const progress = cookies.get('progress')
-        if (savedFormData) {
-            reset(savedFormData)
-            if (progress) {
-                setVisited(progress || [0])
-            }
-        } else {
-            resetForm();
-        }
-        requestAnimationFrame(() => setResetting(false))
-        //prefill(5)
+        document.body.style.overflowX = 'hidden'; // Prevent manual scrolling
+        console.log(document.body.style.position)
+        document.body.style.position = 'fixed'; // Prevent manual scrolling
+        document.body.style.overscrollBehavior = 'none';
+
+        resetForm()
+        prefill(5)
     }, []);
 
     useEffect(() => {
-        if (visited.length > 0) {
-            // Ensure component layout has stabilized
-            requestAnimationFrame(() => {
-                handleGoTo(visited[visited.length - 1]);
+        const handleResize = () => {
+            setWindowSize({
+                width: window.innerWidth,
+                height: window.innerHeight,
             });
-        }
-    }, [visited]);
-
-    const saveFormDataToCookie = () => {
-        const formValues = watch(); // Get all current form values
-        cookies.set('jobform', formValues, { path: '/' });
-    };
-
-    const registerWithSave = (fieldName, options) => {
-        return {
-            ...register(fieldName, options),
-            onBlur: (e) => {
-                // Original onBlur functionality, if any
-                options?.onBlur?.(e);
-                // Save form data whenever any field is blurred
-                saveFormDataToCookie();
-            },
+            const viewportWidth = window.innerWidth;
+            const distanceToTranslate = -currentSection * viewportWidth;
+            gsap.to(sectionWrapperRef.current, {
+                x: distanceToTranslate,
+                duration: 0,
+                ease: "none"
+            });
         };
-    };
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [window.innerWidth])
+
+
+    useEffect(() => {
+        // Recalculate transform on resize
+        const updateTransform = () => {
+            const viewportWidth = window.innerWidth;
+            const distanceToTranslate = -currentSection * viewportWidth;
+            gsap.to(sectionWrapperRef.current, {
+                x: distanceToTranslate,
+                duration: 0.5,
+                ease: "power2.inOut",
+            });
+        };
+
+
+        updateTransform(); // Call on resize to adjust the section position
+
+    }, [currentSection]);
 
     const fillAllAvailability = () => {
         days.forEach(day => {
@@ -199,23 +207,16 @@ function JobForm(props) {
 
     const handleNextClick = async (event) => {
         event.preventDefault()
-        const fieldsToValidate = steps[currentStep]?.fields;
+        const fieldsToValidate = steps[currentSection]?.fields;
+        // Use the extracted validation function
+
         const result = await checkValidity(fieldsToValidate);
 
-        if (result && currentStep < steps.length - 1) {
-            const next = refArray.current[currentStep + 1]
-            const current = refArray.current[currentStep]
-
-            current.classList.remove(classes.center)
-            current.classList.add(classes.left)
-            next.classList.remove(classes.right)
-            next.classList.add(classes.center)
-            setCurrentStep(prev => prev + 1);
-
-            if (!visited.includes(currentStep + 1)) {
+        if (result && currentSection < steps.length - 1) {
+            setCurrentSection(currentSection + 1);
+            if (!visited.includes(currentSection + 1)) {
                 setVisited(prev => {
-                    cookies.set('progress', [...prev, currentStep + 1])
-                    return [...prev, currentStep + 1]
+                    return [...prev, currentSection + 1]
                 })
             }
         } else {
@@ -225,44 +226,10 @@ function JobForm(props) {
 
     const handleBackClick = (event) => {
         event.preventDefault()
-        if (currentStep > 0) {
-            const previous = refArray.current[currentStep - 1]
-            const current = refArray.current[currentStep]
-
-            current.classList.remove(classes.center)
-            current.classList.add(classes.right)
-            previous.classList.remove(classes.left)
-            previous.classList.add(classes.center)
-            setCurrentStep(prev => prev - 1);
+        if (currentSection > 0) {
+            setCurrentSection(currentSection - 1);
         }
     };
-
-    function handleGoTo(idx, event) {
-        event?.preventDefault()
-        if (idx === currentStep || !visited.includes(idx)) return
-        if (idx < currentStep) {
-            for (let i = currentStep; i > idx; i--) {
-                const prev = refArray.current[i].classList
-                if (currentStep === i) prev.remove(classes.center)
-                prev.remove(classes.left)
-                prev.add(classes.right)
-            }
-            const newCurr = refArray.current[idx].classList
-            newCurr.remove(classes.left)
-            newCurr.add(classes.center)
-        } else {
-            for (let i = currentStep; i < idx; i++) {
-                const next = refArray.current[i].classList
-                if (currentStep === i) next.remove(classes.center)
-                next.remove(classes.right)
-                next.add(classes.left)
-            }
-            const newCurr = refArray.current[idx].classList
-            newCurr.remove(classes.right)
-            newCurr.add(classes.center)
-        }
-        setCurrentStep(idx)
-    }
 
     let steps = [
         {
@@ -270,19 +237,18 @@ function JobForm(props) {
             fields: ['confirmation'], // Required Fields
             html: <>
                 <>
-                    <div className={`reverseOrder ${classes.fieldWrapper}`}>
+                    <div className={"reverseOrder"}>
                         <h2>Job application form</h2>
                         <p>Welcome to our</p>
                     </div>
-                    <div className={`${classes.confirmation} ${classes.fieldWrapper}`}>
-                        <input className={classes.cbSmall} tabIndex={currentStep === 0 ? 0 : -1}
-                               type={"checkbox"} {...registerWithSave('confirmation')}/>
+                    <div className={classes.sameRow}>
+                        <input className={classes.cbSmall} tabIndex={currentSection === 0 ? 0 : -1}
+                               type={"checkbox"} {...register('confirmation')}/>
                         <p>To proceed with the application process confirm that you have read and agreed to our <a
-                            href={"#"} target={'_blank'} rel="noreferrer">terms
+                            href={"#"} target={'_blank'}>terms
                             of privacy</a> on how we use the data.<span className={classes.required}>*</span></p>
                     </div>
-                    <div
-                        className={`${errors.confirmation?.message ? classes.error : classes.noError}`}>{errors.confirmation?.message}</div>
+                    <div className={`${errors.confirmation?.message ? classes.error : classes.noError}`}>{errors.confirmation?.message}</div>
                 </>
             </>
         },
@@ -290,33 +256,29 @@ function JobForm(props) {
             name: "Personal information",
             fields: ['firstName', 'lastName', 'birthday', 'nationality'], // Required Fields
             html: <>
-                <div className={`${classes.fieldWrapper}`}>
+                <div>
                     <p>First name<span className={classes.required}>*</span></p>
-                    <input tabIndex={currentStep === 1 ? 0 : -1} type={"text"} {...registerWithSave('firstName')}
+                    <input tabIndex={currentSection === 1 ? 0 : -1} type={"text"} {...register('firstName')}
                            placeholder={"First name"}/>
-                    <div
-                        className={`${errors.firstName?.message ? classes.error : classes.noError}`}>{errors.firstName?.message || ' '}</div>
+                    <div className={`${errors.firstName?.message ? classes.error : classes.noError}`}>{errors.firstName?.message || ' '}</div>
                 </div>
-                <div className={classes.fieldWrapper}>
+                <div>
                     <p>Last Name<span className={classes.required}>*</span></p>
-                    <input tabIndex={currentStep === 1 ? 1 : -1}
-                           type={"text"} {...registerWithSave('lastName')} placeholder={"Last name"}/>
-                    <div
-                        className={`${errors.lastName?.message ? classes.error : classes.noError}`}>{errors.lastName?.message}</div>
+                    <input tabIndex={currentSection === 1 ? 1 : -1}
+                           type={"text"} {...register('lastName')} placeholder={"Last name"}/>
+                    <div className={`${errors.lastName?.message ? classes.error : classes.noError}`}>{errors.lastName?.message}</div>
                 </div>
-                <div className={classes.fieldWrapper}>
+                <div>
                     <p>Birthday<span className={classes.required}>*</span></p>
-                    <input tabIndex={currentStep === 1 ? 2 : -1}
-                           type={"date"} {...registerWithSave('birthday')} />
-                    <div
-                        className={`${errors.birthday?.message ? classes.error : classes.noError}`}>{errors.birthday?.message}</div>
+                    <input tabIndex={currentSection === 1 ? 2 : -1}
+                           type={"date"} {...register('birthday')} />
+                    <div className={`${errors.birthday?.message ? classes.error : classes.noError}`}>{errors.birthday?.message}</div>
                 </div>
-                <div className={classes.fieldWrapper}>
+                <div>
                     <p>Nationality<span className={classes.required}>*</span></p>
-                    <input tabIndex={currentStep === 1 ? 3 : -1}
-                           type={"text"} {...registerWithSave('nationality')} placeholder={"Nationality"}/>
-                    <div
-                        className={`${errors.nationality?.message ? classes.error : classes.noError}`}>{errors.nationality?.message}</div>
+                    <input tabIndex={currentSection === 1 ? 3 : -1}
+                           type={"text"} {...register('nationality')} placeholder={"Nationality"}/>
+                    <div className={`${errors.nationality?.message ? classes.error : classes.noError}`}>{errors.nationality?.message}</div>
                 </div>
             </>
         },
@@ -324,40 +286,35 @@ function JobForm(props) {
             name: "Contact information",
             fields: ['mail', 'phone', 'street', 'zip', 'city'], // Required fields
             html: <>
-                <div className={classes.fieldWrapper}>
+                <div>
                     <p>E-Mail address<span className={classes.required}>*</span></p>
-                    <input tabIndex={currentStep === 2 ? 0 : -1}
-                           type={"email"} {...registerWithSave('mail')} placeholder={"E-Mail address"}/>
-                    <div
-                        className={`${errors.mail?.message ? classes.error : classes.noError}`}>{errors.mail?.message}</div>
+                    <input tabIndex={currentSection === 2 ? 0 : -1}
+                           type={"email"} {...register('mail')} placeholder={"E-Mail address"}/>
+                    <div className={`${errors.mail?.message ? classes.error : classes.noError}`}>{errors.mail?.message}</div>
                 </div>
-                <div className={classes.fieldWrapper}>
+                <div>
                     <p>Phone number<span className={classes.required}>*</span></p>
-                    <input tabIndex={currentStep === 2 ? 1 : -1}
-                           type={"tel"} {...registerWithSave('phone')} placeholder={"Phone number"}/>
-                    <div
-                        className={`${errors.phone?.message ? classes.error : classes.noError}`}>{errors.phone?.message}</div>
+                    <input tabIndex={currentSection === 2 ? 1 : -1}
+                           type={"tel"} {...register('phone')} placeholder={"Phone number"}/>
+                    <div className={`${errors.phone?.message ? classes.error : classes.noError}`}>{errors.phone?.message}</div>
                 </div>
-                <div className={classes.fieldWrapper}>
+                <div>
                     <p>Street and house number<span className={classes.required}>*</span></p>
-                    <input tabIndex={currentStep === 2 ? 2 : -1}
-                           type={"text"} {...registerWithSave('street')} placeholder={"Street + House number"}/>
-                    <div
-                        className={`${errors.street?.message ? classes.error : classes.noError}`}>{errors.street?.message}</div>
+                    <input tabIndex={currentSection === 2 ? 2 : -1}
+                           type={"text"} {...register('street')} placeholder={"Street + House number"}/>
+                    <div className={`${errors.street?.message ? classes.error : classes.noError}`}>{errors.street?.message}</div>
                 </div>
-                <div className={classes.fieldWrapper}>
+                <div>
                     <p>ZIP<span className={classes.required}>*</span></p>
-                    <input tabIndex={currentStep === 2 ? 3 : -1} type={"text"} {...registerWithSave('zip')}
+                    <input tabIndex={currentSection === 2 ? 3 : -1} type={"text"} {...register('zip')}
                            placeholder={"Zip code"}/>
-                    <div
-                        className={`${errors.zip?.message ? classes.error : classes.noError}`}>{errors.zip?.message}</div>
+                    <div className={`${errors.zip?.message ? classes.error : classes.noError}`}>{errors.zip?.message}</div>
                 </div>
-                <div className={classes.fieldWrapper}>
+                <div>
                     <p>City<span className={classes.required}>*</span></p>
-                    <input tabIndex={currentStep === 2 ? 4 : -1}
-                           type={"text"} {...registerWithSave('city')} placeholder={"City"}/>
-                    <div
-                        className={`${errors.city?.message ? classes.error : classes.noError}`}>{errors.city?.message}</div>
+                    <input tabIndex={currentSection === 2 ? 4 : -1}
+                           type={"text"} {...register('city')} placeholder={"City"}/>
+                    <div className={`${errors.city?.message ? classes.error : classes.noError}`}>{errors.city?.message}</div>
                 </div>
             </>
         },
@@ -366,50 +323,45 @@ function JobForm(props) {
             fields: ['currentEmployment', 'desiredEmployment', 'salary', 'entry'], // Required fields
             html: <>
 
-                <div className={classes.fieldWrapper}>
+                <div>
                     <p>Current Employment<span className={classes.required}>*</span></p>
-                    <select defaultValue={"Please select..."}
-                            tabIndex={currentStep === 3 ? 0 : -1} {...registerWithSave('currentEmployment')}>
+                    <select defaultValue={"Please select..."} tabIndex={currentSection === 3 ? 0 : -1} {...register('currentEmployment')}>
                         <option value={"Please select..."} hidden={true}>Please select...</option>
                         {currentEmploymentOptions.map(option => (
                             <option key={option} value={option}>{option}</option>
                         ))}
                     </select>
                 </div>
-                <div className={classes.fieldWrapper}>
+                <div>
                     <p>Desired Employment<span className={classes.required}>*</span></p>
-                    <select defaultValue={"Please select..."}
-                            tabIndex={currentStep === 3 ? 1 : -1} {...registerWithSave('desiredEmployment')}>
+                    <select defaultValue={"Please select..."} tabIndex={currentSection === 3 ? 1 : -1} {...register('desiredEmployment')}>
                         <option value={"Please select..."} hidden={true}>Please select...</option>
                         {desiredEmploymentOptions.map(option => (
                             <option key={option} value={option}>{option}</option>
                         ))}
                     </select>
                 </div>
-                <div className={classes.fieldWrapper}>
+                <div>
                     <div>
                         <p>Desired salary (net in €)<span className={classes.required}>*</span></p>
-                        <input tabIndex={currentStep === 3 ? 2 : -1}
-                               type={"tel"} {...registerWithSave('salary')} placeholder={"Salary"}/>
-                        <div
-                            className={`${errors.salary?.message ? classes.error : classes.noError}`}>{errors.salary?.message}</div>
+                        <input tabIndex={currentSection === 3 ? 2 : -1}
+                               type={"tel"} {...register('salary')} placeholder={"Salary"}/>
+                        <div className={`${errors.salary?.message ? classes.error : classes.noError}`}>{errors.salary?.message}</div>
                     </div>
                 </div>
-                <div className={classes.fieldWrapper}>
+                <div>
                     <div>
                         <p>Entry date<span className={classes.required}>*</span></p>
-                        <input tabIndex={currentStep === 3 ? 3 : -1}
-                               type={"date"} {...registerWithSave('entry')} />
-                        <div
-                            className={`${errors.entry?.message ? classes.error : classes.noError}`}>{errors.entry?.message}</div>
+                        <input tabIndex={currentSection === 3 ? 3 : -1}
+                               type={"date"} {...register('entry')} />
+                        <div className={`${errors.entry?.message ? classes.error : classes.noError}`}>{errors.entry?.message}</div>
                     </div>
                 </div>
-                <div className={classes.fieldWrapper}>
+                <div>
                     <p>Previous experience</p>
-                    <textarea tabIndex={currentStep === 3 ? 4 : -1} rows={5} {...registerWithSave('experience')}
+                    <textarea tabIndex={currentSection === 3 ? 4 : -1} rows={5} {...register('experience')}
                               placeholder={"Tell us about your experience"}/>
-                    <div
-                        className={`${errors.experience?.message ? classes.error : classes.noError}`}>{errors.experience?.message}</div>
+                    <div className={`${errors.experience?.message ? classes.error : classes.noError}`}>{errors.experience?.message}</div>
                 </div>
             </>
         },
@@ -417,12 +369,12 @@ function JobForm(props) {
             name: "Availability",
             fields: ['availability'],
             html: <>
-                <div className={classes.fieldWrapper}>
+                <div>
                     <p>When are you available?<span className={classes.required}>*</span></p>
                     <table className={classes.availabilityTable}>
                         <thead>
                         <tr>
-                            <th>Start<br/>Shift</th>
+                            <th>Availability</th>
                             {days.map(day => <th key={day}>{day}</th>)}
                         </tr>
                         </thead>
@@ -433,9 +385,9 @@ function JobForm(props) {
                                 {days.map((day, dayIndex) => (
                                     <td key={`${day}-${option}`}>
                                         <input autoFocus={false}
-                                               tabIndex={currentStep === 4 ? (shiftIndex * days.length) + dayIndex : -1}
+                                               tabIndex={currentSection === 4 ? (shiftIndex * days.length) + dayIndex : -1}
                                                type="checkbox"
-                                               {...registerWithSave(`availability.${day}[${shiftIndex}]`)}
+                                               {...register(`availability.${day}[${shiftIndex}]`)}
                                         />
                                     </td>
                                 ))}
@@ -445,12 +397,12 @@ function JobForm(props) {
                     </table>
                 </div>
                 <div
-                    className={`${errors.availability?.message ? classes.error : classes.noError}`}>{errors.availability?.message}</div>
+                    className={`${errors.availability?.message ? classes.error : classes.noError} ${classes.preventoverscroll}`}>{errors.availability?.message}</div>
                 <div className={classes.availabilityButtons}>
-                    <button tabIndex={currentStep === 4 ? (shifts.length * days.length) : -1} type="button"
+                    <button tabIndex={currentSection === 4 ? (shifts.length * days.length) : -1} type="button"
                             onClick={fillAllAvailability} className={"button-confirm"}>Always available
                     </button>
-                    <button tabIndex={currentStep === 4 ? (shifts.length * days.length) + 1 : -1} type="button"
+                    <button tabIndex={currentSection === 4 ? (shifts.length * days.length) + 1 : -1} type="button"
                             onClick={clearAllAvailability} className={"button-warning"}>Clear selection
                     </button>
                 </div>
@@ -461,14 +413,16 @@ function JobForm(props) {
             fields: [],
             html:
                 <>
-                        <div className={classes.fieldWrapper}>
+                    <div>
+                        <div>
                             <p>More about you!<br/>If you have anything you want to tell us about you, feel free:</p>
-                            <textarea tabIndex={currentStep === 5 ? 0 : -1}
-                                      rows={5} {...registerWithSave('motivation')}
+                            <textarea tabIndex={currentSection === 5 ? 0 : -1}
+                                      rows={5} {...register('motivation')}
                                       placeholder={"Tell us about you or your motivation"}/>
                             <div
                                 className={`${errors.motivation?.message ? classes.error : classes.noError}`}>{errors.motivation?.message}</div>
                         </div>
+                    </div>
                 </>
         }
     ]
@@ -487,7 +441,7 @@ function JobForm(props) {
                 );
             }
 
-            return watched[currentStep]
+            return watched[currentSection]
                 .every(value => (value !== '' && value !== false && value !== 'Please select...'
                     && (typeof value !== 'object'
                         || checkAtLeastOneCheckboxChecked(value)
@@ -499,14 +453,19 @@ function JobForm(props) {
         } else {
             setButtonDisabled(true)
         }
-    }, [currentStep, watched]);
-
+    }, [currentSection, watched]);
 
     const navigationElements = steps.map((section, idx) => {
+        const handleClick = () => {
+            if (currentSection > idx || visited.includes(idx)) {
+                setCurrentSection(idx);
+            }
+        };
+
         let className = classes.open;
-        if (currentStep === idx) {
+        if (currentSection === idx) {
             className = classes.current;
-        } else if (currentStep > idx || visited.includes(idx)) {
+        } else if (currentSection > idx || visited.includes(idx)) {
             className = classes.done;
         }
 
@@ -514,7 +473,7 @@ function JobForm(props) {
             <li
                 className={className}
                 key={idx}
-                onClick={(e) => handleGoTo(idx, e)}
+                onClick={handleClick}
             >
                 {section.name}
             </li>
@@ -525,21 +484,8 @@ function JobForm(props) {
         setSubmitted(true); // TODO: Handle answer and transport it to Submitted.jsx
         setFormData(formValues);
 
-        // Fügen Sie dem FormData-Objekt bei Bedarf weitere Daten hinzu
-        // formData.append('schluessel', 'wert');
 
-        fetch('https://api.heyzel.de/send.php', {
-            method: 'POST',
-            body: formData,
-        })
-            .then(response => response.text())
-            .then(data => console.log(data))
-            .catch(error => {
-                setSuccessful(false)
-                console.error('Fehler:', error)
-            });
-
-        setSuccessful(true);
+        setSuccessful(false);
     }
 
     function handleReset(event) {
@@ -587,19 +533,15 @@ function JobForm(props) {
             {!resetting && !submitted &&
                 <form onSubmit={handleSubmit(handleSave)}
                       className={`${classes.formContainer}`}>
-                    <div className={classes.sectionWrapper} id={"jfsw"}>
-                        {steps.map((step, index) => {
-                                let order = index < currentStep ? classes.left : index === currentStep ? classes.center : classes.right
-                                order = index === currentStep ? classes.center : order
-                                return <section key={index}
-                                                className={`${classes.scrollable} ${order}`}
-                                                ref={(el) => (refArray.current[index] = el)}>
-                                    <div className={classes.stepWrapper}>
-                                        {step.html}
-                                    </div>
-                                </section>
-                            }
-                        )}
+                    <div className={classes.sectionWrapper} ref={sectionWrapperRef} id={"jfsw"}>
+                        {steps.map((step, index) => (
+                            <section key={index}
+                                     className={`${classes.scrollable} ${currentSection === index ? classes.current : classes.hidden}`}>
+                                <div className={classes.stepWrapper}>
+                                    {step.html}
+                                </div>
+                            </section>
+                        ))}
                     </div>
                     <div className={classes.toPage}><a tabIndex={995} href={"/"}
                                                        target={'_self'}><IoChevronBackOutline/>
@@ -610,16 +552,16 @@ function JobForm(props) {
                         </button>
                     </div>
                     <div className={classes.controlBar}>
-                        <div className={classes.directNav}>
+                        <div>
                             <ul className={classes.navigationElements}>
                                 {navigationElements}
                             </ul>
                         </div>
                         <div className={classes.buttons}>
-                            {currentStep !== 0 && <button tabIndex={991} onClick={handleBackClick}
-                                                          className={`${classes.ctrlBtn} ${classes.enabled} secondary`}>BACK
+                            {currentSection !== 0 && <button tabIndex={991} onClick={handleBackClick}
+                                                             className={`${classes.ctrlBtn} ${classes.enabled} secondary`}>BACK
                             </button>}
-                            {currentStep !== steps.length - 1 ?
+                            {currentSection !== steps.length - 1 ?
                                 <button disabled={buttonDisabled} tabIndex={990} onClick={handleNextClick}
                                         className={`${classes.ctrlBtn}  ${buttonDisabled ? 'button-disabled' : 'button-confirm'}`}>NEXT
                                 </button> : <button disabled={buttonDisabled} tabIndex={990} type={"submit"}
@@ -628,9 +570,9 @@ function JobForm(props) {
                         </div>
                     </div>
                 </form>}
-            {!resetting && submitted && <Submitted show={submitted} successful={successful} formData={formData}/>}
+            {!resetting && submitted && <Submitted show={submitted} successful={successful} formData={formData} />}
         </>
     );
 }
 
-export default JobForm;
+export default JobFormOld;

@@ -107,11 +107,11 @@ export default function Menu() {
                     {currentModalContent.image}
                     <div className={classes.rightWrapper}>
                         {currentModalContent.name}
-                        <div className={`${classes.scrollIndicator} ${classes.top}`}>{showUpArrow && <IoChevronUpOutline/>}</div>
+                        <div className={`${classes.scrollIndicator}`}>{showUpArrow && <IoChevronUpOutline/>}</div>
                         <div className={classes.itemListWrapper} onScroll={handleScroll} ref={itemListWrapperRef}>
                             {currentModalContent.content}
                         </div>
-                        <div className={`${classes.scrollIndicator} ${classes.bottom}`}>{showDownArrow && <IoChevronDownOutline/>}</div>
+                        <div className={`${classes.scrollIndicator}`}>{showDownArrow && <IoChevronDownOutline/>}</div>
                     </div>
                 </div>
             </Modal>
