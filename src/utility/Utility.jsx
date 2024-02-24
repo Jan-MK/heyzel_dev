@@ -1,5 +1,5 @@
-const days = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
-const shifts = ['Frühschicht', 'Mittagsschicht', 'Spätschicht', 'Abendschicht'];
+export const days = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
+export const shifts = ['7:30', '13:00', '16:00'];
 
 export function prepareData(formData) {
     let content = [];

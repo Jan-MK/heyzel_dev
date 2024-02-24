@@ -9,8 +9,8 @@ import Submitted from "./Submitted/Submitted.jsx";
 import Reset from "./Reset/Reset.jsx";
 import Cookies from 'universal-cookie';
 import {prepareData} from "../../utility/Utility.jsx";
+import {days, shifts} from "../../utility/Utility.jsx";
 
-const days = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
 const defaultValues = {
     confirmation: false,
     firstName: '',
@@ -32,13 +32,6 @@ const defaultValues = {
 }
 const currentEmploymentOptions = ["Schüler", "Student", "Vollzeitanstellung", "Teilzeitanstellung", "Selbstständig", "Arbeitssuchend"]
 const desiredEmploymentOptions = ["Vollzeit", "Teilzeit", "Werksstudent", "Minijob (450€ Basis)"]
-/*const countryOptions = [
-    {value: "asgard", label: "Asgard"},
-    {value: "germany", label: "Germany"},
-    {value: "usa", label: "USA"},
-]*/
-
-const shifts = ['7:30', '13:00', '16:00'];
 
 const today = new Date();
 const eighteenYearsAgo = new Date();
@@ -522,11 +515,14 @@ function JobForm(props) {
         );
     });
 
-    function handleSave(formValues) {
+    function handleSave(formData) {
         setSubmitted(true);
-        setFormData(formValues);
+        setFormData(formData);
 
-        const encodedData = "SOMECONTENT"; // Beispiel-Daten
+        // Prepare the email content in HTML or plain text
+        const emailContent = prepareData(formData);
+        const encodedData = `emailContent=${encodeURIComponent(emailContent)}`;
+
 
         fetch('https://api.heyzel.de/send.php', {
             method: 'POST',
@@ -536,8 +532,8 @@ function JobForm(props) {
             body: encodedData,
         })
             .then(response => {
-                if (!response.ok) { // Überprüft, ob der HTTP-Statuscode Erfolg signalisiert
-                    throw new Error('Netzwerkantwort war nicht ok');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
                 }
                 return response.text();
             })
@@ -550,6 +546,8 @@ function JobForm(props) {
                 setSuccessful(false);
             });
     }
+
+
 
 
     function handleReset(event) {

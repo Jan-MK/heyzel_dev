@@ -12,7 +12,7 @@ function Submitted({show, successful, formData}) {
         const mailSubject = encodeURIComponent(`Bewerbung ${formData.firstName} ${formData.lastName}`)
         const mailBody = encodeURIComponent(content);
         const mailtoLink = `mailto:jan.kraemer@selfmail.eu?subject=${mailSubject}&body=${mailBody}`;
-
+        console.log(content)
         setContent(<>
             <h2>Something went wrong...</h2>
             <p>No worries, you can send it via your local e-mail client.</p>
