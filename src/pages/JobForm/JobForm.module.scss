@@ -359,7 +359,12 @@
           }
 
           &.done {
-            color: var(--text-primary);
+            color: var(--confirm);
+            cursor: pointer;
+          }
+
+          &.incomplete {
+            color: var(--delete);
             cursor: pointer;
           }
 

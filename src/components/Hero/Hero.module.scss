@@ -1,0 +1,235 @@
+/*.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+
+  .heroWrapper {
+    width: inherit;
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .heroMedia {
+      position: fixed !important;
+      z-index: 1;
+      pointer-events: none;
+      max-width: 100%;
+
+      .heroFigure {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        max-width: 100%;
+
+        .heroImage {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+        }
+      }
+
+      .overlay {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        max-width: 100%;
+        background-color: var(--overlay);
+      }
+    }
+
+    .heroRow {
+      position: relative !important;
+      height: 100%;
+      z-index: 1;
+      color: var(--text-primary);
+
+      &:hover {
+        transition: background-color 150ms;
+        background-color: var(--overlay);
+        cursor: pointer;
+      }
+
+      .heroRowText {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: inherit;
+        padding: 2rem;
+        overflow: hidden;
+      }
+
+      h1 {
+        margin: 0;
+        padding: 0;
+        font-size: clamp(1.5rem, 5vw, 3.5rem);
+        line-height: 1;
+      }
+
+      h4 {
+        font-size: clamp(1rem, 3vw, 2.5rem);
+        line-height: 1;
+      }
+
+
+      .heroRowSeparator {
+        border: 1px solid white;
+      }
+    }
+  }
+}*/
+
+.heroWrapper {
+  /*background-color: #70BAFF;*/
+  z-index: 5;
+  overflow: hidden;
+
+  .heroImages {
+    z-index: 0;
+    position: absolute;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 15px;
+
+    max-height: 100%;
+    max-width: 75vw;
+    overflow: hidden;
+
+    .imageArray {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      position: relative;
+
+      .imageContainer {
+        width: 20vw;
+        height: calc(20vw * 1.5);
+
+        .heroImage {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+
+      &.left {
+        top: -20px;
+      }
+
+      &.right {
+        top: -100px;
+      }
+    }
+
+  }
+
+  .hero {
+    height: 100%;
+
+    .textContent {
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 15px;
+      max-width: 45vh;
+
+      .headLine {
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: flex-start;
+
+        .logoWrapper {
+          position: relative;
+          height: 10vh;
+
+          .logo {
+            position: relative;
+            top: 0;
+            left: 0;
+            height: 10vh;
+          }
+        }
+
+        p {
+          font-size: min(5vh, 5vw);
+
+          span {
+            font-weight: bold;
+          }
+        }
+      }
+
+      p {
+        font-size: 20px;
+      }
+
+      button {
+        /*background-color: #ffd400;*/
+      }
+    }
+  }
+
+  .scrollIconContainer {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    .scroll {
+      z-index: 10;
+      width: 60px;
+      height: 60px;
+      border: 2px solid #70BAFF;
+      border-radius: 50%;
+      position: absolute;
+      animation: down 1.5s infinite;
+      -webkit-animation: down 1.5s infinite;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 15px;
+        left: 18px;
+        width: 18px;
+        height: 18px;
+        border-left: 2px solid #70BAFF;
+        border-bottom: 2px solid #70BAFF;
+        transform: rotate(-45deg);
+      }
+    }
+
+    @keyframes down {
+      0% {
+        transform: translate(0);
+      }
+      20% {
+        transform: translateY(15px);
+      }
+      40% {
+        transform: translate(0);
+      }
+    }
+
+    @-webkit-keyframes down {
+      0% {
+        transform: translate(0);
+      }
+      20% {
+        transform: translateY(15px);
+      }
+      40% {
+        transform: translate(0);
+      }
+    }
+  }
+}

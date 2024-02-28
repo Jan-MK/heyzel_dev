@@ -5,8 +5,9 @@ import Reset from "../Reset/Reset.jsx";
 import {prepareData} from "../../../utility/Utility.jsx";
 import {Link} from "react-router-dom";
 
-function Submitted({show, answered, successful, formData}) {
+function Submitted({show, answered, successful, formData, cleanForm}) {
     const [content, setContent] = useState(<Reset text={"Sending application..."}/>)
+
     useEffect(() => {
         if (answered) {
             if (successful) {
@@ -21,12 +22,18 @@ function Submitted({show, answered, successful, formData}) {
                 const mailBody = encodeURIComponent(content);
                 const mailtoLink = `mailto:jan.kraemer@selfmail.eu?subject=${mailSubject}&body=${mailBody}`;
                 setContent(<>
-                    <h2>Something went wrong...</h2>
+                    <h2>Oops, something went wrong...</h2>
                     <p>No worries, you can send it via your local e-mail client.</p>
                     <a href={mailtoLink}>Send my application via mail.</a>
+                    <Link to={"/"}>Go to main page.</Link>
                 </>)
             }
         }
+        // Return a cleanup function from the useEffect hook
+        return () => {
+            // This function is called when the component unmounts
+            cleanForm();
+        };
     }, [answered, successful])
 
     return (

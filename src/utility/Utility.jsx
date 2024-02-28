@@ -3,14 +3,19 @@ export const shifts = ['7:30', '13:00', '16:00'];
 
 export function prepareData(formData) {
     let content = [];
-    content.push(`Persönliches`);
-    content.push(`Vorname:\t\t${formData.firstName}`);
+    content.push(`Persönliche Informationen`);
     content.push(`Nachname:\t\t${formData.lastName}`);
+    content.push(`Vorname:\t\t${formData.firstName}`);
     // Calculate age in years from birthday
     const birthdayDateFormat = formatDate(formData.birthday);
     const age = calculateAge(formData.birthday);
-    content.push(`Birthday:\t\t${birthdayDateFormat} (${age} Jahre)`); // In Klammern das Alter in Jahre
-    content.push(`Nationalität:\t${formData.nationality}`);
+    content.push(`Geburtstag:\t\t${birthdayDateFormat} (${age} Jahre)`); // In Klammern das Alter in Jahre
+
+    content.push(`Familienstand:\t${formData.marital}`);
+    content.push(`Staatsangehörigkeit:\t${formData.nationality}`);
+    content.push(`Konfession:\t${formData.confession}`);
+    content.push(`Sozial-Vers.-Nr.:\t${formData.ssn}`);
+
 
     content.push('\nKontaktinformationen');
     content.push(`Mail:\t\t${formData.mail}`);
@@ -21,17 +26,18 @@ export function prepareData(formData) {
     content.push(`PLZ:\t${formData.zip}`);
     content.push(`Stadt:\t${formData.city}`);
 
-    content.push('\nÜber');
+    content.push('\nBerufsbezogen');
     content.push(`Aktuelle Anstellung:\t${formData.currentEmployment}`);
+    content.push(`Sonstige Bezüge:\t${formData.earnings}`);
     content.push(`Gewünschte Anstellung:\t${formData.desiredEmployment}`);
     content.push(`Wunschgehalt:\t\t\t${formData.salary} €`);
     content.push(`Möglicher Beginn:\t\t${formatDate(formData.entry)}`);
     content.push(`Erfahrung:\n${formData.experience}`);
     content.push('\nVerfügbarkeit');
     // Construct availability matrix
-    let daysStr = '\t\t'
+    let daysStr = 'Beginn\t'
     for (const day of days) {
-        daysStr += `${day.substring(0,2)}\t`
+        daysStr += `${day.substring(0, 2)}\t`
     }
     content.push(daysStr)
     let str = "";
@@ -55,14 +61,17 @@ export function prepareData(formData) {
 
 export function prepareDataHTML(formData) {
     let content = [];
-    content.push(`<h2>Persönliches</h2>`);
+    content.push(`<h2>Persönliche Informationen</h2>`);
     content.push(`<p><strong>Vorname:</strong> ${formData.firstName}</p>`);
     content.push(`<p><strong>Nachname:</strong> ${formData.lastName}</p>`);
     // Calculate age in years from birthday
     const birthdayDateFormat = formatDate(formData.birthday);
     const age = calculateAge(formData.birthday);
-    content.push(`<p><strong>Birthday:</strong> ${birthdayDateFormat} (${age} Jahre)</p>`); // In Klammern das Alter in Jahre
-    content.push(`<p><strong>Nationalität:</strong> ${formData.nationality}</p>`);
+    content.push(`<p><strong>Geburtstag:</strong> ${birthdayDateFormat} (${age} Jahre)</p>`); // In Klammern das Alter in Jahre
+    content.push(`<p><strong>Familienstand:</strong> ${formData.marital}</p>`);
+    content.push(`<p><strong>Staatsangehörigkeit:</strong> ${formData.nationality}</p>`);
+    content.push(`<p><strong>Konfession:</strong> ${formData.confession}</p>`);
+    content.push(`<p><strong>Soz.-Vers.-Nr:</strong> ${formData.ssn}</p>`);
 
     content.push(`<h2>Kontaktinformationen</h2>`);
     content.push(`<p><strong>Mail:</strong> ${formData.mail}</p>`);
@@ -77,6 +86,7 @@ export function prepareDataHTML(formData) {
     content.push(`<p><strong>Aktuelle Anstellung:</strong> ${formData.currentEmployment}</p>`);
     content.push(`<p><strong>Gewünschte Anstellung:</strong> ${formData.desiredEmployment}</p>`);
     content.push(`<p><strong>Wunschgehalt:</strong> ${formData.salary} €</p>`);
+    content.push(`<p><strong>Andere Bezüge:</strong> ${formData.earnings}</p>`);
     content.push(`<p><strong>Möglicher Beginn:</strong> ${formatDate(formData.entry)}</p>`);
     content.push(`<p><strong>Erfahrung:</strong><br>${formData.experience}</p>`);
 

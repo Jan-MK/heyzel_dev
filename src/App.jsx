@@ -1,15 +1,13 @@
 import {useEffect, useState} from 'react'
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
-import { ThemeProvider } from './context/ThemeContext.jsx';
+import {ThemeProvider} from './context/ThemeContext.jsx';
 import './App.scss'
 import HorizontalMultiStep from "./pages/HorizontalMultiStep/HorizontalMultiStep.jsx";
 import Home from "./pages/Home.jsx";
-import JobFormOld from "./pages/JobFormOld/JobFormOld.jsx";
 import Gsap from "./pages/GSAP/Gsap.jsx";
 import Layout from "./components/Layout/Layout.jsx";
-import JobForm2Nd from "./pages/JobForm2nd/JobForm2nd.jsx";
-import JobForm2nd from "./pages/JobForm2nd/JobForm2nd.jsx";
 import JobForm from "./pages/JobForm/JobForm.jsx";
+import {NavbarProvider} from "./context/NavbarContext.jsx";
 
 function useDynamicFavicon() {
     useEffect(() => {
@@ -44,14 +42,14 @@ function App() {
     return (
         <Router>
             <ThemeProvider>
+                <NavbarProvider>
                     <Routes>
-                        <Route path="/" element={<Layout><Home /></Layout>} />
-                        <Route path="/test" element={<HorizontalMultiStep />} />
-                        <Route path="/jobs" element={<JobForm />} />
-                        <Route path="/jobs2" element={<JobForm2nd />} />
-                        <Route path="/jobs3" element={<JobFormOld />} />
-                        <Route path="/gsap" element={<Gsap />} />
+                        <Route path="/" element={<Home/>}/>
+                        <Route path="/test" element={<HorizontalMultiStep/>}/>
+                        <Route path="/jobs" element={<JobForm/>}/>
+                        <Route path="/gsap" element={<Gsap/>}/>
                     </Routes>
+                </NavbarProvider>
             </ThemeProvider>
         </Router>
     );

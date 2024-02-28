@@ -24,7 +24,7 @@
 
   --transition: 500ms ease;
   --info: var(--light-accent-100op);
-
+  --overlay: var(--light-shades-50op);
 }
 
 [data-theme='dark'] {
@@ -46,6 +46,7 @@
 
   --transition: var(--transition-duration-500) ease;
   --info: var(--dark-accent-100op);
+  --overlay: var(--dark-shades-50op);
 }
 
 :root {
