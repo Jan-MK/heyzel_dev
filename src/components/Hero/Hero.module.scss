@@ -147,6 +147,7 @@
         align-items: flex-start;
 
         .logoWrapper {
+          width: clamp(350px,20vw,700px);
         }
 
         p {
@@ -180,7 +181,7 @@
       z-index: 10;
       width: 60px;
       height: 60px;
-      border: 2px solid #70BAFF;
+      border: 2px solid var(--accent3);
       border-radius: 50%;
       position: absolute;
       animation: down 1.5s infinite;
@@ -193,8 +194,8 @@
         left: 18px;
         width: 18px;
         height: 18px;
-        border-left: 2px solid #70BAFF;
-        border-bottom: 2px solid #70BAFF;
+        border-left: 2px solid var(--accent3);
+        border-bottom: 2px solid var(--accent3);
         transform: rotate(-45deg);
       }
     }

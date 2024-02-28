@@ -268,12 +268,12 @@ function HeroComponent(props) {
                 <div className={`${classes.textContent}`}>
                     <div className={classes.headLine}>
                         <div className={classes.logoWrapper}>
-                            <Logo width={"30vw"} />
+                            <Logo width={"100%"} />
                         </div>
                         <p>A <span>unique</span> vibe</p>
                     </div>
                     <p>Good talks, working between meetings, pre-party at night - we've got you!</p>
-                    <button className={`${classes.asdf} primary`}>Discover</button>
+                    <button className={`${classes.asdf} secondary`}>Discover</button>
                 </div>
             </div>
             <div className={classes.scrollIconContainer}>

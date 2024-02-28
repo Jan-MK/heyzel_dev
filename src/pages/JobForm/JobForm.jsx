@@ -84,7 +84,7 @@ const schema = z.object({
     salary: z.string()
         .transform(val => parseFloat(val)) // Transform the string to a number for validation.
         .refine(val => !isNaN(val), {message: 'Salary must be a number.'}),
-    experience: string().optional(),
+    experience: string().optional(), // TODO Is optional but has issues and needs to be filled out.
     availability: z.object({
         Montag: z.array(z.boolean().optional()).optional(),
         Dienstag: z.array(z.boolean().optional()).optional(),
@@ -423,7 +423,7 @@ function JobForm(props) {
         },
         {
             name: "About your Job",
-            fields: ['currentEmployment', 'earnings', 'desiredEmployment', 'salary', 'entry', 'experience'], // Required fields
+            fields: ['currentEmployment', 'earnings', 'desiredEmployment', 'salary', 'entry'], // Required fields
             html: <>
                 <div className={classes.fieldWrapper}>
                     <p>Current Employment<span className={classes.required}>*</span></p>
@@ -536,7 +536,7 @@ function JobForm(props) {
         },
         {
             name: "Additional",
-            fields: ['motivation'],
+            fields: [],
             html:
                 <>
                     <div className={classes.fieldWrapper}>
@@ -586,7 +586,7 @@ function JobForm(props) {
             return errors !== null && Object.keys(errors).length === 0
         }
 
-        if ((currentStep < steps.length - 1 && requiredHaveContent()) || (currentStep === steps.length - 1 && noErrorsGlobal())) {
+        if ((currentStep < steps.length - 1 && requiredHaveContent()) || (currentStep === steps.length - 1 && requiredHaveContent() && noErrorsGlobal())) {
             setButtonDisabled(false)
         } else {
             setButtonDisabled(true)
@@ -706,7 +706,7 @@ function JobForm(props) {
                     <div className={classes.toPage}><a tabIndex={995} href={"/"}
                                                        target={'_self'}><IoChevronBackOutline/>
                         <p>Back home</p>
-                    </a><ThemeSwitch/>
+                    </a><ThemeSwitch isOnAbsolute={false} />
                         <button tabIndex={996} className={classes.borderlessBtn} onClick={handleReset}><IoTrashOutline
                             color={"#F44336FF"}/> Reset
                         </button>

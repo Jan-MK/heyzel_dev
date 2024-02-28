@@ -35,7 +35,7 @@ nav {
       align-items: center;
       gap: 25px;
 
-      ul {
+      /*ul {
         display: flex;
         flex-direction: row;
 
@@ -60,10 +60,68 @@ nav {
           user-select: none;
           cursor: pointer;
           font-weight: 500;
-          color: #2a2728;
+          color: var(--text-primary);
           transition: color 0.3s ease;
+
+          a {
+            color: inherit;
+
+            &:visited {
+              color: inherit;
+            }
+          }
+        }
+      }*/
+      /* Adjusting .navbar to apply to ul */
+      ul {
+        display: flex;
+        flex-direction: row;
+        list-style-type: none; // Remove default list styling
+        padding-left: 0; // Remove default padding
+
+        li {
+          font-weight: bold;
+          font-size: 14px;
+          text-transform: uppercase;
+          padding: 20px 0px;
+          margin: 0px 20px;
+          display: inline-block;
+          position: relative;
+          opacity: 0.75;
+          cursor: pointer; // Ensure it's clear these are clickable
+
+          a, .link { // Assuming your <Link> component has a 'link' class for styling
+            text-decoration: none;
+            color: var(--text-primary); // Text color
+            display: block; // Make the anchor fill the li for larger clickable area
+
+            &:visited {
+              color: inherit; // Keep the link color consistent
+            }
+          }
+
+          &:hover {
+            opacity: 1;
+
+            &::before {
+              width: 100%;
+            }
+          }
+
+          &::before {
+            transition: 300ms;
+            height: 5px;
+            content: "";
+            position: absolute;
+            background-color: var(--text-primary);
+            width: 0%;
+            bottom: 0; // Adjusted to 0 for the underline to be at the bottom of the list item
+            left: 0; // Ensure the line starts from the left edge
+          }
         }
       }
+
+
     }
   }
 }
