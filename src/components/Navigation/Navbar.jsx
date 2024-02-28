@@ -22,12 +22,72 @@ function Navbar({notTop}) {
     const navLinksRef = useRef(null)
     const logoContainerRef = useRef(null)
 
-    const navbar = navbarRef.current
-    const navbarContainer = navBarContainerRef.current
-    const navLinks = navLinksRef.current
-    const logoContainer = logoContainerRef.current
+
+/*
+
+    useEffect(() => {
+        let ctx
+        console.log(navbar ? true:false, notTop)
+        console.log(navbar)
+        if (navbar && notTop) {
+            console.log("RUN CTX")
+            ctx = gsap.context(() => {
+                let startAdjusted = 'top-=1px top'
+
+                ScrollTrigger.create({
+                    trigger: navbar,
+                    start: 'top top',
+                    endTrigger: 'bottom bottom',
+                    pin: [navbar],
+                    pinSpacing: false,
+                    scrub: true,
+                    markers: false,
+                })
+                gsap.fromTo(logoContainer, {opacity: 0},
+                    {
+                        opacity: 1,
+                        duration: .5,
+                        scrollTrigger: {
+                            trigger: navbar,
+                            start: startAdjusted,
+                            endTrigger: 'bottom bottom',
+                            toggleActions: "restart none none reverse",
+                            markers: true,
+                        }
+                    })
+                let xTrans = -(navbarContainer.offsetWidth - navLinks.offsetWidth) / 2
+                gsap.from(navLinks, {
+                    x: xTrans,
+                    duration: .5,
+                    scrollTrigger: {
+                        trigger: navbar,
+                        start: startAdjusted,
+                        endTrigger: 'bottom bottom',
+                        toggleActions: "restart none none reverse",
+                        markers: false,
+                        onToggle: () => {
+                            setShowLogo(prev => !prev)
+                            setBigGap(prev => {
+                                console.log(!prev)
+                                return !prev
+                            })
+                        }
+                    }
+                })
+
+            })
+            return () => ctx.revert()
+        }
+
+
+    }, []);
+*/
 
     useGSAP(() => {
+        const navbar = navbarRef.current
+        const navbarContainer = navBarContainerRef.current
+        const navLinks = navLinksRef.current
+        const logoContainer = logoContainerRef.current
         if (navbar && notTop) {
             let startAdjusted = 'top-=1px top'
             ScrollTrigger.create({
@@ -48,7 +108,7 @@ function Navbar({notTop}) {
                     start: startAdjusted,
                     endTrigger: 'bottom bottom',
                     toggleActions: "restart none none reverse",
-                    markers: true,
+                    markers: false,
                 }
             })
             let xTrans = -(navbarContainer.offsetWidth - navLinks.offsetWidth) / 2
@@ -62,9 +122,7 @@ function Navbar({notTop}) {
                     toggleActions: "restart none none reverse",
                     markers: false,
                     onToggle: () => {
-                        setShowLogo(prev => !prev)
                         setBigGap(prev => {
-                            console.log(!prev)
                             return !prev
                         })
                     }
@@ -73,12 +131,6 @@ function Navbar({notTop}) {
 
         }
     })
-
-    useEffect(() => {
-        if (navbarContainer) {
-            console.log(navbarContainer.offsetLeft)
-        }
-    }, [navbarContainer]);
 
 
     return (

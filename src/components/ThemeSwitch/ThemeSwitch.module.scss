@@ -1,9 +1,11 @@
-// ThemeSwitch.module.scss
+// Import the math module
+@use "sass:math";
+
 $slider-width: 45px; // Base width for the slider
-$slider-height-ratio: 34 / 60; // Ratio of height to width based on initial values
+$slider-height-ratio: math.div(34, 60); // Use math.div for division
 $slider-height: $slider-width * $slider-height-ratio; // Height depends on width
 $knob-size: $slider-height * 0.75; // Knob size based on height
-$knob-offset: ($slider-height - $knob-size) / 2; // Center knob within slider
+$knob-offset: math.div($slider-height - $knob-size, 2); // Use math.div for division
 $knob-move-distance: $slider-width - $knob-size - ($knob-offset * 2); // Distance knob should move
 $transition-duration: 500ms; // Transition duration
 
@@ -29,6 +31,7 @@ $transition-duration: 500ms; // Transition duration
     .slider {
       position: absolute;
       cursor: pointer;
+
       top: 0;
       left: 0;
       right: 0;
