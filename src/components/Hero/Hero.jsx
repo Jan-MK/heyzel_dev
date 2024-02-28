@@ -9,6 +9,7 @@ import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {useGSAP} from "@gsap/react";
 import NavbarContext from "../../context/NavbarContext.jsx";
+import Logo from "../Logo/Logo.jsx";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -155,7 +156,6 @@ let images = [
 let countPerColumn = 3
 
 function HeroComponent(props) {
-    const heroLogo = useRef(null)
     const leftContainer = useRef(null)
     const rightContainer = useRef(null)
     const containerRef = useRef(null)
@@ -215,42 +215,24 @@ function HeroComponent(props) {
     }
 
     useGSAP(() => {
+        const leftColumn = leftContainer.current
+        const rightColumn = rightContainer.current
+        const heroContainer = heroWrapper.current
 
-        let logoMovement = heroLogo.current
-        const left = leftContainer.current
-        const right = rightContainer.current
-        const hero = heroWrapper.current
-        const navbar = navbarRef.current;
-
-        /*if (hero && logoMovement) {
-            gsap.to(logoMovement, {
-                height: "500%",
-                /!*y: logoMovement.offsetTop - navbarRef.current.offsetTop + logoMovement.offsetHeight + navbarRef.current.offsetHeight,*!/
-                scrollTrigger: {
-                    trigger: hero,
-                    start: "center 30%",
-                    end: "bottom top",
-                    scrub: .5,
-                    markers: true,
-                }
-            })
-        }*/
-
-
-        gsap.to([left], {
-            y: -hero.offsetHeight * 0.75,
+        gsap.to([leftColumn], {
+            y: -heroContainer.offsetHeight * 0.75,
             scrollTrigger: {
-                trigger: hero,
+                trigger: heroContainer,
                 start: 'center center',
                 end: "bottom top",
                 markers: false,
                 scrub: 1,
             }
         })
-        gsap.to([right], {
-            y: -hero.offsetHeight * 0.55,
+        gsap.to([rightColumn], {
+            y: -heroContainer.offsetHeight * 0.55,
             scrollTrigger: {
-                trigger: hero,
+                trigger: heroContainer,
                 start: 'center center',
                 end: "bottom top",
                 markers: false,
@@ -286,9 +268,7 @@ function HeroComponent(props) {
                 <div className={`${classes.textContent}`}>
                     <div className={classes.headLine}>
                         <div className={classes.logoWrapper}>
-                            <img className={classes.logo}
-                                 src={logo} ref={heroLogo}
-                                 alt={"Heyzel logo"}/>
+                            <Logo width={"30vw"} />
                         </div>
                         <p>A <span>unique</span> vibe</p>
                     </div>

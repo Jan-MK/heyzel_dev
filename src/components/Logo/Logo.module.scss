@@ -1,0 +1,6 @@
+.svgLogo {
+  fill: var(--text-primary); // This applies the color to the SVG
+
+  // If your SVG uses strokes or other properties, apply the variable accordingly
+  stroke: var(--text-primary);
+}
