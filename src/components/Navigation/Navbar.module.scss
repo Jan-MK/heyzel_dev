@@ -41,7 +41,7 @@ nav {
 
         &.bigGap {
           gap: 50px;
-          transition-delay: .5s;
+          transition-delay: .4s;
           transition-property: gap;
           transition-duration: 0.3s;
           transition-timing-function: ease;
@@ -49,7 +49,7 @@ nav {
 
         &.smallGap {
           gap: 20px;
-          transition-delay: .5s;
+          transition-delay: .35s;
           transition-property: gap;
           transition-duration: 0.3s;
           transition-timing-function: ease;

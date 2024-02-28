@@ -11,9 +11,12 @@ import {ScrollTrigger} from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 function Navbar({notTop}) {
-    // notTop => false => directTopMenu
+    // top = true = !notTop => directTopMenu => showLogo &&
+    // smallGap
+    // top = false = notTop => directTopMenu => hideLogo = !showLogo && bigGap
+    // !showLogo = !notTop = notTop = bigGap
     const [showLogo, setShowLogo] = useState(!notTop)
-    const [smallGap, setSmallGap] = useState(notTop)
+    const [bigGap, setBigGap] = useState(notTop)
     const {navbarRef, logoRef} = useContext(NavbarContext)
     const navBarContainerRef = useRef(null)
     const navLinksRef = useRef(null)
@@ -60,7 +63,7 @@ function Navbar({notTop}) {
                     markers: false,
                     onToggle: () => {
                         setShowLogo(prev => !prev)
-                        setSmallGap(prev => {
+                        setBigGap(prev => {
                             console.log(!prev)
                             return !prev
                         })
@@ -83,8 +86,8 @@ function Navbar({notTop}) {
             <div className={`${classes.navbar} ${notTop ? classes.notTop : classes.top} container`}
                  ref={navBarContainerRef}>
                 <div ref={logoContainerRef}>{<Logo width={"175px"}/>}</div>
-                <div className={`${classes.navLinks} ${!smallGap ? '' : classes.bigGap}`} ref={navLinksRef}>
-                    <ul className={`${!smallGap ? classes.smallGap : classes.bigGap}`}
+                <div className={`${classes.navLinks}`} ref={navLinksRef}>
+                    <ul className={`${bigGap ? classes.bigGap : classes.smallGap}`}
                         onClick={(event) => {
                             event.preventDefault();
                             const navBarElement = document.getElementById("navBar").clientHeight
