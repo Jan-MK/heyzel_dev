@@ -279,7 +279,7 @@ function HeroComponent(props) {
                         <p>A <span style={{color: randCol}}>unique</span> vibe</p>
                     </div>
                     <p>Good talks, working between meetings, pre-party at night - we've got you!</p>
-                    <button className={`${classes.asdf} secondary`}>Discover</button>
+                    <button className={`${classes.asdf} secondary`} style={{'--scroll-border-color': borderColor}}>Discover</button>
                 </div>
             </div>
             <div className={classes.scrollIconContainer} style={{

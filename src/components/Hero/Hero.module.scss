@@ -159,6 +159,7 @@
 
     .textContent {
       z-index: 5;
+      padding-left: 5px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -178,7 +179,7 @@
         }
 
         p {
-          font-size: min(5vh, 5vw);
+          font-size: clamp(20px, 5vw, 45px);
 
           span {
             font-weight: bold;
@@ -191,7 +192,8 @@
       }
 
       button {
-        /*background-color: #ffd400;*/
+        font-size: 20px;
+        background-color: var(--scroll-border-color, var(--accent3));
       }
     }
   }
