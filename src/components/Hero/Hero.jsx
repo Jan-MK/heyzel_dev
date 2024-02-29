@@ -167,6 +167,10 @@ function HeroComponent(props) {
 
     const rightSlice = images.slice(countPerColumn)
 
+    const randCol = "#FE0879"
+    const borderColor = randCol
+    const arrowColor = borderColor
+
     /*    useEffect(() => {
             const navbar = navbarRef.current;
 
@@ -272,13 +276,16 @@ function HeroComponent(props) {
                         <div className={classes.logoWrapper}>
                             <Logo width={"100%"} />
                         </div>
-                        <p>A <span style={{color: getRandomColor()}}>unique</span> vibe</p>
+                        <p>A <span style={{color: randCol}}>unique</span> vibe</p>
                     </div>
                     <p>Good talks, working between meetings, pre-party at night - we've got you!</p>
                     <button className={`${classes.asdf} secondary`}>Discover</button>
                 </div>
             </div>
-            <div className={classes.scrollIconContainer}>
+            <div className={classes.scrollIconContainer} style={{
+                '--scroll-border-color': borderColor,
+                '--scroll-arrow-color': arrowColor,
+            }}>
                 <a href={"#home"} onClick={handleScrollDownClick} className={classes.scroll}></a>
             </div>
             <div className={classes.overlay}></div>
