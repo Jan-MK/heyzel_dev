@@ -10,6 +10,7 @@ import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {useGSAP} from "@gsap/react";
 import NavbarContext from "../../context/NavbarContext.jsx";
 import Logo from "../Logo/Logo.jsx";
+import {getRandomColor} from "../../utility/Utility.jsx";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -271,7 +272,7 @@ function HeroComponent(props) {
                         <div className={classes.logoWrapper}>
                             <Logo width={"100%"} />
                         </div>
-                        <p>A <span>unique</span> vibe</p>
+                        <p>A <span style={{color: getRandomColor()}}>unique</span> vibe</p>
                     </div>
                     <p>Good talks, working between meetings, pre-party at night - we've got you!</p>
                     <button className={`${classes.asdf} secondary`}>Discover</button>

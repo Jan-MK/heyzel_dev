@@ -9,9 +9,6 @@ nav {
   width: 100vw;
   max-width: 100%;
   height: 66px;
-  border: 1px solid green;
-
-
 
   .navbar {
     padding-top: 10px;
@@ -21,13 +18,11 @@ nav {
     align-items: center;
     position: relative;
     pointer-events: auto;
-    border: 1px solid red;
 
     &.notTop {
       .logoContainer {
         position: absolute;
         left: 0;
-        border: 1px solid grey;
       }
 
     }
@@ -40,8 +35,7 @@ nav {
     .navLinks {
 
       position: absolute;
-      left: 50%; // Center by default
-      border: 1px solid orange;
+      left: 50%;
       transition-property: width, transform;
       transition-duration: .3s;
       transition-timing-function: ease;
@@ -56,8 +50,8 @@ nav {
 
       &.clingRight {
         width: calc(100% - 250px);
-        right: 0; // Align to the right border of the parent element
-        left: auto; // Reset left property for right alignment
+        right: 0;
+        left: auto;
       }
     }
 
