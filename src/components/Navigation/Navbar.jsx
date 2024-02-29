@@ -34,6 +34,23 @@ function Navbar({notTop}) {
                 scrub: true,
                 markers: false,
             })
+            // Define the animation as a GSAP timeline for more control
+            const logoAnim = gsap.timeline({
+                paused: true, // Start the timeline paused so you can control when it plays
+                defaults: { duration: 0.5 }
+            })
+                .fromTo(logoContainer, {opacity: 0}, {opacity: 1});
+
+// Create the ScrollTrigger instance
+            ScrollTrigger.create({
+                trigger: navbar,
+                start: startAdjusted,
+                end: "bottom bottom",
+                markers: false,
+                onEnter: () => logoAnim.play().delay(.8), // Play the animation with a 1-second delay when entering
+                onLeaveBack: () => logoAnim.reverse(0), // Reverse the animation with no delay when leaving back
+            });
+            /*
             gsap.fromTo(logoContainer, {opacity: 0},
                 {
                 opacity: 1,
@@ -45,11 +62,8 @@ function Navbar({notTop}) {
                     toggleActions: "restart none none reverse",
                     markers: false,
                 }
-            })
-            let xTrans = -(navbarContainer.offsetWidth - navLinks.offsetWidth) / 2
-            gsap.from(navLinks, {
-                x: xTrans,
-                duration: .5,
+            })*/
+            gsap.to(navLinks, {
                 scrollTrigger: {
                     trigger: navbar,
                     start: startAdjusted,
@@ -80,8 +94,8 @@ function Navbar({notTop}) {
         <nav id={"navBar"} ref={navbarRef}>
             <div className={`${classes.navbar} ${notTop ? classes.notTop : classes.top} container`}
                  ref={navBarContainerRef}>
-                <div ref={logoContainerRef}><a onClick={handleLogoClick}><Logo width={"175px"}/></a></div>
-                <div className={`${classes.navLinks}`} ref={navLinksRef}>
+                <div className={classes.logoContainer} ref={logoContainerRef}><a onClick={handleLogoClick}><Logo width={"175px"}/></a></div>
+                <div className={`${classes.navLinks} ${bigGap ? classes.center : classes.clingRight}`} ref={navLinksRef}>
                     <ul className={`${bigGap ? classes.bigGap : classes.smallGap}`}
                         onClick={(event) => {
                             event.preventDefault();

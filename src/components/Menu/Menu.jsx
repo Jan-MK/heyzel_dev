@@ -15,9 +15,7 @@ export default function Menu() {
 
     // Handler for scroll events
     const handleScroll = () => {
-        console.log('SCROLLED');
         checkScrollability();
-
     };
 
     useEffect(() => {
@@ -31,10 +29,6 @@ export default function Menu() {
         const isScrollable = wrapper.scrollHeight > wrapper.clientHeight;
         const isScrolledToTop = wrapper.scrollTop === 0;
         const isScrolledToBottom = wrapper.scrollHeight - wrapper.scrollTop < wrapper.clientHeight + 5 ;
-        console.log(wrapper.scrollHeight)
-        console.log(wrapper.scrollTop)
-        console.log(wrapper.scrollHeight - wrapper.scrollTop)
-        console.log(wrapper.clientHeight + 5 )
 
         setShowUpArrow(isScrollable && !isScrolledToTop);
         setShowDownArrow(isScrollable && !isScrolledToBottom);
@@ -86,12 +80,12 @@ export default function Menu() {
             <div className={classes.categoryContent}>
                 <div><h3 className={classes.heading}>{cat.name}</h3></div>
                 <div>
-                    <button onClick={() => toggleMount(idx)}>show items</button>
+                    <button className={'secondary'} onClick={() => toggleMount(idx)}>show</button>
                 </div>
             </div>
         </div>
     ));
-    //TODO IS IT COMPLETE?
+    // TODO IS IT COMPLETE?
     /*useEffect(() => {
         console.log("UP: ", showUpArrow, " DOWN: ", showDownArrow)
     }, [showUpArrow, showDownArrow]);*/

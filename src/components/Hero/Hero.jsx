@@ -151,7 +151,8 @@ let images = [
     "https://cdn.pixabay.com/photo/2022/09/14/18/32/cafe-7454951_1280.jpg",
     "https://cdn.pixabay.com/photo/2020/09/17/12/41/cafe-5579069_1280.jpg",
     "https://cdn.pixabay.com/photo/2014/07/15/13/36/coffee-shop-393954_1280.jpg",
-    "https://cdn.pixabay.com/photo/2017/08/02/00/05/places-2568876_1280.jpg"
+    "https://cdn.pixabay.com/photo/2017/08/02/00/05/places-2568876_1280.jpg",
+    "https://cdn.pixabay.com/photo/2017/05/16/21/45/coffee-2319107_1280.jpg"
 ]
 let countPerColumn = 3
 
@@ -279,7 +280,7 @@ function HeroComponent(props) {
             <div className={classes.scrollIconContainer}>
                 <a href={"#home"} onClick={handleScrollDownClick} className={classes.scroll}></a>
             </div>
-
+            <div className={classes.overlay}></div>
         </div>
     )
 }

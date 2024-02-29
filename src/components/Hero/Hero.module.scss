@@ -1,3 +1,5 @@
+// Import the math module
+@use "sass:math";
 /*.hero {
   position: relative;
   width: 100%;
@@ -87,17 +89,33 @@
   z-index: 5;
   overflow: hidden;
 
+  width: 100vw;
+  height: 100vh;
+  max-width: 100%;
+  max-height: 100%;
+
+  .overlay {
+    position: absolute;
+    background-color: var(--overlay);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 0;
+  }
+
   .heroImages {
+
     z-index: 0;
     position: absolute;
     right: 0;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: wrap;
     gap: 15px;
 
     max-height: 100%;
-    max-width: 75vw;
+    width: clamp(50vw, 60vw ,75vw);
     overflow: hidden;
 
     .imageArray {
@@ -105,10 +123,13 @@
       flex-direction: column;
       gap: 15px;
       position: relative;
+      left: 0;
+      width: clamp(25vw, calc(60vw / 2 - 15px), 75%);
 
       .imageContainer {
-        width: 20vw;
-        height: calc(20vw * 1.5);
+        width: 100%;
+        aspect-ratio: .75;
+        overflow: hidden;
 
         .heroImage {
           width: 100%;
@@ -176,6 +197,7 @@
     bottom: 5%;
     left: 50%;
     transform: translateX(-50%);
+    z-index: 10;
 
     .scroll {
       z-index: 10;
