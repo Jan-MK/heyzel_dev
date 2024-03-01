@@ -1,0 +1,26 @@
+.navigationOptions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px; // Adjust the gap between buttons as necessary
+
+  button {
+    background-color: transparent !important;
+   /* background-color: var(--background); // Button background color
+    color: #000; // Button text color
+    border: 1px solid #ccc; // Button border
+    padding: 4px 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;*/
+
+    &:hover {
+      background-color: #f7f7f7;
+    }
+
+    img {
+      width: 24px; // Logo size
+      height: auto;
+    }
+  }
+}

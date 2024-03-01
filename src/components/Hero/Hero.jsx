@@ -1,10 +1,10 @@
 import React, {useContext, useEffect, useRef, useState} from 'react';
 import classes from './Hero.module.scss'; // Make sure the path matches your file structure
-import coffeeImg from '../../assets/coffees.jpg'; // Update the path to your image
+import coffeeImg from '../../assets/media/coffees.jpg'; // Update the path to your image
 import Splitting from 'splitting';
 import 'splitting/dist/splitting.css'; // Import Splitting.js CSS
 import 'splitting/dist/splitting-cells.css'; // For cell effect
-import logo from '../../assets/heyzel-logo.svg'
+import logo from '../../assets/media/heyzel-logo.svg'
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {useGSAP} from "@gsap/react";

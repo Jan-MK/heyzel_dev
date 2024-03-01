@@ -7,28 +7,45 @@ import NavbarContext from "../../context/NavbarContext.jsx";
 import {useGSAP} from "@gsap/react";
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
-import {getRandomColor} from "../../utility/Utility.jsx";
 
 gsap.registerPlugin(ScrollTrigger);
 
 function Navbar({notTop}) {
-    const [bigGap, setBigGap] = useState(notTop)
-    const {navbarRef, logoRef} = useContext(NavbarContext)
+    const { navbarRef } = useContext(NavbarContext)
     const navBarContainerRef = useRef(null)
     const navLinksRef = useRef(null)
     const logoContainerRef = useRef(null)
 
+    const [hasScrolledPast, setHasScrolledPast] = useState(false);
+
+    useEffect(() => {
+        // Useeffect to decide if navBar is past top
+        const checkScrollPosition = () => {
+            if (navbarRef.current) {
+                const elementTop = navbarRef.current.getBoundingClientRect().top;
+                if (elementTop <= 1) {
+                    setHasScrolledPast(true);
+                } else {
+                    setHasScrolledPast(false);
+                }
+            }
+        };
+
+        window.addEventListener('scroll', checkScrollPosition);
+        checkScrollPosition();
+
+        return () => window.removeEventListener('scroll', checkScrollPosition);
+    }, [hasScrolledPast]);
+
     useGSAP(() => {
         const navbar = navbarRef.current
-        const navbarContainer = navBarContainerRef.current
-        const navLinks = navLinksRef.current
         const logoContainer = logoContainerRef.current
         if (navbar && notTop) {
             let startAdjusted = 'top-=1px top'
             ScrollTrigger.create({
                 trigger: navbar,
                 start: 'top top',
-                endTrigger: 'bottom bottom',
+                endTrigger: 'bottom top',
                 pin: [navbar],
                 pinSpacing: false,
                 scrub: true,
@@ -47,34 +64,6 @@ function Navbar({notTop}) {
                 onEnter: () => logoAnim.play().delay(.3),
                 onLeaveBack: () => logoAnim.reverse(0),
             });
-            /*
-            gsap.fromTo(logoContainer, {opacity: 0},
-                {
-                opacity: 1,
-                duration: .5,
-                scrollTrigger: {
-                    trigger: navbar,
-                    start: startAdjusted,
-                    endTrigger: 'bottom bottom',
-                    toggleActions: "restart none none reverse",
-                    markers: false,
-                }
-            })*/
-            gsap.to(navLinks, {
-                scrollTrigger: {
-                    trigger: navbar,
-                    start: startAdjusted,
-                    endTrigger: 'bottom bottom',
-                    toggleActions: "restart none none reverse",
-                    markers: false,
-                    onToggle: () => {
-                        setBigGap(prev => {
-                            return !prev
-                        })
-                    }
-                }
-            })
-
         }
     })
 
@@ -93,9 +82,9 @@ function Navbar({notTop}) {
                  ref={navBarContainerRef}>
                 <div className={classes.logoContainer} ref={logoContainerRef}><a onClick={handleLogoClick}><Logo
                     width={"175px"}/></a></div>
-                <div className={`${classes.navLinks} ${bigGap ? classes.center : classes.clingRight}`}
+                <div className={`${classes.navLinks} ${hasScrolledPast ? classes.clingRight : classes.center}`}
                      ref={navLinksRef}>
-                    <ul className={`${bigGap ? classes.bigGap : classes.smallGap}`}
+                    <ul className={`${hasScrolledPast ? classes.bigGap : classes.smallGap}`}
                         onClick={(event) => {
                             event.preventDefault();
                             const navBarElement = document.getElementById("navBar").clientHeight

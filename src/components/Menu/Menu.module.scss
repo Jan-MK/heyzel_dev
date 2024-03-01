@@ -2,7 +2,7 @@
 .allCategoryWrapper {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 10px;
+  gap: 15px;
 
   .categoryWrapper {
     display: flex;
@@ -143,6 +143,7 @@
 
 
 @media (max-width: 768px) {
+  /* Inside Modal */
   .singleCatWrapper {
     flex-direction: column;
     width: 95vw;

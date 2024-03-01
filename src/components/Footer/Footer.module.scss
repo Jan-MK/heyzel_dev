@@ -1,0 +1,85 @@
+.footerWrapper {
+  min-height: 10vh;
+  width: 100vw;
+  max-width: 100%;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+
+  .topBorder {
+    border: 2px solid deeppink;
+    width: 25vw;
+  }
+
+  .socialNavWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .socialNav {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+
+      .socialLink {
+        &:hover {
+          scale: 1.05;
+          filter: brightness(.9);
+        }
+
+        .socialLogoWrapper {
+
+          width: 50px;
+          height: 100px;
+          position: relative;
+
+          .socialLogo {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: auto; // Adjust if necessary
+            height: auto; // Adjust if necessary
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+
+            path.filled {
+              fill: var(--text-primary);
+              stroke: var(--text-primary)
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .legalWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+
+    .legal {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+    }
+
+    .rights {
+
+    }
+  }
+
+}
