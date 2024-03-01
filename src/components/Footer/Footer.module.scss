@@ -83,3 +83,12 @@
   }
 
 }
+
+.legalText {
+  background-color: var(--background);
+  padding: 25px;
+  max-height: 90vh;
+  max-width: 95vw;
+  overflow: hidden;
+  overflow-y: auto;
+}

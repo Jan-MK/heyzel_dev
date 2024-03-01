@@ -7,15 +7,19 @@ import NavbarContext from "../../context/NavbarContext.jsx";
 import {useGSAP} from "@gsap/react";
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
+import {MdMenu} from "react-icons/md";
+import Modal from "../Modal/Modal.jsx";
+import {IoChevronDownOutline, IoChevronUpOutline} from "react-icons/io5";
 
 gsap.registerPlugin(ScrollTrigger);
 
+
 function Navbar({notTop}) {
+    const [isMounted, setIsMounted] = useState(false);
     const { navbarRef } = useContext(NavbarContext)
     const navBarContainerRef = useRef(null)
     const navLinksRef = useRef(null)
     const logoContainerRef = useRef(null)
-
     const [hasScrolledPast, setHasScrolledPast] = useState(false);
 
     useEffect(() => {
@@ -41,6 +45,12 @@ function Navbar({notTop}) {
         const navbar = navbarRef.current
         const logoContainer = logoContainerRef.current
         if (navbar && notTop) {
+            let mm = gsap.matchMedia();
+
+            mm.add("(max-width: 768px)", () => {
+                // Rendering for mobile
+
+            })
             let startAdjusted = 'top-=1px top'
             ScrollTrigger.create({
                 trigger: navbar,
@@ -75,7 +85,6 @@ function Navbar({notTop}) {
         })
     }
 
-
     return (
         <nav id={"navBar"} ref={navbarRef}>
             <div className={`${classes.navbar} ${notTop ? classes.notTop : classes.top} container`}
@@ -84,7 +93,7 @@ function Navbar({notTop}) {
                     width={"175px"}/></a></div>
                 <div className={`${classes.navLinks} ${hasScrolledPast ? classes.clingRight : classes.center}`}
                      ref={navLinksRef}>
-                    <ul className={`${hasScrolledPast ? classes.bigGap : classes.smallGap}`}
+                    <ul className={`${classes.desktop} ${hasScrolledPast ? classes.bigGap : classes.smallGap}`}
                         onClick={(event) => {
                             event.preventDefault();
                             const navBarElement = document.getElementById("navBar").clientHeight
@@ -106,6 +115,7 @@ function Navbar({notTop}) {
                         <li className={"navLink"}><Link to={"/jobs"}>Jobs</Link></li>
                         <ThemeSwitch isOnAbsolute={true}/>
                     </ul>
+                    <button className={`${classes.mobile} transparent`}><MdMenu size={40} /></button>
                 </div>
             </div>
         </nav>

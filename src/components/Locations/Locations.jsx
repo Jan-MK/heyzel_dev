@@ -89,7 +89,7 @@ function Locations(props) {
                     endTrigger: lastHeadline,
                     end: `top top+=${locationsImage.offsetHeight + navbar.offsetHeight}px`,
                     pin: [locationsImage],
-                    markers: true,
+                    markers: false,
                 });
 
                 // Create scroll trigger for each details section
