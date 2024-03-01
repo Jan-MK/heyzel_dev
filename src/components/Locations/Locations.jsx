@@ -8,12 +8,14 @@ import NavbarContext from "../../context/NavbarContext.jsx";
 
 gsap.registerPlugin(ScrollTrigger);
 
+// eslint-disable-next-line no-unused-vars
 function Locations(props) {
     const {navbarRef} = useContext(NavbarContext)
     const titleRef = useRef(null)
     const locationsRef = useRef(null)
     const locationImageRef = useRef(null)
     const lastHeadLineRef = useRef(null)
+    // eslint-disable-next-line no-unused-vars
     const [testMobile, setTestMobile] = useState(<></>)
 
 
