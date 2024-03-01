@@ -77,7 +77,7 @@ function Locations(props) {
 
         mm.add("(max-width: 599px)", () => {
                 console.log("mobile");
-                setTestMobile(<div>TESTMOBILE</div>)
+                /*setTestMobile(<div>TESTMOBILE</div>)*/
 
                 let lastHeadline = lastHeadLineRef.current
 
