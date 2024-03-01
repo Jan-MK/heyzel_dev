@@ -74,8 +74,8 @@ nav {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        list-style-type: none; // Remove default list styling
-        padding-left: 0; // Remove default padding
+        list-style-type: none;
+        padding-left: 0;
 
         @include mobile {
           display: none;
@@ -85,20 +85,20 @@ nav {
           font-weight: bold;
           font-size: 14px;
           text-transform: uppercase;
-          padding: 20px 0px;
-          margin: 0px 20px;
+          padding: 20px 0;
+          margin: 0 20px;
           display: inline-block;
           position: relative;
           opacity: 0.75;
-          cursor: pointer; // Ensure it's clear these are clickable
+          cursor: pointer;
 
-          a, .link { // Assuming your <Link> component has a 'link' class for styling
+          a, .link {
             text-decoration: none;
-            color: var(--text-primary); // Text color
-            display: block; // Make the anchor fill the li for larger clickable area
+            color: var(--text-primary);
+            display: block;
 
             &:visited {
-              color: inherit; // Keep the link color consistent
+              color: inherit;
             }
           }
 
@@ -116,7 +116,7 @@ nav {
             content: "";
             position: absolute;
             background-color: var(--text-primary);
-            width: 0%;
+            width: 0;
             bottom: 0; // Adjusted to 0 for the underline to be at the bottom of the list item
             left: 0; // Ensure the line starts from the left edge
           }
@@ -129,98 +129,6 @@ nav {
           display: initial;
         }
       }
-
-      .menu {
-        opacity: 0.3;
-        width: 100%;
-        height: 100vh;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        padding: 0px 50px;
-        position: fixed;
-        top: -100%;
-        align-items: center;
-        background-color: rgb(39, 39, 39);
-      }
-
-      .nav {
-        opacity: 0;
-        margin-bottom: -20px;
-      }
-
-      .nav-link {
-        color: white;
-        text-decoration: none;
-        font-size: 3rem;
-        transition: all 0.2s ease-in-out;
-      }
-
-      .nav-link:hover {
-        color: gray;
-        transition: all 0.2s ease-in-out;
-      }
-
-      .background {
-        position: absolute;
-        font-size: 15rem;
-        font-weight: 600;
-        color: rgba(235, 235, 235, 0.04);
-        user-select: none;
-        z-index: 1;
-      }
-
-      .small-number {
-        font-size: 1.2rem;
-      }
-
-      .exit {
-        cursor: pointer;
-        position: absolute;
-        right: 40px;
-        top: 40px;
-      }
-
-      .title {
-        font-size: 2rem;
-        color: rgb(170, 151, 126);
-      }
-
-      .right {
-        padding-right: 100px;
-      }
-
-      .information {
-        margin-bottom: 24px;
-      }
-
-      .menu-container {
-        z-index: 3;
-      }
-
-      .social-medias > a {
-        color: white;
-        text-decoration: none;
-        text-transform: uppercase;
-        font-size: 0.9rem;
-        letter-spacing: 1px;
-      }
-
-
-
     }
-  }
-}
-
-
-/* Media Query */
-@media screen and (max-width: 660px) {
-  .menu {
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .right {
-    display: none;
   }
 }

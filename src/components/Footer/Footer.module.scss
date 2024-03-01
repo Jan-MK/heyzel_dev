@@ -84,11 +84,30 @@
 
 }
 
-.legalText {
-  background-color: var(--background);
-  padding: 25px;
-  max-height: 90vh;
-  max-width: 95vw;
-  overflow: hidden;
-  overflow-y: auto;
+.legalModalWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  .legalText {
+    background-color: var(--background);
+    padding: 25px;
+    max-height: 90vh;
+    max-width: 95vw;
+    overflow: hidden;
+    overflow-y: auto;
+  }
+
+  .scrollIndicator {
+    height: 25px;
+    z-index: 15;
+
+    svg {
+      padding: 0;
+      margin: 0;
+      width: 25px;
+      height: 25px;
+    }
+  }
+
 }

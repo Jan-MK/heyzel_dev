@@ -1,21 +1,44 @@
 import classes from "./Footer.module.scss"
 import Logo from "../Logo/Logo.jsx";
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import Modal from "../Modal/Modal.jsx";
 import {IoChevronDownOutline, IoChevronUpOutline} from "react-icons/io5";
-
 
 function Footer(props) {
     const [isMounted, setIsMounted] = useState(false);
     const [currentModalContent, setCurrentModalContent] = useState("");
     const [currentIdx, setCurrentIdx] = useState(-1);
+    const [showUpArrow, setShowUpArrow] = useState(false);
+    const [showDownArrow, setShowDownArrow] = useState(false);
+    const contentScrollRef = useRef(null)
 
+    // Handler for scroll events
+    const handleScroll = () => {
+        checkScrollability();
+    };
+
+    useEffect(() => {
+        checkScrollability()
+    }, [currentModalContent]);
+
+    const checkScrollability = () => {
+        if (!contentScrollRef.current) return;
+
+        const wrapper = contentScrollRef.current;
+        const isScrollable = wrapper.scrollHeight > wrapper.clientHeight;
+        const isScrolledToTop = wrapper.scrollTop === 0;
+        const isScrolledToBottom = wrapper.scrollHeight - wrapper.scrollTop < wrapper.clientHeight + 5;
+
+        setShowUpArrow(isScrollable && !isScrolledToTop);
+        setShowDownArrow(isScrollable && !isScrolledToBottom);
+    };
     const year = new Date().getFullYear()
+
 
     const legalArray = [
         {
             title: 'IMPRESSUM',
-            content: <div className={classes.legalText}><h1>Impressum</h1>
+            content: <><h1>Impressum</h1>
 
                 <h2>Angaben gem&auml;&szlig; &sect; 5 TMG</h2>
                 <p>Max Mustermann<br/>
@@ -55,11 +78,11 @@ function Footer(props) {
                 <p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer
                     Verbraucherschlichtungsstelle teilzunehmen.</p>
 
-                <p>Quelle: <a href="https://www.e-recht24.de">https://www.e-recht24.de</a></p></div>
+                <p>Quelle: <a href="https://www.e-recht24.de">https://www.e-recht24.de</a></p></>
         },
         {
             title: 'PRIVACY',
-            content: <div className={classes.legalText}><h1>Datenschutz&shy;erkl&auml;rung</h1>
+            content: <div><h1>Datenschutz&shy;erkl&auml;rung</h1>
                 <h2>1. Datenschutz auf einen Blick</h2>
                 <h3>Allgemeine Hinweise</h3> <p>Die folgenden Hinweise geben einen einfachen &Uuml;berblick
                     dar&uuml;ber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen.
@@ -368,7 +391,13 @@ function Footer(props) {
 
             </div>
             <Modal show={isMounted} toggleOpen={() => toggleMount(currentIdx)}>
-                {currentModalContent}
+                <div className={classes.legalModalWrapper}>
+                    <div className={`${classes.scrollIndicator}`}>{showUpArrow && <IoChevronUpOutline/>}</div>
+                    <div className={classes.legalText} onScroll={handleScroll} ref={contentScrollRef}>
+                        {currentModalContent}
+                    </div>
+                    <div className={`${classes.scrollIndicator}`}>{showDownArrow && <IoChevronDownOutline/>}</div>
+                </div>
             </Modal>
         </>
     );
