@@ -1,0 +1,53 @@
+@import "../../App.scss";
+
+.tableHeading {
+  margin-top: 25px;
+  font-weight: 700;
+}
+
+.adjTable {
+  width: 100%;
+  margin-top: 10px;
+  font-size: clamp(.8em, 10vw, 1.5em);
+  display: flex;
+  flex-direction: column;
+
+  @include mobile {
+    font-size: clamp(.5em, 5vw, 1em);
+  }
+
+  .entries {
+    display: inherit;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: inherit !important;
+    flex-wrap: wrap;
+
+    .heading, .info {
+      width: 50%;
+      min-width: 250px;
+
+      @include mobile {
+        max-width: 100%;
+        min-width: 45%;
+      }
+    }
+
+    .heading {
+      p {
+        font-size: inherit !important;
+        font-weight: 600;
+      }
+    }
+
+    .info {
+      p, a {
+        font-size: inherit !important;
+      }
+
+      .heading {
+        font-weight: 600;
+      }
+    }
+  }
+}

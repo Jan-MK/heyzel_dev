@@ -7,7 +7,7 @@ import {useGSAP} from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-function InsertionBlock({title, subtitle, description, boldIntro, order}) {
+function InsertionBlock({title, subtitle, description, idx, boldIntro, order}) {
     const insertionRef = useRef(null)
     const subtitleRef = useRef(null)
     const {bg, text} = getRandomColor()
@@ -44,9 +44,9 @@ function InsertionBlock({title, subtitle, description, boldIntro, order}) {
         })
     })
 
-    const content = description.map((sentence, idx) => (
-        <React.Fragment key={idx}>
-            <span> {idx + 1}. </span>
+    const content = description.map((sentence, index) => (
+        <React.Fragment key={index}>
+            <span> {idx + index}. </span>
             {sentence}
         </React.Fragment>
     ));

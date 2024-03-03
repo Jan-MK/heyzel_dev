@@ -1,0 +1,87 @@
+@import '../../App.scss';
+
+.splitview {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto; // Center `.splitview` if the viewport is wider than 1080px
+  padding: 25px;
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+
+  @include mobile() {
+    flex-direction: column;
+  }
+
+  .contactInfo, .formContainer {
+    flex: 1; // This ensures both take up equal space within `.splitview`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    gap: 25px;
+  }
+
+  .rowWrapper {
+    display: flex;
+    flex-wrap: wrap; // Ensure wrapping for responsive behavior
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+
+
+
+    > div { // Direct children of `.rowWrapper`
+      flex: 1; // Take up as much space as available
+      max-width: calc(50% - 5px); // Adjust for gap, ensuring two elements per row max
+
+      &:first-child:last-child {
+        max-width: 100%; // If there's only one child, it takes full width
+      }
+
+      input[type='text'], textarea, select {
+        width: 100%; // Ensure form elements take the full width of their parent
+      }
+
+
+    }
+
+
+    .fullWidth {
+      max-width: unset;
+    }
+
+    .confirmation {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      max-width: unset;
+      gap: 25px;
+      cursor: pointer;
+
+
+      p {
+        flex: 1;
+      }
+
+      @include mobile() {
+      }
+    }
+
+    .required {
+      color: var(--delete);
+    }
+
+    .noError, .error {
+      display: none; // Default state hidden
+      color: var(--delete); // Assuming you have a color variable for errors
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .error {
+      display: block; // Only show when there's an error
+      opacity: 1;
+    }
+  }
+}

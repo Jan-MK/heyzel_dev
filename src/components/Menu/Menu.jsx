@@ -27,9 +27,7 @@ export default function Menu({containerRef}) {
     };
 
     useGSAP(() => {
-        console.log(refArray)
         const refs = refArray.current
-        console.log(containerRef)
         let menuContainer = containerRef.current
         let horizontalScroll = horizontalScrollRef.current
 

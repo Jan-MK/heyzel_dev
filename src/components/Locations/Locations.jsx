@@ -142,20 +142,20 @@ function Locations(props) {
                                 phone={'+49 821 4504480'}
                                 openingHours={[
                                     {
-                                        day: 'Monday - Thursday',
-                                        hours: '7 AM - 11 PM'
+                                        title: 'Monday - Thursday',
+                                        description: '7 AM - 11 PM'
                                     },
                                     {
-                                        day: 'Friday',
-                                        hours: '7 AM - 10 PM'
+                                        title: 'Friday',
+                                        description: '7 AM - 10 PM'
                                     },
                                     {
-                                        day: 'Saturday',
-                                        hours: '12 PM - 10 PM'
+                                        title: 'Saturday',
+                                        description: '12 PM - 10 PM'
                                     },
                                     {
-                                        day: 'Sunday',
-                                        hours: 'closed'
+                                        title: 'Sunday',
+                                        description: 'closed'
                                     },
                                 ]}
                             />
@@ -176,12 +176,12 @@ function Locations(props) {
                                 phone={'+49 821 4504480'}
                                 openingHours={[
                                     {
-                                        day: 'Monday - Saturday',
-                                        hours: '9:30 AM - 1 AM'
+                                        title: 'Monday - Saturday',
+                                        description: '9:30 AM - 1 AM'
                                     },
                                     {
-                                        day: 'Sunday',
-                                        hours: '11 AM - 1 AM'
+                                        title: 'Sunday',
+                                        description: '11 AM - 1 AM'
                                     },
                                 ]}
                             />
@@ -202,16 +202,16 @@ function Locations(props) {
                                 phone={'+49 821 4504480'}
                                 openingHours={[
                                     {
-                                        day: 'Monday - Friday',
-                                        hours: '7:30 AM - 10 PM'
+                                        title: 'Monday - Friday',
+                                        description: '7:30 AM - 10 PM'
                                     },
                                     {
-                                        day: 'Saturday',
-                                        hours: '11 AM - 18 PM'
+                                        title: 'Saturday',
+                                        description: '11 AM - 18 PM'
                                     },
                                     {
-                                        day: 'Sunday',
-                                        hours: 'closed'
+                                        title: 'Sunday',
+                                        description: 'closed'
                                     },
                                 ]}
                             />

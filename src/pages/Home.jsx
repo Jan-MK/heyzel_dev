@@ -52,21 +52,20 @@ function Home(props) {
                 <section className={`${classes.snapSection}`} id={"about"}>
                     <h1 ref={aboutRef}>ABOUT</h1>
                 </section>
-                <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle} order={false} boldIntro={insertionIntro} description={[insertions[0], insertions[1]]} />
+                <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle} order={false} boldIntro={insertionIntro} idx={1} description={[insertions[0], insertions[1]]} />
                 <section className={`${classes.snapSection}`} id={"events"}>
                     <h1>EVENTS</h1>
-
                 </section>
-                <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle} order={true} boldIntro={"..."} description={[insertions[2], insertions[3]]} />
+                <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle} order={true} boldIntro={"..."} idx={3} description={[insertions[2], insertions[3]]} />
                 <section className={`${classes.snapSection}`} ref={menuContainerRef} id={"menu"}>
                     <h1>MENU</h1>
                     <div className={classes.innerContainer}><Menu containerRef={menuContainerRef} /></div>
                 </section>
-                <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle} order={false} boldIntro={"..."} description={[insertions[4], insertions[5]]} />
+                <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle} order={false} boldIntro={"..."} idx={5} description={[insertions[4], insertions[5]]} />
                 <section className={`${classes.test}`} id={"locations"}>
                     <Locations />
                 </section>
-                <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle} order={false} boldIntro={"..."} description={[insertions[6], insertions[7]]} />
+                <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle} order={false} boldIntro={"..."} idx={7} description={[insertions[6], insertions[7]]} />
                 <section className={`${classes.snapSection}`} id={"contact"}>
                     <h1>CONTACT</h1>
                     <Contact />

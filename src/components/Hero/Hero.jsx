@@ -137,7 +137,7 @@ function HeroComponent(props) {
                         <p>A <span style={{color: randCol}}>unique</span> vibe</p>
                     </div>
                     <p>Good talks, working between meetings, pre-party at night - we've got you!</p>
-                    <p>Switch to <ReactCountryFlag svg style={{ width: '25px', height: 'auto'}} countryCode={'DE'} /></p>
+                    <p>Switch to <span> </span> <ReactCountryFlag svg style={{ width: '25px', height: 'auto'}} countryCode={'DE'} /></p>
                 </div>
             </div>
             <div className={classes.scrollIconContainer} style={{
