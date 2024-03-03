@@ -1,0 +1,62 @@
+@import "../../App.scss";
+
+.insertionSection {
+  margin: 5vh 0 5vh 0;
+  .insertionBlockWrapper {
+    padding: 10vh 0 10vh 0;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5vw;
+    width: min(90%, 2000px);
+    overflow: hidden;
+
+    @include mobile {
+      flex-direction: column !important;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .title {
+      display: flex;
+      flex-direction: column;
+      width: 25%;
+      position: relative;
+
+
+      h2 {
+        z-index: 5;
+        font-size: clamp(2em, 15vw, 4em);
+      }
+
+      h4.subtitle {
+        z-index: 4;
+        position: absolute;
+        color: white !important;
+        transform: translate(-20%, -25%);
+        opacity: .25;
+        font-size: clamp(3.5em, 10vw, 6em);
+      }
+
+      @include mobile {
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    .description {
+      width: 75%;
+
+
+      p {
+        span {
+          font-weight: bold;
+        }
+        font-size: clamp(.5em, 10vw, 2em);
+      }
+    }
+  }
+
+}

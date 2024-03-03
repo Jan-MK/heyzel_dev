@@ -1,37 +1,70 @@
+@import "../../App.scss";
+
 /* On page without Modal */
 .allCategoryWrapper {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 90%;
+  overflow: hidden;
+
+.insideWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 5vw;
+  align-items: center;
+  flex-wrap: nowrap;
+  width: 100%;
+
+  @include mobile {
+    flex-direction: column;
+  }
+
 
   .categoryWrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 300px;
+    max-height: 70vh;
+    min-width: 50vw;
     aspect-ratio: 1;
     border-radius: 15px;
     background-size: cover;
     background-repeat: no-repeat;
-    box-shadow: inset 0 0 0 2000px var(--dark-shades-50op);
 
-    .categoryContent {
-      color: var(--light-shades-100op);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      border-radius: 15px;
-      padding: 25px;
-      min-width: 25%;
-      min-height: 25%;
+    box-shadow: inset 0 0 0 2000px var(--overlay);
+    transition: box-shadow 250ms;
 
-      .heading {
-        font-size: 1.5rem;
-        font-weight: 500;
-      }
+    @include mobile {
+      min-width: 100%;
     }
+
+    &:hover {
+      box-shadow: unset;
+    }
+  }
+
+
+
+        .categoryContent {
+          color: var(--light-shades-100op);
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          border-radius: 15px;
+          padding: 25px;
+          min-width: 25%;
+          min-height: 25%;
+
+          .heading {
+            font-size: clamp(1.5em, 15vw, 3em);
+            font-weight: 500;
+          }
+        }
   }
 }
 

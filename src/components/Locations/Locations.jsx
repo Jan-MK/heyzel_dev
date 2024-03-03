@@ -47,6 +47,7 @@ function Locations(props) {
                         pinSpacing: false,
                         scrub: true,
                         markers: false,
+                        invalidateOnRefresh: true
                     })
                 }
 
@@ -56,6 +57,7 @@ function Locations(props) {
                     end: "bottom bottom",
                     pin: [locationsImage],
                     markers: false,
+                    invalidateOnRefresh: true
                 });
 
                 // Create scroll trigger for each details section
@@ -72,6 +74,7 @@ function Locations(props) {
                         animation: animation,
                         scrub: true,
                         markers: false,
+                        invalidateOnRefresh: true
                     });
                 });
             }
@@ -90,6 +93,7 @@ function Locations(props) {
                     end: `top top+=${locationsImage.offsetHeight + navbar.offsetHeight}px`,
                     pin: [locationsImage],
                     markers: false,
+                    invalidateOnRefresh: true
                 });
 
                 // Create scroll trigger for each details section
@@ -106,6 +110,7 @@ function Locations(props) {
                         animation: animation,
                         scrub: true,
                         markers: false,
+                        invalidateOnRefresh: true
                     });
                 });
 

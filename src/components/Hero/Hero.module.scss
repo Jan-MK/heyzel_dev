@@ -1,92 +1,8 @@
 // Import the math module
 @use "sass:math";
 @import "../../App.scss";
-/*.hero {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-
-  .heroWrapper {
-    width: inherit;
-    height: inherit;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-    .heroMedia {
-      position: fixed !important;
-      z-index: 1;
-      pointer-events: none;
-      max-width: 100%;
-
-      .heroFigure {
-        position: relative;
-        width: 100vw;
-        height: 100vh;
-        max-width: 100%;
-
-        .heroImage {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          object-position: center;
-        }
-      }
-
-      .overlay {
-        position: relative;
-        width: 100vw;
-        height: 100vh;
-        max-width: 100%;
-        background-color: var(--overlay);
-      }
-    }
-
-    .heroRow {
-      position: relative !important;
-      height: 100%;
-      z-index: 1;
-      color: var(--text-primary);
-
-      &:hover {
-        transition: background-color 150ms;
-        background-color: var(--overlay);
-        cursor: pointer;
-      }
-
-      .heroRowText {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        height: inherit;
-        padding: 2rem;
-        overflow: hidden;
-      }
-
-      h1 {
-        margin: 0;
-        padding: 0;
-        font-size: clamp(1.5rem, 5vw, 3.5rem);
-        line-height: 1;
-      }
-
-      h4 {
-        font-size: clamp(1rem, 3vw, 2.5rem);
-        line-height: 1;
-      }
-
-
-      .heroRowSeparator {
-        border: 1px solid white;
-      }
-    }
-  }
-}*/
 
 .heroWrapper {
-  /*background-color: #70BAFF;*/
   z-index: 5;
   overflow: hidden;
 
@@ -94,6 +10,10 @@
   height: 100vh;
   max-width: 100%;
   max-height: 100%;
+
+  @include mobile {
+    position: relative
+  }
 
   .overlay {
     opacity: 0;
@@ -123,6 +43,22 @@
     width: clamp(50vw, 60vw ,75vw);
     overflow: hidden;
 
+    @include mobile {
+      left: unset;
+      flex-direction: column;
+
+      flex-wrap: nowrap;
+      max-height: 100%;
+      height: 100vh;
+      width: unset;
+
+      z-index: 0;
+      position: absolute;
+      right: unset;
+      overflow: hidden;
+      justify-content: space-between;
+    }
+
     .imageArray {
       display: flex;
       flex-direction: column;
@@ -131,24 +67,58 @@
       left: 0;
       width: clamp(25vw, calc(60vw / 2 - 15px), 75%);
 
+      @include mobile {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        width: unset;
+        height: 45vh;
+        max-height: 45vh;
+
+        display: flex;
+        gap: 15px;
+        position: relative;
+        left: unset;
+      }
+
       .imageContainer {
         width: 100%;
         aspect-ratio: .75;
         overflow: hidden;
 
+        @include mobile {
+          width: unset;
+        }
+
         .heroImage {
           width: 100%;
           height: 100%;
           object-fit: cover;
+
+          @include mobile {
+            height: 45vh;
+            width:  calc(45vh / 1.5);
+          }
         }
       }
 
       &.left {
         top: -20px;
+
+        @include mobile {
+          top: 0;
+          left: -50%;
+          justify-content: flex-start;
+        }
       }
 
       &.right {
         top: -100px;
+
+        @include mobile {
+          top: 0;
+          left: 0;
+          justify-content: flex-start;
+        }
       }
     }
 
@@ -156,6 +126,11 @@
 
   .hero {
     height: 100%;
+
+    @include mobile {
+      max-width: 100%;
+      align-items: center;
+    }
 
     .textContent {
       z-index: 5;
@@ -166,6 +141,10 @@
       align-items: flex-start;
       gap: 15px;
       width: clamp(350px,20vw,700px);
+
+      @include mobile {
+        align-items: center;
+      }
 
       .headLine {
         display: flex;

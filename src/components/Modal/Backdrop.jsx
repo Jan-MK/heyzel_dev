@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
+/*
+import { useRef } from 'react';
 import './backdrop.scss';
 
 function Backdrop({children, reference, onClick }) {
@@ -20,3 +20,23 @@ function Backdrop({children, reference, onClick }) {
 }
 
 export default Backdrop;
+*/
+
+
+import { useRef } from 'react';
+import ReactDOM from 'react-dom';
+import './backdrop.scss';
+
+function Backdrop({ children, onClick }) {
+    const backdropRef = useRef(null);
+
+    return ReactDOM.createPortal(
+        <div ref={backdropRef} className="backdrop" onClick={onClick}>
+            {children}
+        </div>,
+        document.getElementById('modal-root')
+    );
+}
+
+export default Backdrop;
+

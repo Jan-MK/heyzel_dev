@@ -1,7 +1,33 @@
 export const days = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
 export const shifts = ['7:30', '13:00', '16:00'];
-const randomColors = ['#68c1c9', '#ffd400', '#fb1d36', '#9697c0', '#00c5d1', '#ef6dff', '#70BAFF', '#FE0879']
+const randomColors = [
+    {
+        bg: '#68c1c9',
+        text: '#000'
+    }, {
+        bg: '#ffd400',
+        text: '#000'
+    }, {
+        bg: '#9697c0',
+        text: '#fff'
+    }, {
+        bg: '#00c5d1',
+        text: '#000'
+    }, {
+        bg: '#d60f84',
+        text: '#fff'
+    }, {
+        bg: '#70BAFF',
+        text: '#fff'
+    }, {
+        bg: '#FE0879',
+        text: '#fff'
+    }
+]
 
+export const maxWidthMobile = 768
+export const minWidthNonMobile = maxWidthMobile +1
+export const maxWidthTablet = 1024
 
 export function getRandomColor() {
     return randomColors[Math.floor(Math.random() * randomColors.length)]

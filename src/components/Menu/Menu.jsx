@@ -3,9 +3,16 @@ import menuArray from '../../assets/menu.json'
 import {useEffect, useRef, useState} from "react";
 import Modal from "../Modal/Modal.jsx";
 import {IoChevronUpOutline, IoChevronDownOutline} from 'react-icons/io5';
+import gsap from "gsap";
+import {ScrollTrigger} from "gsap/ScrollTrigger";
+import {useGSAP} from "@gsap/react";
 
-export default function Menu() {
+gsap.registerPlugin(ScrollTrigger);
+
+export default function Menu({containerRef}) {
     let menuCats = menuArray.categories
+    const refArray = useRef([])
+    const horizontalScrollRef = useRef(null)
     const [isMounted, setIsMounted] = useState(false);
     const [currentModalContent, setCurrentModalContent] = useState("");
     const [currentIdx, setCurrentIdx] = useState(-1);
@@ -18,6 +25,43 @@ export default function Menu() {
         checkScrollability();
     };
 
+    useGSAP(() => {
+        console.log(refArray)
+        const refs = refArray.current
+        console.log(containerRef)
+        let menuContainer = containerRef.current
+        let horizontalScroll = horizontalScrollRef.current
+
+        if (menuContainer && horizontalScroll && horizontalScroll) {
+            let mm = gsap.matchMedia();
+            mm.add("(min-width: 768px)", () => {
+                // Rendering for desktop
+                let distance = () => {
+                    if (!refs.length) return 0; // Ensure the array is not empty
+                    let lastItem = refs[refs.length - 1];
+                    if (!lastItem) return 0; // Guard against undefined last item
+                    let lastItemBounds = lastItem.getBoundingClientRect();
+                    let containerBounds = horizontalScroll.getBoundingClientRect();
+                    return Math.max(0, lastItemBounds.right - containerBounds.right);
+                };
+                gsap.to(horizontalScroll, {
+                    x: () => -distance(),
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: menuContainer,
+                        start: "top top",
+                        pinnedContainer: menuContainer,
+                        end: () => "+=" + distance(),
+                        pin: menuContainer,
+                        scrub: true,
+                        markers: true,
+                        invalidateOnRefresh: true
+                    }
+                })
+            })
+        }
+    })
+
     useEffect(() => {
         checkScrollability()
     }, [currentModalContent]);
@@ -28,7 +72,7 @@ export default function Menu() {
         const wrapper = itemListWrapperRef.current;
         const isScrollable = wrapper.scrollHeight > wrapper.clientHeight;
         const isScrolledToTop = wrapper.scrollTop === 0;
-        const isScrolledToBottom = wrapper.scrollHeight - wrapper.scrollTop < wrapper.clientHeight + 5 ;
+        const isScrolledToBottom = wrapper.scrollHeight - wrapper.scrollTop < wrapper.clientHeight + 5;
 
         setShowUpArrow(isScrollable && !isScrolledToTop);
         setShowDownArrow(isScrollable && !isScrolledToBottom);
@@ -73,8 +117,9 @@ export default function Menu() {
         </ul>
     ));
 
+
     const categoriesThumbnail = menuCats.map((cat, idx) => (
-        <div key={cat.name} className={classes.categoryWrapper} style={{
+        <div key={cat.name} ref={(el) => (refArray.current[idx] = el)} className={classes.categoryWrapper} style={{
             backgroundImage: `url("${cat.images[0]}")`
         }}>
             <div className={classes.categoryContent}>
@@ -93,7 +138,9 @@ export default function Menu() {
     return (
         <>
             <div className={classes.allCategoryWrapper}>
-                {categoriesThumbnail}
+                <div className={classes.insideWrapper} ref={horizontalScrollRef}>
+                    {categoriesThumbnail}
+                </div>
             </div>
             <Modal show={isMounted} toggleOpen={() => toggleMount(currentIdx)}>
                 <div className={classes.singleCatWrapper}>

@@ -254,7 +254,7 @@ body, html {
 }
 
 @mixin mobile {
-  @media (max-width: 738px) {
+  @media (max-width: 768px) {
     @content;
   }
 }

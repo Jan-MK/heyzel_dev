@@ -1,10 +1,58 @@
+@import "../../../App.scss";
+
 .locationTitle {
-  font-size: clamp(2em, 4vw, 6em);
+  font-size: clamp(2em, 15vw, 4em);
   margin-bottom: 25px;
+  text-decoration: underline;
 }
 
+.headingContainer {
+  position: relative;
+
+  .locationTitle {
+    font-size: clamp(2em, 15vw, 4em);
+    margin-bottom: 25px;
+    text-decoration: underline;
+    z-index: 5;
+    position: relative;
+  }
+
+  .locationTitleBack {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    z-index: 4;
+  }
+}
+
+/*.headingContainer3 {
+  position: relative;
+  --location-title-bg-color: var(--accent3);
+  display: flex;
+
+  .locationTitle {
+    position: relative; !* Stellt sicher, dass das ::before-Element relativ zu diesem Element positioniert wird *!
+    font-size: clamp(2em, 15vw, 4em);
+    margin-bottom: 25px;
+    text-decoration: underline;
+    z-index: 5;
+  }
+
+  .locationTitle::before {
+    content: "";
+    position: absolute;
+    width: 110%;
+    height: 110%;
+    top: 40%;
+    left: -5%;
+    background-color: var(--location-title-bg-color);
+    transform: skew(-20deg) translateY(-30%);
+    z-index: -1;
+  }
+}*/
+
 .description {
-  font-size: clamp(1.0em, 1.5vw, 2.5em);
+  font-size: clamp(1.0em, 15vw, 1.5em);
   line-height: 1.4;
 }
 
@@ -17,28 +65,53 @@
 
   .tableHeading {
     margin-top: 25px;
+    font-weight: 700;
   }
 
-  .infoTable {
-    margin-top: 10px;
+  .adjTable {
     width: 100%;
-    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: clamp(.8em, 10vw, 1.5em);
+    display: flex;
+    flex-direction: column;
 
-    .bold {
-      font-weight: 600;
+    @include mobile {
+      font-size: clamp(.5em, 5vw, 1em);
     }
 
-    th, td {
-      padding: 8px;
-      text-align: left;
-    }
+    .entries {
+      display: inherit;
+      flex-direction: row;
+      justify-content: space-between;
+      font-size: inherit !important;
+      flex-wrap: wrap;
 
-    td {
-      vertical-align: top;
-    }
+      .heading, .info {
+        width: 50%;
+        min-width: 250px;
 
-    th {
-      background-color: var(--form-background);
+        @include mobile {
+          max-width: 100%;
+          min-width: 45%;
+        }
+      }
+
+      .heading {
+        p {
+          font-size: inherit !important;
+          font-weight: 600;
+        }
+      }
+
+      .info {
+        p, a {
+          font-size: inherit !important;
+        }
+
+        .heading {
+          font-weight: 600;
+        }
+      }
     }
   }
 }
