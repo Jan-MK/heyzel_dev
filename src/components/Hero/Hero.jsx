@@ -11,6 +11,7 @@ import {useGSAP} from "@gsap/react";
 import NavbarContext from "../../context/NavbarContext.jsx";
 import Logo from "../Logo/Logo.jsx";
 import {getRandomColor, maxWidthMobile, minWidthNonMobile} from "../../utility/Utility.jsx";
+import ReactCountryFlag from "react-country-flag";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -136,9 +137,7 @@ function HeroComponent(props) {
                         <p>A <span style={{color: randCol}}>unique</span> vibe</p>
                     </div>
                     <p>Good talks, working between meetings, pre-party at night - we've got you!</p>
-                    <button className={`${classes.asdf} secondary`}
-                            style={{'--scroll-border-color': borderColor}}>Discover
-                    </button>
+                    <p>Switch to <ReactCountryFlag svg style={{ width: '25px', height: 'auto'}} countryCode={'DE'} /></p>
                 </div>
             </div>
             <div className={classes.scrollIconContainer} style={{

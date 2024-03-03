@@ -6,6 +6,7 @@ import {IoChevronUpOutline, IoChevronDownOutline} from 'react-icons/io5';
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {useGSAP} from "@gsap/react";
+import {minWidthNonMobile} from "../../utility/Utility.jsx";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -33,8 +34,9 @@ export default function Menu({containerRef}) {
         let horizontalScroll = horizontalScrollRef.current
 
         if (menuContainer && horizontalScroll && horizontalScroll) {
+            console.log('DOING MENU HORIZONTAL SCROLL')
             let mm = gsap.matchMedia();
-            mm.add("(min-width: 768px)", () => {
+            mm.add(`(min-width: ${minWidthNonMobile}px)`, () => {
                 // Rendering for desktop
                 let distance = () => {
                     if (!refs.length) return 0; // Ensure the array is not empty

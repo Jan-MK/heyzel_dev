@@ -2,6 +2,7 @@
 
 .insertionSection {
   margin: 5vh 0 5vh 0;
+
   .insertionBlockWrapper {
     padding: 10vh 0 10vh 0;
     color: white;
@@ -22,17 +23,18 @@
     .title {
       display: flex;
       flex-direction: column;
-      width: 25%;
       position: relative;
+
+      width: clamp(25%, 30%, 35%);
 
 
       h2 {
         z-index: 5;
-        font-size: clamp(2em, 15vw, 4em);
+        font-size: clamp(1.8em, 15vw, 3.8em);
       }
 
       h4.subtitle {
-        z-index: 4;
+        z-index: 3;
         position: absolute;
         color: white !important;
         transform: translate(-20%, -25%);
@@ -47,14 +49,16 @@
     }
 
     .description {
-      width: 75%;
-
-
+      position: relative;
+      z-index: 5;
       p {
+
+        font-size: clamp(.5em, 10vw, 2em);
+
         span {
+
           font-weight: bold;
         }
-        font-size: clamp(.5em, 10vw, 2em);
       }
     }
   }
