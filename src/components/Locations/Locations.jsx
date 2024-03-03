@@ -5,6 +5,7 @@ import {useGSAP} from "@gsap/react";
 import {useContext, useRef, useState} from "react";
 import SingleLocation from "./SingleLocation/SingleLocation.jsx";
 import NavbarContext from "../../context/NavbarContext.jsx";
+import {maxWidthMobile, minWidthNonMobile} from "../../utility/Utility.jsx";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -34,7 +35,7 @@ function Locations(props) {
         // Setup matchMedia
         let mm = gsap.matchMedia();
 
-        mm.add("(min-width: 600px)", () => {
+        mm.add(`(min-width: ${minWidthNonMobile}px)`, () => {
                 console.log("desktop");
 
                 if (title && navbar && locationsContainer) {
@@ -80,7 +81,7 @@ function Locations(props) {
             }
         )
 
-        mm.add("(max-width: 599px)", () => {
+        mm.add(`(max-width: ${maxWidthMobile}px)`, () => {
                 console.log("mobile");
                 /*setTestMobile(<div>TESTMOBILE</div>)*/
 
