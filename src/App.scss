@@ -23,7 +23,7 @@ body, html {
   flex-direction: column;
   justify-content: center;
 
-  /*  min-height: 100vh;*/
+
 
   * {
     margin: 0;
@@ -107,6 +107,7 @@ body, html {
         }
 
         &:hover {
+          background-color: red;
           color: var(--accent);
           transition: color, 150ms;
         }

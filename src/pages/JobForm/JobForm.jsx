@@ -106,6 +106,7 @@ const schema = z.object({
 function JobForm(props) {
     // TODO: TabIndex for each section, prevent back from leaving this form
     const refArray = useRef([]);
+    const formContainerRef = useRef(null);
     const [formData, setFormData] = useState("")
     const [currentStep, setCurrentStep] = useState(0);
     const [answered, setAnswered] = useState(false)
@@ -166,8 +167,11 @@ function JobForm(props) {
             resetForm();
         }
         requestAnimationFrame(() => setResetting(false))
-        //prefill(5)
+        //prefill(4)
     }, []);
+
+
+
 
     useEffect(() => {
         if (visited.length > 0) {
@@ -290,17 +294,17 @@ function JobForm(props) {
             name: "Privacy confirmation",
             fields: ['confirmation'], // Required Fields
             html: <>
-                <Logo width={"min(25vw, 25vh)"}/>
+                <Logo width={"clamp(150px, 25vw, 500px)"}/>
                 <div className={`reverseOrder ${classes.fieldWrapper}`}>
                     <h2>Job application form</h2>
                     <p>Welcome to our</p>
                 </div>
                 <div className={`${classes.confirmation} ${classes.fieldWrapper}`}>
-                    <input className={classes.cbSmall} tabIndex={currentStep === 0 ? 1 : -1}
-                           type={"checkbox"} {...registerWithSave('confirmation')}/>
                     <p>To proceed with the application process confirm that you have read and agreed to our <a
                         href={"#"} target={'_blank'} rel="noreferrer">terms
                         of privacy</a> on how we use the data.<span className={classes.required}>*</span></p>
+                    <input className={classes.cbSmall} tabIndex={currentStep === 0 ? 1 : -1}
+                           type={"checkbox"} {...registerWithSave('confirmation')}/>
                 </div>
                 <div
                     className={`${errors.confirmation?.message ? classes.error : classes.noError}`}>{errors.confirmation?.message}</div>
@@ -649,9 +653,7 @@ function JobForm(props) {
                 setSuccessful(true);
             })
             .catch(error => {
-                console.log('Could not send application, please send it manually.', error)
-                console.log('Printing Error')
-                console.log(error)
+                console.log('Could not send application, please send it manually.')
                 setFormData(formContent)
                 setAnswered(true)
                 setSuccessful(false);
@@ -701,7 +703,7 @@ function JobForm(props) {
         <>
             {resetting && <Reset text={"Preparing job form..."}/>}
             {!resetting && !submitted &&
-                <form onSubmit={handleSubmit(handleSave)} className={`${classes.formContainer}`}>
+                <form onSubmit={handleSubmit(handleSave)} className={`${classes.formContainer}`} ref={formContainerRef}>
                     <div className={classes.toPage}><a tabIndex={995} href={"/"}
                                                        target={'_self'}><IoChevronBackOutline/>
                         <p>Back home</p>

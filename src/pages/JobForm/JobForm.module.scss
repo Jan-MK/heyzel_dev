@@ -95,29 +95,36 @@
 
 
 .formContainer {
-  width: 100vw;
-  height: 100vh;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  height: 100dvh;
+  max-height: 100%;
+  gap: 10px;
+
 
   .sectionWrapper {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
+    flex-grow: 1;
+    position: relative; // Establishes a positioning context
+    overflow: hidden; // Adjust as needed for your design
+    display: flex; // Makes it a flex container
+    justify-content: center; // Centers children horizontally
+    align-items: center; // Centers children vertically
+    width: 100%;
+
 
     section.scrollable {
-      position: absolute !important;
-      z-index: 3;
-      width: 100vw !important;
-      height: 100vh !important;
-      padding: 10vh 15px 10vh 15px;
+      position: absolute;
+      top: auto;
+      left: 0;
+      width: 100%; // Full width of its parent
+      max-height: 100%; // Full height of its parent
+      overflow-y: auto; // Makes this element scrollable vertically
+      overflow-x: hidden;
+
 
       display: flex;
       flex-direction: column;
-      gap: 25px;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
 
       transition: transform 0.5s cubic-bezier(1.000, 0.000, 0.000, 1.000); // Add transition
@@ -125,33 +132,31 @@
       @include mobile {
         display: flex;
         flex-direction: column;
-        gap: 25px;
-        justify-content: center;
-        /*align-items: center;*/
+        align-self: flex-start;
         overflow-x: hidden;
-        width: 100% !important;
       }
 
       .stepWrapper {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: center;
+        align-items: center !important;
         gap: 25px;
-        max-width: 100%;
+        max-width: 100vw;
+        padding-left: 5px;
+        padding-right: 5px;
+
+        margin-top: auto;
+        margin-bottom: auto;
 
         @include mobile {
-          max-width: 90vw;
-          max-height: 100%;
+          max-width: 100vw;
           justify-content: flex-start !important;
-          align-items: flex-start !important;
-          overflow: hidden;
-          overflow-y: auto;
           padding: 5px;
         }
 
-        .rowWrapper {
-          max-width: 100%;
+        .fieldWrapper {
+
         }
       }
 
@@ -197,15 +202,20 @@
       div > input,
       div > textarea,
       div > select {
-        min-width: 40vw;
-        max-width: 75vw;
+        width: clamp(150px, 30vw, 50vw);
         max-height: 50vh;
 
         @include mobile {
-          width: 90vw;
+          width: clamp(150px, 75vw, 90vw);
           max-height: 50vh;
-          max-width: 100%;
           overscroll-behavior: contain;
+        }
+      }
+      div > textarea {
+        max-width: 75vw;
+
+        @include mobile {
+          max-width: 90vw;
         }
       }
 
@@ -242,14 +252,19 @@
       .confirmation {
         display: flex;
         gap: 25px;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         align-items: center;
         justify-content: center;
+        width: clamp(25vw, 35vw, 50vw);
+        padding-left: 15px;
+        padding-right: 15px;
 
-
+        @include mobile {
+          width: 100%;
+        }
 
         p {
-          max-width: 80%;
+          flex-grow: 1;
         }
 
         @include mobile {
@@ -258,8 +273,8 @@
         }
 
         input[type='checkbox'] {
+          width: 25px;
           @include mobile {
-            width: inherit;
             max-height: unset;
             max-width: unset;
             overscroll-behavior: unset;
@@ -272,13 +287,15 @@
 
   .toPage {
     z-index: 11;
-    position: fixed;
-    top: 10px;
-    left: 10px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     gap: 15px;
+    align-self: flex-start;
+    height: 5vh;
+    min-height: 40px;
+    width: 100%;
+    background-color: var(--background);
 
     a {
       display: flex;
@@ -298,43 +315,44 @@
   }
 
   .controlBar {
-    width: 90vw;
-    z-index: 10;
-    position: fixed;
-    bottom: 0;
-    left: 50vw;
-    transform: translate(-50%, -50%);
-
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
     gap: 50px;
 
+    width: 100%;
+    height: 5vh;
+    min-height: 75px;
+    z-index: 10;
+
+    padding-left: 15px;
+    padding-right: 15px;
+
     @include mobile {
-        left: 50%;
-        max-width: 90vw;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: row;
+      justify-content: center;
+      gap: initial;
+      height: 8vh;
+
+      padding-left: unset;
+      padding-right: unset;
+      min-height: 60px;
+
+      .directNav {
+        display: none !important;
+        visibility: hidden !important;
+      }
+
+      .buttons {
+        width: 100%;
+        justify-content: space-between;
         gap: initial;
 
-        .directNav {
-          display: none !important;
-          visibility: hidden !important;
+        .ctrlBtn {
+          min-width: 35vw;
+          cursor: pointer;
         }
-
-        .buttons {
-          width: 100%;
-          justify-content: space-between;
-          gap: initial;
-
-          .ctrlBtn {
-            min-width: 35vw;
-            cursor: pointer;
-          }
-        }
+      }
     }
 
     .directNav {
@@ -414,41 +432,4 @@
       height: auto;
     }
   }
-}
-
-@media (max-width: 900px) {
-
-  /*  .formContainer {
-      section.scrollable {
-        display: flex;
-        flex-direction: column;
-        gap: 25px;
-        justify-content: center;
-        align-items: center;
-        overscroll-behavior: none;
-
-        .scrollContainer {
-
-        }
-
-        .sameRow {
-          p {
-            min-width: 75%;
-            max-width: 95%;
-          }
-        }
-
-        div > input,
-        div > textarea,
-        div > select {
-          width: 75vw;
-          max-height: 50vh;
-
-        }
-
-
-      }
-    }
-
-*/
 }
