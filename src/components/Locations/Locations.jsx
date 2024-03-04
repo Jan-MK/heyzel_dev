@@ -63,7 +63,7 @@ function Locations({headingRef}) {
                     start: `top top+=${navbar.offsetHeight + .5 *title.offsetHeight}px`,
                     end: "bottom bottom",
                     pin: locationsImage,
-                    markers: true,
+                    markers: false,
                     invalidateOnRefresh: true
                 });
 
