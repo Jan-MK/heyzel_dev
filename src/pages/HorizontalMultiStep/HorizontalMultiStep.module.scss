@@ -10,8 +10,9 @@
 
   section.scrollable {
     min-width: 100vw;
-    height: 100vh;
+    height: 100dvh;
     z-index: 5;
+    transition: height, min-height, max-height .25s ease;
 
     &.one{
       background-color: salmon;

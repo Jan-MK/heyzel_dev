@@ -1,12 +1,15 @@
 .fullscreen {
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
+  max-height: 100dvh;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   z-index: 50;
+
+  transition: height, max-height .25s ease;
 
   display: flex;
   flex-direction: column;

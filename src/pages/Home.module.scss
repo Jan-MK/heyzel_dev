@@ -28,7 +28,8 @@
     }
 
     &.fullHeight {
-      min-height: calc(100vh - 66px);
+      min-height: calc(100dvh - 66px);
+      transition: height, min-height, max-height .25s ease;
     }
 
 /*    &::-webkit-scrollbar {

@@ -34,7 +34,7 @@ function HeroComponent(props) {
     const containerRef = useRef(null)
     const heroWrapper = useRef(null)
     const {navbarRef} = useContext(ReferenceContext)
-    const [heroHeight, setHeroHeight] = useState("100vh")
+    const [heroHeight, setHeroHeight] = useState("100dvh")
 
     const rightSlice = images.slice(countPerColumn)
 

@@ -100,6 +100,7 @@
   height: 100dvh;
   max-height: 100%;
   gap: 10px;
+  transition: height, max-height .25s ease;
 
 
   .sectionWrapper {
