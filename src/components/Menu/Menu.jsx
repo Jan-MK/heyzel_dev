@@ -8,6 +8,7 @@ import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {useGSAP} from "@gsap/react";
 import {minWidthNonMobile} from "../../utility/Utility.jsx";
 import ReferenceContext from "../../context/ReferenceContext.jsx";
+import {json} from "react-router-dom";
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -29,11 +30,16 @@ export default function Menu() {
         checkScrollability();
     };
 
+    // TODO STILL NO ANIMATION WHEN DEPLOYED. CHECK!!!
     useGSAP(() => {
         const refs = refArray.current
         let menuContainer = menuContainerRef.current
         let horizontalScroll = horizontalScrollRef.current
 
+        /*console.log(JSON.parse(JSON.stringify(menuContainerRef.current)))
+        console.log(JSON.parse(JSON.stringify(horizontalScrollRef.current)))*/
+        console.log("menuContainer", menuContainer)
+        console.log("horizontalScroll", horizontalScroll)
         if (menuContainer && horizontalScroll) {
             console.log("In if of useGsap of menu")
             let mm = gsap.matchMedia();
