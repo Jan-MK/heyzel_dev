@@ -7,7 +7,9 @@
 .gallery {
   display: flex;
   flex-direction: row;
-  width: 100%;
+  justify-content: center;
+  width: 100vw;
+  max-width: 100%;
 
   @include mobile {
     flex-direction: column-reverse;
@@ -15,14 +17,18 @@
     align-items: center;
   }
 
+  .right {
+    max-width: 50%;
+  }
 
-  .left, .right {
-    width: 50%;
+  .left {
+    max-width: 50%;
+  }
 
-
+  .right, .left {
     @include mobile {
       width: 100%;
-
+      max-width: 100%;
     }
   }
 
@@ -31,8 +37,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    .desktopContent {
 
+    .locationContentWrapper {
       width: 90%;
 
       @include mobile {
@@ -40,7 +46,7 @@
         padding-bottom: 50px;
       }
 
-      .desktopContentSection {
+      .locationContentSection {
         min-height: 100vh;
         display: flex;
         flex-direction: column;
@@ -59,12 +65,12 @@
 
   .right {
     width: 90%;
-    height: 100vh;
+    height: calc(100vh - 66px);
+    max-height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 0 15px 0 15px;
 
     @include mobile {
       width: 100%;
@@ -73,31 +79,30 @@
       background-color: var(--background);
       z-index: 5;
       padding-top: 10px;
-      padding-bottom: 15px;
+      padding-bottom: 25px;
     }
 
-    .desktopPhotos {
+    .locationPhotos {
       z-index: -12;
-      /*height: 60vh;*/
       height: calc(45vw * 1.5);
       max-height: 80vh;
       width: 45vw;
+      max-width: 45vw;
       border-radius: 5px;
       position: relative;
       overflow: hidden;
       box-shadow: 7px 7px 0 rgb(254, 8, 121), -7px -7px 0 #00c5d1;
 
-
       @include mobile {
         z-index: auto;
         height: 35vh;
         width: calc(95vw);
+        max-width: 100%;
       }
 
 
-      .desktopPhoto {
+      .locationPhoto {
         position: absolute;
-        z-index: -12;
         width: 100%;
         height: 100%;
 

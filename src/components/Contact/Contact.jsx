@@ -1,9 +1,8 @@
 import classes from "./Contact.module.scss"
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {string, z} from "zod";
+import {z} from "zod";
 import {useEffect, useState} from "react";
-import NavigationOptions from "../Locations/SingleLocation/NavigationOptions/NavigationOptions.jsx";
 import VerticalTable from "../VerticalTable/VerticalTable.jsx";
 
 
@@ -16,39 +15,56 @@ const defaultValues = {
     message: '',
     confirmation: false
 }
-const schema = z.object({})
+
 
 function Contact(props) {
     const [typeIsOther, setTypeIsOther] = useState(false)
-
     const {
         register,
         handleSubmit,
         watch,
-        formState: {errors},
-        setValue,
-        getValues,
+        formState: {errors, isValid},
         trigger,
         reset
     } = useForm({
-        resolver: zodResolver(schema),
-        mode: 'all',
+        resolver: zodResolver(createSchema(typeIsOther)),
+        mode: 'onChange',
         defaultValues: defaultValues,
     });
 
-    let watched = watch('type')
+    function createSchema(typeIsOther) {
+        return z.object({
+            firstName: z.string().optional(),
+            lastName: z.string().min(1, { message: "Last name is required" }),
+            mail: z.string().min(1, { message: "E-Mail address is required" }).email("This is not a valid email."),
+            type: z.string().min(1, { message: "Please choose the subject" })
+                .refine(val => val !== 'Please select...', { message: "Please choose the subject" }),
+            subject: z.string().refine(val => !typeIsOther || (typeIsOther && val.length >= 1), {
+                message: "Required or choose between predefined.",
+            }),
+            message: z.string().min(1),
+            confirmation: z.boolean().refine(bool => bool === true, { message: "You must accept the terms." }),
+        });
+    }
 
+
+    const watchType = watch("type");
+
+    // Use useEffect to react to changes in 'type' field
     useEffect(() => {
-        const subjectType = getValues('type')
-        if (subjectType === 'other') {
-            setTypeIsOther(true)
-            console.log("INVOKATION IN TRUE")
-        } else {
-            setTypeIsOther(false)
-            console.log("INVOKATION IN FALSE")
-        }
-    }, [watched]);
+        console.log("CHANGE IN TYPE")
+        setTypeIsOther(watchType === 'other')
+    }, [watchType]);
 
+    const handleSave = (formData) => {
+        trigger()
+        if (Object.keys(errors).length !== 0) {
+            reset(formData)
+            trigger()
+        } else {
+            console.log("OK Submit")
+        }
+    }
 
     return (
         <div className={classes.splitview}>
@@ -71,7 +87,7 @@ function Contact(props) {
                     }]
                 }/>
             </div>
-            <form className={classes.formContainer}>
+            <form className={classes.formContainer} onSubmit={handleSubmit(handleSave)}>
                 <div className={classes.rowWrapper}>
                     <div>
                         <p>First name:</p>
@@ -80,16 +96,25 @@ function Contact(props) {
                     <div>
                         <p>Last name<span className={classes.required}>*</span>:</p>
                         <input type={'text'} {...register('lastName')} placeholder={'Your last name'}/>
+                        <div
+                            className={`${errors.lastName?.message ? classes.error : classes.noError}`}>{errors.lastName?.message}
+                        </div>
                     </div>
                 </div>
                 <div className={classes.rowWrapper}>
                     <div>
                         <p>Mail<span className={classes.required}>*</span>:</p>
-                        <input type={'text'} {...register('firstName')} placeholder={'john.doe@dodo.com'}/>
+                        <input type={'text'} {...register('mail')} placeholder={'john.doe@dodo.com'}/>
+                        <div
+                            className={`${errors.eMail?.message ? classes.error : classes.noError}`}>{errors.eMail?.message}
+                        </div>
                     </div>
                     <div>
                         <p>Phone:</p>
-                        <input type={'text'} {...register('lastName')} placeholder={'+49 123 456789'}/>
+                        <input type={'text'} {...register('phone')} placeholder={'+49 123 456789'}/>
+                        <div
+                            className={`${errors.phone?.message ? classes.error : classes.noError}`}>{errors.phone?.message}
+                        </div>
                     </div>
                 </div>
                 <div className={`${classes.rowWrapper}`}>
@@ -107,11 +132,14 @@ function Contact(props) {
                         </div>
                     </div>
                     {typeIsOther && <div>
-                        <p><span>Custom subject:</span></p>
+                        <p>Custom subject<span className={classes.required}>*</span>:</p>
                         <input type={'text'} max={50} {...register('subject')} placeholder={'General request'}/>
+                        <div className={`${errors.subject?.message ? classes.error : classes.noError}`}>
+                            {errors.subject?.message}
+                        </div>
                     </div>}
                 </div>
-                <div className={classes.rowWrapper}>
+                <div className={`${classes.rowWrapper} ${classes.notRowFlex}`}>
                     <div className={classes.fullWidth}>
                         <p>Message<span className={classes.required}>*</span>:</p>
                         <textarea rows={5} maxLength={1000} {...register('message')}
@@ -121,7 +149,7 @@ function Contact(props) {
                         {errors.message?.message}
                     </div>
                 </div>
-                <div className={classes.rowWrapper}>
+                <div className={`${classes.rowWrapper} ${classes.notRowFlex}`}>
                     <div className={`${classes.confirmation}`}>
                         <input id={'confirm'} type={"checkbox"} {...register('confirmation')}/>
                         <label htmlFor={'confirm'}>Please confirm that you have read and agreed to our <a
@@ -132,7 +160,7 @@ function Contact(props) {
                         {errors.confirmation?.message}
                     </div>
                 </div>
-                <button></button>
+                <button disabled={!isValid} type={"submit"} className={`${classes.submit}`}>SUBMIT</button>
             </form>
         </div>
     );

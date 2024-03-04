@@ -1,0 +1,136 @@
+@import "../../../App.scss";
+
+.menuDiv {
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  position: absolute;
+  z-index: 999;
+  transition-delay: .3s;
+  width: 100vw;
+  right: 0;
+  left: auto;
+  transform: translateX(calc(50% - 20px));
+  max-width: 100%;
+  overflow: hidden;
+
+  &.clingRight {
+    width: calc(40px + 15px);
+    right: 0;
+    left: auto;
+  }
+
+  &:hover {
+    color: gray;
+  }
+
+  @include desktop {
+    display: none;
+  }
+}
+
+.menu {
+  opacity: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 50px;
+  position: fixed;
+  top: -100%;
+  align-items: center;
+  background-color: var(--background);
+  z-index: 995;
+
+
+  @include desktop {
+    display: none;
+    visibility: hidden;
+  }
+
+  .background {
+    position: absolute;
+    font-size: 15rem;
+    font-weight: 600;
+    color: rgba(235, 235, 235, 0.04);
+    user-select: none;
+
+    svg {
+      opacity: .05;
+    }
+  }
+
+  .exit {
+    fill: white;
+    color: var(--accent);
+    cursor: pointer;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+  }
+
+  .menuContainer {
+    z-index: 3;
+
+    ul {
+
+      .nav {
+        opacity: 0;
+        margin-bottom: -20px;
+        list-style: none;
+
+        .navLink {
+          color: var(--text-primary);
+          text-decoration: none;
+          font-size: 3rem;
+          transition: all 0.2s ease-in-out;
+
+          &:hover {
+            color: gray;
+          }
+
+          .smallNumber {
+            font-size: 1.2rem;
+          }
+        }
+
+      }
+    }
+
+    .right {
+      padding-right: 100px;
+
+      @include mobile {
+        display: none;
+        visibility: hidden;
+      }
+
+      .information {
+        margin-bottom: 24px;
+
+        .title {
+          font-size: 2rem;
+          color: rgb(170, 151, 126);
+
+          .socialMedias a {
+            color: var(--text-primary);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+          }
+        }
+      }
+    }
+  }
+
+
+}
+
+
+@media screen and (max-width: 768px) {
+  .menu {
+    flex-direction: column;
+    justify-content: center;
+  }
+}

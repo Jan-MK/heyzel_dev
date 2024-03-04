@@ -10,7 +10,7 @@
   --background: var(--light-shades-100op);
   --text-primary: var(--dark-shades-100op);
   --text-contrary: var(--light-accent-100op);
-  --accent: var(--dark-accent-100op);
+  --accent: #FE0879;
   --accent2: var(--main-brand-color-100op);
   --accent3: var(--light-accent-100op);
 
@@ -32,7 +32,8 @@
   --background: var(--dark-shades-100op);;
   --text-primary: var(--light-shades-100op);
   --text-secondary: var(--dark-accent-100op);
-  --accent: var(--dark-accent-100op);
+  --accent: #FE0879;
+  //--accent: var(--dark-accent-100op);
   --accent2: var(--main-brand-color-100op);
   --accent3: var(--light-accent-100op);
 
@@ -99,7 +100,6 @@
   /* UI Component coloring */
   --primary: var(--light-accent-100op);
   --secondary: var(--main-brand-color-100op);
-  --accent: var(--dark-accent-100op);
   --warning: #E0C061;
   --confirm: #479079;
   --delete: #F44336;

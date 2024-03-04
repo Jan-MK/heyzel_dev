@@ -49,12 +49,12 @@ export default function Menu({containerRef}) {
                     ease: "none",
                     scrollTrigger: {
                         trigger: menuContainer,
-                        start: "top top",
+                        start: "top top+=66px",
                         pinnedContainer: menuContainer,
                         end: () => "+=" + distance(),
                         pin: menuContainer,
                         scrub: true,
-                        markers: true,
+                        markers: false,
                         invalidateOnRefresh: true
                     }
                 })

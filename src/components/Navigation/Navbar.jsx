@@ -8,8 +8,10 @@ import {useGSAP} from "@gsap/react";
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {MdMenu} from "react-icons/md";
-import Modal from "../Modal/Modal.jsx";
-import {IoChevronDownOutline, IoChevronUpOutline} from "react-icons/io5";
+import MobileNavigation from "./MobileNavigation/MobileNavigation.jsx";
+import MobileMenu from "./MobileMenu/MobileMenu.jsx";
+import useWindowDimensions from "../../utility/WindowSize.jsx";
+import {maxWidthMobile} from "../../utility/Utility.jsx";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -21,6 +23,9 @@ function Navbar({notTop}) {
     const navLinksRef = useRef(null)
     const logoContainerRef = useRef(null)
     const [hasScrolledPast, setHasScrolledPast] = useState(false);
+    const {height, width} = useWindowDimensions()
+    const [mobileMenu, setMobileMenu] = useState(false)
+    const mobileMenuIconRef = useRef(null)
 
     useEffect(() => {
         // Useeffect to decide if navBar is past top
@@ -41,19 +46,19 @@ function Navbar({notTop}) {
         return () => window.removeEventListener('scroll', checkScrollPosition);
     }, [hasScrolledPast]);
 
+    useEffect(() => {
+        if (width <= maxWidthMobile) {
+            setMobileMenu(true)
+        } else {
+            setMobileMenu(false)
+        }
+    }, [width]);
+
     useGSAP(() => {
         const navbar = navbarRef.current
         const logoContainer = logoContainerRef.current
         if (navbar && notTop) {
-            let mm = gsap.matchMedia();
-
-            gsap.set(navbar, {z: 500})
-
-            mm.add("(max-width: 768px)", () => {
-                // Rendering for mobile
-
-            })
-            let startAdjusted = 'top-=1px top'
+                        let startAdjusted = 'top-=1px top'
             ScrollTrigger.create({
                 trigger: navbar,
                 start: 'top top',
@@ -93,17 +98,14 @@ function Navbar({notTop}) {
                  ref={navBarContainerRef}>
                 <div className={classes.logoContainer} ref={logoContainerRef}><a onClick={handleLogoClick}><Logo
                     width={"175px"}/></a></div>
-                <div className={`${classes.navLinks} ${hasScrolledPast ? classes.clingRight : classes.center}`}
-                     ref={navLinksRef}>
+                {!mobileMenu && <div className={`${classes.navLinks} ${hasScrolledPast ? classes.clingRight : classes.center}`}
+                      ref={navLinksRef}>
                     <ul className={`${classes.desktop} ${hasScrolledPast ? classes.bigGap : classes.smallGap}`}
                         onClick={(event) => {
                             event.preventDefault();
-                            const navBarElement = document.getElementById("navBar").clientHeight
                             const target = event.target;
                             const id = target.getAttribute('href')?.replace('#', '');
-                            /* console.log(id)  TODO WHY WAS THERE SOME log?*/
                             const element = document.getElementById(id);
-                            /* console.log(element)*/
                             element?.scrollIntoView({
                                 block: 'start',
                                 behavior: 'smooth'
@@ -118,8 +120,10 @@ function Navbar({notTop}) {
                         <li className={"navLink"}><Link to={"/jobs"}>Jobs</Link></li>
                         <ThemeSwitch isOnAbsolute={true}/>
                     </ul>
-                    <button className={`${classes.mobile} transparent`}><MdMenu size={40} /></button>
-                </div>
+
+
+                </div>}
+                {mobileMenu && <MobileMenu clingRight={hasScrolledPast}/>}
             </div>
         </nav>
     );

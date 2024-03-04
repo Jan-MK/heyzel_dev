@@ -6,29 +6,30 @@ import {useContext, useRef, useState} from "react";
 import SingleLocation from "./SingleLocation/SingleLocation.jsx";
 import NavbarContext from "../../context/NavbarContext.jsx";
 import {maxWidthMobile, minWidthNonMobile} from "../../utility/Utility.jsx";
+import useWindowDimensions from "../../utility/WindowSize.jsx";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// eslint-disable-next-line no-unused-vars
-function Locations(props) {
+
+
+function Locations({headingRef}) {
+    const { height, width } = useWindowDimensions();
     const {navbarRef} = useContext(NavbarContext)
     const titleRef = useRef(null)
     const locationsRef = useRef(null)
     const locationImageRef = useRef(null)
     const lastHeadLineRef = useRef(null)
-    // eslint-disable-next-line no-unused-vars
-    const [testMobile, setTestMobile] = useState(<></>)
-
+    const [imageContainerHeight, setImageContainerHeight] = useState("calc(100vh - 66px)")
 
     useGSAP(() => {
-        const title = titleRef.current
+        const title = headingRef.current
         const navbar = navbarRef.current
         const locationsContainer = locationsRef.current
         const locationsImage = locationImageRef.current
 
-        const details = gsap.utils.toArray(`.${classes.desktopContentSection}:not(:first-child)`);
-        const photos = gsap.utils.toArray(`.${classes.desktopPhoto}:not(:first-child)`);
-        const allPhotos = gsap.utils.toArray(`.${classes.desktopPhoto}`);
+        const details = gsap.utils.toArray(`.${classes.locationContentSection}:not(:first-child)`);
+        const photos = gsap.utils.toArray(`.${classes.locationPhoto}:not(:first-child)`);
+        const allPhotos = gsap.utils.toArray(`.${classes.locationPhoto}`);
 
         gsap.set(photos, {yPercent: 101});
 
@@ -37,11 +38,16 @@ function Locations(props) {
 
         mm.add(`(min-width: ${minWidthNonMobile}px)`, () => {
                 console.log("desktop");
-
+                console.log(height)
+                console.log(height - navbar.offsetHeight - title.offsetHeight)
+                setImageContainerHeight((prev) => {
+                    console.log(prev)
+                    return `calc(100vh - ${navbar.offsetHeight}px - ${title.offsetHeight}px !important`
+                })
                 if (title && navbar && locationsContainer) {
                     ScrollTrigger.create({
-                        trigger: title,
-                        start: `top top+=${navbar.offsetHeight}`,
+                        startTrigger: title,
+                        start: `top top+=${navbar.offsetHeight}px`,
                         endTrigger: locationsContainer,
                         end: 'bottom bottom',
                         pin: [title],
@@ -54,10 +60,10 @@ function Locations(props) {
 
                 ScrollTrigger.create({
                     trigger: locationsContainer,
-                    start: "top top+=33px",
+                    start: `top top+=${navbar.offsetHeight + .5 *title.offsetHeight}px`,
                     end: "bottom bottom",
-                    pin: [locationsImage],
-                    markers: false,
+                    pin: locationsImage,
+                    markers: true,
                     invalidateOnRefresh: true
                 });
 
@@ -122,13 +128,10 @@ function Locations(props) {
 
 
     return (
-        <div>
-            <h1 ref={titleRef} className={classes.sectionHeading}>Locations</h1>
-            {testMobile}
             <div className={`${classes.gallery}`} ref={locationsRef}>
                 <div className={`${classes.left}`}>
-                    <div className={`${classes.desktopContent}`}>
-                        <div className={`${classes.desktopContentSection}`}>
+                    <div className={`${classes.locationContentWrapper}`}>
+                        <div className={`${classes.locationContentSection}`}>
                             <SingleLocation
                                 title={'Königsplatz'}
                                 description={'You are on the go and need some snacks or coffee?'}
@@ -161,7 +164,7 @@ function Locations(props) {
                                 ]}
                             />
                         </div>
-                        <div className={`${classes.desktopContentSection}`}>
+                        <div className={`${classes.locationContentSection}`}>
                             <SingleLocation
                                 title={'Rathausplatz'}
                                 description={'In a leisure atmosphere enjoy coffee in the morning or drinks\n' +
@@ -187,7 +190,7 @@ function Locations(props) {
                                 ]}
                             />
                         </div>
-                        <div className={`${classes.desktopContentSection}`}>
+                        <div className={`${classes.locationContentSection}`}>
                             <SingleLocation
                                 lastHeadLineRef={lastHeadLineRef}
                                 title={'Universität'}
@@ -221,21 +224,20 @@ function Locations(props) {
                 </div>
 
                 <div className={`${classes.right}`} ref={locationImageRef}>
-                    <div className={`${classes.desktopPhotos}`}>
-                        <div className={`${classes.desktopPhoto}`}><img
+                    <div className={`${classes.locationPhotos}`}>
+                        <div className={`${classes.locationPhoto}`}><img
                             src={"https://images.pexels.com/photos/2193600/pexels-photo-2193600.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"}
                             alt={'Heyzel - Königsplatz'}/></div>
-                        <div className={`${classes.desktopPhoto}`}><img
+                        <div className={`${classes.locationPhoto}`}><img
                             src={"https://images.pexels.com/photos/2551794/pexels-photo-2551794.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"}
                             alt={'Heyzel - Rathaus'}/></div>
-                        <div className={`${classes.desktopPhoto}`}><img
+                        <div className={`${classes.locationPhoto}`}><img
                             src={"https://images.pexels.com/photos/1402407/pexels-photo-1402407.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"}
                             alt={'Heyzel - Universität'}/></div>
                     </div>
 
                 </div>
             </div>
-        </div>
     );
 }
 

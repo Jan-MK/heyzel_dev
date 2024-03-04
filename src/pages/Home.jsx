@@ -20,6 +20,7 @@ function Home(props) {
     const aboutRef = useRef(null)
     const titleRef = useRef(null)
     const menuContainerRef = useRef(null)
+    const locationsHeadingRef = useRef(null)
 
     useEffect(() => {
         const titlePart = titleRef.current
@@ -48,30 +49,56 @@ function Home(props) {
         <>
             <Hero/>
             <Navbar notTop={true}/>
-            <div className={`${classes.scrollSnapContainer} ${classes.snapActive}`}>
-                <section className={`${classes.snapSection}`} id={"about"}>
-                    <h1 ref={aboutRef}>ABOUT</h1>
+            <div className={`${classes.mainContent}`}>
+                <section className={`${classes.contentSection}`} id={"about"} >
+                    <div className={`${classes.bgSectionHeading} ${classes.centered}`}>
+                        <h1 ref={aboutRef}>
+                            ABOUT
+                        </h1>
+                    </div>
                 </section>
-                <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle} order={false} boldIntro={insertionIntro} idx={1} description={[insertions[0], insertions[1]]} />
-                <section className={`${classes.snapSection}`} id={"events"}>
-                    <h1>EVENTS</h1>
+                <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle} order={false}
+                                boldIntro={insertionIntro} idx={1} description={[insertions[0], insertions[1]]}/>
+                <section className={`${classes.contentSection}`} id={"events"}>
+                    <div className={`${classes.bgSectionHeading} ${classes.centered}`}>
+                        <h1>
+                            EVENTS
+                        </h1>
+                    </div>
                 </section>
-                <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle} order={true} boldIntro={"..."} idx={3} description={[insertions[2], insertions[3]]} />
-                <section className={`${classes.snapSection}`} ref={menuContainerRef} id={"menu"}>
-                    <h1>MENU</h1>
-                    <div className={classes.innerContainer}><Menu containerRef={menuContainerRef} /></div>
+                <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle} order={true} boldIntro={"..."}
+                                idx={3} description={[insertions[2], insertions[3]]}/>
+                <section className={`${classes.contentSection} ${classes.fullHeight}`} ref={menuContainerRef}
+                         id={"menu"}>
+                    <div className={`${classes.bgSectionHeading} ${classes.centered}`}>
+                        <h1>
+                            MENU
+                        </h1>
+                    </div>
+                    <div className={classes.innerContainer}><Menu containerRef={menuContainerRef}/></div>
                 </section>
-                <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle} order={false} boldIntro={"..."} idx={5} description={[insertions[4], insertions[5]]} />
-                <section className={`${classes.test}`} id={"locations"}>
-                    <Locations />
+                <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle} order={false} boldIntro={"..."}
+                                idx={5} description={[insertions[4], insertions[5]]}/>
+                <section className={`${classes.contentSection}`} id={"locations"}>
+                    <div className={`${classes.bgSectionHeading} ${classes.centered}`} ref={locationsHeadingRef}>
+                        <h1>
+                            LOCATIONS
+                        </h1>
+                    </div>
+                    <Locations headingRef={locationsHeadingRef}/>
                 </section>
-                <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle} order={false} boldIntro={"..."} idx={7} description={[insertions[6], insertions[7]]} />
-                <section className={`${classes.snapSection}`} id={"contact"}>
-                    <h1>CONTACT</h1>
-                    <Contact />
+                <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle} order={false} boldIntro={"..."}
+                                idx={7} description={[insertions[6], insertions[7]]}/>
+                <section className={`${classes.contentSection}`} id={"contact"}>
+                    <div className={`${classes.bgSectionHeading} ${classes.centered}`}>
+                        <h1>
+                            CONTACT
+                        </h1>
+                    </div>
+                    <Contact/>
                 </section>
             </div>
-            <Footer />
+            <Footer/>
         </>
     );
 }
