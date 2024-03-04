@@ -31,7 +31,8 @@ export default function Menu({containerRef}) {
         let menuContainer = containerRef.current
         let horizontalScroll = horizontalScrollRef.current
 
-        if (menuContainer && horizontalScroll && horizontalScroll) {
+        console.log(menuContainer, horizontalScroll)
+        if (menuContainer && horizontalScroll) {
             console.log('DOING MENU HORIZONTAL SCROLL')
             let mm = gsap.matchMedia();
             mm.add(`(min-width: ${minWidthNonMobile}px)`, () => {
