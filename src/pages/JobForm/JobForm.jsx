@@ -650,6 +650,8 @@ function JobForm(props) {
             })
             .catch(error => {
                 console.log('Could not send application, please send it manually.', error)
+                console.log('Printing Error')
+                console.log(error)
                 setFormData(formContent)
                 setAnswered(true)
                 setSuccessful(false);
