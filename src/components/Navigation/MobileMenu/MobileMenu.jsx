@@ -20,16 +20,19 @@ const MobileMenu = ({clingRight}) => {
 
     const openMenu = () => {
         setIsOpen(true)
+        document.body.overflow = 'hidden'
         const tl = gsap.timeline();
         tl.to(menuRef.current, { opacity: 1, duration: .25, top: 0, ease: "power2.easeIn" })
-            .to(navItemsRef.current, { opacity: 1, marginBottom: 0, duration: .25, ease: "power2.easeIn", stagger: 0.15 }, "-=0.5");
+            .to(navItemsRef.current, { opacity: 1, marginBottom: 0, duration: .25, ease: "power2.easeIn", stagger: 0.15 }, /*"-=0.5"*/);
     };
 
     const closeMenu = () => {
         setIsOpen(false)
+        document.body.overflow = 'unset'
+
         const tl = gsap.timeline();
-        tl.to(navItemsRef.current, { opacity: 0, marginBottom: -20, duration: .25, ease: "power2.easeOut", stagger: 0.1 })
-            .to(menuRef.current, { opacity: 0, duration: .25, top: "-100%", ease: "power2.easeOut" }, "-=0.5");
+        tl.to(navItemsRef.current, { opacity: 0, marginBottom: -5, duration: .25, ease: "power2.easeOut", stagger: 0.1 })
+            .to(menuRef.current, { opacity: 0, duration: .25, top: "-100%", ease: "power2.easeOut" }, /*"-=0.5"*/);
     };
 
     const handleNavClick = (event) => {
@@ -65,24 +68,26 @@ const MobileMenu = ({clingRight}) => {
     return (
         <>
             {!isOpen && <div className={`${classes.menuDiv} ${clingRight && classes.clingRight}`} onClick={openMenu}><MdMenu size={40} /></div>}
-            <div className={classes.menu} ref={menuRef}>
-                <div className={classes.background}><Logo width={"90vw"} /></div>
-                <div className={classes.exit} onClick={closeMenu} ref={closeRef}><MdClose size={40} /></div>
+            {<div className={classes.menu} ref={menuRef} style={{pointerEvents: !isOpen && 'none'}}>
+                <div className={classes.background}><Logo width={"90vw"}/></div>
+                <div className={classes.exit} onClick={closeMenu} ref={closeRef}><MdClose size={40}/></div>
                 <div className={`${classes.menuContainer} ${classes.options}`} onClick={handleNavClick}>
                     <ul ref={(el) => (navItemsRef.current = el ? Array.from(el.children) : [])}>
                         {menuItems.map((item, index) => (
                             <li className={classes.nav} key={index}>
                                 {item.isRouterLink ? (
-                                    <Link to={item.href} className={classes.navLink}><span className={classes.smallNumber}>0{index + 1}</span> {item.text}</Link>
+                                    <Link to={item.href} className={classes.navLink}><span
+                                        className={classes.smallNumber}>0{index + 1}</span> {item.text}</Link>
                                 ) : (
-                                    <a href={item.href} className={classes.navLink}><span className={classes.smallNumber}>0{index + 1}</span> {item.text}</a>
+                                    <a href={item.href} className={classes.navLink}><span
+                                        className={classes.smallNumber}>0{index + 1}</span> {item.text}</a>
                                 )}
                             </li>
                         ))}
 
                     </ul>
 
-                    <div className={`${classes.menuContainer} ${classes.right}`} >
+                    <div className={`${classes.menuContainer} ${classes.right}`}>
                         <div className={classes.information}>
                             <p className={classes.title}>Adresssss</p>
                             <p className={classes.description}>Augsburg</p>
@@ -102,8 +107,8 @@ const MobileMenu = ({clingRight}) => {
                         </div>
                     </div>
                 </div>
-                <ThemeSwitch />
-            </div>
+                <ThemeSwitch/>
+            </div>}
         </>
     );
 };

@@ -121,7 +121,7 @@ function Navbar({notTop}) {
 
 
                 </div>}
-                {mobileMenu && <MobileMenu clingRight={hasScrolledPast}/>}
+                {mobileMenu && <MobileMenu isMounted={isMounted} clingRight={hasScrolledPast}/>}
             </div>
         </nav>
     );
