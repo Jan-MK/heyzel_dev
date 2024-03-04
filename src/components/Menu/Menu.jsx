@@ -36,8 +36,6 @@ export default function Menu() {
         let menuContainer = menuContainerRef.current
         let horizontalScroll = horizontalScrollRef.current
 
-        /*console.log(JSON.parse(JSON.stringify(menuContainerRef.current)))
-        console.log(JSON.parse(JSON.stringify(horizontalScrollRef.current)))*/
         console.log("menuContainer", menuContainer)
         console.log("horizontalScroll", horizontalScroll)
         if (menuContainer && horizontalScroll) {
@@ -71,6 +69,57 @@ export default function Menu() {
         }
     })
 
+
+
+    /*useEffect(() => {
+        const refs = refArray.current;
+        const menuContainer = menuContainerRef.current;
+        const horizontalScroll = horizontalScrollRef.current;
+        console.log("menuContainer", menuContainer);
+        console.log("horizontalScroll", horizontalScroll);
+
+        if (menuContainer && horizontalScroll) {
+            console.log("Setting up GSAP animation");
+
+            let distance = () => {
+                if (!refs.length) return 0; // Ensure the array is not empty
+                let lastItem = refs[refs.length - 1];
+                if (!lastItem) return 0; // Guard against undefined last item
+                let lastItemBounds = lastItem.getBoundingClientRect();
+                let containerBounds = horizontalScroll.getBoundingClientRect();
+                return Math.max(0, lastItemBounds.right - containerBounds.right);
+            };
+
+            // Create a ScrollTrigger instance
+            const scrollTriggerInstance = ScrollTrigger.create({
+                trigger: menuContainer,
+                start: "top top+=66px",
+                end: () => "+=" + distance(),
+                pin: menuContainer,
+                scrub: true,
+                markers: false,
+                invalidateOnRefresh: true,
+                onEnter: () => gsap.to(horizontalScroll, {
+                    x: () => -distance(),
+                    ease: "none",
+                }),
+                onLeave: () => gsap.to(horizontalScroll, {
+                    x: 0,
+                    ease: "none",
+                }),
+            });
+
+            // Cleanup function
+            return () => {
+                // Kill the ScrollTrigger instance
+                scrollTriggerInstance.kill();
+
+                // Optionally, revert any GSAP animations related to this component
+                gsap.to(horizontalScroll, { x: 0, clearProps: "all" });
+            };
+        }
+    }, [refArray, menuContainerRef, horizontalScrollRef]);
+*/
     useEffect(() => {
         checkScrollability()
     }, [currentModalContent]);

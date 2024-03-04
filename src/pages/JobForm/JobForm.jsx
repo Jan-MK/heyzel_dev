@@ -623,8 +623,6 @@ function JobForm(props) {
     });
 
     function handleSave(formContent) {
-        console.log(prepareData(formContent))
-        console.log(formContent)
         setSubmitted(true)
         const dataToSend = new FormData();
         dataToSend.append('emailContent', prepareDataHTML(formContent));
@@ -639,6 +637,7 @@ function JobForm(props) {
             },
         })
             .then(response => {
+
                 if (response.status === 202) {
                     console.log('Message sent but photo could not be attached');
                     /*console.warn('Message sent but photo could not be attached');
@@ -650,9 +649,7 @@ function JobForm(props) {
                 setSuccessful(true);
             })
             .catch(error => {
-                console.log('Could not send application, please send it manually.')
-                /*console.error('Error:', error);
-                alert('Message could not be sent'); // Or display this error more gracefully*/
+                console.log('Could not send application, please send it manually.', error)
                 setFormData(formContent)
                 setAnswered(true)
                 setSuccessful(false);

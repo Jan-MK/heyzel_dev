@@ -50,14 +50,16 @@ function Locations() {
                     })
                 }
 
-                ScrollTrigger.create({
-                    trigger: locationsContainer,
-                    start: `top top+=${navbar.offsetHeight + .5 *title.offsetHeight}px`,
-                    end: "bottom bottom",
-                    pin: locationsImage,
-                    markers: false,
-                    invalidateOnRefresh: true
-                });
+                if (title && locationsImage && locationsContainer) {
+                    ScrollTrigger.create({
+                        trigger: locationsContainer,
+                        start: `top top+=${navbar.offsetHeight + .5 * title.offsetHeight}px`,
+                        end: "bottom bottom",
+                        pin: locationsImage,
+                        markers: true,
+                        invalidateOnRefresh: true
+                    });
+                }
 
                 // Create scroll trigger for each details section
                 details.forEach((detail, index) => {
