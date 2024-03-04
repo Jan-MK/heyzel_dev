@@ -7,7 +7,7 @@ import Home from "./pages/Home.jsx";
 import Gsap from "./pages/GSAP/Gsap.jsx";
 import Layout from "./components/Layout/Layout.jsx";
 import JobForm from "./pages/JobForm/JobForm.jsx";
-import {NavbarProvider} from "./context/NavbarContext.jsx";
+import {ReferenceProvider} from "./context/ReferenceContext.jsx";
 
 function useDynamicFavicon() {
     useEffect(() => {
@@ -42,14 +42,14 @@ function App() {
     return (
         <Router>
             <ThemeProvider>
-                <NavbarProvider>
+                <ReferenceProvider>
                     <Routes>
                         <Route path="/" element={<Home/>}/>
                         <Route path="/test" element={<HorizontalMultiStep/>}/>
                         <Route path="/jobs" element={<JobForm/>}/>
                         <Route path="/gsap" element={<Gsap/>}/>
                     </Routes>
-                </NavbarProvider>
+                </ReferenceProvider>
             </ThemeProvider>
         </Router>
     );

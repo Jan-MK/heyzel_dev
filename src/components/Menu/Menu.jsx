@@ -1,17 +1,20 @@
 import classes from "./Menu.module.scss";
 import menuArray from '../../assets/menu.json'
-import {useEffect, useRef, useState} from "react";
+import {useContext, useEffect, useRef, useState} from "react";
 import Modal from "../Modal/Modal.jsx";
 import {IoChevronUpOutline, IoChevronDownOutline} from 'react-icons/io5';
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {useGSAP} from "@gsap/react";
 import {minWidthNonMobile} from "../../utility/Utility.jsx";
+import ReferenceContext from "../../context/ReferenceContext.jsx";
+
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function Menu({containerRef}) {
+export default function Menu() {
     let menuCats = menuArray.categories
+    const { menuContainerRef } = useContext(ReferenceContext)
     const refArray = useRef([])
     const horizontalScrollRef = useRef(null)
     const [isMounted, setIsMounted] = useState(false);
@@ -28,12 +31,11 @@ export default function Menu({containerRef}) {
 
     useGSAP(() => {
         const refs = refArray.current
-        let menuContainer = containerRef.current
+        let menuContainer = menuContainerRef.current
         let horizontalScroll = horizontalScrollRef.current
 
-        console.log(menuContainer, horizontalScroll)
         if (menuContainer && horizontalScroll) {
-            console.log('DOING MENU HORIZONTAL SCROLL')
+            console.log("In if of useGsap of menu")
             let mm = gsap.matchMedia();
             mm.add(`(min-width: ${minWidthNonMobile}px)`, () => {
                 // Rendering for desktop

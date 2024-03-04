@@ -1,9 +1,9 @@
 import { useContext } from "react";
-import NavbarContext from "../../context/NavbarContext.jsx";
+import ReferenceContext from "../../context/ReferenceContext.jsx";
 import classes from "./Logo.module.scss"; // Ensure this is correctly imported
 
 function Logo({ width }) {
-    const { logoRef } = useContext(NavbarContext);
+    const { logoRef } = useContext(ReferenceContext);
 
     return (
         <div ref={logoRef} className="logo" style={{ width: width, height: "auto" }}>

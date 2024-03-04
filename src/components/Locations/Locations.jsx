@@ -2,9 +2,9 @@ import classes from "./Locations.module.scss"
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {useGSAP} from "@gsap/react";
-import {useContext, useRef, useState} from "react";
+import {useContext, useRef } from "react";
 import SingleLocation from "./SingleLocation/SingleLocation.jsx";
-import NavbarContext from "../../context/NavbarContext.jsx";
+import ReferenceContext from "../../context/ReferenceContext.jsx";
 import {maxWidthMobile, minWidthNonMobile} from "../../utility/Utility.jsx";
 import useWindowDimensions from "../../utility/WindowSize.jsx";
 
@@ -12,17 +12,15 @@ gsap.registerPlugin(ScrollTrigger);
 
 
 
-function Locations({headingRef}) {
+function Locations() {
     const { height, width } = useWindowDimensions();
-    const {navbarRef} = useContext(NavbarContext)
-    const titleRef = useRef(null)
+    const {navbarRef, locationsHeadingRef } = useContext(ReferenceContext)
     const locationsRef = useRef(null)
     const locationImageRef = useRef(null)
     const lastHeadLineRef = useRef(null)
-    const [imageContainerHeight, setImageContainerHeight] = useState("calc(100vh - 66px)")
 
     useGSAP(() => {
-        const title = headingRef.current
+        const title = locationsHeadingRef.current
         const navbar = navbarRef.current
         const locationsContainer = locationsRef.current
         const locationsImage = locationImageRef.current
@@ -38,12 +36,6 @@ function Locations({headingRef}) {
 
         mm.add(`(min-width: ${minWidthNonMobile}px)`, () => {
                 console.log("desktop");
-                console.log(height)
-                console.log(height - navbar.offsetHeight - title.offsetHeight)
-                setImageContainerHeight((prev) => {
-                    console.log(prev)
-                    return `calc(100vh - ${navbar.offsetHeight}px - ${title.offsetHeight}px !important`
-                })
                 if (title && navbar && locationsContainer) {
                     ScrollTrigger.create({
                         startTrigger: title,
@@ -63,7 +55,7 @@ function Locations({headingRef}) {
                     start: `top top+=${navbar.offsetHeight + .5 *title.offsetHeight}px`,
                     end: "bottom bottom",
                     pin: locationsImage,
-                    markers: false,
+                    markers: true,
                     invalidateOnRefresh: true
                 });
 
@@ -167,8 +159,7 @@ function Locations({headingRef}) {
                         <div className={`${classes.locationContentSection}`}>
                             <SingleLocation
                                 title={'Rathausplatz'}
-                                description={'In a leisure atmosphere enjoy coffee in the morning or drinks\n' +
-                                    '                            at night.'}
+                                description={'In a leisure atmosphere enjoy coffee in the morning or drinks at night.'}
                                 address={{
                                     street: 'Steingasse 3',
                                     zip: '86150',

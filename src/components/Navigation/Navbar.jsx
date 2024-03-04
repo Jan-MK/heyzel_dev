@@ -3,12 +3,10 @@ import Logo from "../Logo/Logo.jsx";
 import ThemeSwitch from "../ThemeSwitch/ThemeSwitch.jsx";
 import {useContext, useEffect, useRef, useState} from "react";
 import {Link} from "react-router-dom";
-import NavbarContext from "../../context/NavbarContext.jsx";
+import ReferenceContext from "../../context/ReferenceContext.jsx";
 import {useGSAP} from "@gsap/react";
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
-import {MdMenu} from "react-icons/md";
-import MobileNavigation from "./MobileNavigation/MobileNavigation.jsx";
 import MobileMenu from "./MobileMenu/MobileMenu.jsx";
 import useWindowDimensions from "../../utility/WindowSize.jsx";
 import {maxWidthMobile} from "../../utility/Utility.jsx";
@@ -18,7 +16,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 function Navbar({notTop}) {
     const [isMounted, setIsMounted] = useState(false);
-    const { navbarRef } = useContext(NavbarContext)
+    const { navbarRef } = useContext(ReferenceContext)
     const navBarContainerRef = useRef(null)
     const navLinksRef = useRef(null)
     const logoContainerRef = useRef(null)

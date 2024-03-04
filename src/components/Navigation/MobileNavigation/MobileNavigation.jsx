@@ -6,49 +6,6 @@ import {MdMenu} from "react-icons/md";
 import {useGSAP} from "@gsap/react";
 import "./menu.css"
 
-/*const MobileNavigationMenu = ({ isOpen, onClose }) => {
-    useEffect(() => {
-        const tl = gsap.timeline();
-        if (isOpen) {
-            tl.fromTo("#monav-root",
-                {
-                    scaleX: 0,
-                    scaleY: 0,
-                    transformOrigin: "right top",
-                },
-                {
-                    duration: 0.5,
-                    scaleX: 1,
-                    scaleY: 1,
-                    ease: "power3.out",
-                }
-            );
-        } else {
-            tl.to("#monav-root", {
-                duration: 0.5,
-                scaleX: 0,
-                scaleY: 0,
-                transformOrigin: "right top",
-                ease: "power3.in",
-                onComplete: onClose,
-            });
-        }
-    }, [isOpen, onClose]);
-
-    return ReactDOM.createPortal(
-        <div
-            id="monav-root"
-            className={classes.overlayMenu}
-        >
-            {/!* Navigation links or content *!/}
-            <p>Home</p>
-            <p>About</p>
-            <p>Services</p>
-            <p>Contact</p>
-        </div>,
-        document.getElementById('monav-root')
-    );
-};*/
 
 const MobileNavigation = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -58,13 +15,7 @@ const MobileNavigation = () => {
     useGSAP(() => {
         const menuBtn = menuDivRef.current
         const exitBtn = exitDivRef.current
-        //const menuBtn = document.querySelector(".menu-div");
-        //const exitBtn = document.querySelector(".exit");
 
-
-        let newVar = menuBtn
-        let newVar2 = exitBtn;
-        console.log(newVar, newVar2)
         let t1
         if (menuBtn && exitBtn) {
             console.log("FOUND BOTH")

@@ -10,6 +10,7 @@ function Modal({show, toggleOpen, children}) {
 
     // Handle animations based on `show`
     useEffect(() => {
+        // TODO AGAIN CHECK ANIMATION -> HARD TO SEE IF WORKING
         if (show) {
             gsap.set(modalRef.current, {opacity: 0})
             setIsVisible(true); // Ensure component is visible for animation

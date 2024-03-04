@@ -8,7 +8,7 @@ import logo from '../../assets/media/heyzel-logo.svg'
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {useGSAP} from "@gsap/react";
-import NavbarContext from "../../context/NavbarContext.jsx";
+import ReferenceContext from "../../context/ReferenceContext.jsx";
 import Logo from "../Logo/Logo.jsx";
 import {getRandomColor, maxWidthMobile, minWidthNonMobile} from "../../utility/Utility.jsx";
 import ReactCountryFlag from "react-country-flag";
@@ -33,7 +33,7 @@ function HeroComponent(props) {
     const rightContainer = useRef(null)
     const containerRef = useRef(null)
     const heroWrapper = useRef(null)
-    const {navbarRef} = useContext(NavbarContext)
+    const {navbarRef} = useContext(ReferenceContext)
     const [heroHeight, setHeroHeight] = useState("100vh")
 
     const rightSlice = images.slice(countPerColumn)
