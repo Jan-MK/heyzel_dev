@@ -132,7 +132,7 @@
       @include mobile {
         display: flex;
         flex-direction: column;
-        align-self: flex-start;
+        align-self: center !important;
         overflow-x: hidden;
       }
 
