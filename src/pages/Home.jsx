@@ -62,7 +62,7 @@ function Home(props) {
                             MENU
                         </h1>
                     </div>
-                    <div className={classes.innerContainer}><Menu /></div>
+                    <Menu />
                 </section>
                 <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle} order={false} boldIntro={"..."}
                                 idx={5} description={[insertions[4], insertions[5]]}/>

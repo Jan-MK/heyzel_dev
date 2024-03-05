@@ -9,13 +9,14 @@ import {useGSAP} from "@gsap/react";
 import {minWidthNonMobile} from "../../utility/Utility.jsx";
 import ReferenceContext from "../../context/ReferenceContext.jsx";
 import {json} from "react-router-dom";
+import useWindowDimensions from "../../utility/WindowSize.jsx";
 
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Menu() {
     let menuCats = menuArray.categories
-    const { menuContainerRef } = useContext(ReferenceContext)
+    const {menuContainerRef} = useContext(ReferenceContext)
     const refArray = useRef([])
     const horizontalScrollRef = useRef(null)
     const [isMounted, setIsMounted] = useState(false);
@@ -24,6 +25,7 @@ export default function Menu() {
     const itemListWrapperRef = useRef(null)
     const [showUpArrow, setShowUpArrow] = useState(false);
     const [showDownArrow, setShowDownArrow] = useState(false);
+    const {height, width} = useWindowDimensions()
 
     // Handler for scroll events
     const handleScroll = () => {
@@ -31,95 +33,99 @@ export default function Menu() {
     };
 
     // TODO STILL NO ANIMATION WHEN DEPLOYED. CHECK!!!
-    useGSAP(() => {
-        const refs = refArray.current
-        let menuContainer = menuContainerRef.current
-        let horizontalScroll = horizontalScrollRef.current
+    /*    useGSAP(() => {
+            const refs = refArray.current
+            let menuContainer = menuContainerRef.current
+            /!*let horizontalScroll = horizontalScrollRef.current*!/
+            let horizontalScroll = document.getElementById('horiScroll')
 
-        console.log("menuContainer", menuContainer)
-        console.log("horizontalScroll", horizontalScroll)
-        if (menuContainer && horizontalScroll) {
-            console.log("In if of useGsap of menu")
-            let mm = gsap.matchMedia();
-            mm.add(`(min-width: ${minWidthNonMobile}px)`, () => {
-                // Rendering for desktop
-                let distance = () => {
-                    if (!refs.length) return 0; // Ensure the array is not empty
-                    let lastItem = refs[refs.length - 1];
-                    if (!lastItem) return 0; // Guard against undefined last item
-                    let lastItemBounds = lastItem.getBoundingClientRect();
-                    let containerBounds = horizontalScroll.getBoundingClientRect();
-                    return Math.max(0, lastItemBounds.right - containerBounds.right);
-                };
-                gsap.to(horizontalScroll, {
-                    x: () => -distance(),
-                    ease: "none",
-                    scrollTrigger: {
-                        trigger: menuContainer,
-                        start: "top top+=66px",
-                        pinnedContainer: menuContainer,
-                        end: () => "+=" + distance(),
-                        pin: menuContainer,
-                        scrub: true,
-                        markers: false,
-                        invalidateOnRefresh: true
-                    }
+
+            console.log("menuContainer", menuContainer)
+            console.log("horizontalScroll", horizontalScroll)
+            if (menuContainer && horizontalScroll) {
+    /!*            console.log("In if of useGsap of menu")
+                let mm = gsap.matchMedia();
+                mm.add(`(min-width: ${minWidthNonMobile}px)`, () => {
+                    // Rendering for desktop
+                    let distance = () => {
+                        if (!refs.length) return 0; // Ensure the array is not empty
+                        let lastItem = refs[refs.length - 1];
+                        if (!lastItem) return 0; // Guard against undefined last item
+                        let lastItemBounds = lastItem.getBoundingClientRect();
+                        let containerBounds = horizontalScroll.getBoundingClientRect();
+                        return Math.max(0, lastItemBounds.right - containerBounds.right);
+                    };
+                    gsap.to(horizontalScroll, {
+                        x: () => -distance(),
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: menuContainer,
+                            start: "top top+=66px",
+                            pinnedContainer: menuContainer,
+                            end: () => "+=" + distance(),
+                            pin: menuContainer,
+                            scrub: true,
+                            markers: false,
+                            invalidateOnRefresh: true
+                        }
+                    })
+                })*!/
+                let mm = gsap.matchMedia();
+                mm.add(`(min-width: ${minWidthNonMobile}px)`, () => {
+                    // Rendering for desktop
+                    let distance = horizontalScroll.offsetWidth
+                    console.log(distance)
+                    gsap.to(horizontalScroll, {
+                        x: -distance,
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: menuContainer,
+                            start: "top top+=66px",
+                            pinnedContainer: menuContainer,
+                            end: `1000+=${distance}`,
+                            pin: menuContainer,
+                            scrub: true,
+                            markers: true,
+                            invalidateOnRefresh: true
+                        }
+                    })
                 })
+            }
+        })*/
+
+    useGSAP(() => {
+        let topOfContainer = document.getElementById('menu')
+        let wrapper = document.getElementById('racesWrapper')
+        let races = document.getElementById('races')
+        if (wrapper && races) {
+            let racesWidth = races.offsetWidth
+            let amountToScroll = racesWidth - wrapper.offsetWidth;
+
+            console.log(races.offsetWidth, wrapper.offsetWidth)
+
+
+            const tween = gsap.to(races,{
+                x: -amountToScroll,
+                ease: "none"
             })
+
+            ScrollTrigger.create({
+                trigger: topOfContainer,
+                startTrigger: topOfContainer,
+                start: "top top+=66px",
+                end: "+=" + amountToScroll,
+                pin: true,
+                animation: tween,
+                scrub: 1,
+                markers: false,
+            })
+
+            ScrollTrigger.refresh()
+        } else {
+            console.log("wrapper ", wrapper, " or races ", races, " not found")
         }
     })
 
-
-
-    /*useEffect(() => {
-        const refs = refArray.current;
-        const menuContainer = menuContainerRef.current;
-        const horizontalScroll = horizontalScrollRef.current;
-        console.log("menuContainer", menuContainer);
-        console.log("horizontalScroll", horizontalScroll);
-
-        if (menuContainer && horizontalScroll) {
-            console.log("Setting up GSAP animation");
-
-            let distance = () => {
-                if (!refs.length) return 0; // Ensure the array is not empty
-                let lastItem = refs[refs.length - 1];
-                if (!lastItem) return 0; // Guard against undefined last item
-                let lastItemBounds = lastItem.getBoundingClientRect();
-                let containerBounds = horizontalScroll.getBoundingClientRect();
-                return Math.max(0, lastItemBounds.right - containerBounds.right);
-            };
-
-            // Create a ScrollTrigger instance
-            const scrollTriggerInstance = ScrollTrigger.create({
-                trigger: menuContainer,
-                start: "top top+=66px",
-                end: () => "+=" + distance(),
-                pin: menuContainer,
-                scrub: true,
-                markers: false,
-                invalidateOnRefresh: true,
-                onEnter: () => gsap.to(horizontalScroll, {
-                    x: () => -distance(),
-                    ease: "none",
-                }),
-                onLeave: () => gsap.to(horizontalScroll, {
-                    x: 0,
-                    ease: "none",
-                }),
-            });
-
-            // Cleanup function
-            return () => {
-                // Kill the ScrollTrigger instance
-                scrollTriggerInstance.kill();
-
-                // Optionally, revert any GSAP animations related to this component
-                gsap.to(horizontalScroll, { x: 0, clearProps: "all" });
-            };
-        }
-    }, [refArray, menuContainerRef, horizontalScrollRef]);
-*/
     useEffect(() => {
         checkScrollability()
     }, [currentModalContent]);
@@ -180,9 +186,10 @@ export default function Menu() {
         <div key={cat.name} ref={(el) => (refArray.current[idx] = el)} className={classes.categoryWrapper} style={{
             backgroundImage: `url("${cat.images[0]}")`
         }}>
+            <div className={classes.overlay}></div>
             <div className={classes.categoryContent}>
                 <div><h3 className={classes.heading}>{cat.name}</h3></div>
-                <div>
+                <div className={classes.modalButton}>
                     <button className={'secondary'} onClick={() => toggleMount(idx)}>show</button>
                 </div>
             </div>
@@ -193,10 +200,15 @@ export default function Menu() {
         console.log("UP: ", showUpArrow, " DOWN: ", showDownArrow)
     }, [showUpArrow, showDownArrow]);*/
 
+    useEffect(() => {
+        console.log("menuContainer", menuContainerRef)
+        console.log("horizontalScroll", horizontalScrollRef)
+    }, [menuContainerRef, horizontalScrollRef]);
+
     return (
         <>
-            <div className={classes.allCategoryWrapper}>
-                <div className={classes.insideWrapper} ref={horizontalScrollRef}>
+            <div className={classes.allCategoryWrapper} id={'racesWrapper'}>
+                <div className={classes.insideWrapper} ref={horizontalScrollRef} id={'races'}>
                     {categoriesThumbnail}
                 </div>
             </div>
