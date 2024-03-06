@@ -135,8 +135,8 @@ function JobForm(props) {
     });
     const cookies = new Cookies()
 
-    const nationalityOptions = useMemo(() => allTimeZone.map(option => (
-            <option key={option.code} value={option.name}><ReactCountryFlag countryCode={option.Code} /> {option.Name}</option>
+    const nationalityOptions = useMemo(() => allTimeZone.map((option, idx) => (
+            <option key={idx} value={option.name}>{option.Name}</option>
         ))
     )
 

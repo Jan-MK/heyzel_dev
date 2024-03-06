@@ -85,14 +85,15 @@ function Locations() {
                 console.log("mobile");
 
                 let lastHeadline = lastHeadLineRef.current
+            let headlineId = document.getElementById('headlineId')
 
                 ScrollTrigger.create({
                     trigger: locationsImage,
                     start: `top top+=${navbar.offsetHeight}px`,
-                    endTrigger: lastHeadline,
+                    endTrigger: headlineId,
                     end: `top top+=${locationsImage.offsetHeight + navbar.offsetHeight}px`,
                     pin: [locationsImage],
-                    markers: false,
+                    markers: true,
                     invalidateOnRefresh: true
                 });
 
@@ -214,6 +215,7 @@ function Locations() {
                         <div className={`${classes.locationContentSection}`}>
                             <SingleLocation
                                 lastHeadLineRef={lastHeadLineRef}
+                                headlineId={'headlineId'}
                                 title={'Universität'}
                                 description={'Between courses or to exchange between your fellow students.'}
                                 address={{

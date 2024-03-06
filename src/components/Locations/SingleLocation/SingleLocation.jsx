@@ -13,13 +13,14 @@ function SingleLocation({
                             mail,
                             phone,
                             openingHours,
-                            lastHeadLineRef
+                            lastHeadLineRef,
+                            headlineId
                         }) {
     const {street, zip, city} = address
 
     return (<>
 
-            <h1 className={classes.locationTitle} ref={lastHeadLineRef ? lastHeadLineRef : null}>{title}</h1>
+            <h1 className={classes.locationTitle} ref={lastHeadLineRef ? lastHeadLineRef : null} id={headlineId ? 'headlineId': ''}>{title}</h1>
             <p className={classes.description}>{description}</p>
             <div className={classes.generalInformation}>
                 <VerticalTable
