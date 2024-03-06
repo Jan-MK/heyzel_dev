@@ -20,7 +20,8 @@ function Locations() {
     const [imageColumnHeight, setImageColumnHeight] = useState()
 
     useGSAP(() => {
-        const title = locationsHeadingRef.current
+        //const title = locationsHeadingRef.current
+        const title = document.getElementById('locationsTitle')
         const navbar = document.getElementById('navBar')
         const locationsContainer = locationsRef.current
         const locationsImage = locationImageRef.current
@@ -39,7 +40,8 @@ function Locations() {
                 if (title && navbar && locationsContainer) {
                     ScrollTrigger.create({
                         startTrigger: title,
-                        start: `top top+=${navbar.offsetHeight - 1}px`,
+                        //start: `top top+=${navbar.offsetHeight - 1}px`,
+                        start: `top top+=65px`,
                         endTrigger: locationsContainer,
                         end: 'bottom bottom',
                         pin: [title],
@@ -136,7 +138,7 @@ function Locations() {
 
     return (
         <div className={classes.locationsSection}>
-            <div className={`${classes.sectionHeading}`} ref={locationsHeadingRef}>
+            <div className={`${classes.sectionHeading}`} id={'locationsTitle'} ref={locationsHeadingRef}>
                 <h1>
                     LOCATIONS
                 </h1>
