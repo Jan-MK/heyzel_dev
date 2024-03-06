@@ -121,20 +121,6 @@ function Locations() {
         )
     })
 
-    useEffect(() => {
-        if (locationsHeadingRef.current && navbarRef.current && locationImageRef.current) {
-            let headingHeight = locationsHeadingRef.current.offsetHeight;
-            let imageHeight = height - (headingHeight + 66 + 50);
-            setImageColumnHeight(`${imageHeight}px !important`)
-            locationImageRef.current.style.height = `${imageHeight}px`; // Directly set the height
-        }
-    }, [height, width]);
-
-
-    useEffect(() => {
-        console.log(imageColumnHeight)
-    }, [imageColumnHeight]);
-
 
     return (
         <div className={classes.locationsSection}>

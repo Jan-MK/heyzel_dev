@@ -89,10 +89,7 @@
 
     .right {
 
-      height: calc(100vh - 66px - 74px);
-
-
-      /*max-height: 50vh;*/
+      height: calc(100vh - 66px - 75px); /* 100vh, 66 navbar, 75 heading */
       width: 100%;
       display: flex;
       flex-direction: column;
