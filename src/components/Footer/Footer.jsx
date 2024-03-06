@@ -1,21 +1,20 @@
 import classes from "./Footer.module.scss"
 import Logo from "../Logo/Logo.jsx";
 import {useEffect, useRef, useState} from "react";
-import Modal from "../Modal/Modal.jsx";
 import {IoChevronDownOutline, IoChevronUpOutline} from "react-icons/io5";
 import {legalArray} from "../../utility/Utility.jsx";
+import {useModal} from "../../context/ModalContext.jsx";
+import LegalModal from "../LegalModal/LegalModal.jsx";
 
 
 function Footer(props) {
+    const {openModal} = useModal()
     const [isMounted, setIsMounted] = useState(false);
     const [currentModalContent, setCurrentModalContent] = useState("");
-    const [currentIdx, setCurrentIdx] = useState(-1);
-    const [showUpArrow, setShowUpArrow] = useState(false);
-    const [showDownArrow, setShowDownArrow] = useState(false);
     const contentScrollRef = useRef(null)
 
     // Handler for scroll events
-    const handleScroll = () => {
+/*    const handleScroll = () => {
         checkScrollability();
     };
 
@@ -33,22 +32,23 @@ function Footer(props) {
 
         setShowUpArrow(isScrollable && !isScrolledToTop);
         setShowDownArrow(isScrollable && !isScrolledToBottom);
-    };
+    };*/
     const year = new Date().getFullYear()
 
 
 
 
 
-    function toggleMount(idx) {
-        if (!isMounted) {
-            setCurrentModalContent(legalArray[idx].content);
+    function toggleMount(imprint) {
+        openModal(<LegalModal showImprint={imprint} />)
+        /*setCurrentModalContent(legalArray[idx].content);*/
+        /*if (!isMounted) {
             setCurrentIdx(idx);
-            setIsMounted(true);
+            /!*setIsMounted(true);*!/
         } else {
-            setIsMounted(false);
-            /*setCurrentModalContent("")*/
-        }
+            /!*setIsMounted(false);*!/
+            /!*setCurrentModalContent("")*!/
+        }*/
     }
 
     return (
@@ -89,8 +89,8 @@ function Footer(props) {
                 </div>
                 <div className={classes.legalWrapper}>
                     <div className={classes.legal}>
-                        <a onClick={() => toggleMount(0)}><p>IMPRINT</p></a>
-                        <a onClick={() => toggleMount(1)}><p>PRIVACY</p></a>
+                        <a onClick={() => toggleMount(true)}><p>IMPRINT</p></a>
+                        <a onClick={() => toggleMount(false)}><p>PRIVACY</p></a>
                     </div>
                     <div className={classes.rights}>
                         <p>Copyright © {year}. All Rights Reserved.</p>
@@ -98,15 +98,6 @@ function Footer(props) {
                 </div>
 
             </div>
-            <Modal show={isMounted} toggleOpen={() => toggleMount(currentIdx)}>
-                <div className={classes.legalModalWrapper}>
-                    <div className={`${classes.scrollIndicator}`}>{showUpArrow && <IoChevronUpOutline/>}</div>
-                    <div className={classes.legalText} onScroll={handleScroll} ref={contentScrollRef}>
-                        {currentModalContent}
-                    </div>
-                    <div className={`${classes.scrollIndicator}`}>{showDownArrow && <IoChevronDownOutline/>}</div>
-                </div>
-            </Modal>
         </>
     );
 }

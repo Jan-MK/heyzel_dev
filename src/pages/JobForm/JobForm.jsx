@@ -13,6 +13,8 @@ import axios from "axios";
 import Logo from "../../components/Logo/Logo.jsx";
 import useWindowDimensions from "../../utility/WindowSize.jsx";
 import ReactCountryFlag from "react-country-flag";
+import LegalModal from "../../components/LegalModal/LegalModal.jsx";
+import {useModal} from "../../context/ModalContext.jsx";
 
 const defaultValues = {
     confirmation: false,
@@ -105,6 +107,7 @@ const schema = z.object({
 
 function JobForm(props) {
     // TODO: TabIndex for each section, prevent back from leaving this form
+    const {openModal} = useModal()
     const refArray = useRef([]);
     const formContainerRef = useRef(null);
     const [formData, setFormData] = useState("")
@@ -173,7 +176,7 @@ function JobForm(props) {
             resetForm();
         }
         requestAnimationFrame(() => setResetting(false))
-        prefill(2)
+        //prefill(2)
     }, []);
 
 
@@ -298,9 +301,8 @@ function JobForm(props) {
                 <div className={`${classes.confirmation} ${classes.fieldWrapper}`}>
                     <input id={'confirmation'} className={classes.cbSmall} tabIndex={currentStep === 0 ? 1 : -1}
                            type={"checkbox"} {...registerWithSave('confirmation')}/>
-                    <label htmlFor={'confirmation'}>To proceed with the application process confirm that you have read
-                        and agreed to our <a
-                            href={"#"} target={'_blank'} rel="noreferrer">terms
+                    <label>To proceed with the application process confirm that you have read
+                        and agreed to our <a onClick={() => openModal(<LegalModal showImprint={false} />)}>terms
                             of privacy</a> on how we use the data.<span className={classes.required}>*</span></label>
                 </div>
                 <div

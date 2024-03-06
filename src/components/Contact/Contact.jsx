@@ -7,6 +7,9 @@ import VerticalTable from "../VerticalTable/VerticalTable.jsx";
 import {Link} from "react-router-dom";
 import {MdSubdirectoryArrowRight} from "react-icons/md";
 import HighlightBox from "../HighlightBox/HighlightBox.jsx";
+import {legalArray} from "../../utility/Utility.jsx";
+import {useModal} from "../../context/ModalContext.jsx";
+import LegalModal from "../LegalModal/LegalModal.jsx";
 
 
 const defaultValues = {
@@ -20,7 +23,7 @@ const defaultValues = {
 }
 
 
-function Contact(props) {
+function Contact() {
     const [typeIsOther, setTypeIsOther] = useState(false)
     const {
         register,
@@ -34,6 +37,7 @@ function Contact(props) {
         mode: 'onChange',
         defaultValues: defaultValues,
     });
+    const { openModal } = useModal();
 
     function createSchema(typeIsOther) {
         return z.object({
@@ -68,6 +72,8 @@ function Contact(props) {
             console.log("OK Submit")
         }
     }
+
+
 
     return (
         <div className={classes.splitview}>
@@ -156,9 +162,7 @@ function Contact(props) {
                 <div className={`${classes.rowWrapper} ${classes.notRowFlex}`}>
                     <div className={`${classes.confirmation}`}>
                         <input id={'confirm'} type={"checkbox"} {...register('confirmation')}/>
-                        <label htmlFor={'confirm'}>Please confirm that you have read and agreed to our <a
-                            href={"#"} target={'_blank'} rel="noreferrer">terms
-                            of privacy</a> on how we use the data.<span className={classes.required}>*</span></label>
+                        <label>Please confirm that you have read and agreed to our <a onClick={() => openModal(<LegalModal showImprint={false} />)}>terms of privacy</a> on how we use the data.<span className={classes.required}>*</span></label>
                     </div>
                     <div className={`${errors.confirmation?.message ? classes.error : classes.noError}`}>
                         {errors.confirmation?.message}

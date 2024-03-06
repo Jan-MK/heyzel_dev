@@ -113,7 +113,7 @@ function Navbar({notTop}) {
                         <li className={"navLink"}><a href={"#menu"}>Menu</a></li>
                         <li className={"navLink"}><a href={"#locations"}>Locations</a></li>
                         <li className={"navLink"}><a href={"#contact"}>Contact</a></li>
-                        <li className={"navLink"}><Link to={"/jobs"}>Jobs</Link></li>
+                        {/*<li className={"navLink"}><Link to={"/jobs"}>Jobs</Link></li>*/}
                         <ThemeSwitch isOnAbsolute={true}/>
                     </ul>
 

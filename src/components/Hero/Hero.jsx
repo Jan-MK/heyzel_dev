@@ -17,14 +17,15 @@ gsap.registerPlugin(ScrollTrigger);
 
 
 let images = [
-    "https://cdn.pixabay.com/photo/2016/11/19/12/54/drink-1839134_1280.jpg",
-    "https://cdn.pixabay.com/photo/2016/11/29/12/54/cafe-1869656_1280.jpg",
-    "https://cdn.pixabay.com/photo/2020/08/17/14/37/coffee-5495609_1280.jpg",
-    "https://cdn.pixabay.com/photo/2022/09/14/18/32/cafe-7454951_1280.jpg",
-    "https://cdn.pixabay.com/photo/2020/09/17/12/41/cafe-5579069_1280.jpg",
-    "https://cdn.pixabay.com/photo/2014/07/15/13/36/coffee-shop-393954_1280.jpg",
-    "https://cdn.pixabay.com/photo/2017/08/02/00/05/places-2568876_1280.jpg",
-    "https://cdn.pixabay.com/photo/2017/05/16/21/45/coffee-2319107_1280.jpg"
+    "src/assets/media/HeroImages/drink-1839134_1280.jpg",
+    "src/assets/media/HeroImages/woman-6992691_1280.jpg",
+    "src/assets/media/HeroImages/dark-2595778_1280.jpg",
+    "src/assets/media/HeroImages/coffeehouse-2600877_1280.jpg",
+    "src/assets/media/HeroImages/coffee-shop-393954_1280.jpg",
+    "src/assets/media/HeroImages/coffee-5495609_1280.jpg",
+    "src/assets/media/HeroImages/coffee-2439999_1280.jpg",
+    "src/assets/media/HeroImages/cafe-1869656_1280.jpg",
+    "src/assets/media/HeroImages/cafe-789635_1280.jpg",
 ]
 let countPerColumn = 3
 

@@ -8,6 +8,7 @@ import Gsap from "./pages/GSAP/Gsap.jsx";
 import Layout from "./components/Layout/Layout.jsx";
 import JobForm from "./pages/JobForm/JobForm.jsx";
 import {ReferenceProvider} from "./context/ReferenceContext.jsx";
+import {ModalProvider} from "./context/ModalContext.jsx";
 
 function useDynamicFavicon() {
     useEffect(() => {
@@ -43,12 +44,15 @@ function App() {
         <Router>
             <ThemeProvider>
                 <ReferenceProvider>
-                    <Routes>
-                        <Route path="/" element={<Home/>}/>
-                        <Route path="/test" element={<HorizontalMultiStep/>}/>
-                        <Route path="/jobs" element={<JobForm/>}/>
-                        <Route path="/gsap" element={<Gsap/>}/>
-                    </Routes>
+                    <ModalProvider>
+                        <Routes>
+                            <Route path="/" element={<Home/>}/>
+                            <Route path="/test" element={<HorizontalMultiStep/>}/>
+                            <Route path="/jobs" element={<JobForm/>}/>
+                            <Route path="/gsap" element={<Gsap/>}/>
+                            <Route path="/:modalId" element={<Home />} />
+                        </Routes>
+                    </ModalProvider>
                 </ReferenceProvider>
             </ThemeProvider>
         </Router>
@@ -56,3 +60,22 @@ function App() {
 }
 
 export default App
+
+/*
+Step 3: Navigate with Modal Indicator in URL
+When creating links to open modals, ensure you update the URL accordingly:
+
+jsx
+Copy code
+import { Link } from 'react-router-dom';
+
+const SomeComponent = () => {
+  return (
+    <div>
+      <Link to="/imprint">Impressum</Link>
+      { Define other links as needed }
+</div>
+);
+};
+This Link will navigate to the URL /imprint, which according to our setup in Home, opens the Home component with the LegalModal open.
+ */

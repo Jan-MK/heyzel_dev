@@ -3,29 +3,29 @@ import gsap from "gsap";
 import Backdrop from "./Backdrop.jsx";
 import classes from "./Modal.module.scss";
 import {TfiClose} from "react-icons/tfi";
+import {useModal} from "../ModalContext.jsx";
+import {IoChevronDownOutline, IoChevronUpOutline} from "react-icons/io5";
 
-function Modal({show, toggleOpen, children}) {
+function Modal({showModal, closeModal, content}) {
     const modalRef = useRef(null);
     const [isVisible, setIsVisible] = useState(false);
 
     // Handle animations based on `show`
     useEffect(() => {
-        // TODO AGAIN CHECK ANIMATION -> HARD TO SEE IF WORKING
         let modalElement = document.getElementById("modal-root")
         if (!modalElement) return
-        if (show) {
+        if (showModal) {
             gsap.set(modalElement, { opacity: 0 });
             setIsVisible(true); // Ensure component is visible for animation
             document.body.style.overflow = 'hidden';
-
             gsap.to(modalElement, {
                 opacity: 1,
                 duration: .25,
                 ease: "none",
             });
-        } else if (!show && isVisible) {
-            document.body.style.overflow = 'unset';
 
+        } else if (!showModal && isVisible) {
+            document.body.style.overflow = 'unset';
             gsap.to(modalElement, {
                 opacity: 0,
                 duration: .25,
@@ -42,22 +42,22 @@ function Modal({show, toggleOpen, children}) {
                 document.body.style.overflow = 'unset';
             }
         };
-    }, [show, isVisible]);
+    }, [showModal, isVisible]);
 
 
     return (
-            isVisible && <Backdrop reference={modalRef} onClick={() => (toggleOpen ? toggleOpen() : {})}>
+            isVisible && <Backdrop reference={modalRef} onClick={() => (closeModal ? closeModal() : {})}>
                 <div
                     className={classes.closeBtn}
                     onClick={(e) => {
                         e.stopPropagation();
-                        toggleOpen();
+                        closeModal();
                     }}
                 >
                     <TfiClose/>
                 </div>
-                <div className={"modal"} onClick={(e) => e.stopPropagation()}>
-                    {children}
+                <div className={classes.modal} onClick={(e) => e.stopPropagation()}>
+                    {content}
                 </div>
             </Backdrop>
     );
