@@ -4,6 +4,9 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
 import {useEffect, useState} from "react";
 import VerticalTable from "../VerticalTable/VerticalTable.jsx";
+import {Link} from "react-router-dom";
+import {MdSubdirectoryArrowRight} from "react-icons/md";
+import HighlightBox from "../HighlightBox/HighlightBox.jsx";
 
 
 const defaultValues = {
@@ -35,15 +38,15 @@ function Contact(props) {
     function createSchema(typeIsOther) {
         return z.object({
             firstName: z.string().optional(),
-            lastName: z.string().min(1, { message: "Last name is required" }),
-            mail: z.string().min(1, { message: "E-Mail address is required" }).email("This is not a valid email."),
-            type: z.string().min(1, { message: "Please choose the subject" })
-                .refine(val => val !== 'Please select...', { message: "Please choose the subject" }),
+            lastName: z.string().min(1, {message: "Last name is required"}),
+            mail: z.string().min(1, {message: "E-Mail address is required"}).email("This is not a valid email."),
+            type: z.string().min(1, {message: "Please choose the subject"})
+                .refine(val => val !== 'Please select...', {message: "Please choose the subject"}),
             subject: z.string().refine(val => !typeIsOther || (typeIsOther && val.length >= 1), {
                 message: "Required or choose between predefined.",
             }),
             message: z.string().min(1),
-            confirmation: z.boolean().refine(bool => bool === true, { message: "You must accept the terms." }),
+            confirmation: z.boolean().refine(bool => bool === true, {message: "You must accept the terms."}),
         });
     }
 
@@ -69,7 +72,8 @@ function Contact(props) {
     return (
         <div className={classes.splitview}>
             <div className={classes.contactInfo}>
-                <VerticalTable heading={'OFFICE'} entries={
+                <HighlightBox />
+                <VerticalTable contentSizeBig={false} heading={'OFFICE'} entries={
                     [{
                         title: "Address",
                         description: <><p>{"SOME STREET"}</p>
@@ -77,15 +81,15 @@ function Contact(props) {
                     }, {
                         title: 'Mail',
                         description: <a href={`mailto:kontakt@heyzel.de`}>{"kontakt@heyzel.de"}</a>
-                    },
-                        {
-                            title: 'Phone',
-                            description: "+49 821 450448-0"
-                        }, {
+                    }, {
+                        title: 'Phone',
+                        description: "+49 821 450448-0"
+                    }, {
                         title: 'Fax',
                         description: "+49 821 450448-22"
                     }]
                 }/>
+
             </div>
             <form className={classes.formContainer} onSubmit={handleSubmit(handleSave)}>
                 <div className={classes.rowWrapper}>

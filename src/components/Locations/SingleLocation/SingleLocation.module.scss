@@ -1,21 +1,12 @@
 @import "../../../App.scss";
 
 .locationTitle {
-  font-size: clamp(2em, 15vw, 4em);
+  font-size: clamp(3em, 3.25vw, 3.5em);
   margin-bottom: 25px;
   text-decoration: underline;
-}
-
-.headingContainer {
+  text-decoration-color: var(--accent);
+  z-index: 5;
   position: relative;
-
-  .locationTitle {
-    font-size: clamp(2em, 15vw, 4em);
-    margin-bottom: 25px;
-    text-decoration: underline;
-    z-index: 5;
-    position: relative;
-  }
 }
 
 .description {

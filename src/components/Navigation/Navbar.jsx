@@ -23,7 +23,6 @@ function Navbar({notTop}) {
     const [hasScrolledPast, setHasScrolledPast] = useState(false);
     const {height, width} = useWindowDimensions()
     const [mobileMenu, setMobileMenu] = useState(false)
-    const mobileMenuIconRef = useRef(null)
 
     useEffect(() => {
         // Useeffect to decide if navBar is past top
@@ -109,8 +108,7 @@ function Navbar({notTop}) {
                                 behavior: 'smooth'
                             })
                         }}>
-                        <li className={"navLink"}><a href={"#home"}>Home</a></li>
-                        <li className={"navLink"}><a href={"#about"}>About us</a></li>
+                        <li className={"navLink"}><a href={"#about"}>About</a></li>
                         <li className={"navLink"}><a href={"#events"}>Events</a></li>
                         <li className={"navLink"}><a href={"#menu"}>Menu</a></li>
                         <li className={"navLink"}><a href={"#locations"}>Locations</a></li>

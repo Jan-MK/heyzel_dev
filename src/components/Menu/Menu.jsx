@@ -1,130 +1,28 @@
 import classes from "./Menu.module.scss";
 import menuArray from '../../assets/menu.json'
-import {useContext, useEffect, useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import Modal from "../Modal/Modal.jsx";
 import {IoChevronUpOutline, IoChevronDownOutline} from 'react-icons/io5';
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
-import {useGSAP} from "@gsap/react";
-import {minWidthNonMobile} from "../../utility/Utility.jsx";
-import ReferenceContext from "../../context/ReferenceContext.jsx";
-import {json} from "react-router-dom";
-import useWindowDimensions from "../../utility/WindowSize.jsx";
 
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Menu() {
     let menuCats = menuArray.categories
-    const {menuContainerRef} = useContext(ReferenceContext)
     const refArray = useRef([])
-    const horizontalScrollRef = useRef(null)
     const [isMounted, setIsMounted] = useState(false);
     const [currentModalContent, setCurrentModalContent] = useState("");
     const [currentIdx, setCurrentIdx] = useState(-1);
     const itemListWrapperRef = useRef(null)
     const [showUpArrow, setShowUpArrow] = useState(false);
     const [showDownArrow, setShowDownArrow] = useState(false);
-    const {height, width} = useWindowDimensions()
 
-    // Handler for scroll events
     const handleScroll = () => {
         checkScrollability();
     };
 
-    // TODO STILL NO ANIMATION WHEN DEPLOYED. CHECK!!!
-    /*    useGSAP(() => {
-            const refs = refArray.current
-            let menuContainer = menuContainerRef.current
-            /!*let horizontalScroll = horizontalScrollRef.current*!/
-            let horizontalScroll = document.getElementById('horiScroll')
-
-
-            console.log("menuContainer", menuContainer)
-            console.log("horizontalScroll", horizontalScroll)
-            if (menuContainer && horizontalScroll) {
-    /!*            console.log("In if of useGsap of menu")
-                let mm = gsap.matchMedia();
-                mm.add(`(min-width: ${minWidthNonMobile}px)`, () => {
-                    // Rendering for desktop
-                    let distance = () => {
-                        if (!refs.length) return 0; // Ensure the array is not empty
-                        let lastItem = refs[refs.length - 1];
-                        if (!lastItem) return 0; // Guard against undefined last item
-                        let lastItemBounds = lastItem.getBoundingClientRect();
-                        let containerBounds = horizontalScroll.getBoundingClientRect();
-                        return Math.max(0, lastItemBounds.right - containerBounds.right);
-                    };
-                    gsap.to(horizontalScroll, {
-                        x: () => -distance(),
-                        ease: "none",
-                        scrollTrigger: {
-                            trigger: menuContainer,
-                            start: "top top+=66px",
-                            pinnedContainer: menuContainer,
-                            end: () => "+=" + distance(),
-                            pin: menuContainer,
-                            scrub: true,
-                            markers: false,
-                            invalidateOnRefresh: true
-                        }
-                    })
-                })*!/
-                let mm = gsap.matchMedia();
-                mm.add(`(min-width: ${minWidthNonMobile}px)`, () => {
-                    // Rendering for desktop
-                    let distance = horizontalScroll.offsetWidth
-                    console.log(distance)
-                    gsap.to(horizontalScroll, {
-                        x: -distance,
-                        ease: "none",
-                        scrollTrigger: {
-                            trigger: menuContainer,
-                            start: "top top+=66px",
-                            pinnedContainer: menuContainer,
-                            end: `1000+=${distance}`,
-                            pin: menuContainer,
-                            scrub: true,
-                            markers: true,
-                            invalidateOnRefresh: true
-                        }
-                    })
-                })
-            }
-        })*/
-
-    useGSAP(() => {
-        let topOfContainer = document.getElementById('menu')
-        let wrapper = document.getElementById('racesWrapper')
-        let races = document.getElementById('races')
-        if (wrapper && races) {
-            let racesWidth = races.offsetWidth
-            let amountToScroll = racesWidth - wrapper.offsetWidth;
-
-            console.log(races.offsetWidth, wrapper.offsetWidth)
-
-
-            const tween = gsap.to(races,{
-                x: -amountToScroll,
-                ease: "none"
-            })
-
-            ScrollTrigger.create({
-                trigger: topOfContainer,
-                startTrigger: topOfContainer,
-                start: "top top+=66px",
-                end: "+=" + amountToScroll,
-                pin: true,
-                animation: tween,
-                scrub: 1,
-                markers: false,
-            })
-
-            ScrollTrigger.refresh()
-        } else {
-            console.log("wrapper ", wrapper, " or races ", races, " not found")
-        }
-    })
 
     useEffect(() => {
         checkScrollability()
@@ -190,28 +88,77 @@ export default function Menu() {
             <div className={classes.categoryContent}>
                 <div><h3 className={classes.heading}>{cat.name}</h3></div>
                 <div className={classes.modalButton}>
-                    <button className={'secondary'} onClick={() => toggleMount(idx)}>show</button>
+                    <button className={'primary'} onClick={() => toggleMount(idx)}>show</button>
                 </div>
             </div>
         </div>
     ));
-    // TODO IS IT COMPLETE?
-    /*useEffect(() => {
-        console.log("UP: ", showUpArrow, " DOWN: ", showDownArrow)
-    }, [showUpArrow, showDownArrow]);*/
 
-    useEffect(() => {
-        console.log("menuContainer", menuContainerRef)
-        console.log("horizontalScroll", horizontalScrollRef)
-    }, [menuContainerRef, horizontalScrollRef]);
 
     return (
         <>
-            <div className={classes.allCategoryWrapper} id={'racesWrapper'}>
-                <div className={classes.insideWrapper} ref={horizontalScrollRef} id={'races'}>
-                    {categoriesThumbnail}
+            <div className={classes.description}>
+                <p>
+                    Dive into our menu featuring a variety of coffees, from classic espressos to rich lattes, alongside
+                house-made ice teas and crafted cocktails. Plus, enjoy a selection of delectable snacks perfect for any
+                time of day.
+                </p>
+            </div>
+            <div className={classes.menuWrapper}>
+                <div className={classes.servicesWrapper}>
+                    <div className={`${classes.div1} ${classes.gridItem} ${classes.verticalWrapper}`}>
+                        <div className={`${classes.text} ${classes.commonContent}`}>
+                            <div className={classes.reverseOrder}>
+                                <h3>Tasty coffee.</h3>
+                                <p>During the day</p>
+                            </div>
+                            <p>From expertly brewed plain coffee to a variety of special blends, we got you.</p>
+                            <button className={"secondary"} onClick={() => toggleMount(0)}>Day menu</button>
+                        </div>
+                        <div className={classes.photo}>
+                            <img
+                                src={"https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&w=800"}/>
+                        </div>
+                    </div>
+
+                    <div className={`${classes.div2} ${classes.gridItem} ${classes.commonContent} ${classes.text}`}>
+                        <h3>Food & Snacks</h3>
+                        <p>A small variety of food and snacks to avoid you being hangry!</p>
+                        <button className={"secondary"} onClick={() => toggleMount(2)}>to our locations</button>
+                    </div>
+
+                    <div className={`${classes.div3} ${classes.gridItem} ${classes.verticalWrapper}`}>
+                        <div className={`${classes.text} ${classes.commonContent}`}>
+                            <div className={classes.reverseOrder}>
+                                <h3>Amazing cocktails.</h3>
+                                <p>Afterwork</p>
+                            </div>
+                            <p>Transitioned to a bar at night we offer drinks and snacks while you're invited to enjoy the
+                                atmosphere.</p>
+                            <button className={"secondary"}  onClick={() => toggleMount(1)}>Bar menu</button>
+                        </div>
+                        <div className={classes.photo}>
+                            <img
+                                src={"https://cdn.pixabay.com/photo/2017/04/07/06/08/the-ancient-town-2210280_1280.jpg"}/>
+                        </div>
+                    </div>
+
+                    <div
+                        className={`${classes.div4} ${classes.gridItem} ${classes.commonContent} ${classes.horizontalWrapper}`}>
+                        <div className={classes.photo}>
+                            <img src={"https://cdn.pixabay.com/photo/2015/09/01/21/00/coffee-beans-917613_1280.jpg"}
+                                 alt={"our selection"}/>
+                        </div>
+                        <div className={classes.text}>
+                            <h3>We love coffee</h3>
+                            <p>... and we're picky. Discover our coffee selection</p>
+                            <button className={"secondary"}>Discover</button>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+
             <Modal show={isMounted} toggleOpen={() => toggleMount(currentIdx)}>
                 <div className={classes.singleCatWrapper}>
                     {currentModalContent.image}

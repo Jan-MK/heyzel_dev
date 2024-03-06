@@ -11,7 +11,8 @@
   --text-primary: var(--dark-shades-100op);
   --text-contrary: var(--light-accent-100op);
   --accent: #FE0879;
-  --accent2: var(--main-brand-color-100op);
+  --accent2: #70BAFF;
+  //--accent2: var(--main-brand-color-100op);
   --accent3: var(--light-accent-100op);
 
   --form-border: var(--dark-shades-25op);
@@ -32,9 +33,11 @@
   --background: var(--dark-shades-100op);;
   --text-primary: var(--light-shades-100op);
   --text-secondary: var(--dark-accent-100op);
+  --text-contrary: var(--dark-shades-100op);
   --accent: #FE0879;
   //--accent: var(--dark-accent-100op);
-  --accent2: var(--main-brand-color-100op);
+  --accent2: #70BAFF;
+  //--accent2: var(--main-brand-color-100op);
   --accent3: var(--light-accent-100op);
 
   --form-border: var(--light-shades-50op);
@@ -135,8 +138,8 @@
   --body-letter-spacing: 0.01em;
 
   /* button */
-  --button-font-size: 1rem;
+  --button-font-size: 1.2rem;
   --button-border-radius: 5px;
   --button-padding: 15px 30px;
-  --button-font-weight: 500;
+  --button-font-weight: 600;
 }

@@ -1,5 +1,5 @@
 import classes from "./JobForm.module.scss"
-import {useEffect, useRef, useState} from 'react';
+import {useEffect, useMemo, useRef, useState} from 'react';
 import {useForm} from 'react-hook-form'
 import {zodResolver} from "@hookform/resolvers/zod";
 import {string, z} from 'zod'
@@ -8,9 +8,11 @@ import ThemeSwitch from "../../components/ThemeSwitch/ThemeSwitch.jsx";
 import Submitted from "./Submitted/Submitted.jsx";
 import Reset from "./Reset/Reset.jsx";
 import Cookies from 'universal-cookie';
-import {days, prepareData, prepareDataHTML, shifts} from "../../utility/Utility.jsx";
+import {allTimeZone, days, prepareData, prepareDataHTML, shifts} from "../../utility/Utility.jsx";
 import axios from "axios";
 import Logo from "../../components/Logo/Logo.jsx";
+import useWindowDimensions from "../../utility/WindowSize.jsx";
+import ReactCountryFlag from "react-country-flag";
 
 const defaultValues = {
     confirmation: false,
@@ -18,8 +20,7 @@ const defaultValues = {
     lastName: '',
     birthday: '',
     photo: {},
-    marital: '',
-    nationality: '',
+    nationality: "Please select...",
     confession: '',
     ssn: '',
     phone: '',
@@ -66,8 +67,7 @@ const schema = z.object({
             (files) => files[0] && ACCEPTED_IMAGE_TYPES.includes(files[0].type),
             "Only .jpg, .jpeg, .png, and .webp formats are supported."
         ),
-    marital: string().min(1, {message: 'Marital status is required'}),
-    nationality: string().min(1, {message: 'Nationality is required.'}),
+    nationality:  string().refine(val => val !== defaultValues.nationality, 'Selection required'),
     confession: string().min(1, {message: 'Confession is required'}),
     ssn: string().min(1, {message: 'Social security number is required'}),
     mail: string().email(),
@@ -116,6 +116,7 @@ function JobForm(props) {
     const [successful, setSuccessful] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null)
     const [visited, setVisited] = useState([0])
+    const {width} = useWindowDimensions()
     const {
         register,
         handleSubmit,
@@ -130,6 +131,11 @@ function JobForm(props) {
         defaultValues: defaultValues,
     });
     const cookies = new Cookies()
+
+    const nationalityOptions = useMemo(() => allTimeZone.map(option => (
+            <option key={option.code} value={option.name}><ReactCountryFlag countryCode={option.Code} /> {option.Name}</option>
+        ))
+    )
 
     function resetForm() {
         setResetting(true)
@@ -167,10 +173,8 @@ function JobForm(props) {
             resetForm();
         }
         requestAnimationFrame(() => setResetting(false))
-        //prefill(4)
+        prefill(2)
     }, []);
-
-
 
 
     useEffect(() => {
@@ -217,8 +221,7 @@ function JobForm(props) {
 
     const checkValidity = async (fieldsToValidate) => {
         if (!fieldsToValidate || fieldsToValidate.length === 0) {
-            console.error("No fields provided for validation");
-            return false;
+            return true;
         }
         return await trigger(fieldsToValidate);
     };
@@ -243,13 +246,6 @@ function JobForm(props) {
     const handleBackClick = (event) => {
         event.preventDefault()
         if (currentStep > 0) {
-            /*const previous = refArray.current[currentStep - 1] TODO NEEDED?
-            const current = refArray.current[currentStep]
-
-            current.classList.remove(classes.center)
-            current.classList.add(classes.right)
-            previous.classList.remove(classes.left)
-            previous.classList.add(classes.center)*/
             setCurrentStep(prev => prev - 1);
         }
     };
@@ -300,11 +296,12 @@ function JobForm(props) {
                     <p>Welcome to our</p>
                 </div>
                 <div className={`${classes.confirmation} ${classes.fieldWrapper}`}>
-                    <p>To proceed with the application process confirm that you have read and agreed to our <a
-                        href={"#"} target={'_blank'} rel="noreferrer">terms
-                        of privacy</a> on how we use the data.<span className={classes.required}>*</span></p>
-                    <input className={classes.cbSmall} tabIndex={currentStep === 0 ? 1 : -1}
+                    <input id={'confirmation'} className={classes.cbSmall} tabIndex={currentStep === 0 ? 1 : -1}
                            type={"checkbox"} {...registerWithSave('confirmation')}/>
+                    <label htmlFor={'confirmation'}>To proceed with the application process confirm that you have read
+                        and agreed to our <a
+                            href={"#"} target={'_blank'} rel="noreferrer">terms
+                            of privacy</a> on how we use the data.<span className={classes.required}>*</span></label>
                 </div>
                 <div
                     className={`${errors.confirmation?.message ? classes.error : classes.noError}`}>{errors.confirmation?.message}</div>
@@ -343,7 +340,6 @@ function JobForm(props) {
                         id="photo"
                         accept="image/*"
                         {...registerWithSave('photo')}
-                        /*onChange={(event) => console.log(event)/!*TODO PHOTO regain when refreshing*!/}*/
                     />
                     <div
                         className={`${errors.photo?.message ? classes.error : classes.noError}`}>{errors.photo?.message}</div>
@@ -352,22 +348,34 @@ function JobForm(props) {
         },
         {
             name: "Personal information II",
-            fields: ['marital', 'nationality', 'confession', 'ssn'], // Required Fields
+            fields: [/*'marital', */'nationality', 'confession', 'ssn'], // Required Fields
             html: <>
-                <div className={`${classes.fieldWrapper}`}>
+{/*                <div className={`${classes.fieldWrapper}`}>
                     <p>Marital status<span className={classes.required}>*</span></p>
                     <input tabIndex={currentStep === 2 ? 1 : -1} type={"text"} {...registerWithSave('marital')}
                            placeholder={"Marital status"}/>
                     <div
                         className={`${errors.marital?.message ? classes.error : classes.noError}`}>{errors.marital?.message || ' '}</div>
-                </div>
+                </div>*/}
+
                 <div className={classes.fieldWrapper}>
+                    <p>Nationality<span className={classes.required}>*</span></p>
+                    <select defaultValue={"Please select..."}
+                            tabIndex={currentStep === 4 ? 1 : -1} {...registerWithSave('nationality')}>
+                        <option value={"Please select..."} hidden={true}>Please select...</option>
+                        {nationalityOptions}
+                    </select>
+                    <div
+                        className={`${errors.nationality?.message ? classes.error : classes.noError}`}>{errors.nationality?.message}
+                    </div>
+                </div>
+{/*                <div className={classes.fieldWrapper}>
                     <p>Nationality<span className={classes.required}>*</span></p>
                     <input tabIndex={currentStep === 2 ? 2 : -1}
                            type={"text"} {...registerWithSave('nationality')} placeholder={"Nationality"}/>
                     <div
                         className={`${errors.nationality?.message ? classes.error : classes.noError}`}>{errors.nationality?.message}</div>
-                </div>
+                </div>*/}
                 <div className={classes.fieldWrapper}>
                     <p>Confession<span className={classes.required}>*</span></p>
                     <input tabIndex={currentStep === 2 ? 3 : -1}
@@ -470,7 +478,7 @@ function JobForm(props) {
                 </div>
                 <div className={classes.fieldWrapper}>
                     <div>
-                        <p>Desired salary (net in €)<span className={classes.required}>*</span></p>
+                        <p>Desired salary (net in € per hour)<span className={classes.required}>*</span></p>
                         <input tabIndex={currentStep === 4 ? 4 : -1}
                                type={"tel"} {...registerWithSave('salary')} placeholder={"Salary"}/>
                         <div
@@ -603,6 +611,10 @@ function JobForm(props) {
             return fields.length === 0 || fields.every(field => !(field in errors))
         }
 
+        const isSmartphone = width <= 768;
+        const isTablet = width > 768 && width <= 1070;
+        const isDesktop = !isSmartphone && !isTablet;
+
         let className = classes.open;
         if (currentStep === idx) {
             className = classes.current;
@@ -612,7 +624,6 @@ function JobForm(props) {
             } else {
                 className = classes.incomplete;
             }
-            //TODO Wenn in einem Step was fehlt, sollte es gelb sein, wenn
         }
 
         return (
@@ -621,10 +632,13 @@ function JobForm(props) {
                 key={idx}
                 onClick={(e) => handleGoTo(idx, e)}
             >
-                {section.name}
+                {isDesktop && section.name}
+                {isTablet && `Step ${idx + 1}`}
+                {isSmartphone && idx + 1}
             </li>
         );
     });
+
 
     function handleSave(formContent) {
         setSubmitted(true)
@@ -674,7 +688,7 @@ function JobForm(props) {
             setValue('firstName', "JAN")
             setValue('lastName', "KRÄMER")
             setValue('birthday', "1990-05-16")
-            setValue('nationality', "DE")
+            /*setValue('nationality', "DE")*/
         }
         if (number > 1) {
             setValue('mail', "j.k@web.de")
@@ -704,13 +718,18 @@ function JobForm(props) {
             {resetting && <Reset text={"Preparing job form..."}/>}
             {!resetting && !submitted &&
                 <form onSubmit={handleSubmit(handleSave)} className={`${classes.formContainer}`} ref={formContainerRef}>
-                    <div className={classes.toPage}><a tabIndex={995} href={"/"}
-                                                       target={'_self'}><IoChevronBackOutline/>
-                        <p>Back home</p>
-                    </a><ThemeSwitch isOnAbsolute={false} />
-                        <button tabIndex={996} className={classes.borderlessBtn} onClick={handleReset}><IoTrashOutline
-                            color={"#F44336FF"}/> Reset
+                    <div className={classes.topControl}>
+                        <a tabIndex={995} href={"/"} target={'_self'}>
+                            <IoChevronBackOutline/>
+                            <p>Back home</p>
+                        </a>
+                        <button tabIndex={996} className={classes.borderlessBtn} onClick={handleReset}>
+                            <IoTrashOutline
+                                color={"#F44336FF"}/> Reset
                         </button>
+                        <ul className={`${classes.navigationElements} ${classes.top}`}>
+                            Steps {navigationElements}
+                        </ul>
                     </div>
                     <div className={classes.sectionWrapper} id={"jfsw"}>
                         {steps.map((step, index) => {
@@ -726,7 +745,7 @@ function JobForm(props) {
                             }
                         )}
                     </div>
-                    <div className={classes.controlBar}>
+                    <div className={classes.bottomControl}>
                         <div className={classes.directNav}>
                             <ul className={classes.navigationElements}>
                                 {navigationElements}

@@ -40,7 +40,7 @@
     gap: 15px;
 
     max-height: 100%;
-    width: clamp(50vw, 60vw ,75vw);
+    width: 55vw;
     overflow: hidden;
 
     @include mobile {
@@ -65,7 +65,7 @@
       gap: 15px;
       position: relative;
       left: 0;
-      width: clamp(25vw, calc(60vw / 2 - 15px), 75%);
+      width: calc((100% /2 - 15px));
 
       @include mobile {
         flex-direction: row;
@@ -140,7 +140,7 @@
       justify-content: center;
       align-items: flex-start;
       gap: 15px;
-      width: clamp(350px,20vw,700px);
+      width: clamp(350px,20vw,350px);
 
       @include mobile {
         align-items: center;
@@ -151,10 +151,10 @@
         flex-direction: column-reverse;
         justify-content: center;
         align-items: flex-start;
-        width: clamp(350px,20vw,700px);
+        width: clamp(350px,20vw,350px);
 
         .logoWrapper {
-          width: clamp(350px,20vw,700px);
+          width: clamp(350px,20vw,350px);
         }
 
         p {

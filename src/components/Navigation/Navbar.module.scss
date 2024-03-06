@@ -32,7 +32,7 @@ nav {
         position: absolute;
         left: 15px;
         top: 50%;
-        transform: translateY(-50%)
+        transform: translateY(calc(-50% + 3px));
       }
 
     }
@@ -89,7 +89,6 @@ nav {
           font-weight: bold;
           font-size: 14px;
           text-transform: uppercase;
-          padding: 20px 0;
           margin: 0 20px;
           display: inline-block;
           position: relative;
@@ -100,30 +99,33 @@ nav {
             text-decoration: none;
             color: var(--text-primary);
             display: block;
+            padding: 10px;
 
             &:visited {
               color: inherit;
             }
-          }
 
-          &:hover {
-            opacity: 1;
+
+            &:hover {
+              opacity: 1;
+
+              &::before {
+                width: 100%;
+              }
+            }
 
             &::before {
-              width: 100%;
+              transition: 300ms;
+              height: 5px;
+              content: "";
+              position: absolute;
+              background-color: var(--text-primary);
+              width: 0;
+              bottom: 0; // Adjusted to 0 for the underline to be at the bottom of the list item
+              left: 0; // Ensure the line starts from the left edge
             }
           }
 
-          &::before {
-            transition: 300ms;
-            height: 5px;
-            content: "";
-            position: absolute;
-            background-color: var(--text-primary);
-            width: 0;
-            bottom: 0; // Adjusted to 0 for the underline to be at the bottom of the list item
-            left: 0; // Ensure the line starts from the left edge
-          }
         }
       }
 

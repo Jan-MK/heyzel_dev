@@ -1,6 +1,6 @@
 
 .mainContent {
-  width: 100vw;
+  width: 100svw;
   max-width: 100%;
   min-height: 100vh;
 
@@ -14,7 +14,6 @@
     width: 100%;
     min-height: 100svh;
     padding: 66px 0 66px 0;
-    border: 1px solid cyan;
 
     .bgSectionHeading {
       background-color: var(--background);

@@ -20,19 +20,17 @@ const MobileMenu = ({clingRight}) => {
 
     const openMenu = () => {
         setIsOpen(true)
-        document.body.overflow = 'hidden'
+        document.body.style.overflow = 'hidden'
         const tl = gsap.timeline();
         tl.to(menuRef.current, { opacity: 1, duration: .25, top: 0, ease: "power2.easeIn" })
             .to(navItemsRef.current, { opacity: 1, marginBottom: 0, duration: .25, ease: "power2.easeIn", stagger: 0.15 }, /*"-=0.5"*/);
     };
 
     const closeMenu = () => {
-        setIsOpen(false)
-        document.body.overflow = 'unset'
-
+        document.body.style.overflow = 'unset'
         const tl = gsap.timeline();
         tl.to(navItemsRef.current, { opacity: 0, marginBottom: -5, duration: .25, ease: "power2.easeOut", stagger: 0.1 })
-            .to(menuRef.current, { opacity: 0, duration: .25, top: "-100%", ease: "power2.easeOut" }, /*"-=0.5"*/);
+            .to(menuRef.current, { opacity: 0, duration: .25, top: "-100%", ease: "power2.easeOut", onComplete: () => setIsOpen(false) }, /*"-=0.5"*/);
     };
 
     const handleNavClick = (event) => {
@@ -56,8 +54,7 @@ const MobileMenu = ({clingRight}) => {
     };
 
     const menuItems = [
-        { href: "#home", text: "Home" },
-        { href: "#about", text: "About us" },
+        { href: "#about", text: "About" },
         { href: "#events", text: "Events" },
         { href: "#menu", text: "Menu" },
         { href: "#locations", text: "Locations" },

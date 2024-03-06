@@ -1,7 +1,25 @@
 @import "variables.scss";
 
+@mixin mobile {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: 769px) and (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: 1025px) {
+    @content;
+  }
+}
+
 body, html {
-  width: 100%;
+  width: 100vw;
   max-width: 100%;
   margin: 0;
   padding: 0;
@@ -22,6 +40,7 @@ body, html {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  overflow-y: auto;
 
 
 
@@ -125,7 +144,7 @@ body, html {
     transition: background-color 0.3s ease, filter 0.3s ease;
 
     &.primary {
-      background-color: var(--primary);
+      background-color: var(--accent);
     }
 
     &.transparent {
@@ -215,6 +234,14 @@ body, html {
     }
   }
 
+  select, input[type='date'] {
+/*    @include mobile {
+        -moz-appearance: none;
+        appearance: none;
+        -webkit-appearance: none;
+    }*/
+  }
+
 
   textarea {
     min-height: 150px;
@@ -253,20 +280,17 @@ body, html {
   }
 }
 
-@mixin mobile {
-  @media (max-width: 768px) {
-    @content;
+span {
+  position: relative;
+  &.colored {
+    color: var(--accent)
   }
-}
 
-@mixin tablet {
-  @media (max-width: 1024px) {
-    @content;
+  &.bigger {
+    font-size: 110%;
   }
-}
 
-@mixin desktop {
-  @media (min-width: 1025px) {
-    @content;
+  &.bold {
+    font-weight: bold;
   }
 }

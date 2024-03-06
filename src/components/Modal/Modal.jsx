@@ -11,30 +11,39 @@ function Modal({show, toggleOpen, children}) {
     // Handle animations based on `show`
     useEffect(() => {
         // TODO AGAIN CHECK ANIMATION -> HARD TO SEE IF WORKING
+        let modalElement = document.getElementById("modal-root")
+        if (!modalElement) return
         if (show) {
-            gsap.set(modalRef.current, {opacity: 0})
+            gsap.set(modalElement, { opacity: 0 });
             setIsVisible(true); // Ensure component is visible for animation
-            gsap.to(modalRef.current, {
+            document.body.style.overflow = 'hidden';
+
+            gsap.to(modalElement, {
                 opacity: 1,
-                duration: .5,
-                ease: "power3.inOut",
-                onComplete: () => {
-                    document.body.style.overflow = 'hidden'
-                },
+                duration: .25,
+                ease: "none",
             });
         } else if (!show && isVisible) {
-            console.log("Start fadeOut")
-            document.body.style.overflow = 'unset'
-            gsap.to(modalRef.current, {
+            document.body.style.overflow = 'unset';
+
+            gsap.to(modalElement, {
                 opacity: 0,
-                duration: .5,
-                ease: "power3.inOut",
-                onComplete: () => {
-                    setIsVisible(false)
-                },
+                duration: .25,
+                ease: "none",
+                onComplete: () => setIsVisible(false),
             });
         }
+        return () => {
+            // Kill GSAP animation to prevent it from finishing if the component unmounts
+            gsap.killTweensOf(modalElement);
+
+            // Restore body overflow only if closing the modal or unmounting
+            if (isVisible) {
+                document.body.style.overflow = 'unset';
+            }
+        };
     }, [show, isVisible]);
+
 
     return (
             isVisible && <Backdrop reference={modalRef} onClick={() => (toggleOpen ? toggleOpen() : {})}>

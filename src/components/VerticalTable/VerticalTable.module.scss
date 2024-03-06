@@ -2,13 +2,15 @@
 
 .tableHeading {
   margin-top: 25px;
-  font-weight: 700;
+  font-size: clamp(2em, 2.5vw, 3em);
+  font-weight: 600;
 }
 
 .adjTable {
   width: 100%;
+  max-width: 100%;
   margin-top: 10px;
-  font-size: clamp(.9em, 2.1vw, 1.8em);
+  font-size: clamp(16px, 1.2em, 24px);
   display: flex;
   flex-direction: column;
 
@@ -24,8 +26,6 @@
     flex-wrap: wrap;
 
     .heading, .info {
-      width: 50%;
-      min-width: 173px;
 
       @include mobile {
         max-width: 100%;
@@ -38,15 +38,30 @@
         font-size: inherit !important;
         font-weight: 600;
       }
+
+      &.big {
+        p {
+          font-size: clamp(1.2em, 2.1vw, 1.8em) !important;
+        }
+      }
     }
 
+
     .info {
-      p, a {
+      flex-grow: 1;
+      text-align: right;
+      p,a, div {
         font-size: inherit !important;
       }
 
-      .heading {
-        font-weight: 600;
+      &.big {
+        p, a, div > a {
+          font-size: clamp(1.3em, 2.1vw, 1.8em) !important;
+        }
+
+        .heading {
+          font-weight: 600;
+        }
       }
     }
   }

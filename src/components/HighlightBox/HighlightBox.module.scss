@@ -1,0 +1,22 @@
+.wrapper {
+  padding: 25px;
+  border-radius: 8px;
+  color: white !important;
+  background-color: var(--accent2);
+  box-shadow: 5px 5px 5px rgba(0,0,0,0.25);
+
+  p {
+    font-size: clamp(1.3em, 2.1vw, 1.8em) !important;
+  }
+
+  a:hover {
+    color: white !important;
+  }
+
+  /* Apply now CTA */
+  div {
+    display: flex;
+    align-items: center;
+
+  }
+}

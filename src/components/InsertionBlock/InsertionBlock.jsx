@@ -7,10 +7,9 @@ import {useGSAP} from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-function InsertionBlock({title, subtitle, description, idx, boldIntro, order}) {
+function InsertionBlock({title, subtitle, description, idx, boldIntro, order, bg, text}) {
     const insertionRef = useRef(null)
     const subtitleRef = useRef(null)
-    const {bg, text} = getRandomColor()
 
     useGSAP(() => {
         const insertionDiv = insertionRef.current

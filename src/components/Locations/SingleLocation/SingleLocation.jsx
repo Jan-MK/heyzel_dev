@@ -2,6 +2,7 @@ import classes from "./SingleLocation.module.scss"
 import NavigationOptions from "./NavigationOptions/NavigationOptions.jsx";
 import {getRandomColor} from "../../../utility/Utility.jsx";
 import VerticalTable from "../../VerticalTable/VerticalTable.jsx";
+import {useEffect} from "react";
 
 function SingleLocation({
                             title,
@@ -16,15 +17,13 @@ function SingleLocation({
                         }) {
     const {street, zip, city} = address
 
-
-    const {bg, text} = getRandomColor()
     return (<>
-            <h1 className={classes.locationTitle} ref={lastHeadLineRef ? lastHeadLineRef : null}
-                style={{textDecorationColor: getRandomColor().bg}}
-            >{title}</h1>
+
+            <h1 className={classes.locationTitle} ref={lastHeadLineRef ? lastHeadLineRef : null}>{title}</h1>
             <p className={classes.description}>{description}</p>
             <div className={classes.generalInformation}>
                 <VerticalTable
+                    contentSizeBig={true}
                     heading={'Contact'}
                     entries={[
                         {
@@ -47,6 +46,7 @@ function SingleLocation({
                     ]}
                 />
                 <VerticalTable
+                    contentSizeBig={true}
                     heading="Opening hours"
                     entries={[
                         {title: 'Day', description: <p className={classes.heading}>Hours</p>},
