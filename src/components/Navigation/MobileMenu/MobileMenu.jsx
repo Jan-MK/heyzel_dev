@@ -7,8 +7,11 @@ import classes from './MobileMenu.module.scss';
 import ThemeSwitch from "../../ThemeSwitch/ThemeSwitch.jsx";
 import Logo from "../../Logo/Logo.jsx";
 import {MdClose, MdMenu} from "react-icons/md";
+import {useWindowDimensions} from "../../../context/WindowDimensionsContext.jsx";
+import ReactDOM from "react-dom";
 
-const MobileMenu = ({clingRight}) => {
+const MobileMenu = ({clingRight, isAdditional}) => {
+    const {isSmartphone, isTablet } = useWindowDimensions()
     const menuRef = useRef();
     const navItemsRef = useRef([]);
     const closeRef = useRef();
@@ -64,48 +67,59 @@ const MobileMenu = ({clingRight}) => {
 
     return (
         <>
-            {!isOpen && <div className={`${classes.menuDiv} ${clingRight && classes.clingRight}`} onClick={openMenu}><MdMenu size={40} /></div>}
-            {<div className={classes.menu} ref={menuRef} style={{pointerEvents: !isOpen && 'none'}}>
-                <div className={classes.background}><Logo width={"90vw"}/></div>
-                <div className={classes.exit} onClick={closeMenu} ref={closeRef}><MdClose size={40}/></div>
-                <div className={`${classes.menuContainer} ${classes.options}`} onClick={handleNavClick}>
-                    <ul ref={(el) => (navItemsRef.current = el ? Array.from(el.children) : [])}>
-                        {menuItems.map((item, index) => (
-                            <li className={classes.nav} key={index}>
-                                {item.isRouterLink ? (
-                                    <Link to={item.href} className={classes.navLink}><span
-                                        className={classes.smallNumber}>0{index + 1}</span> {item.text}</Link>
-                                ) : (
-                                    <a href={item.href} className={classes.navLink}><span
-                                        className={classes.smallNumber}>0{index + 1}</span> {item.text}</a>
-                                )}
+            {isTablet && <div className={`${classes.menuDiv} ${classes.inList}`} onClick={openMenu}><MdMenu size={40} /></div>}
+            {!isOpen && isSmartphone && <div className={`${classes.menuDiv} ${classes.solo} ${clingRight && classes.clingRight}`} onClick={openMenu}><MdMenu size={40} /></div>}
+            {ReactDOM.createPortal(
+                <div className={classes.menu} ref={menuRef} style={{pointerEvents: !isOpen && 'none'}}>
+                    <div className={classes.background}><Logo width={"90vw"}/></div>
+                    <div className={classes.exit} onClick={closeMenu} ref={closeRef}><MdClose size={40}/></div>
+                    <div className={`${classes.menuContainer} ${classes.options}`} onClick={handleNavClick}>
+                        <ul ref={(el) => (navItemsRef.current = el ? Array.from(el.children) : [])}>
+                            {menuItems.map((item, index) => (
+                                <li className={classes.nav} key={index}>
+                                    {item.isRouterLink ? (
+                                        <Link to={item.href} className={classes.navLink}><span
+                                            className={classes.smallNumber}>0{index + 1}</span> {item.text}</Link>
+                                    ) : (
+                                        <a href={item.href} className={classes.navLink}><span
+                                            className={classes.smallNumber}>0{index + 1}</span> {item.text}</a>
+                                    )}
+                                </li>
+                            ))}
+                            <li className={classes.nav}>
+                                <div className={`${classes.navLink} ${classes.modeListItem}`} >
+                                    <p>Switch mode</p>
+                                    <ThemeSwitch isOnAbsolute={true}/>
+                                </div>
                             </li>
-                        ))}
+                        </ul>
 
-                    </ul>
 
-                    <div className={`${classes.menuContainer} ${classes.right}`}>
-                        <div className={classes.information}>
-                            <p className={classes.title}>Adresssss</p>
-                            <p className={classes.description}>Augsburg</p>
+                        {/*<div className={`${classes.menuContainer} ${classes.right}`}>
+                            <div className={classes.information}>
+                                <p className={classes.title}>Adresssss</p>
+                                <p className={classes.description}>Augsburg</p>
 
-                        </div>
-                        <div className={classes.information}>
-                            <p className={classes.title}>Contact</p>
-                            <p className={classes.description}>mail mail mail</p>
-
-                        </div>
-                        <div className={classes.information}>
-                            <p className={classes.title}>Follow me</p>
-                            <div className={classes.socialMedias}>
-                                <a href="" className={classes.socialMedia}>twitter</a>
-                                <a href="" className={classes.socialMedia}>youtube</a>
                             </div>
-                        </div>
+                            <div className={classes.information}>
+                                <p className={classes.title}>Contact</p>
+                                <p className={classes.description}>mail mail mail</p>
+
+                            </div>
+                            <div className={classes.information}>
+                                <p className={classes.title}>Follow me</p>
+                                <div className={classes.socialMedias}>
+                                    <a href="" className={classes.socialMedia}>twitter</a>
+                                    <a href="" className={classes.socialMedia}>youtube</a>
+                                </div>
+                            </div>
+                        </div>*/}
                     </div>
-                </div>
-                <ThemeSwitch/>
-            </div>}
+
+                </div>,
+                    document.getElementById('modal-root')
+                )
+                }
         </>
     );
 };

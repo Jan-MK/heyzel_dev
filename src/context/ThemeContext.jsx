@@ -32,7 +32,8 @@ export function ThemeProvider({children}) {
         }
     }, []);
 
-    function toggleTheme() {
+    function toggleTheme(e) {
+        e?.preventDefault()
         setMode(() => {
             const newMode = mode === 'light' ? 'dark' : 'light';
             cookies.set('mode', newMode, {path: '/'})

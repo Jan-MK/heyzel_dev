@@ -8,13 +8,14 @@ import {useGSAP} from "@gsap/react";
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import MobileMenu from "./MobileMenu/MobileMenu.jsx";
-import useWindowDimensions from "../../utility/WindowSize.jsx";
 import {maxWidthMobile} from "../../utility/Utility.jsx";
+import {useWindowDimensions} from "../../context/WindowDimensionsContext.jsx";
 
 gsap.registerPlugin(ScrollTrigger);
 
 
 function Navbar({notTop}) {
+    const {isSmartphone, isTablet, isDesktop} = useWindowDimensions()
     const [isMounted, setIsMounted] = useState(false);
     const { navbarRef } = useContext(ReferenceContext)
     const navBarContainerRef = useRef(null)
@@ -25,10 +26,11 @@ function Navbar({notTop}) {
     const [mobileMenu, setMobileMenu] = useState(false)
 
     useEffect(() => {
-        // Useeffect to decide if navBar is past top
+        // Useeffect to decide if navBar is past top by getting the bottom border of the hero element. Important!!
         const checkScrollPosition = () => {
-            if (navbarRef.current) {
-                const elementTop = navbarRef.current.getBoundingClientRect().top;
+            let hero = document.getElementById('hero')
+            if (hero) {
+                const elementTop = hero.getBoundingClientRect().bottom;
                 if (elementTop <= 1) {
                     setHasScrolledPast(true);
                 } else {
@@ -67,7 +69,7 @@ function Navbar({notTop}) {
             })
             const logoAnim = gsap.timeline({
                 paused: true,
-                defaults: {duration: 0.5}
+                defaults: {duration: 0.25}
             }).fromTo(logoContainer, {opacity: 0}, {opacity: 1});
 
             ScrollTrigger.create({
@@ -75,7 +77,7 @@ function Navbar({notTop}) {
                 start: startAdjusted,
                 end: "bottom bottom",
                 markers: false,
-                onEnter: () => logoAnim.play().delay(.3),
+                onEnter: () => logoAnim.play().delay(.5),
                 onLeaveBack: () => logoAnim.reverse(0),
             });
         }
@@ -95,9 +97,9 @@ function Navbar({notTop}) {
                  ref={navBarContainerRef}>
                 <div className={classes.logoContainer} ref={logoContainerRef}><a onClick={handleLogoClick}><Logo
                     width={"175px"}/></a></div>
-                {!mobileMenu && <div className={`${classes.navLinks} ${hasScrolledPast ? classes.clingRight : classes.center}`}
+                {isDesktop && <div className={`${classes.navLinks} ${hasScrolledPast ? classes.clingRight : classes.center}`}
                       ref={navLinksRef}>
-                    <ul className={`${classes.desktop} ${hasScrolledPast ? classes.bigGap : classes.smallGap}`}
+                    <ul className={`${classes.desktop}`}
                         onClick={(event) => {
                             event.preventDefault();
                             const target = event.target;
@@ -119,7 +121,29 @@ function Navbar({notTop}) {
 
 
                 </div>}
-                {mobileMenu && <MobileMenu isMounted={isMounted} clingRight={hasScrolledPast}/>}
+                {isTablet && <div className={`${classes.navLinks} ${hasScrolledPast ? classes.clingRight : classes.center}`}
+                                     ref={navLinksRef}>
+                    <ul className={`${classes.desktop} ${hasScrolledPast ? classes.bigGap : classes.smallGap}`}
+                        onClick={(event) => {
+                            event.preventDefault();
+                            const target = event.target;
+                            const id = target.getAttribute('href')?.replace('#', '');
+                            const element = document.getElementById(id);
+                            element?.scrollIntoView({
+                                block: 'start',
+                                behavior: 'smooth'
+                            })
+                        }}>
+                        <li className={"navLink"}><a href={"#menu"}>Menu</a></li>
+                        <li className={"navLink"}><a href={"#locations"}>Locations</a></li>
+                        <li className={"navLink"}><a href={"#contact"}>Contact</a></li>
+                        <MobileMenu isMounted={isMounted} isAdditional={true}/>
+                        {/*<li className={"navLink"}><Link to={"/jobs"}>Jobs</Link></li>*/}
+                    </ul>
+
+
+                </div>}
+                {isSmartphone && <MobileMenu isMounted={isMounted} clingRight={hasScrolledPast}/>}
             </div>
         </nav>
     );

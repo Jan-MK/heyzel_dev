@@ -195,6 +195,14 @@
   overflow: hidden;
   color: var(--text-primary);
 
+  @include mobile {
+    height: 95dvh;
+    width: 95vw;
+    max-height: 100%;
+    max-width: 100%;
+    flex-direction: column;
+  }
+
 
   .leftWrapper {
     width: 50%;
@@ -202,6 +210,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    @include mobile {
+      height: 25%;
+      width: 100%;
+    }
 
     .slideImage {
       width: 100%;
@@ -216,17 +229,23 @@
     width: 50%;
     height: 100%;
     overflow: hidden;
-    padding: 25px 25px 0 25px;
+    padding: 25px 25px 25px 25px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     position: relative;
+    overscroll-behavior: contain;
 
+    @include mobile {
+      height: 75%;
+      width: 100%;
+    }
 
     .rightCatHeading {
       font-size: 1.8rem;
       font-weight: 600;
+      margin-top: 0;
     }
 
     .scrollIndicator {
@@ -290,17 +309,18 @@
 }
 
 
-@media (max-width: 768px) {
-  /* Inside Modal */
+/*@media (max-width: 768px) {
+  !* Inside Modal *!
   .singleCatWrapper {
     flex-direction: column;
     width: 95vw;
-    height: 95vh;
+    height: 95dvh;
     overflow: hidden;
 
     .leftWrapper {
       width: 95vw;
-      height: calc(95vh * .2);
+      height: calc(95dvh * .2);
+      max-height: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -316,8 +336,8 @@
 
     .rightWrapper {
       width: 95vw;
-      height: calc(95vh * .8);
+      height: calc(95dvh * .8);
       justify-content: flex-start;
     }
   }
-}
+}*/

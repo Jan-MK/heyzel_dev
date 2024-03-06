@@ -108,7 +108,7 @@ function HeroComponent(props) {
     })
 
     return (
-        <div className={classes.heroWrapper} ref={heroWrapper} style={{height: heroHeight}}>
+        <div className={classes.heroWrapper} id={'hero'} ref={heroWrapper} style={{height: heroHeight}}>
             <div className={`${classes.heroImages}`} style={{height: heroHeight}}>
                 <div className={`${classes.imageArray} ${classes.left}`} ref={leftContainer}>
                     {images.map((image, idx) => {

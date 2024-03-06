@@ -12,4 +12,5 @@
   align-items: center;
   z-index: 995;
   transition: height, min-height, max-height .25s ease;
+  overscroll-behavior: contain;
 }

@@ -12,63 +12,20 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Menu() {
     let menuCats = menuArray.categories
-/*
-    const refArray = useRef([])
-*/
-/*    const [isMounted, setIsMounted] = useState(false);
-    const [currentModalContent, setCurrentModalContent] = useState("");
-    const [currentIdx, setCurrentIdx] = useState(-1);
-    const [showUpArrow, setShowUpArrow] = useState(false);
-    const [showDownArrow, setShowDownArrow] = useState(false);*/
     const itemListWrapperRef = useRef(null)
     const {openModal} = useModal()
-/*
-
-    const handleScroll = () => {
-        checkScrollability();
-    };
-
-
-    useEffect(() => {
-        checkScrollability()
-    }, [currentModalContent]);
-
-    const checkScrollability = () => {
-        if (!itemListWrapperRef.current) return;
-
-        const wrapper = itemListWrapperRef.current;
-        const isScrollable = wrapper.scrollHeight > wrapper.clientHeight;
-        const isScrolledToTop = wrapper.scrollTop === 0;
-        const isScrolledToBottom = wrapper.scrollHeight - wrapper.scrollTop < wrapper.clientHeight + 5;
-
-        setShowUpArrow(isScrollable && !isScrolledToTop);
-        setShowDownArrow(isScrollable && !isScrolledToBottom);
-    };
-*/
 
     function toggleMount(idx) {
-/*        setCurrentIdx(idx);
-        setCurrentModalContent({
-            image: renderedImg[idx],
-            name: renderedName[idx],
-            content: renderedContent[idx]
-        });*/
         openModal(<div className={classes.singleCatWrapper}>
             {renderedImg[idx]}
             <div className={classes.rightWrapper}>
                 {renderedName[idx]}
-{/*                <div className={`${classes.scrollIndicator}`}>{showUpArrow && <IoChevronUpOutline/>}</div>*/}
                 <div className={classes.itemListWrapper} ref={itemListWrapperRef}>
                     {renderedContent[idx]}
                 </div>
-{/*                <div className={`${classes.scrollIndicator}`}>{showDownArrow && <IoChevronDownOutline/>}</div>*/}
             </div>
         </div>)
-        /*        if (!isMounted) {
-                    setIsMounted(true);
-                } else {
-                    setIsMounted(false);
-                }*/
+
     }
 
     const renderedImg = menuCats.map((cat, idx) => (
