@@ -1,31 +1,35 @@
-import React, {useContext, useEffect, useRef, useState} from 'react';
+import {useContext, useRef, useState} from 'react';
 import classes from './Hero.module.scss'; // Make sure the path matches your file structure
-import coffeeImg from '../../assets/media/coffees.jpg'; // Update the path to your image
-import Splitting from 'splitting';
-import 'splitting/dist/splitting.css'; // Import Splitting.js CSS
-import 'splitting/dist/splitting-cells.css'; // For cell effect
-import logo from '../../assets/media/heyzel-logo.svg'
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {useGSAP} from "@gsap/react";
 import ReferenceContext from "../../context/ReferenceContext.jsx";
 import Logo from "../Logo/Logo.jsx";
-import {getRandomColor, maxWidthMobile, minWidthNonMobile} from "../../utility/Utility.jsx";
+import {maxWidthMobile, minWidthNonMobile} from "../../utility/Utility.jsx";
+import drink from "../../assets/media/HeroImages/drink-1839134_1280.jpg"
+import woman from "../../assets/media/HeroImages/woman-6992691_1280.jpg"
+import dark from "../../assets/media/HeroImages/dark-2595778_1280.jpg"
+import coffeehouse from "../../assets/media/HeroImages/coffeehouse-2600877_1280.jpg"
+import cShop from "../../assets/media/HeroImages/coffee-shop-393954_1280.jpg"
+import coffee1 from "../../assets/media/HeroImages/coffee-5495609_1280.jpg"
+import coffee2 from "../../assets/media/HeroImages/coffee-2439999_1280.jpg"
+import cafe1 from "../../assets/media/HeroImages/cafe-1869656_1280.jpg"
+import cafe2 from "../../assets/media/HeroImages/cafe-789635_1280.jpg"
 import ReactCountryFlag from "react-country-flag";
 
 gsap.registerPlugin(ScrollTrigger);
 
 
 let images = [
-    "src/assets/media/HeroImages/drink-1839134_1280.jpg",
-    "src/assets/media/HeroImages/woman-6992691_1280.jpg",
-    "src/assets/media/HeroImages/dark-2595778_1280.jpg",
-    "src/assets/media/HeroImages/coffeehouse-2600877_1280.jpg",
-    "src/assets/media/HeroImages/coffee-shop-393954_1280.jpg",
-    "src/assets/media/HeroImages/coffee-5495609_1280.jpg",
-    "src/assets/media/HeroImages/coffee-2439999_1280.jpg",
-    "src/assets/media/HeroImages/cafe-1869656_1280.jpg",
-    "src/assets/media/HeroImages/cafe-789635_1280.jpg",
+    drink,
+    woman,
+    dark,
+    coffeehouse,
+    cShop,
+    coffee1,
+    coffee2,
+    cafe1,
+    cafe2,
 ]
 let countPerColumn = 3
 

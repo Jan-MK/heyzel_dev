@@ -26,13 +26,13 @@ const MobileMenu = ({clingRight, isAdditional}) => {
         document.body.style.overflow = 'hidden'
         const tl = gsap.timeline();
         tl.to(menuRef.current, { opacity: 1, duration: .25, top: 0, ease: "power2.easeIn" })
-            .to(navItemsRef.current, { opacity: 1, marginBottom: 0, duration: .25, ease: "power2.easeIn", stagger: 0.15 }, /*"-=0.5"*/);
+            .to(navItemsRef.current, { opacity: 1, marginBottom: 0, duration: .25, ease: "power2.easeIn", stagger: 0.05 }, /*"-=0.5"*/);
     };
 
     const closeMenu = () => {
         document.body.style.overflow = 'unset'
         const tl = gsap.timeline();
-        tl.to(navItemsRef.current, { opacity: 0, marginBottom: -5, duration: .25, ease: "power2.easeOut", stagger: 0.1 })
+        tl.to(navItemsRef.current, { opacity: 0, marginBottom: -5, duration: .25, ease: "power2.easeOut", stagger: 0.05 })
             .to(menuRef.current, { opacity: 0, duration: .25, top: "-100%", ease: "power2.easeOut", onComplete: () => setIsOpen(false) }, /*"-=0.5"*/);
     };
 

@@ -21,7 +21,7 @@ function Locations() {
 
     useGSAP(() => {
         const title = locationsHeadingRef.current
-        const navbar = navbarRef.current
+        const navbar = document.getElementById('navBar')
         const locationsContainer = locationsRef.current
         const locationsImage = locationImageRef.current
 
@@ -84,7 +84,6 @@ function Locations() {
         mm.add(`(max-width: ${maxWidthMobile}px)`, () => {
                 console.log("mobile");
 
-                let lastHeadline = lastHeadLineRef.current
             let headlineId = document.getElementById('headlineId')
 
                 ScrollTrigger.create({
