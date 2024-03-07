@@ -16,6 +16,7 @@ import coffee2 from "../../assets/media/HeroImages/coffee-2439999_1280.jpg"
 import cafe1 from "../../assets/media/HeroImages/cafe-1869656_1280.jpg"
 import cafe2 from "../../assets/media/HeroImages/cafe-789635_1280.jpg"
 import ReactCountryFlag from "react-country-flag";
+import {useWindowDimensions} from "../../context/WindowDimensionsContext.jsx";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -38,8 +39,8 @@ function HeroComponent(props) {
     const rightContainer = useRef(null)
     const containerRef = useRef(null)
     const heroWrapper = useRef(null)
+    const {isSmartphone} = useWindowDimensions()
     const {navbarRef} = useContext(ReferenceContext)
-    const [heroHeight, setHeroHeight] = useState("100svh")
 
     const rightSlice = images.slice(countPerColumn)
 
@@ -57,64 +58,45 @@ function HeroComponent(props) {
     }
 
     useGSAP(() => {
-        const leftColumn = leftContainer.current
-        const rightColumn = rightContainer.current
-        const heroContainer = heroWrapper.current
+        const leftColumn = document.getElementById('leftHeroContainer')
+        const rightColumn = document.getElementById('rightHeroContainer')
+        const heroContainer = document.getElementById('hero')
 
         let mm = gsap.matchMedia()
+        if (leftColumn && rightColumn && heroContainer) {
+            const tlLeft = gsap.timeline({
+                scrollTrigger: {
+                    trigger: heroContainer,
+                    start: 'center center',
+                    end: "bottom top",
+                    scrub: 1,
+                },
+            });
 
-        mm.add(`(min-width: ${minWidthNonMobile}px)`, () => {
+            const tlRight = gsap.timeline({
+                scrollTrigger: {
+                    trigger: heroContainer,
+                    start: 'center center',
+                    end: "bottom top",
+                    scrub: 1,
+                },
+            });
 
-            gsap.to([leftColumn], {
-                y: -heroContainer.offsetHeight * 0.75,
-                scrollTrigger: {
-                    trigger: heroContainer,
-                    start: 'center center',
-                    end: "bottom top",
-                    markers: false,
-                    scrub: 1,
-                }
+            mm.add(`(min-width: ${minWidthNonMobile}px)`, () => {
+                tlLeft.to(leftColumn, {yPercent: -25});
+                tlRight.to(rightColumn, {yPercent: -15});
             })
-            gsap.to([rightColumn], {
-                y: -heroContainer.offsetHeight * 0.55,
-                scrollTrigger: {
-                    trigger: heroContainer,
-                    start: 'center center',
-                    end: "bottom top",
-                    markers: false,
-                    scrub: 1,
-                }
+            mm.add(`(max-width: ${maxWidthMobile}px)`, () => {
+                tlLeft.to(leftColumn, {xPercent: 55});
+                tlRight.to(rightColumn, {xPercent: -35});
             })
-        })
-        mm.add(`(max-width: ${maxWidthMobile}px)`, () => {
-            gsap.to([leftColumn], {
-                x: +heroContainer.offsetWidth * 0.75,
-                scrollTrigger: {
-                    trigger: heroContainer,
-                    start: 'center center',
-                    end: "bottom top",
-                    markers: false,
-                    scrub: 1,
-                }
-            })
-            gsap.to([rightColumn], {
-                x: -heroContainer.offsetWidth * 0.55,
-                scrollTrigger: {
-                    trigger: heroContainer,
-                    start: 'center center',
-                    end: "bottom top",
-                    markers: false,
-                    scrub: 1,
-                }
-            })
-        })
-
+        }
     })
 
     return (
-        <div className={classes.heroWrapper} id={'hero'} ref={heroWrapper} style={{height: heroHeight}}>
-            <div className={`${classes.heroImages}`} style={{height: heroHeight}}>
-                <div className={`${classes.imageArray} ${classes.left}`} ref={leftContainer}>
+        <div className={classes.heroWrapper} id={'hero'} ref={heroWrapper}>
+            <div className={`${classes.heroImages}`}>
+                <div className={`${classes.imageArray} ${classes.left}`} id={'leftHeroContainer'} ref={leftContainer}>
                     {images.map((image, idx) => {
                         return <div className={classes.imageContainer} key={idx}>
                             <img className={classes.heroImage}
@@ -123,7 +105,8 @@ function HeroComponent(props) {
                         </div>
                     })}
                 </div>
-                <div className={`${classes.imageArray} ${classes.right}`} ref={rightContainer}>
+                <div className={`${classes.imageArray} ${classes.right}`} id={'rightHeroContainer'}
+                     ref={rightContainer}>
                     {rightSlice.map((image, idx) => {
                         return <div className={classes.imageContainer} key={idx}>
                             <img className={classes.heroImage}
@@ -142,7 +125,8 @@ function HeroComponent(props) {
                         <p>A <span style={{color: randCol}}>unique</span> vibe</p>
                     </div>
                     <p>Good talks, working between meetings, pre-party at night - we've got you!</p>
-                    <p>Switch to <span> </span> <ReactCountryFlag svg style={{ width: '25px', height: 'auto'}} countryCode={'DE'} /></p>
+                    <p>Switch to <span> </span> <ReactCountryFlag svg style={{width: '25px', height: 'auto'}}
+                                                                  countryCode={'DE'}/></p>
                 </div>
             </div>
             <div className={classes.scrollIconContainer} style={{
@@ -151,7 +135,7 @@ function HeroComponent(props) {
             }}>
                 <a href={"#home"} onClick={handleScrollDownClick} className={classes.scroll}></a>
             </div>
-            <div className={classes.overlay}></div>
+            {isSmartphone && <div className={classes.overlay}></div>}
         </div>
     )
 }

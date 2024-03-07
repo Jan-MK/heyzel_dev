@@ -15,10 +15,10 @@ function InsertionBlock({title, subtitle, description, idx, boldIntro, order, bg
         const insertionDiv = insertionRef.current
         const subtitleHeading = subtitleRef.current
 
-        let startX = order ? 150 : -150;
-        let endX = order ? -300 : 300;
+        let startX = order ? -30 : 30;
+        let endX = order ? -80: 80;
         gsap.set(insertionDiv, {opacity: 0})
-        gsap.set(subtitleHeading, {x: startX})
+        gsap.set(subtitleHeading, {xPercent: startX})
 
         gsap.to([insertionDiv], {
             opacity: 1,
@@ -31,7 +31,7 @@ function InsertionBlock({title, subtitle, description, idx, boldIntro, order, bg
             }
         })
         gsap.to([subtitleHeading], {
-            x: endX,
+            xPercent: endX,
             scale: 1.5,
             scrollTrigger: {
                 trigger: insertionDiv,
