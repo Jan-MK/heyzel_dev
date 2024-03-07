@@ -22,8 +22,9 @@ function Locations() {
         //const title = locationsHeadingRef.current
         const title = document.getElementById('locationsTitle')
         const navbar = document.getElementById('navBar')
+        const locationsImage = document.getElementById('locationsImages')
         const locationsContainer = locationsRef.current
-        const locationsImage = locationImageRef.current
+        //const locationsImage = locationImageRef.current
 
         const details = gsap.utils.toArray(`.${classes.locationContentSection}:not(:first-child)`);
         const photos = gsap.utils.toArray(`.${classes.locationPhoto}:not(:first-child)`);
@@ -87,7 +88,7 @@ function Locations() {
 
                 ScrollTrigger.create({
                     trigger: locationsImage,
-                    start: `top top+=${navbar.offsetHeight}px`,
+                    start: `top top+=${navbar.offsetHeight - 2}px`,
                     endTrigger: headlineId,
                     end: `top top+=${locationsImage.offsetHeight + navbar.offsetHeight}px`,
                     pin: [locationsImage],
@@ -230,7 +231,7 @@ function Locations() {
                     </div>
                 </div>
 
-                <div className={`${classes.right}`} ref={locationImageRef}>
+                <div className={`${classes.right}`} id={'locationsImages'} ref={locationImageRef}>
                     <div className={`${classes.locationPhotos}`}>
                         <div className={`${classes.locationPhoto}`}><img
                             src={"https://images.pexels.com/photos/2193600/pexels-photo-2193600.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"}

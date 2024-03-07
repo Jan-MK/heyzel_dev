@@ -55,9 +55,15 @@ function Events(props) {
 
     return (
         <div>
-            {/* Your component structure */}
-            <div className={classes.eventCarousel}>
-                {error ? <div>Error: {error}</div> : instaData.map((post) => <PostCard key={post.id} post={post}/>)}
+            <div className={classes.aboutEvents}>
+                <h2>The best parties start with <span>you</span>!</h2>
+
+            </div>
+            <div className={classes.featured}>
+                <h2>Featured events</h2>
+                <div className={classes.eventCarousel}>
+                    {error ? <div>Error: {error}</div> : instaData.map((post) => <PostCard key={post.id} post={post}/>)}
+                </div>
             </div>
         </div>
     );
