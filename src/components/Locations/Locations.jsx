@@ -96,7 +96,7 @@ function Locations() {
                     //end: `top top+=${locationsImage.offsetHeight + navbar.offsetHeight}px`,
                     end: `top top+=405px`,
                     pin: [locationsImage],
-                    markers: false,
+                    markers: false,pinSpacing: false,
                     invalidateOnRefresh: true
                 });
 
