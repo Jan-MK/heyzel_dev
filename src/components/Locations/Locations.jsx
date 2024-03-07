@@ -2,7 +2,7 @@ import classes from "./Locations.module.scss"
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {useGSAP} from "@gsap/react";
-import {useContext, useEffect, useRef, useState} from "react";
+import {useContext, useRef} from "react";
 import SingleLocation from "./SingleLocation/SingleLocation.jsx";
 import ReferenceContext from "../../context/ReferenceContext.jsx";
 import {maxWidthMobile, minWidthNonMobile} from "../../utility/Utility.jsx";
@@ -17,7 +17,6 @@ function Locations() {
     const locationsRef = useRef(null)
     const locationImageRef = useRef(null)
     const lastHeadLineRef = useRef(null)
-    const [imageColumnHeight, setImageColumnHeight] = useState()
 
     useGSAP(() => {
         //const title = locationsHeadingRef.current
@@ -32,7 +31,6 @@ function Locations() {
 
         gsap.set(photos, {yPercent: 101});
 
-        // Setup matchMedia
         let mm = gsap.matchMedia();
 
         mm.add(`(min-width: ${minWidthNonMobile}px)`, () => {
@@ -40,7 +38,6 @@ function Locations() {
                 if (title && navbar && locationsContainer) {
                     ScrollTrigger.create({
                         startTrigger: title,
-                        //start: `top top+=${navbar.offsetHeight - 1}px`,
                         start: `top top+=65px`,
                         endTrigger: locationsContainer,
                         end: 'bottom bottom',
@@ -94,7 +91,7 @@ function Locations() {
                     endTrigger: headlineId,
                     end: `top top+=${locationsImage.offsetHeight + navbar.offsetHeight}px`,
                     pin: [locationsImage],
-                    markers: true,
+                    markers: false,
                     invalidateOnRefresh: true
                 });
 
