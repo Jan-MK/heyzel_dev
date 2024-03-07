@@ -94,7 +94,7 @@ function Home(props) {
                 <section className={`${classes.contentSection}`} id={"locations"}>
                     <Locations/>
                 </section>
-                <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle} order={false} boldIntro={"..."}
+                <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle} order={true} boldIntro={"..."}
                                 idx={7} description={[insertions[6], insertions[7]]} bg={colors[3].bg}
                                 text={colors[3].text}/>
                 <section className={`${classes.contentSection}`} id={"contact"}>

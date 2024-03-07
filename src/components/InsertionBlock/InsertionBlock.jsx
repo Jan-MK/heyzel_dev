@@ -1,5 +1,5 @@
 import classes from "./InsertionBlock.module.scss"
-import {getRandomColor} from "../../utility/Utility.jsx";
+import {getRandomColor, maxWidthMobile, minWidthNonMobile} from "../../utility/Utility.jsx";
 import React, {useRef} from "react";
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
@@ -15,10 +15,10 @@ function InsertionBlock({title, subtitle, description, idx, boldIntro, order, bg
         const insertionDiv = insertionRef.current
         const subtitleHeading = subtitleRef.current
 
-        let startX = order ? -30 : 30;
-        let endX = order ? -80: 80;
+        let start = order ? -30 : 30;
+        let end = order ? -80: 80;
         gsap.set(insertionDiv, {opacity: 0})
-        gsap.set(subtitleHeading, {xPercent: startX})
+
 
         gsap.to([insertionDiv], {
             opacity: 1,
@@ -30,17 +30,37 @@ function InsertionBlock({title, subtitle, description, idx, boldIntro, order, bg
                 scrub: .5,
             }
         })
-        gsap.to([subtitleHeading], {
-            xPercent: endX,
-            scale: 1.5,
-            scrollTrigger: {
-                trigger: insertionDiv,
-                start: 'center 90%',
-                end: "bottom top",
-                markers: false,
-                scrub: .5,
-            }
+
+        let mm = gsap.matchMedia()
+        mm.add(`(min-width: ${minWidthNonMobile}px)`, () => {
+            gsap.set(subtitleHeading, {xPercent: start})
+            gsap.to([subtitleHeading], {
+                xPercent: end,
+                scale: 1.5,
+                scrollTrigger: {
+                    trigger: insertionDiv,
+                    start: 'center 90%',
+                    end: "bottom top",
+                    markers: false,
+                    scrub: .5,
+                }
+            })
         })
+        mm.add(`(max-width: ${maxWidthMobile}px)`, () => {
+            gsap.set(subtitleHeading, {yPercent: -10})
+            gsap.to([subtitleHeading], {
+                yPercent: 80,
+                scale: 1.5,
+                scrollTrigger: {
+                    trigger: insertionDiv,
+                    start: 'center 90%',
+                    end: "bottom top",
+                    markers: false,
+                    scrub: .5,
+                }
+            })
+        })
+
     })
 
     const content = description.map((sentence, index) => (
