@@ -26,7 +26,7 @@ function Locations() {
         const title = document.getElementById('locationsTitle')
         const navbar = document.getElementById('navBar')
         const locationsImage = document.getElementById('locationsImages')
-        const locationsContainer = locationsRef.current
+        const locationsContainer = document.getElementById('locationsContainer')
         //const locationsImage = locationImageRef.current
 
         const details = gsap.utils.toArray(`.${classes.locationContentSection}:not(:first-child)`);
@@ -91,9 +91,10 @@ function Locations() {
 
                 ScrollTrigger.create({
                     trigger: locationsImage,
-                    start: `top top+=${navbar.offsetHeight - 2}px`,
+                    start: `top top+=65px`,
                     endTrigger: headlineId,
-                    end: `top top+=${locationsImage.offsetHeight + navbar.offsetHeight}px`,
+                    //end: `top top+=${locationsImage.offsetHeight + navbar.offsetHeight}px`,
+                    end: `top top+=405px`,
                     pin: [locationsImage],
                     markers: false,
                     invalidateOnRefresh: true
@@ -124,7 +125,7 @@ function Locations() {
 
 
     return (
-        <div className={classes.locationsSection}>
+        <div className={classes.locationsSection} id={'locationsContainer'}>
             <div className={`${classes.sectionHeading}`} id={'locationsTitle'} ref={locationsHeadingRef}>
                 <h1>
                     LOCATIONS
