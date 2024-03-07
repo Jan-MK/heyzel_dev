@@ -12,6 +12,7 @@
 
   @include mobile() {
     flex-direction: column;
+    padding: 0;
   }
 
   .contactInfo, .formContainer {
@@ -45,7 +46,7 @@
         max-width: 100%; // If there's only one child, it takes full width
       }
 
-      input[type='text'], textarea, select {
+      input[type='text'], input[type='tel'], textarea, select {
         width: 100%; // Ensure form elements take the full width of their parent
       }
 
@@ -92,7 +93,8 @@
   }
 
   .submit {
-    background-color: var(--accent2);
+    color: white;
+    background-color: var(--accent);
 
     &:disabled {
       background-color: var(--disabled);

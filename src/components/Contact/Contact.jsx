@@ -116,12 +116,12 @@ function Contact() {
                         <p>Mail<span className={classes.required}>*</span>:</p>
                         <input type={'text'} {...register('mail')} placeholder={'john.doe@dodo.com'}/>
                         <div
-                            className={`${errors.eMail?.message ? classes.error : classes.noError}`}>{errors.eMail?.message}
+                            className={`${errors.mail?.message ? classes.error : classes.noError}`}>{errors.mail?.message}
                         </div>
                     </div>
                     <div>
                         <p>Phone:</p>
-                        <input type={'text'} {...register('phone')} placeholder={'+49 123 456789'}/>
+                        <input type={'tel'} {...register('phone')} placeholder={'+49 123 456789'}/>
                         <div
                             className={`${errors.phone?.message ? classes.error : classes.noError}`}>{errors.phone?.message}
                         </div>

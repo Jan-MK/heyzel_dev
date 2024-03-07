@@ -7,187 +7,185 @@
   justify-content: center;
   align-items: center;
   gap: 25px;
+  width: 100vw;
+  max-width: 100%;
 
 
-.description {
-  max-width: 1080px;
-  p {
-    text-align: center !important;
-    font-size: clamp(0.5em, 10vw, 1.25em) !important;
+
+  .description {
+    max-width: 1080px;
+
+    p {
+      text-align: center !important;
+      font-size: clamp(0.5em, 10vw, 1.25em) !important;
+    }
   }
-}
 
-.description, .menuWrapper {
+  .description, .menuWrapper {
 
-  p {
-    text-align: center !important;
-    font-size: clamp(0.5em, 10vw, 1.25em) !important;
+    p {
+      text-align: center !important;
+      font-size: clamp(0.5em, 10vw, 1.25em) !important;
+    }
   }
-}
 
-.menuWrapper {
-  max-width: 1080px;
-  margin: 0 auto;
+  .menuWrapper {
+    width: 100vw;
+    max-width: min(1080px, 100%);
+    margin: 0 auto;
 
-  .servicesWrapper {
-    height: 100%;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    grid-column-gap: 0;
-    grid-row-gap: 0;
-    gap: 20px;
-    max-height: 100svh;
 
-    @include mobile {
-      grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: repeat(6, 1fr);
-      max-height: unset;
-    }
 
-    .div1 {
-      grid-area: 1 / 1 / 3 / 2;
-
-      @include mobile {
-        grid-area: 1 / 1 / 3 / 3;
-      }
-    }
-
-    .div2 {
-      background-color: var(--light-accent-100op);
-      grid-area: 3 / 1 / 4 / 2;
-
-      @include mobile {
-        grid-area: 3 / 1 / 4 / 3;
-      }
-    }
-
-    .div3 {
-      grid-area: 2 / 2 / 4 / 3;
-
-      @include mobile {
-        grid-area: 4 / 1 / 6 / 3;
-      }
-    }
-
-    .div4 {
-      grid-area: 1 / 2 / 2 / 3;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      gap: 10px;
-
-      @include mobile {
-        grid-area: 6 / 1 / 7 / 3;
-      }
-    }
-
-    .div4 > div {
-      width: 50%;
+    .servicesWrapper {
       height: 100%;
-    }
-
-    .div4 > div.rightText {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-  }
-
-  p, h1, h2, h3, h4 {
-    text-align: center;
-  }
-
-  .gridItem {
-    border-radius: 10px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    box-shadow: 5px 5px 5px rgba(0,0,0,0.25);
-
-
-    .reverseOrder > p {
-      padding: 0;
-      margin: 0 0 .15rem;
-      font-size: 85%;
-      font-weight: 600;
-    }
-
-    .reverseOrder > h1,
-    .reverseOrder > h2,
-    .reverseOrder > h3,
-    .reverseOrder > h4 {
-      padding: 0;
-      margin: 0 0 .25rem;
-    }
-  }
-
-
-  .commonContent {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-
-
-    button {
-      align-self: center;
-      font-weight: 500;
-    }
-  }
-
-  div > img {
-    width: 100%;
-    height: 100%;
-    /*max-height: 30vh;*/
-    object-fit: cover;
-    object-position: center;
-  }
-
-  .verticalWrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-
-    @include mobile {
-      max-height: calc(100svh - 100px);
-    }
-
-    .photo,
-    .text {
       width: 100%;
-      height: 50%;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      grid-column-gap: 20px;
+      grid-row-gap: 20px;
+
+      @include mobile {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      /* Grid posiions*/
+      .gridItem {
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.25);
+        overflow: hidden;
+
+        // grid-area: grid-row-start / grid-column-start / grid-row-end / grid-column-end;
+        &.div1 {
+          grid-area: 1 / 1 / 3 / 2;
+        }
+
+        &.div2 {
+          grid-area: 3 / 1 / 4 / 2;
+        }
+
+        &.div3 {
+          grid-area: 1 / 2 / 2 / 3;
+        }
+
+        &.div4 {
+          grid-area: 2 / 2 / 4 / 3;
+        }
+
+        @include mobile {
+          .div1, .div2, .div3, .div4 {
+            grid-area: unset;
+          }
+        }
+
+
+        .reverseOrder > p {
+          padding: 0;
+          margin: 0 0 .15rem;
+          font-size: 85%;
+          font-weight: 600;
+        }
+
+        .reverseOrder > h1,
+        .reverseOrder > h2,
+        .reverseOrder > h3,
+        .reverseOrder > h4 {
+          padding: 0;
+          margin: 0 0 .25rem;
+        }
+
+        .photo {
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+          }
+        }
+
+        .commonContent {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: center;
+
+
+          button {
+            align-self: center;
+            font-weight: 500;
+          }
+        }
+
+        .text {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: center;
+          padding: 25px;
+
+          p, h1, h2, h3, h4 {
+            text-align: center;
+          }
+
+          @include mobile {
+            gap: 15px;
+          }
+        }
+
+      }
+
+      .verticalWrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+        max-height: 70vh;
+
+        .photo,
+        .text {
+          width: 100%;
+          height: 50%;
+        }
+      }
+
+      .horizontal {
+        display: flex;
+        flex-direction: row;
+        height: 100%;
+        max-height: 40vh;
+
+        .text, .photo {
+          width: 50%;
+          height: 100%;
+        }
+      }
+
+      .verticalWrapper,
+      .horizontal {
+        @include mobile {
+          flex-direction: column;
+          max-height: unset;
+          gap: 10px;
+
+          .photo {
+            width: 100%;
+            height: 25vh;
+          }
+
+          .text {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
     }
   }
-
-  .text {
-    padding: 25px;
-  }
-
-  .horizontalWrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-
-    @include mobile {
-      max-height: calc(100svh - 100px);
-    }
-
-    .photo,
-    .text {
-      width: 50%;
-      height: 100%;
-
-
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-    }
-  }
-}
 }
 
 /* Inside Modal */
