@@ -7,7 +7,7 @@ import ReferenceContext from "../../context/ReferenceContext.jsx";
 import Logo from "../Logo/Logo.jsx";
 import {maxWidthMobile, minWidthNonMobile} from "../../utility/Utility.jsx";
 import drink from "../../assets/media/HeroImages/drink-1839134_1280.jpg"
-import woman from "../../assets/media/HeroImages/woman-6992691_1280.jpg"
+import woman from "../../assets/media/HeroImages/pexels-lisa-fotios-9853880.jpg"
 import dark from "../../assets/media/HeroImages/dark-2595778_1280.jpg"
 import coffeehouse from "../../assets/media/HeroImages/coffeehouse-2600877_1280.jpg"
 import cShop from "../../assets/media/HeroImages/coffee-shop-393954_1280.jpg"

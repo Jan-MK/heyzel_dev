@@ -7,6 +7,9 @@ import SingleLocation from "./SingleLocation/SingleLocation.jsx";
 import ReferenceContext from "../../context/ReferenceContext.jsx";
 import {maxWidthMobile, minWidthNonMobile} from "../../utility/Utility.jsx";
 import useWindowDimensions from "../../utility/WindowSize.jsx";
+import coffeehouse from "../../assets/media/HeroImages/coffeehouse-2600877_1280.jpg"
+import cafe1 from "../../assets/media/HeroImages/cafe-1869656_1280.jpg"
+import cafe2 from "../../assets/media/HeroImages/cafe-789635_1280.jpg"
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -234,13 +237,13 @@ function Locations() {
                 <div className={`${classes.right}`} id={'locationsImages'} ref={locationImageRef}>
                     <div className={`${classes.locationPhotos}`}>
                         <div className={`${classes.locationPhoto}`}><img
-                            src={"https://images.pexels.com/photos/2193600/pexels-photo-2193600.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"}
+                            src={coffeehouse}
                             alt={'Heyzel - Königsplatz'}/></div>
                         <div className={`${classes.locationPhoto}`}><img
-                            src={"https://images.pexels.com/photos/2551794/pexels-photo-2551794.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"}
+                            src={cafe1}
                             alt={'Heyzel - Rathaus'}/></div>
                         <div className={`${classes.locationPhoto}`}><img
-                            src={"https://images.pexels.com/photos/1402407/pexels-photo-1402407.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"}
+                            src={cafe2}
                             alt={'Heyzel - Universität'}/></div>
                     </div>
 

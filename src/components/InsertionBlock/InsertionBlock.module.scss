@@ -1,6 +1,8 @@
 @import "../../App.scss";
 
 .insertionSection {
+  width: 100vw;
+  max-width: 100%;
   .insertionBlockWrapper {
     padding: 10vh 25px 10vh 25px;
     color: white;
@@ -8,7 +10,8 @@
     justify-content: space-between;
     align-items: center;
     gap: 5vw;
-    width: min(90%, 2000px);
+    width: 100vw;
+    max-width: min(2000px, 100%);
     overflow: hidden;
 
     @include mobile {

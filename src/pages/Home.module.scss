@@ -13,6 +13,12 @@
     width: 100%;
     min-height: 50svh;
     padding: 66px 15px 66px 15px;
+    position: relative;
+    z-index: 0;
+
+    & > div {
+      z-index: 1;
+    }
 
     .bgSectionHeading {
       background-color: var(--background);

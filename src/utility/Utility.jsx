@@ -42,10 +42,16 @@ function shuffleArray(array) {
     return tempArray;
 }
 
-export function getDistinctRandomHex(number) {
+export function getDistinctRandomHex(number, exlusion) {
     let result = [];
+    let array = []
+    if (exlusion) {
+        array = randomColors.filter(el => el.bg !== exlusion)
+    } else {
+        array = randomColors.slice()
+    }
     while (number > 0) {
-        const shuffledColors = shuffleArray(randomColors);
+        const shuffledColors = shuffleArray(array);
         const needed = Math.min(number, shuffledColors.length);
         result = result.concat(shuffledColors.slice(0, needed));
         number -= needed;

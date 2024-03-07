@@ -106,7 +106,7 @@ body, html {
     transition: color 150ms;
 
     &:hover {
-      color: var(--accent2);
+      color: var(--accent);
       transition-duration: 150ms;
       cursor: pointer;
     }
@@ -150,7 +150,39 @@ body, html {
     &.transparent {
       background-color: transparent;
       padding: 0;
+    }
 
+    &.third {
+      background-color: transparent;
+      border: 2px solid var(--accent);
+      overflow: hidden;
+
+
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--accent);
+        transform: translateX(-100%);
+        transition: all .3s;
+        z-index: -1;
+      }
+
+      &:hover {
+        color: white !important;
+        scale: 1 !important;
+      }
+
+      &:active {
+        scale: .98;
+      }
+
+      &:hover::before {
+        transform: translateX(0);
+      }
     }
 
     &.secondary {
@@ -181,9 +213,10 @@ body, html {
       }
     }
 
-    &.button-warning, &.button-confirm, &.button-cancel, &.primary, &.secondary {
+    &.button-warning, &.button-confirm, &.button-cancel, &.primary, &.secondary, &.third {
 
       &:hover {
+        scale: 1.02;
         filter: brightness(1.1);
         cursor: pointer;
       }

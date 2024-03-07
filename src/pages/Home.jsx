@@ -84,7 +84,7 @@ function Home(props) {
                 <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle} order={true} boldIntro={"..."}
                                 idx={3} description={[insertions[2], insertions[3]]} bg={colors[1].bg}
                                 text={colors[1].text}/>
-                <section className={`${classes.contentSection} ${classes.fullHeight}`} ref={menuContainerRef}
+                <section className={`${classes.contentSection} ${classes.imageOverlay} ${classes.fullHeight}`} ref={menuContainerRef}
                          id={"menu"}>
                     <Menu/>
                 </section>

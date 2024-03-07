@@ -1,11 +1,12 @@
 import classes from "./Menu.module.scss";
 import menuArray from '../../assets/menu.json'
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useMemo, useRef, useState} from "react";
 /*import Modal from "../Modal/Modal.jsx";
 import {IoChevronUpOutline, IoChevronDownOutline} from 'react-icons/io5';*/
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {useModal} from "../../context/ModalContext.jsx";
+import {getDistinctRandomHex} from "../../utility/Utility.jsx";
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -25,8 +26,9 @@ export default function Menu() {
                 </div>
             </div>
         </div>)
-
     }
+
+    let colors = useMemo(() => getDistinctRandomHex(4, '#FE0879'))
 
     const renderedImg = menuCats.map((cat, idx) => (
         <div key={idx} className={classes.leftWrapper}>
@@ -87,14 +89,15 @@ export default function Menu() {
                 </div>
                 <div className={classes.menuWrapper}>
                     <div className={classes.servicesWrapper}>
-                        <div className={`${classes.div1} ${classes.gridItem} ${classes.verticalWrapper}`}>
+                        <div className={`${classes.div1} ${classes.gridItem} ${classes.verticalWrapper}`}
+                             style={{backgroundColor: colors[0].bg, color: colors[0].text}}>
                             <div className={`${classes.text} ${classes.commonContent}`}>
                                 <div className={classes.reverseOrder}>
                                     <h3>Tasty coffee.</h3>
                                     <p>During the day</p>
                                 </div>
                                 <p>From expertly brewed plain coffee to a variety of special blends, we got you.</p>
-                                <button className={"secondary"} onClick={() => toggleMount(0)}>Day menu</button>
+                                <button className={"third"} onClick={() => toggleMount(1)}>Day menu</button>
                             </div>
                             <div className={classes.photo}>
                                 <img
@@ -102,13 +105,15 @@ export default function Menu() {
                             </div>
                         </div>
 
-                        <div className={`${classes.div2} ${classes.gridItem} ${classes.commonContent} ${classes.text}`}>
+                        <div className={`${classes.div2} ${classes.gridItem} ${classes.commonContent} ${classes.text}`}
+                             style={{backgroundColor: colors[1].bg, color: colors[1].text}}>
                             <h3>Food & Snacks</h3>
                             <p>A small variety of food and snacks to avoid you being hangry!</p>
-                            <button className={"secondary"} onClick={() => toggleMount(2)}>Show me food</button>
+                            <button className={"third"} onClick={() => toggleMount(2)}>Show me food</button>
                         </div>
 
-                        <div className={`${classes.div3} ${classes.gridItem} ${classes.verticalWrapper}`}>
+                        <div className={`${classes.div3} ${classes.gridItem} ${classes.verticalWrapper}`}
+                             style={{backgroundColor: colors[2].bg, color: colors[2].text}}>
                             <div className={`${classes.text} ${classes.commonContent}`}>
                                 <div className={classes.reverseOrder}>
                                     <h3>Amazing cocktails.</h3>
@@ -117,7 +122,7 @@ export default function Menu() {
                                 <p>Transitioned to a bar at night we offer drinks and snacks while you're invited to
                                     enjoy the
                                     atmosphere.</p>
-                                <button className={"secondary"} onClick={() => toggleMount(1)}>Bar menu</button>
+                                <button className={"third"} onClick={() => toggleMount(1)}>Bar menu</button>
                             </div>
                             <div className={classes.photo}>
                                 <img
@@ -126,7 +131,8 @@ export default function Menu() {
                         </div>
 
                         <div
-                            className={`${classes.div4} ${classes.gridItem} ${classes.commonContent} ${classes.horizontalWrapper}`}>
+                            className={`${classes.div4} ${classes.gridItem} ${classes.commonContent} ${classes.horizontalWrapper}`}
+                            style={{backgroundColor: colors[3].bg, color: colors[3].text}}>
                             <div className={classes.photo}>
                                 <img src={"https://cdn.pixabay.com/photo/2015/09/01/21/00/coffee-beans-917613_1280.jpg"}
                                      alt={"our selection"}/>
@@ -134,7 +140,7 @@ export default function Menu() {
                             <div className={classes.text}>
                                 <h3>We love coffee</h3>
                                 <p>... and we're picky. Discover our coffee selection</p>
-                                <button className={"secondary"}>Discover</button>
+                                <button className={"third"}>Discover</button>
                             </div>
                         </div>
                     </div>

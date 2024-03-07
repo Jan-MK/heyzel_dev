@@ -6,6 +6,7 @@
   justify-content: center;
   align-items: center;
   gap: 25px;
+  max-width: 100%;
 
   .sectionHeading {
     height: 74px;
@@ -63,6 +64,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      overflow: hidden;
 
       .locationContentWrapper {
         width: 90%;
