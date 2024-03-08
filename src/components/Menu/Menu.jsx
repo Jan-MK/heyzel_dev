@@ -1,8 +1,6 @@
 import classes from "./Menu.module.scss";
 import menuArray from '../../assets/menu.json'
-import {useEffect, useMemo, useRef, useState} from "react";
-/*import Modal from "../Modal/Modal.jsx";
-import {IoChevronUpOutline, IoChevronDownOutline} from 'react-icons/io5';*/
+import { useMemo, useRef} from "react";
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {useModal} from "../../context/ModalContext.jsx";

@@ -1,38 +1,13 @@
 import classes from "./Footer.module.scss"
 import Logo from "../Logo/Logo.jsx";
-import {useEffect, useRef, useState} from "react";
-import {IoChevronDownOutline, IoChevronUpOutline} from "react-icons/io5";
-import {legalArray} from "../../utility/Utility.jsx";
+import {useRef, useState} from "react";
 import {useModal} from "../../context/ModalContext.jsx";
 import LegalModal from "../LegalModal/LegalModal.jsx";
 
 
 function Footer(props) {
     const {openModal} = useModal()
-    const [isMounted, setIsMounted] = useState(false);
-    const [currentModalContent, setCurrentModalContent] = useState("");
-    const contentScrollRef = useRef(null)
 
-    // Handler for scroll events
-/*    const handleScroll = () => {
-        checkScrollability();
-    };
-
-    useEffect(() => {
-        checkScrollability()
-    }, [currentModalContent]);
-
-    const checkScrollability = () => {
-        if (!contentScrollRef.current) return;
-
-        const wrapper = contentScrollRef.current;
-        const isScrollable = wrapper.scrollHeight > wrapper.clientHeight;
-        const isScrolledToTop = wrapper.scrollTop === 0;
-        const isScrolledToBottom = wrapper.scrollHeight - wrapper.scrollTop < wrapper.clientHeight + 5;
-
-        setShowUpArrow(isScrollable && !isScrolledToTop);
-        setShowDownArrow(isScrollable && !isScrolledToBottom);
-    };*/
     const year = new Date().getFullYear()
 
 
@@ -41,14 +16,6 @@ function Footer(props) {
 
     function toggleMount(imprint) {
         openModal(<LegalModal showImprint={imprint} />)
-        /*setCurrentModalContent(legalArray[idx].content);*/
-        /*if (!isMounted) {
-            setCurrentIdx(idx);
-            /!*setIsMounted(true);*!/
-        } else {
-            /!*setIsMounted(false);*!/
-            /!*setCurrentModalContent("")*!/
-        }*/
     }
 
     return (
@@ -62,7 +29,6 @@ function Footer(props) {
                         <a href="https://www.instagram.com/heyzelcoffee/" className={classes.socialLink} target="_blank"
                            aria-label="Facebook" rel="noreferrer">
                             <div className={classes.socialLogoWrapper}>
-                                {/*<img src={instagram} alt="instagram-logo" className={classes.socialLogo}/>*/}
                                 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"
                                      viewBox="0 0 1000 1000" className={classes.socialLogo}>
                                     <path

@@ -4,15 +4,13 @@ import {useForm} from 'react-hook-form'
 import {zodResolver} from "@hookform/resolvers/zod";
 import {string, z} from 'zod'
 import {IoChevronBackOutline, IoTrashOutline} from "react-icons/io5";
-import ThemeSwitch from "../../components/ThemeSwitch/ThemeSwitch.jsx";
 import Submitted from "./Submitted/Submitted.jsx";
 import LoadingFull from "./LoadingFull/LoadingFull.jsx";
 import Cookies from 'universal-cookie';
-import {allTimeZone, days, prepareData, prepareDataHTML, shifts} from "../../utility/Utility.jsx";
+import {allTimeZone, days, prepareDataHTML, shifts} from "../../utility/Utility.jsx";
 import axios from "axios";
 import Logo from "../../components/Logo/Logo.jsx";
 import useWindowDimensions from "../../utility/WindowSize.jsx";
-import ReactCountryFlag from "react-country-flag";
 import LegalModal from "../../components/LegalModal/LegalModal.jsx";
 import {useModal} from "../../context/ModalContext.jsx";
 import {available, unavailable} from "../../assets/employment.json"

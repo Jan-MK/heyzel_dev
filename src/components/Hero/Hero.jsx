@@ -1,4 +1,4 @@
-import {useContext, useRef, useState} from 'react';
+import {useContext, useRef} from 'react';
 import classes from './Hero.module.scss'; // Make sure the path matches your file structure
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
@@ -33,6 +33,8 @@ let images = [
     cafe2,
 ]
 let countPerColumn = 3
+
+
 
 function HeroComponent(props) {
     const leftContainer = useRef(null)
@@ -85,15 +87,11 @@ function HeroComponent(props) {
 
             mm.add(`(min-width: ${minWidthNonMobile}px)`, () => {
                 let tl = gsap.timeline();
-
-// Add the first animation to the timeline
                 tl.add(gsap.from(`.${classes.heroImages}`, 0.75, {
                     clipPath: "polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)",
                     scale: 1,
                     ease: "power2.inOut"
                 }))
-
-// Add the second animation to the timeline, to start right after the first one
                 tl.add(gsap.from(`.${classes.hero}`, .5, {
                     opacity: 0,
                     ease: "power2.inOut"
@@ -104,60 +102,60 @@ function HeroComponent(props) {
             mm.add(`(max-width: ${maxWidthMobile}px)`, () => {
                 gsap.from(`.${classes.hero}`, .5, {
                     opacity: 0,
-                    ease: "none"
+                    delay: .5,
+                    ease: "power1.in"
                 })
-                tlLeft.to(leftColumn, {xPercent: 55});
-                tlRight.to(rightColumn, {xPercent: -35});
+                tlLeft.to(leftColumn, {xPercent: 25});
+                tlRight.to(rightColumn, {xPercent: -5});
             })
         }
     })
 
     return (
-        <>
-        <div className={classes.heroWrapper} id={'hero'} ref={heroWrapper}>
-            <div className={`${classes.heroImages}`}>
-                <div className={`${classes.imageArray} ${classes.left}`} id={'leftHeroContainer'} ref={leftContainer}>
-                    {images.map((image, idx) => {
-                        return <div className={classes.imageContainer} key={idx}>
-                            <img className={classes.heroImage}
-                                 src={image}
-                                 alt={idx}/>
-                        </div>
-                    })}
-                </div>
-                <div className={`${classes.imageArray} ${classes.right}`} id={'rightHeroContainer'}
-                     ref={rightContainer}>
-                    {rightSlice.map((image, idx) => {
-                        return <div className={classes.imageContainer} key={idx}>
-                            <img className={classes.heroImage}
-                                 src={image}
-                                 alt={idx}/>
-                        </div>
-                    })}
-                </div>
-            </div>
-            <div className={`${classes.hero} container`} ref={containerRef}>
-                <div className={`${classes.textContent}`}>
-                    <div className={classes.headLine}>
-                        <div className={classes.logoWrapper}>
-                            <Logo width={"100%"}/>
-                        </div>
-                        <p>A <span style={{color: randCol}}>unique</span> vibe</p>
+            <div className={classes.heroWrapper} id={'hero'} ref={heroWrapper}>
+                <div className={`${classes.heroImages}`}>
+                    <div className={`${classes.imageArray} ${classes.left}`} id={'leftHeroContainer'}
+                         ref={leftContainer}>
+                        {images.map((image, idx) => {
+                            return <div className={classes.imageContainer} key={idx}>
+                                <img className={classes.heroImage}
+                                     src={image}
+                                     alt={idx}/>
+                            </div>
+                        })}
                     </div>
-                    <p>Good talks, working between meetings, pre-party at night - we've got you!</p>
-                    <p>Switch to <span> </span> <ReactCountryFlag svg style={{width: '25px', height: 'auto'}}
-                                                                  countryCode={'DE'}/></p>
+                    <div className={`${classes.imageArray} ${classes.right}`} id={'rightHeroContainer'}
+                         ref={rightContainer}>
+                        {rightSlice.map((image, idx) => {
+                            return <div className={classes.imageContainer} key={idx}>
+                                <img className={classes.heroImage}
+                                     src={image}
+                                     alt={idx}/>
+                            </div>
+                        })}
+                    </div>
                 </div>
+                <div className={`${classes.hero} container`} ref={containerRef}>
+                    <div className={`${classes.textContent}`}>
+                        <div className={classes.headLine}>
+                            <div className={classes.logoWrapper}>
+                                <Logo width={"100%"}/>
+                            </div>
+                            <p>A <span>unique</span> vibe</p>
+                        </div>
+                        <p>Good talks, working between meetings, pre-party at night - we've got you!</p>
+                        <p>Switch to <span> </span> <ReactCountryFlag svg style={{width: '25px', height: 'auto'}}
+                                                                      countryCode={'DE'}/></p>
+                    </div>
+                </div>
+                <div className={classes.scrollIconContainer} style={{
+                    '--scroll-border-color': borderColor,
+                    '--scroll-arrow-color': arrowColor,
+                }}>
+                    <a href={"#home"} onClick={handleScrollDownClick} className={classes.scroll}></a>
+                </div>
+                {isSmartphone && <div className={classes.overlay}></div>}
             </div>
-            <div className={classes.scrollIconContainer} style={{
-                '--scroll-border-color': borderColor,
-                '--scroll-arrow-color': arrowColor,
-            }}>
-                <a href={"#home"} onClick={handleScrollDownClick} className={classes.scroll}></a>
-            </div>
-            {isSmartphone && <div className={classes.overlay}></div>}
-        </div>
-        </>
     )
 }
 

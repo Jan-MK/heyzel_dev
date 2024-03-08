@@ -4,10 +4,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
 import {useEffect, useState} from "react";
 import VerticalTable from "../VerticalTable/VerticalTable.jsx";
-import {Link} from "react-router-dom";
-import {MdSubdirectoryArrowRight} from "react-icons/md";
 import HighlightBox from "../HighlightBox/HighlightBox.jsx";
-import {legalArray} from "../../utility/Utility.jsx";
 import {useModal} from "../../context/ModalContext.jsx";
 import LegalModal from "../LegalModal/LegalModal.jsx";
 

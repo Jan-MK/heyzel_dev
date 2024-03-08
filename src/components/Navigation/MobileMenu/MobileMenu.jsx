@@ -4,9 +4,9 @@ import {Link} from 'react-router-dom';
 import classes from './MobileMenu.module.scss';
 import ThemeSwitch from "../../ThemeSwitch/ThemeSwitch.jsx";
 import Logo from "../../Logo/Logo.jsx";
-import {MdClose, MdMenu} from "react-icons/md";
 import {useWindowDimensions} from "../../../context/WindowDimensionsContext.jsx";
 import ReactDOM from "react-dom";
+import {IoCloseSharp, IoMenu} from "react-icons/io5";
 
 const MobileMenu = ({clingRight, isAdditional}) => {
     const {isSmartphone, isTablet} = useWindowDimensions()
@@ -93,15 +93,15 @@ const MobileMenu = ({clingRight, isAdditional}) => {
     return (
         <>
             {isTablet &&
-                <div className={`${classes.menuDiv} ${classes.inList}`} onClick={openMenu}><MdMenu size={40}/></div>}
+                <div className={`${classes.menuDiv} ${classes.inList}`} onClick={openMenu}><IoMenu size={40}/></div>}
             {!isOpen && isSmartphone &&
                 <div className={`${classes.menuDiv} ${classes.solo} ${clingRight && classes.clingRight}`}
-                     onClick={openMenu}><MdMenu size={40}/></div>}
+                     onClick={openMenu}><IoMenu size={40}/></div>}
             {ReactDOM.createPortal(
                 <div className={classes.menu} ref={menuRef} style={{pointerEvents: !isOpen && 'none'}}
                      onClick={closeMenu}>
                     <div className={classes.background}><Logo width={"90vw"}/></div>
-                    <div className={classes.exit} onClick={closeMenu} ref={closeRef}><MdClose size={40}/></div>
+                    <div className={classes.exit} onClick={closeMenu} ref={closeRef}><IoCloseSharp size={40}/></div>
                     <div className={`${classes.menuContainer} ${classes.options}`} onClick={handleNavClick}>
                         <ul ref={(el) => (navItemsRef.current = el ? Array.from(el.children) : [])}>
                             {menuItems.map((item, index) => (
@@ -122,27 +122,6 @@ const MobileMenu = ({clingRight, isAdditional}) => {
                                 </div>
                             </li>
                         </ul>
-
-
-                        {/*<div className={`${classes.menuContainer} ${classes.right}`}>
-                            <div className={classes.information}>
-                                <p className={classes.title}>Adresssss</p>
-                                <p className={classes.description}>Augsburg</p>
-
-                            </div>
-                            <div className={classes.information}>
-                                <p className={classes.title}>Contact</p>
-                                <p className={classes.description}>mail mail mail</p>
-
-                            </div>
-                            <div className={classes.information}>
-                                <p className={classes.title}>Follow me</p>
-                                <div className={classes.socialMedias}>
-                                    <a href="" className={classes.socialMedia}>twitter</a>
-                                    <a href="" className={classes.socialMedia}>youtube</a>
-                                </div>
-                            </div>
-                        </div>*/}
                     </div>
 
                 </div>,

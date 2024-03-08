@@ -1,7 +1,7 @@
 import {useContext} from 'react';
 import ThemeContext from '../../context/ThemeContext';
-import { FiSun, FiMoon } from 'react-icons/fi';
 import classes from './ThemeSwitch.module.scss';
+import {IoMoonOutline, IoSunnyOutline} from "react-icons/io5";
 
 const ThemeSwitch = ({isOnAbsolute}) => {
     const {mode, toggleMode} = useContext(ThemeContext);
@@ -15,7 +15,7 @@ const ThemeSwitch = ({isOnAbsolute}) => {
                     onChange={isOnAbsolute ? () => {} : toggleMode} // Use handleChange to manage changes
                 />
                 <span className={`${classes.slider} ${classes.round} ${mode === 'dark' ? 'checked' : 'unchecked'}`}>
-                    {mode === 'light' ? <FiSun className={`${classes.icon} ${classes.right}`} /> : <FiMoon className={`${classes.icon} ${classes.left}`} />}
+                    {mode === 'light' ? <IoSunnyOutline className={`${classes.icon} ${classes.right}`} /> : <IoMoonOutline className={`${classes.icon} ${classes.left}`} />}
                 </span>
             </label>
         </div>

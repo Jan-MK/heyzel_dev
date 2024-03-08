@@ -2,9 +2,7 @@ import {useEffect, useRef, useState} from "react";
 import gsap from "gsap";
 import Backdrop from "./Backdrop.jsx";
 import classes from "./Modal.module.scss";
-import {TfiClose} from "react-icons/tfi";
-import {useModal} from "../ModalContext.jsx";
-import {IoChevronDownOutline, IoChevronUpOutline} from "react-icons/io5";
+import {IoCloseSharp} from "react-icons/io5";
 
 function Modal({showModal, closeModal, content}) {
     const modalRef = useRef(null);
@@ -54,7 +52,7 @@ function Modal({showModal, closeModal, content}) {
                         closeModal();
                     }}
                 >
-                    <TfiClose/>
+                    <IoCloseSharp />
                 </div>
                 <div className={classes.modal} onClick={(e) => e.stopPropagation()}>
                     {content}

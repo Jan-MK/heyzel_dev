@@ -1,6 +1,6 @@
 import classes from "./HighlightBox.module.scss"
 import {Link} from "react-router-dom";
-import {MdSubdirectoryArrowRight} from "react-icons/md";
+import {IoArrowForward} from "react-icons/io5";
 
 function HighlightBox(props) {
     return (
@@ -10,7 +10,7 @@ function HighlightBox(props) {
             <p>We're always looking for <span className={'bold'}>awesome people</span> to work with. If you
                 enjoy being around people, apply now!</p>
             <Link to={"/jobs"}>
-                <div><MdSubdirectoryArrowRight size={35}/> <p><span className={'bigger bold'}>Apply now!</span>
+                <div><IoArrowForward size={35}/> <p><span className={'bigger bold'}>Apply now!</span>
                 </p></div>
             </Link>
         </div>
