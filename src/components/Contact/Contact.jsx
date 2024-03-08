@@ -79,7 +79,8 @@ function Contact() {
         <div className={classes.splitview}>
             <div className={classes.contactInfo}>
                 <HighlightBox />
-                <VerticalTable contentSizeBig={false} heading={'OFFICE'} entries={
+                <div className={classes.office}>
+                <VerticalTable contentSizeBig={true} heading={'OFFICE'} entries={
                     [{
                         title: "Address",
                         description: <><p>{"SOME STREET"}</p>
@@ -95,7 +96,7 @@ function Contact() {
                         description: "+49 821 450448-22"
                     }]
                 }/>
-
+                </div>
             </div>
             <form className={classes.formContainer} onSubmit={handleSubmit(handleSave)}>
                 <div className={classes.rowWrapper}>

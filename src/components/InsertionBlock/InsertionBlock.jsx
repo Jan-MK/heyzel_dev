@@ -24,7 +24,7 @@ function InsertionBlock({title, subtitle, description, idx, boldIntro, order, bg
             opacity: 1,
             scrollTrigger: {
                 trigger: insertionDiv,
-                start: 'center bottom',
+                start: 'top bottom',
                 end: "center center",
                 markers: false,
                 scrub: .5,

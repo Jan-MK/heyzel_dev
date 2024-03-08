@@ -6,7 +6,7 @@ import {useContext, useEffect, useRef} from "react";
 import ReferenceContext from "../context/ReferenceContext.jsx";
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
-import Locations from "../components/Locations/Locations.jsx";
+import Locations3 from "../components/Locations/Locations3.jsx";
 import Footer from "../components/Footer/Footer.jsx";
 import InsertionBlock from "../components/InsertionBlock/InsertionBlock.jsx";
 import Contact from "../components/Contact/Contact.jsx";
@@ -14,6 +14,7 @@ import {getDistinctRandomHex} from "../utility/Utility.jsx";
 import {useParams} from 'react-router-dom';
 import {useModal} from '../context/ModalContext';
 import LegalModal from '../components/LegalModal/LegalModal.jsx';
+import Locations from "../components/Locations/Locations.jsx";
 
 gsap.registerPlugin(ScrollTrigger);
 

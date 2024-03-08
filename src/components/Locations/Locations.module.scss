@@ -1,20 +1,35 @@
 @import "../../App.scss";
 
 .locationsSection {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 25px;
-  max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    max-width: 100%;
 
   .sectionHeading {
     height: 74px;
     z-index: 5;
     width: 100%;
-    background-color: var(--background);
-    h1 {
 
+    background: var(--background);
+    background: linear-gradient(90deg, transparent 0%, var(--background) 10%, var(--background) 100%);
+    background: -moz-linear-gradient(90deg, transparent 0%, var(--background) 10%, var(--background) 100%);
+    background: -webkit-linear-gradient(90deg, transparent 0%, var(--background) 10%, var(--background) 100%);
+
+    position: sticky;
+    top: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include mobile {
+      position: unset;
+      top: unset;
+    }
+
+    h1 {
       text-align: center;
       padding-top: 0;
       margin-top: 0;
@@ -23,128 +38,122 @@
 
   .description {
     max-width: 1080px;
+
     p {
       text-align: center !important;
       font-size: clamp(0.5em, 10vw, 1.25em) !important;
     }
   }
 
+  .contentWrap {
+    position: relative;
+    width: 100%;
+    height: auto;
+    padding: 0 20px;
+    z-index: 1;
 
-
-  .gallery {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 100vw;
-    max-width: 100%;
-
-    @include mobile {
-      flex-direction: column-reverse;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .right {
-      max-width: 50%;
-    }
-
-    .left {
-      max-width: 50%;
-    }
-
-    .right, .left {
-      @include mobile {
-        width: 100%;
-        max-width: 100%;
-      }
-    }
-
-    .left {
+    .locations {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
+      flex-direction: row-reverse;
 
-      .locationContentWrapper {
-        width: 90%;
+      @include mobile {
+        display: block;
+        flex-direction: unset;
+      }
+
+      .locationsLeftWrapper {
+        position: relative;
+        width: 54%;
+        z-index: 2;
 
         @include mobile {
-          width: 95%;
-          padding-bottom: 50px;
+          width: 100%;
+          z-index: -1;
+
         }
 
-        .locationContentSection {
-          min-height: 100vh;
+        .locationsLeftContent {
+          margin: auto;
+          width: 80%;
+
+          @include mobile {
+            width: 100%;
+          }
+
+          .spacer {
+            height: 25vh;
+
+            @include mobile {
+              display: none;
+            }
+          }
+
+          .locationWrapper {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            @include mobile {
+              height: auto;
+              padding-bottom: 50px;
+            }
+          }
+        }
+      }
+
+      .locationsRightWrapper {
+        width: 46%;
+        height: auto;
+
+        @include mobile {
+          width: 100%;
+        }
+
+        .locationsRightContent {
           display: flex;
           flex-direction: column;
           justify-content: center;
-
-          @include mobile {
-            z-index: auto;
-            width: 100%;
-            min-height: unset;
-            margin-top: 50px;
-            margin-bottom: 50px;
-          }
-        }
-      }
-    }
-
-    .right {
-
-      height: calc(100vh - 66px - 75px); /* 100vh, 66 navbar, 75 heading */
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-
-
-      @include mobile {
-        width: 100%;
-        height: 35vh;
-        align-items: center;
-        background-color: var(--background);
-        z-index: 5;
-        padding-top: 10px;
-        padding-bottom: 25px;
-      }
-
-      .locationPhotos {
-        height: calc(100vh - 66px - 115px);
-        z-index: -12;
-        width: 90%;
-        max-height: 100%;
-        max-width: 100%;
-        border-radius: 5px;
-        position: relative;
-        overflow: hidden;
-        box-shadow: 7px 7px 0 rgb(254, 8, 121), -7px -7px 0 #00c5d1;
-
-        @include mobile {
-          z-index: auto;
-          height: 35vh;
-          width: calc(95vw);
-          max-width: 100%;
-        }
-
-
-        .locationPhoto {
-          position: absolute;
-          height: 100%;
           width: 100%;
-          overflow: hidden;
-
+          position: sticky;
+          height: 100%;
+          max-height: 50vh; // SAME HEIGHT AS LEFT
+          top: calc(140px + (((100vh - 140px) / 2) - 25vh));
           @include mobile {
-            z-index: auto;
+            position: unset;
+            top: unset;
+
+            height: 35svh;
+            align-items: center;
+            background-color: var(--background);
+            padding: 10px 0;
           }
 
-          img {
-            object-fit: cover;
-            object-position: center;
-            width: 100%;
-            height: 100%;
+          .locationsPhotos {
+            width: 40vw;
+            height: 50vh;
+            position: relative;
+
+            @include mobile {
+              width: 100%;
+              height: 100%;
+            }
+
+            .locationsPhoto {
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              border-radius: 25px;
+              overflow: hidden;
+
+              img {
+                display: block;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+              }
+            }
           }
         }
       }

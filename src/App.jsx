@@ -10,6 +10,7 @@ import JobForm from "./pages/JobForm/JobForm.jsx";
 import {ReferenceProvider} from "./context/ReferenceContext.jsx";
 import {ModalProvider} from "./context/ModalContext.jsx";
 import {useWindowDimensions, WindowDimensionsProvider} from "./context/WindowDimensionsContext.jsx";
+import Locations from "./components/Locations/Locations.jsx";
 
 function useDynamicFavicon() {
     useEffect(() => {
@@ -53,6 +54,7 @@ function App() {
                                 <Route path="/jobs" element={<JobForm/>}/>
                                 <Route path="/gsap" element={<Gsap/>}/>
                                 <Route path="/:modalId" element={<Home/>}/>
+                                <Route path="/testLoc" element={<Locations />}/>
                             </Routes>
                         </WindowDimensionsProvider>
                     </ModalProvider>

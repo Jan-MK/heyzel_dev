@@ -22,7 +22,16 @@
     justify-content: center;
     align-items: stretch;
     gap: 25px;
+  }
 
+  .contactInfo {
+    .office {
+      width: 100%;
+      @include mobile {
+        align-self: center;
+        max-width: 400px;
+      }
+    }
   }
 
   .rowWrapper {
@@ -35,7 +44,6 @@
     &.notRowFlex {
       display: block;
     }
-
 
 
     > div { // Direct children of `.rowWrapper`
@@ -93,6 +101,7 @@
   }
 
   .submit {
+    align-self: center;
     color: white;
     background-color: var(--accent);
 
