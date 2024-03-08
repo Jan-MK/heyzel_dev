@@ -91,7 +91,8 @@ function Locations(props) {
                 start: () => startingPoint,
                 endTrigger: left,
                 end: () => endPoint,
-                markers: false
+                markers: false,
+                anticipatePin: true, //TODO DOES IT DO THE JOB?
             })
         })
     })
