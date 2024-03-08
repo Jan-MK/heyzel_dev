@@ -57,6 +57,7 @@ function Locations(props) {
                     scrub: .5,
                     animation: animation,
                     markers: false,
+                    invalidateOnRefresh: true
                 });
             });
 
@@ -83,6 +84,7 @@ function Locations(props) {
                     scrub: .5,
                     animation: animation,
                     markers: false,
+                    invalidateOnRefresh: true
                 });
             });
 
@@ -94,12 +96,17 @@ function Locations(props) {
         if (isSmartphone) {
 
             let textWrapper = document.getElementById('leftLocationsContainer')
+            let lastLocation = document.getElementById('locHeadlineId')
             let photoWrapper = document.getElementById('rightLocationsContainer')
             let firstLocation = document.getElementById('firstLocation')
-            let lastLocation = document.getElementById('locHeadlineId')
             let photoWrapperContent = document.getElementById('trueContentWrapper')
             photoWrapper.style.height = `${textWrapper.offsetHeight - lastLocation.offsetHeight}px`
             firstLocation.style.paddingTop = `${photoWrapperContent.offsetHeight}px`
+        } else {
+            let photoWrapper = document.getElementById('rightLocationsContainer')
+            let firstLocation = document.getElementById('firstLocation')
+            photoWrapper.style.height = ``
+            firstLocation.style.paddingTop = ``
         }
     }, [height, width]);
 
@@ -240,101 +247,3 @@ function Locations(props) {
 }
 
 export default Locations;
-
-
-/*
-OLD ANIMATION
-       // Animated pictures
-                let locationPhotos = document.querySelectorAll(`.${classes.locationsPhoto}`)
-                console.log(locationPhotos)
-                locationPhotos.forEach((photo, index) => {
-                    photo.style.zIndex = locationPhotos.length - index;
-                })
-
-
-                gsap.set(`.${classes.locationsPhoto}`, {
-                    clipPath: () => "inset(0 0 0 0)"
-                })
-
-                const animation = gsap.to(`.${classes.locationsPhoto}:not(:last-child)`, {
-                    clipPath: () => "inset(0 0 100% 0)",
-                    stagger: .5,
-                    ease: "none"
-                })
- */
-
-
-/*
- OLD MOBILE VERSION
-             locationWrappers.forEach((wrapper, index) => {
-                if (index === locationWrappers.length - 1) return null;
-                const photo = locationPhotos[index];
-                photo.style.zIndex = locationPhotos.length - index;
-                gsap.set(photo, {clipPath: "inset(0 0 0 0)"});
-
-                const animation = gsap.to(photo, {
-                    clipPath: "inset(0 0 100% 0)",
-                    ease: "none",
-                    paused: true
-                });
-
-                ScrollTrigger.create({
-                    trigger: wrapper,
-                    start: () => endPoint,
-                    end: () => endPointBC,
-                    onUpdate: self => {
-                        const progress = self.progress;
-                        animation.progress(progress);
-                    },
-                    markers: true,
-                });
-            });
-
-           TODO Maybe deprecated due to required solution with useEffect.
-
-                ScrollTrigger.create({
-                trigger: `.${classes.locationsRightWrapper}`,
-                pin: right,
-                pinSpacer: false,
-                pinSpacing: false,
-                start: () => startingPoint,
-                endTrigger: left,
-                end: () => endPoint,
-                markers: true,
-            })
-
- ScrollTrigger.create({
-                trigger: `.${classes.locationsLeftWrapper}`,
-                start: 'top 20%',
-                end: 'bottom bottom',
-                animation: animation,
-                scrub: 1,
-                markers:true,
-            })*/
-
-/*
-OLD DESKTOP VERSION
-let locationPhotos = document.querySelectorAll(`.${classes.locationsPhoto}`)
-            console.log(locationPhotos)
-            locationPhotos.forEach((photo, index) => {
-                photo.style.zIndex = locationPhotos.length - index;
-            })
-
-
-            gsap.set(`.${classes.locationsPhoto}`, {
-                clipPath: () => "inset(0 0 0 0)"
-            })
-
-            const animation = gsap.to(`.${classes.locationsPhoto}:not(:last-child)`, {
-                clipPath: () => "inset(0 0 100% 0)",
-                stagger: .5,
-                ease: "none"
-            })
-            ScrollTrigger.create({
-                trigger: `.${classes.locationsLeftWrapper}`,
-                start: 'top top',
-                end: 'bottom bottom',
-                animation: animation,
-                scrub: 1,
-                /!* smooth: true*!/
-            })*/

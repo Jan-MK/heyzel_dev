@@ -123,7 +123,7 @@
           top: calc(140px + (((100vh - 140px) / 2) - 25vh));
           @include mobile {
             position: sticky;
-            top: 66px;
+            top: 64px;
 
             height: 35svh;
             align-items: center;

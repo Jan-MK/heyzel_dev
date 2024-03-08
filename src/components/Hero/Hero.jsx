@@ -82,11 +82,30 @@ function HeroComponent(props) {
                 },
             });
 
+
             mm.add(`(min-width: ${minWidthNonMobile}px)`, () => {
+                let tl = gsap.timeline();
+
+// Add the first animation to the timeline
+                tl.add(gsap.from(`.${classes.heroImages}`, 0.75, {
+                    clipPath: "polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)",
+                    scale: 1,
+                    ease: "power2.inOut"
+                }))
+
+// Add the second animation to the timeline, to start right after the first one
+                tl.add(gsap.from(`.${classes.hero}`, .5, {
+                    opacity: 0,
+                    ease: "power2.inOut"
+                }))
                 tlLeft.to(leftColumn, {yPercent: -25});
                 tlRight.to(rightColumn, {yPercent: -15});
             })
             mm.add(`(max-width: ${maxWidthMobile}px)`, () => {
+                gsap.from(`.${classes.hero}`, .5, {
+                    opacity: 0,
+                    ease: "none"
+                })
                 tlLeft.to(leftColumn, {xPercent: 55});
                 tlRight.to(rightColumn, {xPercent: -35});
             })
@@ -94,6 +113,7 @@ function HeroComponent(props) {
     })
 
     return (
+        <>
         <div className={classes.heroWrapper} id={'hero'} ref={heroWrapper}>
             <div className={`${classes.heroImages}`}>
                 <div className={`${classes.imageArray} ${classes.left}`} id={'leftHeroContainer'} ref={leftContainer}>
@@ -137,6 +157,7 @@ function HeroComponent(props) {
             </div>
             {isSmartphone && <div className={classes.overlay}></div>}
         </div>
+        </>
     )
 }
 

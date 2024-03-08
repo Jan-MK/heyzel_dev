@@ -6,7 +6,6 @@ import {useContext, useEffect, useRef} from "react";
 import ReferenceContext from "../context/ReferenceContext.jsx";
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
-import Locations3 from "../components/Locations/Locations3.jsx";
 import Footer from "../components/Footer/Footer.jsx";
 import InsertionBlock from "../components/InsertionBlock/InsertionBlock.jsx";
 import Contact from "../components/Contact/Contact.jsx";
