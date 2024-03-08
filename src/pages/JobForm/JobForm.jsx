@@ -6,7 +6,7 @@ import {string, z} from 'zod'
 import {IoChevronBackOutline, IoTrashOutline} from "react-icons/io5";
 import ThemeSwitch from "../../components/ThemeSwitch/ThemeSwitch.jsx";
 import Submitted from "./Submitted/Submitted.jsx";
-import Reset from "./Reset/Reset.jsx";
+import LoadingFull from "./LoadingFull/LoadingFull.jsx";
 import Cookies from 'universal-cookie';
 import {allTimeZone, days, prepareData, prepareDataHTML, shifts} from "../../utility/Utility.jsx";
 import axios from "axios";
@@ -15,6 +15,7 @@ import useWindowDimensions from "../../utility/WindowSize.jsx";
 import ReactCountryFlag from "react-country-flag";
 import LegalModal from "../../components/LegalModal/LegalModal.jsx";
 import {useModal} from "../../context/ModalContext.jsx";
+import {available, unavailable} from "../../assets/employment.json"
 
 const defaultValues = {
     confirmation: false,
@@ -54,6 +55,9 @@ const schema = z.object({
     confirmation: z.boolean().refine(val => val === true, {
         message: "You must accept the privacy terms to proceed.",
     }),
+    desiredEmployment: string()
+        .refine(val => val !== defaultValues.desiredEmployment, 'Selection required')
+        .refine(val => !unavailable.includes(val), {message: `Currently, we are not searching for an employee for the chosen employment.`}),
     firstName: string().min(1, {message: 'First name is required.'}),
     lastName: string().min(1, {message: 'Last name is required.'}),
     birthday: z.string()
@@ -61,7 +65,7 @@ const schema = z.object({
         .refine(val => new Date(val) <= eighteenYearsAgo, {message: 'You must be at least 18 years old.'}),
     photo: z.any()
         // First, check if a file has been provided.
-        .refine((files) => files instanceof FileList && files.length > 0, `Please insert a photo`)
+        /* TODO Required check: .refine((files) => files instanceof FileList && files.length > 0, `Please insert a photo`)*/
         // Next, check the file size, but only if there is a file.
         .refine((files) => files[0] && files[0].size <= MAX_FILE_SIZE, `Maximum image size is 5MB.`)
         // Finally, check the file type, again only if there is a file.
@@ -69,7 +73,7 @@ const schema = z.object({
             (files) => files[0] && ACCEPTED_IMAGE_TYPES.includes(files[0].type),
             "Only .jpg, .jpeg, .png, and .webp formats are supported."
         ),
-    nationality:  string().refine(val => val !== defaultValues.nationality, 'Selection required'),
+    nationality: string().refine(val => val !== defaultValues.nationality, 'Selection required'),
     confession: string().min(1, {message: 'Confession is required'}),
     ssn: string().min(1, {message: 'Social security number is required'}),
     mail: string().email(),
@@ -78,7 +82,6 @@ const schema = z.object({
     zip: string().min(1, {message: 'Zip code is required.'}),
     city: string().min(1, {message: 'City is required.'}),
     currentEmployment: string().refine(val => val !== defaultValues.currentEmployment, 'Selection required'),
-    desiredEmployment: string().refine(val => val !== defaultValues.desiredEmployment, 'Selection required'),
     earnings: string().refine(val => val !== defaultValues.earnings, 'Selection required'),
     entry: z.string()
         .refine(val => !isNaN(Date.parse(val)), {message: 'Entry must be a valid date.'})
@@ -176,7 +179,7 @@ function JobForm(props) {
             resetForm();
         }
         requestAnimationFrame(() => setResetting(false))
-        //prefill(2)
+        //prefill(6)
     }, []);
 
 
@@ -291,27 +294,40 @@ function JobForm(props) {
     let steps = [
         {
             name: "Privacy confirmation",
-            fields: ['confirmation'], // Required Fields
+            fields: ['confirmation', 'desiredEmployment'], // Required Fields
             html: <>
                 <Logo width={"clamp(150px, 25vw, 500px)"}/>
-                <div className={`reverseOrder ${classes.fieldWrapper}`}>
+                <div className={`reverseOrder`}>
                     <h2>Job application form</h2>
                     <p>Welcome to our</p>
+                </div>
+                <div className={classes.fieldWrapper}>
+                    <p>Desired Employment<span className={classes.required}>*</span></p>
+                    <select defaultValue={"Please select..."}
+                            tabIndex={currentStep === 4 ? 3 : -1} {...registerWithSave('desiredEmployment')}>
+                        <option value={"Please select..."} hidden={true}>Please select...</option>
+                        {desiredEmploymentOptions.map(option => (
+                            <option key={option} value={option}>{option}</option>
+                        ))}
+                    </select>
+                    <div
+                        className={`${errors.desiredEmployment?.message ? classes.error : classes.noError}`}>{errors.desiredEmployment?.message}
+                    </div>
                 </div>
                 <div className={`${classes.confirmation} ${classes.fieldWrapper}`}>
                     <input id={'confirmation'} className={classes.cbSmall} tabIndex={currentStep === 0 ? 1 : -1}
                            type={"checkbox"} {...registerWithSave('confirmation')}/>
                     <label>To proceed with the application process confirm that you have read
-                        and agreed to our <a onClick={() => openModal(<LegalModal showImprint={false} />)}>terms
+                        and agreed to our <a onClick={() => openModal(<LegalModal showImprint={false}/>)}>terms
                             of privacy</a> on how we use the data.<span className={classes.required}>*</span></label>
+                    <div
+                        className={`${errors.confirmation?.message ? classes.error : classes.noError}`}>{errors.confirmation?.message}</div>
                 </div>
-                <div
-                    className={`${errors.confirmation?.message ? classes.error : classes.noError}`}>{errors.confirmation?.message}</div>
             </>
         },
         {
             name: "Personal information I",
-            fields: ['firstName', 'lastName', 'birthday', 'photo'], // Required Fields
+            fields: ['firstName', 'lastName', 'birthday'], // Required Fields
             html: <>
                 <div className={`${classes.fieldWrapper}`}>
                     <p>First name<span className={classes.required}>*</span></p>
@@ -335,7 +351,7 @@ function JobForm(props) {
                         className={`${errors.birthday?.message ? classes.error : classes.noError}`}>{errors.birthday?.message}</div>
                 </div>
                 <div className={classes.fieldWrapper}>
-                    <p>Application Photo<span className={classes.required}>*</span></p>
+                    <p>Application-/Portrait photo</p>
                     <input
                         tabIndex={currentStep === 1 ? 4 : -1}
                         type="file"
@@ -352,7 +368,7 @@ function JobForm(props) {
             name: "Personal information II",
             fields: [/*'marital', */'nationality', 'confession', 'ssn'], // Required Fields
             html: <>
-{/*                <div className={`${classes.fieldWrapper}`}>
+                {/*                <div className={`${classes.fieldWrapper}`}>
                     <p>Marital status<span className={classes.required}>*</span></p>
                     <input tabIndex={currentStep === 2 ? 1 : -1} type={"text"} {...registerWithSave('marital')}
                            placeholder={"Marital status"}/>
@@ -371,7 +387,7 @@ function JobForm(props) {
                         className={`${errors.nationality?.message ? classes.error : classes.noError}`}>{errors.nationality?.message}
                     </div>
                 </div>
-{/*                <div className={classes.fieldWrapper}>
+                {/*                <div className={classes.fieldWrapper}>
                     <p>Nationality<span className={classes.required}>*</span></p>
                     <input tabIndex={currentStep === 2 ? 2 : -1}
                            type={"text"} {...registerWithSave('nationality')} placeholder={"Nationality"}/>
@@ -437,7 +453,7 @@ function JobForm(props) {
         },
         {
             name: "About your Job",
-            fields: ['currentEmployment', 'earnings', 'desiredEmployment', 'salary', 'entry'], // Required fields
+            fields: ['currentEmployment', 'earnings', 'salary', 'entry'], // Required fields
             html: <>
                 <div className={classes.fieldWrapper}>
                     <p>Current Employment<span className={classes.required}>*</span></p>
@@ -463,19 +479,6 @@ function JobForm(props) {
                     </select>
                     <div
                         className={`${errors.earnings?.message ? classes.error : classes.noError}`}>{errors.earnings?.message}
-                    </div>
-                </div>
-                <div className={classes.fieldWrapper}>
-                    <p>Desired Employment<span className={classes.required}>*</span></p>
-                    <select defaultValue={"Please select..."}
-                            tabIndex={currentStep === 4 ? 3 : -1} {...registerWithSave('desiredEmployment')}>
-                        <option value={"Please select..."} hidden={true}>Please select...</option>
-                        {desiredEmploymentOptions.map(option => (
-                            <option key={option} value={option}>{option}</option>
-                        ))}
-                    </select>
-                    <div
-                        className={`${errors.desiredEmployment?.message ? classes.error : classes.noError}`}>{errors.desiredEmployment?.message}
                     </div>
                 </div>
                 <div className={classes.fieldWrapper}>
@@ -645,35 +648,43 @@ function JobForm(props) {
     function handleSave(formContent) {
         setSubmitted(true)
         const dataToSend = new FormData();
-        dataToSend.append('emailContent', prepareDataHTML(formContent));
+        let renderedFormData = prepareDataHTML(formContent);
+        if (renderedFormData) {
+            dataToSend.append('emailContent', renderedFormData);
 
-        if (selectedFile) {
-            dataToSend.append('applicationPhoto', selectedFile);
-        }
+            if (selectedFile) {
+                dataToSend.append('applicationPhoto', selectedFile);
+            }
 
-        axios.post('https://api.heyzel.de/sendApplication.php', dataToSend, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        })
-            .then(response => {
-
-                if (response.status === 202) {
-                    console.log('Message sent but photo could not be attached');
-                    /*console.warn('Message sent but photo could not be attached');
-                    alert('Message sent but photo could not be attached'); // Or handle this more gracefully in your UI*/
-                } else {
-                    console.log('Message sent successfully');
-                }
-                setAnswered(true)
-                setSuccessful(true);
+            axios.post('https://api.heyzel.de/sendApplication.php', dataToSend, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
             })
-            .catch(error => {
-                console.log('Could not send application, please send it manually.')
-                setFormData(formContent)
-                setAnswered(true)
-                setSuccessful(false);
-            });
+                .then(response => {
+
+                    if (response.status === 202) {
+                        console.log('Message sent but photo could not be attached');
+                        /*console.warn('Message sent but photo could not be attached');
+                        alert('Message sent but photo could not be attached'); // Or handle this more gracefully in your UI*/
+                    } else {
+                        console.log('Message sent successfully');
+                    }
+                    setAnswered(true)
+                    setSuccessful(true);
+                })
+                .catch(error => {
+                    console.log('Could not send application, please send it manually.')
+                    setFormData(formContent)
+                    setAnswered(true)
+                    setSuccessful(false);
+                });
+        } else {
+            // In case rendering the data to html did not work, open the Submitted page.
+            setFormData(formContent)
+            setAnswered(true)
+            setSuccessful(false);
+        }
     }
 
     function handleReset(event) {
@@ -717,7 +728,7 @@ function JobForm(props) {
 
     return (
         <>
-            {resetting && <Reset text={"Preparing job form..."}/>}
+            {resetting && <LoadingFull text={"Preparing job form..."}/>}
             {!resetting && !submitted &&
                 <form onSubmit={handleSubmit(handleSave)} className={`${classes.formContainer}`} ref={formContainerRef}>
                     <div className={classes.topControl}>
@@ -738,7 +749,7 @@ function JobForm(props) {
                                 let order = index < currentStep ? classes.left : index === currentStep ? classes.center : classes.right
                                 order = index === currentStep ? classes.center : order
                                 return <section key={index}
-                                                className={`${classes.scrollable} ${order}`}
+                                                className={`${classes.scrollable} ${order} ${index === 0 && classes.welcome}`}
                                                 ref={(el) => (refArray.current[index] = el)}>
                                     <div className={classes.stepWrapper}>
                                         {step.html}

@@ -17,11 +17,11 @@ function Modal({showModal, closeModal, content}) {
         if (showModal) {
             gsap.set(modalElement, { opacity: 0 });
             setIsVisible(true); // Ensure component is visible for animation
-            document.body.style.overflow = 'hidden';
             gsap.to(modalElement, {
                 opacity: 1,
                 duration: .25,
                 ease: "none",
+                onComplete: () => document.body.style.overflow = 'hidden'
             });
 
         } else if (!showModal && isVisible) {

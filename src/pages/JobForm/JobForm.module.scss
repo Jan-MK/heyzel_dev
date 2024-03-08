@@ -163,6 +163,7 @@
 
         .fieldWrapper {
           width: 100%;
+
           p {
             padding-left: 5px;
             width: 100%;
@@ -234,6 +235,54 @@
         min-width: initial;
       }
 
+      &.welcome {
+        .stepWrapper {
+          .fieldWrapper {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+
+            p {
+              text-align: center;
+            }
+
+            &.confirmation {
+              flex-direction: row;
+              width: clamp(35vw, 50vw, 60vw);
+              padding-left: 15px;
+              padding-right: 15px;
+              gap: 25px;
+
+              @include mobile {
+                width: 100%;
+              }
+
+              p {
+                flex-grow: 1;
+              }
+
+              @include mobile {
+                align-items: center;
+                justify-content: center;
+              }
+
+              input[type='checkbox'] {
+                width: 25px;
+                @include mobile {
+                  max-height: unset;
+                  max-width: unset;
+                  overscroll-behavior: unset;
+                }
+              }
+            }
+          }
+        }
+      }
+
+
       .availabilityButtons {
         display: flex;
         flex-direction: row;
@@ -259,39 +308,6 @@
           }
         }
       }
-
-      .confirmation {
-        display: flex;
-        gap: 25px;
-        flex-wrap: nowrap;
-        align-items: center;
-        justify-content: center;
-        width: clamp(25vw, 35vw, 50vw);
-        padding-left: 15px;
-        padding-right: 15px;
-
-        @include mobile {
-          width: 100%;
-        }
-
-        p {
-          flex-grow: 1;
-        }
-
-        @include mobile {
-          align-items: center;
-          justify-content: center;
-        }
-
-        input[type='checkbox'] {
-          width: 25px;
-          @include mobile {
-            max-height: unset;
-            max-width: unset;
-            overscroll-behavior: unset;
-          }
-        }
-      }
     }
   }
 
@@ -308,7 +324,6 @@
     width: 100%;
     background-color: var(--background);
     position: relative;
-
 
 
     @include mobile {

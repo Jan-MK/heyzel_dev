@@ -15,27 +15,56 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
 
-.hide {
-  display: none;
-  visibility: hidden;
-  opacity: 0;
-}
+  &.error {
+    background-color: var(--delete);
+  }
 
-.show {
-  visibility: visible;
-  opacity: 1;
-  animation-name: fadeIn;
-  animation-duration: 5s;
-}
+  &.warning {
+    background-color: var(--warning);
+  }
 
-@keyframes fadeIn {
-  from {
+  &.success {
+    background-color: var(--confirm);
+  }
+
+  &.hide {
+    display: none;
+    visibility: hidden;
     opacity: 0;
   }
 
-  to {
+  &.show {
+    visibility: visible;
     opacity: 1;
+    animation-name: fadeIn;
+    animation-duration: 3s;
+  }
+
+  a:hover {
+    color: var(--text-primary);
+    filter: brightness(.9);
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  .feedbackContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding: 25px;
+    background-color: var(--overlay);
+    color: var(--text-primary)
   }
 }
+

@@ -1,0 +1,10 @@
+{
+  "available": [
+    "Werksstudent",
+    "Geringfügig (520 Euro-Basis)"
+  ],
+  "unavailable": [
+    "Vollzeit",
+    "Teilzeit"
+  ]
+}

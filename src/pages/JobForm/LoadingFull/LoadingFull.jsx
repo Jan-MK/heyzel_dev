@@ -1,7 +1,7 @@
 import classes from "./Reset.module.scss"
 import {PuffLoader} from "react-spinners";
 
-function Reset({ text }) {
+function LoadingFull({ text }) {
 
     return (
         <div className={classes.resetScreen}>
@@ -15,4 +15,4 @@ function Reset({ text }) {
     );
 }
 
-export default Reset;
+export default LoadingFull;

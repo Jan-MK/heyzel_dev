@@ -1,8 +1,6 @@
-
-
 import React, {useRef, useEffect, useState} from 'react';
-import { gsap } from 'gsap';
-import { Link } from 'react-router-dom';
+import {gsap} from 'gsap';
+import {Link} from 'react-router-dom';
 import classes from './MobileMenu.module.scss';
 import ThemeSwitch from "../../ThemeSwitch/ThemeSwitch.jsx";
 import Logo from "../../Logo/Logo.jsx";
@@ -11,33 +9,60 @@ import {useWindowDimensions} from "../../../context/WindowDimensionsContext.jsx"
 import ReactDOM from "react-dom";
 
 const MobileMenu = ({clingRight, isAdditional}) => {
-    const {isSmartphone, isTablet } = useWindowDimensions()
+    const {isSmartphone, isTablet} = useWindowDimensions()
     const menuRef = useRef();
     const navItemsRef = useRef([]);
     const closeRef = useRef();
     const [isOpen, setIsOpen] = useState(false)
 
     useEffect(() => {
-        gsap.set(navItemsRef.current, { opacity: 0, marginBottom: -20 });
+        gsap.set(navItemsRef.current, {opacity: 0, marginBottom: -5});
     }, []);
 
     const openMenu = () => {
         setIsOpen(true)
-        document.body.style.overflow = 'hidden'
         const tl = gsap.timeline();
-        tl.to(menuRef.current, { opacity: 1, duration: .25, top: 0, ease: "power2.easeIn" })
-            .to(navItemsRef.current, { opacity: 1, marginBottom: 0, duration: .25, ease: "power2.easeIn", stagger: 0.05 }, /*"-=0.5"*/);
+        tl.to(menuRef.current, {
+            opacity: 1,
+            duration: .25,
+            top: 0,
+            ease: "power2.in",
+            onComplete: () => document.body.style.overflow = 'hidden'
+        })
+            .to(navItemsRef.current, {
+                    opacity: 1,
+                    marginBottom: 0,
+                    duration: .15,
+                    ease: "power2.in",
+                    stagger: 0.05,
+
+                },
+                /*"-=0.5"*/
+            );
     };
 
     const closeMenu = () => {
         document.body.style.overflow = 'unset'
         const tl = gsap.timeline();
-        tl.to(navItemsRef.current, { opacity: 0, marginBottom: -5, duration: .25, ease: "power2.easeOut", stagger: 0.05 })
-            .to(menuRef.current, { opacity: 0, duration: .25, top: "-100%", ease: "power2.easeOut", onComplete: () => setIsOpen(false) }, /*"-=0.5"*/);
+        tl.to(navItemsRef.current, {
+            opacity: 0,
+            marginBottom: -5,
+            duration: .05,
+            ease: "power2.out",
+            stagger: 0.05
+        })
+            .to(menuRef.current, {
+                opacity: 0,
+                duration: .5,
+                top: "-100%",
+                ease: "power1.inOut",
+                onComplete: () => setIsOpen(false)
+            }, /*"-=0.5"*/);
     };
 
     const handleNavClick = (event) => {
         event.preventDefault();
+        event.stopPropagation();
         closeMenu()
         const target = event.target.closest('a');
         if (!target || !target.getAttribute('href')) return;
@@ -57,20 +82,24 @@ const MobileMenu = ({clingRight, isAdditional}) => {
     };
 
     const menuItems = [
-        { href: "#about", text: "About" },
-        { href: "#events", text: "Events" },
-        { href: "#menu", text: "Menu" },
-        { href: "#locations", text: "Locations" },
-        { href: "#contact", text: "Contact" },
-        { href: "/jobs", text: "Jobs", isRouterLink: true }
+        {href: "#about", text: "About"},
+        {href: "#events", text: "Events"},
+        {href: "#menu", text: "Menu"},
+        {href: "#locations", text: "Locations"},
+        {href: "#contact", text: "Contact"},
+        {href: "/jobs", text: "Jobs", isRouterLink: true}
     ];
 
     return (
         <>
-            {isTablet && <div className={`${classes.menuDiv} ${classes.inList}`} onClick={openMenu}><MdMenu size={40} /></div>}
-            {!isOpen && isSmartphone && <div className={`${classes.menuDiv} ${classes.solo} ${clingRight && classes.clingRight}`} onClick={openMenu}><MdMenu size={40} /></div>}
+            {isTablet &&
+                <div className={`${classes.menuDiv} ${classes.inList}`} onClick={openMenu}><MdMenu size={40}/></div>}
+            {!isOpen && isSmartphone &&
+                <div className={`${classes.menuDiv} ${classes.solo} ${clingRight && classes.clingRight}`}
+                     onClick={openMenu}><MdMenu size={40}/></div>}
             {ReactDOM.createPortal(
-                <div className={classes.menu} ref={menuRef} style={{pointerEvents: !isOpen && 'none'}}>
+                <div className={classes.menu} ref={menuRef} style={{pointerEvents: !isOpen && 'none'}}
+                     onClick={closeMenu}>
                     <div className={classes.background}><Logo width={"90vw"}/></div>
                     <div className={classes.exit} onClick={closeMenu} ref={closeRef}><MdClose size={40}/></div>
                     <div className={`${classes.menuContainer} ${classes.options}`} onClick={handleNavClick}>
@@ -86,9 +115,9 @@ const MobileMenu = ({clingRight, isAdditional}) => {
                                     )}
                                 </li>
                             ))}
-                            <li className={classes.nav}>
-                                <div className={`${classes.navLink} ${classes.modeListItem}`} >
-                                    <p>Switch mode</p>
+                            <li className={classes.nav} onClick={(e) => e.stopPropagation()}>
+                                <div className={`${classes.navLink} ${classes.modeListItem}`}>
+                                    <p>Dark / Light</p>
                                     <ThemeSwitch isOnAbsolute={true}/>
                                 </div>
                             </li>
@@ -117,9 +146,9 @@ const MobileMenu = ({clingRight, isAdditional}) => {
                     </div>
 
                 </div>,
-                    document.getElementById('modal-root')
-                )
-                }
+                document.getElementById('menu-root')
+            )
+            }
         </>
     );
 };

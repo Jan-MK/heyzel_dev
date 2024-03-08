@@ -62,6 +62,7 @@ export function getDistinctRandomHex(number, exlusion) {
 
 export function prepareData(formData) {
     let content = [];
+    try {
     content.push(`Persönliche Informationen`);
     content.push(`Nachname:\t\t${formData.lastName}`);
     content.push(`Vorname:\t\t${formData.firstName}`);
@@ -115,61 +116,69 @@ export function prepareData(formData) {
     })
     content.push(`${str}`);
     content.push(`\nMotivation:\n${formData.motivation}`);
+    } catch (e) {
+        return null;
+    }
     return content.join('\n'); // Return the entire content as a single string
 }
 
 export function prepareDataHTML(formData) {
     let content = [];
-    content.push(`<h2>Persönliche Informationen</h2>`);
-    content.push(`<p><strong>Vorname:</strong> ${formData.firstName}</p>`);
-    content.push(`<p><strong>Nachname:</strong> ${formData.lastName}</p>`);
-    // Calculate age in years from birthday
-    const birthdayDateFormat = formatDate(formData.birthday);
-    const age = calculateAge(formData.birthday);
-    content.push(`<p><strong>Geburtstag:</strong> ${birthdayDateFormat} (${age} Jahre)</p>`); // In Klammern das Alter in Jahre
-    content.push(`<p><strong>Familienstand:</strong> ${formData.marital}</p>`);
-    content.push(`<p><strong>Staatsangehörigkeit:</strong> ${formData.nationality}</p>`);
-    content.push(`<p><strong>Konfession:</strong> ${formData.confession}</p>`);
-    content.push(`<p><strong>Soz.-Vers.-Nr:</strong> ${formData.ssn}</p>`);
 
-    content.push(`<h2>Kontaktinformationen</h2>`);
-    content.push(`<p><strong>Mail:</strong> ${formData.mail}</p>`);
-    content.push(`<p><strong>Telefon:</strong> ${formData.phone}</p>`);
+    try {
+        content.push(`<h2>Persönliche Informationen</h2>`);
+        content.push(`<p><strong>Vorname:</strong> ${formData.firstName}</p>`);
+        content.push(`<p><strong>Nachname:</strong> ${formData.lastName}</p>`);
+        // Calculate age in years from birthday
+        const birthdayDateFormat = formatDate(formData.birthday);
+        const age = calculateAge(formData.birthday);
+        content.push(`<p><strong>Geburtstag:</strong> ${birthdayDateFormat} (${age} Jahre)</p>`); // In Klammern das Alter in Jahre
+        content.push(`<p><strong>Familienstand:</strong> ${formData.marital}</p>`);
+        content.push(`<p><strong>Staatsangehörigkeit:</strong> ${formData.nationality}</p>`);
+        content.push(`<p><strong>Konfession:</strong> ${formData.confession}</p>`);
+        content.push(`<p><strong>Soz.-Vers.-Nr:</strong> ${formData.ssn}</p>`);
 
-    content.push(`<h2>Adresse</h2>`);
-    content.push(`<p><strong>Straße:</strong> ${formData.street}</p>`);
-    content.push(`<p><strong>PLZ:</strong> ${formData.zip}</p>`);
-    content.push(`<p><strong>Stadt:</strong> ${formData.city}</p>`);
+        content.push(`<h2>Kontaktinformationen</h2>`);
+        content.push(`<p><strong>Mail:</strong> ${formData.mail}</p>`);
+        content.push(`<p><strong>Telefon:</strong> ${formData.phone}</p>`);
 
-    content.push(`<h2>Über</h2>`);
-    content.push(`<p><strong>Aktuelle Anstellung:</strong> ${formData.currentEmployment}</p>`);
-    content.push(`<p><strong>Gewünschte Anstellung:</strong> ${formData.desiredEmployment}</p>`);
-    content.push(`<p><strong>Wunschgehalt:</strong> ${formData.salary} €</p>`);
-    content.push(`<p><strong>Andere Bezüge:</strong> ${formData.earnings}</p>`);
-    content.push(`<p><strong>Möglicher Beginn:</strong> ${formatDate(formData.entry)}</p>`);
-    content.push(`<p><strong>Erfahrung:</strong><br>${formData.experience}</p>`);
+        content.push(`<h2>Adresse</h2>`);
+        content.push(`<p><strong>Straße:</strong> ${formData.street}</p>`);
+        content.push(`<p><strong>PLZ:</strong> ${formData.zip}</p>`);
+        content.push(`<p><strong>Stadt:</strong> ${formData.city}</p>`);
 
-    content.push(`<h2>Verfügbarkeit</h2>`);
-    content.push(`<table style="border-collapse: collapse; width: 100%;">`);
-    content.push(`<tr><th style="border: 1px solid black; padding: 8px;">&nbsp;</th>`);
-    for (const day of days) {
-        content.push(`<th style="border: 1px solid black; padding: 8px;">${day}</th>`);
-    }
-    content.push(`</tr>`);
-    shifts.forEach((shift, idx) => {
-        content.push(`<tr>`);
-        content.push(`<td style="border: 1px solid black; padding: 8px;">${shift}</td>`);
-        days.forEach((day) => {
-            let available = formData.availability[day][idx] ? 'Ja' : 'Nein';
-            content.push(`<td style="border: 1px solid black; padding: 8px;">${available}</td>`);
-        });
+        content.push(`<h2>Über</h2>`);
+        content.push(`<p><strong>Aktuelle Anstellung:</strong> ${formData.currentEmployment}</p>`);
+        content.push(`<p><strong>Gewünschte Anstellung:</strong> ${formData.desiredEmployment}</p>`);
+        content.push(`<p><strong>Wunschgehalt:</strong> ${formData.salary} €</p>`);
+        content.push(`<p><strong>Andere Bezüge:</strong> ${formData.earnings}</p>`);
+        content.push(`<p><strong>Möglicher Beginn:</strong> ${formatDate(formData.entry)}</p>`);
+        content.push(`<p><strong>Erfahrung:</strong><br>${formData.experience}</p>`);
+
+        content.push(`<h2>Verfügbarkeit</h2>`);
+        content.push(`<table style="border-collapse: collapse; width: 100%;">`);
+        content.push(`<tr><th style="border: 1px solid black; padding: 8px;">&nbsp;</th>`);
+        for (const day of days) {
+            content.push(`<th style="border: 1px solid black; padding: 8px;">${day}</th>`);
+        }
         content.push(`</tr>`);
-    });
-    content.push(`</table>`);
+        shifts.forEach((shift, idx) => {
+            content.push(`<tr>`);
+            content.push(`<td style="border: 1px solid black; padding: 8px;">${shift}</td>`);
+            days.forEach((day) => {
+                let available = formData.availability[day][idx] ? 'Ja' : 'Nein';
+                content.push(`<td style="border: 1px solid black; padding: 8px;">${available}</td>`);
+            });
+            content.push(`</tr>`);
+        });
+        content.push(`</table>`);
 
 
-    content.push(`<h2>Motivation</h2>`);
-    content.push(`<p>${formData.motivation}</p>`);
+        content.push(`<h2>Motivation</h2>`);
+        content.push(`<p>${formData.motivation}</p>`);
+    } catch (e) {
+        return null;
+    }
 
     return content.join(''); // Return the entire content as a single HTML string
 }
