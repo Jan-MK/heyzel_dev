@@ -6,16 +6,16 @@ import {useContext, useRef} from "react";
 import SingleLocation from "./SingleLocation/SingleLocation.jsx";
 import ReferenceContext from "../../context/ReferenceContext.jsx";
 import {maxWidthMobile, minWidthNonMobile} from "../../utility/Utility.jsx";
-import useWindowDimensions from "../../utility/WindowSize.jsx";
 import coffeehouse from "../../assets/media/HeroImages/coffeehouse-2600877_1280.jpg"
 import cafe1 from "../../assets/media/HeroImages/cafe-1869656_1280.jpg"
 import cafe2 from "../../assets/media/HeroImages/cafe-789635_1280.jpg"
+import {useWindowDimensions} from "../../context/WindowDimensionsContext.jsx";
 
 gsap.registerPlugin(ScrollTrigger);
 
 
 function Locations() {
-    const {height, width} = useWindowDimensions();
+    const {isSmartphone} = useWindowDimensions()
     const {navbarRef, locationsHeadingRef} = useContext(ReferenceContext)
     const locationsRef = useRef(null)
     const locationImageRef = useRef(null)
@@ -96,8 +96,10 @@ function Locations() {
                     //end: `top top+=${locationsImage.offsetHeight + navbar.offsetHeight}px`,
                     end: `top top+=405px`,
                     pin: [locationsImage],
-                    markers: false,pinSpacing: false,
-                    invalidateOnRefresh: true
+                    markers: false,
+                    pinSpacing: false,
+                    invalidateOnRefresh: true,
+                    normalizeScroll: true,
                 });
 
                 // Create scroll trigger for each details section
@@ -114,7 +116,8 @@ function Locations() {
                         animation: animation,
                         scrub: true,
                         markers: false,
-                        invalidateOnRefresh: true
+                        invalidateOnRefresh: true,
+                        normalizeScroll: true,
                     });
                 });
 
