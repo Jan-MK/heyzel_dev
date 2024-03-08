@@ -49,7 +49,6 @@
     position: relative;
     width: 100%;
     height: auto;
-    padding: 0 20px;
     z-index: 1;
 
     .locations {
@@ -66,9 +65,11 @@
         width: 54%;
         z-index: 2;
 
+
         @include mobile {
           width: 100%;
           z-index: -1;
+          /*position: absolute;*/
 
         }
 
@@ -107,6 +108,7 @@
         height: auto;
 
         @include mobile {
+          position: absolute;
           width: 100%;
         }
 
@@ -120,8 +122,8 @@
           max-height: 50vh; // SAME HEIGHT AS LEFT
           top: calc(140px + (((100vh - 140px) / 2) - 25vh));
           @include mobile {
-            position: unset;
-            top: unset;
+            position: sticky;
+            top: 66px;
 
             height: 35svh;
             align-items: center;

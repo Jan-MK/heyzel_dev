@@ -10,9 +10,13 @@ import cafe2 from "../../assets/media/HeroImages/cafe-789635_1280.jpg"
 import cafe3 from "../../assets/media/HeroImages/coffeehouse-2600877_1280.jpg"
 import SingleLocation from "./SingleLocation/SingleLocation.jsx";
 import {maxWidthMobile, minWidthNonMobile} from "../../utility/Utility.jsx";
+import {useWindowDimensions} from "../../context/WindowDimensionsContext.jsx";
+import {useEffect} from "react";
 
 
 function Locations(props) {
+
+    const {height, width, isSmartphone} = useWindowDimensions()
 
     useGSAP(() => {
 
@@ -83,19 +87,21 @@ function Locations(props) {
             });
 
 
-            ScrollTrigger.create({
-                trigger: `.${classes.locationsRightWrapper}`,
-                pin: right,
-                pinSpacer: false,
-                pinSpacing: false,
-                start: () => startingPoint,
-                endTrigger: left,
-                end: () => endPoint,
-                markers: true,
-                anticipatePin: true, //TODO DOES IT DO THE JOB?
-            })
         })
     })
+
+    useEffect(() => {
+        if (isSmartphone) {
+
+            let textWrapper = document.getElementById('leftLocationsContainer')
+            let photoWrapper = document.getElementById('rightLocationsContainer')
+            let firstLocation = document.getElementById('firstLocation')
+            let lastLocation = document.getElementById('locHeadlineId')
+            let photoWrapperContent = document.getElementById('trueContentWrapper')
+            photoWrapper.style.height = `${textWrapper.offsetHeight - lastLocation.offsetHeight}px`
+            firstLocation.style.paddingTop = `${photoWrapperContent.offsetHeight}px`
+        }
+    }, [height, width]);
 
     return (
         <div className={classes.locationsSection} id={'locationsContainer'}>
@@ -114,9 +120,9 @@ function Locations(props) {
                 </p>
             </div>
             <div className={classes.contentWrap}>
-                <div className={classes.locations}>
+                <div className={classes.locations} id={'locationsWrapperContainer'}>
                     <div className={classes.locationsRightWrapper} id={'rightLocationsContainer'}>
-                        <div className={classes.locationsRightContent}>
+                        <div className={classes.locationsRightContent} id={'trueContentWrapper'}>
                             <div className={classes.locationsPhotos}>
                                 <div className={classes.locationsPhoto} title={1}>
                                     <img src={cafe1} alt={""}/>
@@ -132,7 +138,7 @@ function Locations(props) {
                     </div>
                     <div className={classes.locationsLeftWrapper}>
                         <div className={classes.locationsLeftContent}  id={'leftLocationsContainer'}>
-                            <div className={classes.locationWrapper}>
+                            <div className={classes.locationWrapper} id={'firstLocation'}>
 
                                 <SingleLocation
                                     title={'Königsplatz'}
@@ -283,6 +289,19 @@ OLD ANIMATION
                     markers: true,
                 });
             });
+
+           TODO Maybe deprecated due to required solution with useEffect.
+
+                ScrollTrigger.create({
+                trigger: `.${classes.locationsRightWrapper}`,
+                pin: right,
+                pinSpacer: false,
+                pinSpacing: false,
+                start: () => startingPoint,
+                endTrigger: left,
+                end: () => endPoint,
+                markers: true,
+            })
 
  ScrollTrigger.create({
                 trigger: `.${classes.locationsLeftWrapper}`,
