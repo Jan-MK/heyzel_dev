@@ -51,6 +51,10 @@ function Navbar({notTop}) {
         } else {
             setMobileMenu(false)
         }
+        const scrollTriggerRefresh = () => {
+            ScrollTrigger.refresh();
+        }
+        scrollTriggerRefresh()
     }, [width]);
 
     useGSAP(() => {

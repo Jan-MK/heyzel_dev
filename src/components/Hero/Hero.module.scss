@@ -104,7 +104,9 @@
       .imageContainer {
         width: 100%;
         aspect-ratio: .75;
-        overflow: hidden;
+        box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
+        -webkit-box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
+        -moz-box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
 
         @include mobile {
           width: unset;
@@ -216,6 +218,7 @@ align-items: center;        }
     transform: translateX(-50%);
     z-index: 10;
 
+
     .scroll {
       z-index: 10;
       width: 60px;
@@ -226,6 +229,9 @@ align-items: center;        }
       animation: down 1.5s infinite;
       -webkit-animation: down 1.5s infinite;
       background-color: var(--overlay);
+      box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
+      -webkit-box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
+      -moz-box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
 
       &::before {
         content: '';

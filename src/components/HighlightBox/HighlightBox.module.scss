@@ -6,6 +6,8 @@
   color: white !important;
   background-color: var(--accent2);
   box-shadow: 5px 5px 5px rgba(0,0,0,0.25);
+  -webkit-box-shadow: 5px 5px 5px rgba(0,0,0,0.25);
+  -moz-box-shadow: 5px 5px 5px rgba(0,0,0,0.25);
 
   h3, p, a {
     @include mobile {

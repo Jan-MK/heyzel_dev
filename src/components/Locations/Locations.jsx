@@ -131,20 +131,30 @@ function Locations(props) {
                     <div className={classes.locationsRightWrapper} id={'rightLocationsContainer'}>
                         <div className={classes.locationsRightContent} id={'trueContentWrapper'}>
                             <div className={classes.locationsPhotos}>
-                                <div className={classes.locationsPhoto} title={1}>
-                                    <img src={cafe1} alt={""}/>
+                                <div className={classes.shadow}>
+                                    <div className={classes.locationsPhoto} title={1}>
+                                        <img src={cafe1} alt={""}/>
+                                    </div>
                                 </div>
-                                <div className={classes.locationsPhoto} title={2}>
-                                    <img src={cafe2} alt={""}/>
+                                <div className={classes.shadow}>
+
+                                    <div className={classes.locationsPhoto} title={2}>
+                                        <img src={cafe2} alt={""}/>
+                                    </div>
                                 </div>
-                                <div className={classes.locationsPhoto} title={3}>
-                                    <img src={cafe3} alt={""}/>
+
+                                <div className={classes.shadow}>
+
+                                    <div className={classes.locationsPhoto} title={3}>
+                                        <img src={cafe3} alt={""}/>
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
                     <div className={classes.locationsLeftWrapper}>
-                        <div className={classes.locationsLeftContent}  id={'leftLocationsContainer'}>
+                        <div className={classes.locationsLeftContent} id={'leftLocationsContainer'}>
                             <div className={classes.locationWrapper} id={'firstLocation'}>
 
                                 <SingleLocation

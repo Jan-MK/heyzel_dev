@@ -5,14 +5,13 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
-  /*overflow: hidden;*/
-  width: 100vw;
-  max-width: 100%;
+  width: 100vw !important;
+  max-width: 100% !important;
   height: 66px;
   z-index: 10;
-  -webkit-box-shadow: 0 4px 6px -6px rgba(0,0,0,.25);
-  -moz-box-shadow: 0 4px 6px -6px rgba(0,0,0,.25);
-  box-shadow: 0 4px 6px -6px rgba(0,0,0,.25);
+  -webkit-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25);
 
   .navbar {
     padding-top: 10px;
