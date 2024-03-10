@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, {createContext, useContext, useState, useEffect} from 'react';
 
 const WindowDimensionsContext = createContext({
     width: undefined,
@@ -9,10 +9,12 @@ const WindowDimensionsContext = createContext({
 });
 
 function getWindowDimensions() {
-    const { innerWidth: width, innerHeight: height } = window;
+    const {innerWidth: width, innerHeight: height} = window;
     const isSmartphone = width <= 768;
     const isTablet = width > 768 && width <= 1070;
     const isDesktop = !isSmartphone && !isTablet;
+
+
 
     return {
         width,
@@ -23,7 +25,7 @@ function getWindowDimensions() {
     };
 }
 
-export function WindowDimensionsProvider({ children }) {
+export function WindowDimensionsProvider({children}) {
     const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
 
     useEffect(() => {

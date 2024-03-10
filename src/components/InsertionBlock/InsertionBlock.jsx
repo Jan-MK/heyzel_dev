@@ -1,9 +1,10 @@
 import classes from "./InsertionBlock.module.scss"
-import {getRandomColor, maxWidthMobile, minWidthNonMobile} from "../../utility/Utility.jsx";
+import {getRandomColor} from "../../utility/Utility.jsx";
 import React, {useRef} from "react";
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {useGSAP} from "@gsap/react";
+import {maxWidthMobile, minWidthTablet} from "../../utility/Vars.jsx";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -32,7 +33,7 @@ function InsertionBlock({title, subtitle, description, idx, boldIntro, order, bg
         })
 
         let mm = gsap.matchMedia()
-        mm.add(`(min-width: ${minWidthNonMobile}px)`, () => {
+        mm.add(`(min-width: ${minWidthTablet}px)`, () => {
             gsap.set(subtitleHeading, {xPercent: start})
             gsap.to([subtitleHeading], {
                 xPercent: end,

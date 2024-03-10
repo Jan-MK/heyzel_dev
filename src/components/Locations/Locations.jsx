@@ -9,9 +9,9 @@ import cafe1 from "../../assets/media/HeroImages/cafe-1869656_1280.jpg"
 import cafe2 from "../../assets/media/HeroImages/cafe-789635_1280.jpg"
 import cafe3 from "../../assets/media/HeroImages/coffeehouse-2600877_1280.jpg"
 import SingleLocation from "./SingleLocation/SingleLocation.jsx";
-import {maxWidthMobile, minWidthNonMobile} from "../../utility/Utility.jsx";
 import {useWindowDimensions} from "../../context/WindowDimensionsContext.jsx";
 import {useEffect} from "react";
+import {maxWidthMobile, minWidthTablet} from "../../utility/Vars.jsx";
 
 
 function Locations(props) {
@@ -35,7 +35,7 @@ function Locations(props) {
         let matchMedia = gsap.matchMedia()
 
 
-        matchMedia.add(`(min-width: ${minWidthNonMobile}px)`, () => {
+        matchMedia.add(`(min-width: ${minWidthTablet}px)`, () => {
             // DESKTOP VERSION
             console.log("DESKTOP")
             locationWrappers.forEach((wrapper, index) => {

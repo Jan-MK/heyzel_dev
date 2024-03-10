@@ -12,6 +12,7 @@ import {ModalProvider} from "./context/ModalContext.jsx";
 import {useWindowDimensions, WindowDimensionsProvider} from "./context/WindowDimensionsContext.jsx";
 import Locations from "./components/Locations/Locations.jsx";
 import Submitted from "./pages/JobForm/Submitted/Submitted.jsx";
+import {MobileMenuProvider} from "./context/MobileMenuContext.jsx";
 
 function useDynamicFavicon() {
     useEffect(() => {
@@ -49,16 +50,18 @@ function App() {
                 <ReferenceProvider>
                     <ModalProvider>
                         <WindowDimensionsProvider>
-                            <Routes>
-                                <Route path="/" element={<Home/>}/>
-                                <Route path="/test" element={<HorizontalMultiStep/>}/>
-                                <Route path="/jobs" element={<JobForm/>}/>
-                                <Route path="/gsap" element={<Gsap/>}/>
-                                <Route path="/:modalId" element={<Home/>}/>
-                                <Route path="/submitted" element={
-                                    <Submitted show={true} answered={false} successful={false}/>
-                                }/>
-                            </Routes>
+                            <MobileMenuProvider>
+                                <Routes>
+                                    <Route path="/" element={<Home/>}/>
+                                    <Route path="/test" element={<HorizontalMultiStep/>}/>
+                                    <Route path="/jobs" element={<JobForm/>}/>
+                                    <Route path="/gsap" element={<Gsap/>}/>
+                                    <Route path="/:modalId" element={<Home/>}/>
+                                    <Route path="/submitted" element={
+                                        <Submitted show={true} answered={false} successful={false}/>
+                                    }/>
+                                </Routes>
+                            </MobileMenuProvider>
                         </WindowDimensionsProvider>
                     </ModalProvider>
                 </ReferenceProvider>

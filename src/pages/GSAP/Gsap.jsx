@@ -1,5 +1,5 @@
 import classes from "./Gsap.module.scss"
-import MobileMenu from "../../components/Navigation/MobileMenu/MobileMenu.jsx";
+import MobileMenu from "../../context/MobileMenu/MobileMenu.jsx";
 
 function Gsap(props) {
     return (

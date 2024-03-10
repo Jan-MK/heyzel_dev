@@ -232,6 +232,7 @@ align-items: center;        }
       box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
       -webkit-box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
       -moz-box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
+      cursor: pointer;
 
       &::before {
         content: '';

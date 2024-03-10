@@ -1,53 +1,18 @@
-@import "../../../App.scss";
-
-.menuDiv {
-  cursor: pointer;
-  max-width: 100%;
-  overflow: hidden;
-
-  &.solo {
-    transition: all 0.2s ease-in-out;
-    position: absolute;
-    z-index: 999;
-    transition-delay: .3s;
-    width: 100vw;
-    right: 0;
-    left: auto;
-    transform: translateX(calc(50% - 20px));
-  }
-
-  &.inList {
-
-  }
-
-  &.clingRight {
-    width: calc(40px + 15px);
-    right: 0;
-    left: auto;
-  }
-
-  &:hover {
-    color: gray;
-  }
-
-  @include desktop {
-    display: none;
-  }
-}
+@import "../../App";
 
 .menu {
-  opacity: 0;
-  width: 100vw;
-  height: 100dvh;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding: 0 50px;
   position: fixed;
   top: -100%;
   left: 0;
   right: 0;
   bottom: 0;
+  height: 100dvh;
+  width: 100vw;
+  opacity: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 0 50px;
   align-items: center;
   background-color: var(--background);
   z-index: 9999;

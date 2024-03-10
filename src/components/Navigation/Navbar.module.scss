@@ -1,100 +1,49 @@
-@import "../../App.scss";
+@import "../../App";
 
-nav {
+nav.navWrapper {
   background-color: var(--background);
+  z-index: 995;
+  outline: 1px solid indianred;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw !important;
-  max-width: 100% !important;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow: hidden;
   height: 66px;
-  z-index: 10;
-  -webkit-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25);
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25);
-  -moz-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25);
+  position: sticky;
+  top: 0;
+  width: 100vw;
+  max-width: 100%;
 
-  .navbar {
-    padding-top: 10px;
-    padding-bottom: 10px;
+
+  .navMenuWrapper {
     display: flex;
     flex-direction: row;
+    justify-content: flex-end;
     align-items: center;
+    width: 100%;
     position: relative;
-    pointer-events: auto;
-    overflow: hidden;
-    height: 100%;
+    padding: 0 15px;
 
-    &.notTop {
-      .logoContainer {
-        position: absolute;
-        left: 15px;
-        top: 50%;
-        transform: translateY(calc(-50% + 3px));
-      }
-
-    }
-
-
-    &.top {
-      justify-content: center;
-    }
-
-    .navLinks {
-      padding-left: 15px;
-      padding-right: 15px;
+    .logoContainer {
       position: absolute;
-      left: 50%;
-      transition-property: width, transform;
-      transition-duration: .3s;
-      transition-timing-function: ease;
-
-      &.center {
-        transition-delay: .3s;
-        width: 100%;
-        right: 0;
-        left: auto;
-        transform: translateX(0);
-      }
-
-      &.clingRight {
-        width: calc(100% - 250px);
-        right: 0;
-        left: auto;
-      }
+      top: 0;
+      left: 0;
+      transform: translateY(calc(-50% - 3px));
     }
 
-
     .navLinks {
-
-      @include mobile {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      .linkUl {
+        width: calc(100% - 250px);
         display: flex;
-        justify-content: center;
-        position: relative;
-      }
-
-      ul.desktop {
-        display: flex;
-        flex-direction: row;
+        align-items: center;
         justify-content: space-between;
-
-        list-style-type: none;
-        padding-left: 0;
         position: relative;
-
-        @include mobile {
-          display: none;
-        }
-
-        li {
-          font-weight: bold;
-          font-size: 14px;
-          text-transform: uppercase;
-          /*margin: 0 20px;*/
-          display: inline-block;
+        .navLink {
           position: relative;
-          opacity: 0.75;
-          cursor: pointer;
-
           a, .link {
             text-decoration: none;
             color: var(--text-primary);
@@ -121,20 +70,137 @@ nav {
               position: absolute;
               background-color: var(--accent);
               width: 0;
-              bottom: 0; // Adjusted to 0 for the underline to be at the bottom of the list item
-              left: 0; // Ensure the line starts from the left edge
+              bottom: 0;
+              left: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+
+
+ /* .linkHeap {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 26px;
+    position: relative;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+
+    h2 {
+      color: var(--text-primary);
+      font-size: inherit;
+    }
+
+    ul.heap {
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      list-style-type: none;
+      font-size: inherit;
+      overflow: hidden;
+
+      li {
+        position: relative;
+        align-self: center;
+        font-weight: bold;
+        text-transform: uppercase;
+        display: inline-block;
+        opacity: 0.75;
+        cursor: pointer;
+        font-size: inherit;
+        padding: 10px;
+
+        a, .link {
+          font-size: inherit;
+          text-decoration: none;
+          color: var(--text-primary);
+          display: block;
+
+
+          &:visited {
+            color: inherit;
+          }
+
+
+          &:hover {
+            opacity: 1;
+
+            &::before {
+              width: 100%;
             }
           }
 
+          &::before {
+            transition: 300ms;
+            height: 5px;
+            content: "";
+            position: absolute;
+            background-color: var(--accent);
+            width: 0;
+            bottom: 0; // Adjusted to 0 for the underline to be at the bottom of the list item
+            left: 0; // Ensure the line starts from the left edge
+          }
         }
       }
+    }
+  }*/
 
-      button.mobile {
-        display: none;
+  .navMenuWrapper {
+    position: absolute;
+    top: 0;
+    height: 66px;
+    left: 0;
+    right: 0;
 
-        @include mobile {
-          display: flex;
-        }
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+
+    .quickLinks {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      z-index: 10;
+      gap: 15px;
+      padding: 0 15px;
+
+      a {
+        padding: 5px;
+      }
+    }
+
+    .logoContainer {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(calc(-50% + 3px));
+    }
+
+    .menuIconWrapper {
+      opacity: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      cursor: pointer;
+
+      @include mobile {
+        position: absolute;
+        left: auto;
+        right: 15px;
+        top: 13px;
       }
     }
   }

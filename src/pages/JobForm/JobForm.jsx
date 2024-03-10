@@ -7,13 +7,14 @@ import {IoChevronBackOutline, IoTrashOutline} from "react-icons/io5";
 import Submitted from "./Submitted/Submitted.jsx";
 import LoadingFull from "./LoadingFull/LoadingFull.jsx";
 import Cookies from 'universal-cookie';
-import {allTimeZone, days, prepareDataHTML, shifts} from "../../utility/Utility.jsx";
+import {days, prepareDataHTML, shifts} from "../../utility/Utility.jsx";
 import axios from "axios";
 import Logo from "../../components/Logo/Logo.jsx";
 import useWindowDimensions from "../../utility/WindowSize.jsx";
 import LegalModal from "../../components/LegalModal/LegalModal.jsx";
 import {useModal} from "../../context/ModalContext.jsx";
 import {available, unavailable} from "../../assets/employment.json"
+import {allTimeZone} from "../../utility/Vars.jsx";
 
 const defaultValues = {
     confirmation: false,

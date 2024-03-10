@@ -1,5 +1,4 @@
 import classes from "./Home.module.scss"
-import Navbar from "../components/Navigation/Navbar.jsx";
 import Menu from "../components/Menu/Menu.jsx";
 import Hero from "../components/Hero/Hero.jsx";
 import {useContext, useEffect, useRef} from "react";
@@ -14,14 +13,20 @@ import {useParams} from 'react-router-dom';
 import {useModal} from '../context/ModalContext';
 import LegalModal from '../components/LegalModal/LegalModal.jsx';
 import Locations from "../components/Locations/Locations.jsx";
+import Navbar from "../components/Navigation/Navbar.jsx";
+import {useWindowDimensions} from "../context/WindowDimensionsContext.jsx";
+import {useMobileMenu} from "../context/MobileMenuContext.jsx";
+import NavbarOld from "../RECYCLED/NavbarOld.jsx";
 
 gsap.registerPlugin(ScrollTrigger);
 
-function Home(props) {
+function Home() {
     const aboutRef = useRef(null)
     const {menuContainerRef} = useContext(ReferenceContext)
     const {modalId} = useParams();
     const {openModal, paramOnClose} = useModal();
+    const {isSmartphone} = useWindowDimensions()
+    const {openMenu} = useMobileMenu()
 
     let insertionTitle = "heyzeln"
     let insertionSubTitle = "[hɛɨzɫɲ / ˈheɪzəln]"
@@ -62,8 +67,8 @@ function Home(props) {
     return (
         <>
             <Hero/>
-            <Navbar notTop={true}/>
-            <main className={`${classes.mainContent}`}>
+            <Navbar/>
+            <main className={`${classes.mainContent}`} id={"home"}>
                 <section className={`${classes.contentSection}`} id={"about"}>
                     <div className={`${classes.bgSectionHeading} ${classes.centered}`}>
                         <h1 ref={aboutRef}>
@@ -81,6 +86,7 @@ function Home(props) {
                         </h1>
                     </div>
                 </section>
+                <NavbarOld />
                 <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle} order={true} boldIntro={"..."}
                                 idx={3} description={[insertions[2], insertions[3]]} bg={colors[1].bg}
                                 text={colors[1].text}/>

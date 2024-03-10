@@ -5,7 +5,6 @@ import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {useGSAP} from "@gsap/react";
 import ReferenceContext from "../../context/ReferenceContext.jsx";
 import Logo from "../Logo/Logo.jsx";
-import {maxWidthMobile, minWidthNonMobile} from "../../utility/Utility.jsx";
 import drink from "../../assets/media/HeroImages/drink-1839134_1280.jpg"
 import woman from "../../assets/media/HeroImages/pexels-lisa-fotios-9853880.jpg"
 import dark from "../../assets/media/HeroImages/dark-2595778_1280.jpg"
@@ -17,6 +16,8 @@ import cafe1 from "../../assets/media/HeroImages/cafe-1869656_1280.jpg"
 import cafe2 from "../../assets/media/HeroImages/cafe-789635_1280.jpg"
 import ReactCountryFlag from "react-country-flag";
 import {useWindowDimensions} from "../../context/WindowDimensionsContext.jsx";
+import {useMobileMenu} from "../../context/MobileMenuContext.jsx";
+import {maxWidthMobile, minWidthTablet} from "../../utility/Vars.jsx";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -36,24 +37,22 @@ let countPerColumn = 3
 
 
 
-function HeroComponent(props) {
+function HeroComponent() {
     const leftContainer = useRef(null)
     const rightContainer = useRef(null)
     const containerRef = useRef(null)
     const heroWrapper = useRef(null)
     const {isSmartphone} = useWindowDimensions()
-    const {navbarRef} = useContext(ReferenceContext)
+    const {openMenu} = useMobileMenu()
 
     const rightSlice = images.slice(countPerColumn)
 
-    const randCol = "#FE0879"
-    const borderColor = randCol
-    const arrowColor = borderColor
 
 
     function handleScrollDownClick(e) {
         e.preventDefault()
-        navbarRef.current?.scrollIntoView({
+        console.log("CLICKED")
+        document.getElementById('navBar')?.scrollIntoView({
             block: 'start',
             behavior: 'smooth'
         })
@@ -85,7 +84,7 @@ function HeroComponent(props) {
             });
 
 
-            mm.add(`(min-width: ${minWidthNonMobile}px)`, () => {
+            mm.add(`(min-width: ${minWidthTablet}px)`, () => {
                 let tl = gsap.timeline();
                 tl.add(gsap.from(`.${classes.heroImages}`, 0.75, {
                     clipPath: "polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)",
@@ -144,15 +143,12 @@ function HeroComponent(props) {
                             <p>A <span>unique</span> vibe</p>
                         </div>
                         <p>Good talks, working between meetings, pre-party at night - we've got you!</p>
-                        <p>Switch to <span> </span> <ReactCountryFlag svg style={{width: '25px', height: 'auto'}}
+                        <p onClick={openMenu}>Switch to <span> </span> <ReactCountryFlag svg style={{width: '25px', height: 'auto'}}
                                                                       countryCode={'DE'}/></p>
                     </div>
                 </div>
-                <div className={classes.scrollIconContainer} style={{
-                    '--scroll-border-color': borderColor,
-                    '--scroll-arrow-color': arrowColor,
-                }}>
-                    <a href={"#home"} onClick={handleScrollDownClick} className={classes.scroll}></a>
+                <div className={classes.scrollIconContainer} onClick={handleScrollDownClick}>
+                    <div className={classes.scroll}></div>
                 </div>
                 {isSmartphone && <div className={classes.overlay}></div>}
             </div>

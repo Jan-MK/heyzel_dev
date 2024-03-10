@@ -130,7 +130,7 @@
 
             height: 35svh;
             align-items: center;
-            background-color: var(--background);
+            background: linear-gradient(var(--background), var(--background) calc(100% - 10px), transparent 100%);
             padding: 10px 0;
           }
 

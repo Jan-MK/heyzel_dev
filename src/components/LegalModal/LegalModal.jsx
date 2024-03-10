@@ -1,5 +1,5 @@
-import {legalArray} from "../../utility/Utility.jsx";
 import classes from './LegalModal.module.scss'
+import {legalArray} from "../../utility/Vars.jsx";
 
 
 function LegalModal({showImprint}) {

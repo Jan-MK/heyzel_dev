@@ -1,0 +1,142 @@
+@import "../App";
+
+nav {
+  background-color: var(--background);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw !important;
+  max-width: 100% !important;
+  height: 66px;
+  z-index: 10;
+  -webkit-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25);
+
+  .navbar {
+    max-width: 1080px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+    pointer-events: auto;
+    overflow: hidden;
+    height: 100%;
+
+    &.notTop {
+      .logoContainer {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(calc(-50% + 3px));
+      }
+
+    }
+
+
+    &.top {
+      justify-content: center;
+    }
+
+    .navLinks {
+      padding-left: 15px;
+      padding-right: 15px;
+      position: absolute;
+      left: 50%;
+      transition-property: width, transform;
+      transition-duration: .3s;
+      transition-timing-function: ease;
+
+      &.center {
+        transition-delay: .3s;
+        width: 100%;
+        right: 0;
+        left: auto;
+        transform: translateX(0);
+      }
+
+      &.clingRight {
+        width: calc(100% - 250px);
+        right: 0;
+        left: auto;
+      }
+    }
+
+
+    .navLinks {
+
+      @include mobile {
+        display: flex;
+        justify-content: center;
+        position: relative;
+      }
+
+      ul.linkUl {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        list-style-type: none;
+        padding-left: 0;
+        position: relative;
+
+        @include mobile {
+          display: none;
+        }
+
+        li {
+          font-weight: bold;
+          font-size: 14px;
+          text-transform: uppercase;
+          /*margin: 0 20px;*/
+          display: inline-block;
+          position: relative;
+          opacity: 0.75;
+          cursor: pointer;
+
+          a, .link {
+            text-decoration: none;
+            color: var(--text-primary);
+            display: block;
+            padding: 10px;
+
+            &:visited {
+              color: inherit;
+            }
+
+
+            &:hover {
+              opacity: 1;
+
+              &::before {
+                width: 100%;
+              }
+            }
+
+            &::before {
+              transition: 300ms;
+              height: 5px;
+              content: "";
+              position: absolute;
+              background-color: var(--accent);
+              width: 0;
+              bottom: 0; // Adjusted to 0 for the underline to be at the bottom of the list item
+              left: 0; // Ensure the line starts from the left edge
+            }
+          }
+
+        }
+      }
+
+      button.mobile {
+        display: none;
+
+        @include mobile {
+          display: flex;
+        }
+      }
+    }
+  }
+}
