@@ -86,7 +86,6 @@ function Home() {
                         </h1>
                     </div>
                 </section>
-                <NavbarOld />
                 <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle} order={true} boldIntro={"..."}
                                 idx={3} description={[insertions[2], insertions[3]]} bg={colors[1].bg}
                                 text={colors[1].text}/>
