@@ -107,6 +107,7 @@ nav.navWrapper {
         left: 50%;
         width: 100%;
         transform: translateX(-50%);
+        z-index: 2;
 
 
         h2 {
@@ -216,6 +217,7 @@ nav.navWrapper {
       justify-content: center;
       width: fit-content;
       cursor: pointer;
+      z-index: 5;
 
       @include mobile {
         position: absolute;

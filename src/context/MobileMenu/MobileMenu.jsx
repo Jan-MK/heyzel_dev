@@ -109,7 +109,7 @@ const MobileMenu = ({clingRight, isAdditional}) => {
 
     return ReactDOM.createPortal(
         (isVisible || isOpen) &&
-        <div className={classes.menu} id={'mobileMenuContainer'} ref={menuRef}>
+        <div data-lenis-prevent className={classes.menu} id={'mobileMenuContainer'} ref={menuRef}>
             <div className={classes.background}><Logo width={"90vw"}/></div>
             <div className={classes.exit} onClick={closeMenu}><IoCloseSharp size={40}/></div>
             <div className={`${classes.menuContainer} ${classes.options}`} onClick={handleNavClick}>

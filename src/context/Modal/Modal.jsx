@@ -3,7 +3,16 @@ import gsap from "gsap";
 import Backdrop from "./Backdrop.jsx";
 import classes from "./Modal.module.scss";
 import {IoCloseSharp} from "react-icons/io5";
-import {useLenis} from "@studio-freight/react-lenis";
+import ReactLenis, {useLenis} from "@studio-freight/react-lenis";
+import Lenis from "@studio-freight/lenis";
+
+function SmoothScrollModal({children, reference}) {
+    return (
+        <ReactLenis ref={reference}>
+            {children}
+        </ReactLenis>
+    )
+}
 
 function Modal({showModal, closeModal, content}) {
     let lenis = useLenis()
@@ -15,7 +24,7 @@ function Modal({showModal, closeModal, content}) {
         let modalElement = document.getElementById("modal-root")
         if (!modalElement) return
         if (showModal) {
-            gsap.set(modalElement, { opacity: 0 });
+            gsap.set(modalElement, {opacity: 0});
             setIsVisible(true); // Ensure component is visible for animation
             gsap.to(modalElement, {
                 opacity: 1,
@@ -51,20 +60,20 @@ function Modal({showModal, closeModal, content}) {
 
 
     return (
-            isVisible && <Backdrop reference={modalRef} onClick={() => (closeModal ? closeModal() : {})}>
-                <div
-                    className={classes.closeBtn}
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        closeModal();
-                    }}
-                >
-                    <IoCloseSharp />
-                </div>
-                <div className={classes.modal} onClick={(e) => e.stopPropagation()}>
-                    {content}
-                </div>
-            </Backdrop>
+        isVisible && <Backdrop onClick={() => (closeModal ? closeModal() : {})}>
+            <div
+                className={classes.closeBtn}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    closeModal();
+                }}
+            >
+                <IoCloseSharp/>
+            </div>
+            <div data-lenis-prevent className={classes.modal} ref={modalRef} onClick={(e) => e.stopPropagation()}>
+                {content}
+            </div>
+        </Backdrop>
     );
 }
 

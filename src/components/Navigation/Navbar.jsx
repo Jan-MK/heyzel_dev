@@ -43,7 +43,7 @@ function Navbar() {
             const linkHeap = document.getElementById('linkHeap');
             let heapHeight = linkHeap.offsetHeight
             navbar.style.marginTop = `${heapHeight - 66}px`
-            ScrollTrigger.refresh()
+            ScrollTrigger.refresh() // TODO Causes scroll up and down issues
         }
 
     }
