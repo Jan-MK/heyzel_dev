@@ -1,11 +1,10 @@
 import classes from "./Footer.module.scss"
 import Logo from "../Logo/Logo.jsx";
-import {useRef, useState} from "react";
 import {useModal} from "../../context/ModalContext.jsx";
 import LegalModal from "../LegalModal/LegalModal.jsx";
 
 
-function Footer(props) {
+function Footer() {
     const {openModal} = useModal()
 
     const year = new Date().getFullYear()

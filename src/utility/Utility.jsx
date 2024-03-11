@@ -33,7 +33,7 @@ function shuffleArray(array) {
 
 export function getDistinctRandomHex(number, exlusion) {
     let result = [];
-    let array = []
+    let array
     if (exlusion) {
         array = randomColors.filter(el => el.bg !== exlusion)
     } else {
@@ -121,7 +121,7 @@ export function prepareDataHTML(formData) {
         // Calculate age in years from birthday
         const birthdayDateFormat = formatDate(formData.birthday);
         const age = calculateAge(formData.birthday);
-        content.push(`<p><strong>Geburtstag:</strong> ${birthdayDateFormat} (${age} Jahre)</p>`); // In Klammern das Alter in Jahre
+        content.push(`<p><strong>Geburtstag:</strong> ${birthdayDateFormat} (${age} Jahre)</p>`);
         content.push(`<p><strong>Familienstand:</strong> ${formData.marital}</p>`);
         content.push(`<p><strong>Staatsangehörigkeit:</strong> ${formData.nationality}</p>`);
         content.push(`<p><strong>Konfession:</strong> ${formData.confession}</p>`);

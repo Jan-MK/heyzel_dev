@@ -1,6 +1,5 @@
 import classes from "./Submitted.module.scss"
 import {useEffect, useState} from "react";
-import {PuffLoader} from "react-spinners";
 import LoadingFull from "../LoadingFull/LoadingFull.jsx";
 import {prepareData} from "../../../utility/Utility.jsx";
 import {Link} from "react-router-dom";
@@ -54,9 +53,7 @@ function Submitted({show, answered, successful, formData, cleanForm}) {
                 }
             }
         }
-        // Return a cleanup function from the useEffect hook
         return () => {
-            // This function is called when the component unmounts
             if (cleanForm) {
                 cleanForm();
             }

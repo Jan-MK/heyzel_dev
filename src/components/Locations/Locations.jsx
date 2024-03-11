@@ -14,7 +14,7 @@ import {useEffect} from "react";
 import {maxWidthMobile, minWidthTablet} from "../../utility/Vars.jsx";
 
 
-function Locations(props) {
+function Locations() {
 
     const {height, width, isSmartphone} = useWindowDimensions()
 
@@ -22,16 +22,6 @@ function Locations(props) {
 
         const locationWrappers = document.querySelectorAll(`.${classes.locationWrapper}`);
         const locationPhotos = document.querySelectorAll(`.${classes.locationsPhoto}`);
-
-
-        let mainTitle = document.getElementById('locationsTitle')
-        let right = document.getElementById('rightLocationsContainer')
-        let left = document.getElementById('locHeadlineId')
-        let topSpacing = 66
-        let startingPoint = () => `top top+=${topSpacing}px`
-        let endPoint = () => `top top+=${topSpacing + right.offsetHeight}px`
-        let endPointBC = () => `bottom top+=${topSpacing + right.offsetHeight}px`
-
         let matchMedia = gsap.matchMedia()
 
 
@@ -60,7 +50,6 @@ function Locations(props) {
                     invalidateOnRefresh: true
                 });
             });
-
         })
 
         matchMedia.add(`(max-width: ${maxWidthMobile}px)`, () => {
@@ -87,8 +76,6 @@ function Locations(props) {
                     invalidateOnRefresh: true
                 });
             });
-
-
         })
     })
 

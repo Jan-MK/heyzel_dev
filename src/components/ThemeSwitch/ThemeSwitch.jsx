@@ -12,7 +12,7 @@ const ThemeSwitch = ({isOnAbsolute}) => {
                 <input
                     type="checkbox"
                     checked={mode === 'dark'}
-                    onChange={isOnAbsolute ? () => {} : toggleMode} // Use handleChange to manage changes
+                    onChange={isOnAbsolute ? () => {} : toggleMode}
                 />
                 <span className={`${classes.slider} ${classes.round} ${mode === 'dark' ? 'checked' : 'unchecked'}`}>
                     {mode === 'light' ? <IoSunnyOutline className={`${classes.icon} ${classes.right}`} /> : <IoMoonOutline className={`${classes.icon} ${classes.left}`} />}

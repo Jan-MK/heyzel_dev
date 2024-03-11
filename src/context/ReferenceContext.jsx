@@ -1,7 +1,6 @@
-import React, {useRef} from 'react';
+import {createContext, useRef} from 'react';
 
-// Create a context for the refs
-const ReferenceContext = React.createContext();
+const ReferenceContext = createContext();
 
 export function ReferenceProvider({ children }) {
     const navbarRef = useRef(null);
@@ -14,6 +13,6 @@ export function ReferenceProvider({ children }) {
             {children}
         </ReferenceContext.Provider>
     );
-};
+}
 
 export default ReferenceContext;

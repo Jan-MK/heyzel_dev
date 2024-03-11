@@ -1,6 +1,6 @@
 import {createContext, useCallback, useContext, useEffect, useRef, useState} from 'react';
 import Modal from './Modal/Modal.jsx';
-import {useNavigate} from "react-router-dom"; // Ensure this is the path to your Modal component
+import {useNavigate} from "react-router-dom";
 
 const ModalContext = createContext();
 
@@ -37,18 +37,14 @@ export const ModalProvider = ({ children }) => {
         const isScrollable = wrapper.scrollHeight > wrapper.clientHeight;
         const isScrolledToTop = wrapper.scrollTop === 0;
         const isScrolledToBottom = wrapper.scrollHeight - wrapper.scrollTop <= wrapper.clientHeight;
-        console.log("showUp ", isScrollable && !isScrolledToTop)
-        console.log("showDown ", isScrollable && !isScrolledToBottom)
         setShowUpArrow(isScrollable && !isScrolledToTop);
         setShowDownArrow(isScrollable && !isScrolledToBottom);
     }, []);
 
-    // Attach the scroll event listener to the modal content ref
     useEffect(() => {
         const scrollContainer = contentScrollRef.current;
         if (scrollContainer) {
             scrollContainer.addEventListener('scroll', checkScrollability, { passive: true });
-            // Initial check in case content is already scrollable
             checkScrollability();
         }
 

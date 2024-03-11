@@ -3,23 +3,14 @@ import gsap from "gsap";
 import Backdrop from "./Backdrop.jsx";
 import classes from "./Modal.module.scss";
 import {IoCloseSharp} from "react-icons/io5";
-import ReactLenis, {useLenis} from "@studio-freight/react-lenis";
-import Lenis from "@studio-freight/lenis";
+import {useLenis} from "@studio-freight/react-lenis";
 
-function SmoothScrollModal({children, reference}) {
-    return (
-        <ReactLenis ref={reference}>
-            {children}
-        </ReactLenis>
-    )
-}
 
 function Modal({showModal, closeModal, content}) {
     let lenis = useLenis()
     const modalRef = useRef(null);
     const [isVisible, setIsVisible] = useState(false);
 
-    // Handle animations based on `show`
     useEffect(() => {
         let modalElement = document.getElementById("modal-root")
         if (!modalElement) return
@@ -47,10 +38,8 @@ function Modal({showModal, closeModal, content}) {
             });
         }
         return () => {
-            // Kill GSAP animation to prevent it from finishing if the component unmounts
             gsap.killTweensOf(modalElement);
 
-            // Restore body overflow only if closing the modal or unmounting
             if (isVisible) {
                 lenis.start()
                 document.body.style.overflow = 'unset';

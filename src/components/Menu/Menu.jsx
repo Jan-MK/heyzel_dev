@@ -1,6 +1,6 @@
 import classes from "./Menu.module.scss";
 import menuArray from '../../assets/menu.json'
-import { useMemo, useRef} from "react";
+import { useRef} from "react";
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {useModal} from "../../context/ModalContext.jsx";
@@ -52,22 +52,6 @@ export default function Menu() {
             ))}
         </ul>
     ));
-
-
-    /*   const categoriesThumbnail = menuCats.map((cat, idx) => (
-           <div key={cat.name} ref={(el) => (refArray.current[idx] = el)} className={classes.categoryWrapper} style={{
-               backgroundImage: `url("${cat.images[0]}")`
-           }}>
-               <div className={classes.overlay}></div>
-               <div className={classes.categoryContent}>
-                   <div><h3 className={classes.heading}>{cat.name}</h3></div>
-                   <div className={classes.modalButton}>
-                       <button className={'primary'} onClick={() => toggleMount(idx)}>show</button>
-                   </div>
-               </div>
-           </div>
-       ));*/
-
 
     return (
         <>

@@ -16,8 +16,8 @@ function isValidPost(post) {
     return wordFilter.some(word => caption.includes(word.toLowerCase()));
 }
 
-// Assuming PostCard component and wordFilter are defined elsewhere
-function Events(props) {
+
+function Events() {
     const [instaData, setInstaData] = useState([]);
     const [error, setError] = useState();
 

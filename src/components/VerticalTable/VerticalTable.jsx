@@ -1,5 +1,4 @@
 import classes from "./VerticalTable.module.scss"
-import NavigationOptions from "../Locations/SingleLocation/NavigationOptions/NavigationOptions.jsx";
 
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

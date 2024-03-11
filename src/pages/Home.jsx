@@ -55,7 +55,6 @@ function Home() {
                 }
             }
         }
-        // Add more conditions for other modals as needed
     }, [modalId, openModal]);
 
 

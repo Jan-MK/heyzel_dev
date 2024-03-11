@@ -1,26 +1,22 @@
-import React, {useRef, useEffect, useState} from 'react';
+import {useRef, useEffect, useState} from 'react';
 import {gsap} from 'gsap';
 import {Link} from 'react-router-dom';
 import classes from './MobileMenu.module.scss';
 import ThemeSwitch from "../../components/ThemeSwitch/ThemeSwitch.jsx";
 import Logo from "../../components/Logo/Logo.jsx";
-import {useWindowDimensions} from "../WindowDimensionsContext.jsx";
 import ReactDOM from "react-dom";
-import {IoCloseSharp, IoMenu} from "react-icons/io5";
+import {IoCloseSharp} from "react-icons/io5";
 import {useMobileMenu} from "../MobileMenuContext.jsx";
-import {useGSAP} from "@gsap/react";
 import {navigationItems} from "../../utility/Vars.jsx";
 import {useLenis} from "@studio-freight/react-lenis";
 
-const MobileMenu = ({clingRight, isAdditional}) => {
+const MobileMenu = () => {
     let lenis = useLenis()
-    const {isSmartphone, isTablet} = useWindowDimensions();
     const {isOpen, closeMenu} = useMobileMenu();
     const menuRef = useRef(null)
     const navItemsRef = useRef(null)
     const [isVisible, setIsVisible] = useState(false)
 
-    // Initial GSAP settings for nav items
     useEffect(() => {
         if (navItemsRef.current && navItemsRef.current.length > 0) {
             gsap.set(navItemsRef.current, {opacity: 0, y: -20});
@@ -49,7 +45,7 @@ const MobileMenu = ({clingRight, isAdditional}) => {
                             lenis.stop()
                             document.body.style.overflow = 'hidden'
                         },
-                    }, "<"); // Use "<" to slightly overlap the start of this animation with the end of the previous one
+                    }, "<");
                 console.log("FOUND")
             } else {
                 console.log("NOT FOUND")
@@ -77,11 +73,9 @@ const MobileMenu = ({clingRight, isAdditional}) => {
                 }, "<");
         }
         return () => {
-            // Kill GSAP animation to prevent it from finishing if the component unmounts
             gsap.killTweensOf(mmc);
             gsap.killTweensOf(navItemsRef?.current);
 
-            // Restore body overflow only if closing the modal or unmounting
             if (isVisible) {
                 lenis?.start()
                 document.body.style.overflow = 'unset';
@@ -134,50 +128,8 @@ const MobileMenu = ({clingRight, isAdditional}) => {
                 </ul>
             </div>
         </div>,
-        document.getElementById('menu-root') // Change `document.getElementById('menu-root')` as per your requirement
+        document.getElementById('menu-root')
     );
 };
 
 export default MobileMenu;
-
-
-/*(
-        <>
-            {isTablet &&
-                <div className={`${classes.menuDiv} ${classes.inList}`} onClick={openMenu}><IoMenu size={40}/></div>}
-            {!isOpen && isSmartphone &&
-                <div className={`${classes.menuDiv} ${classes.solo} ${clingRight && classes.clingRight}`}
-                     onClick={openMenu}><IoMenu size={40}/></div>}
-            {ReactDOM.createPortal(
-                <div className={classes.menu} ref={menuRef} style={{pointerEvents: !isOpen && 'none'}}
-                     onClick={closeMenu}>
-                    <div className={classes.background}><Logo width={"90vw"}/></div>
-                    <div className={classes.exit} onClick={closeMenu} ref={closeRef}><IoCloseSharp size={40}/></div>
-                    <div className={`${classes.menuContainer} ${classes.options}`} onClick={handleNavClick}>
-                        <ul ref={(el) => (navItemsRef.current = el ? Array.from(el.children) : [])}>
-                            {menuItems.map((item, index) => (
-                                <li className={classes.nav} key={index}>
-                                    {item.isRouterLink ? (
-                                        <Link to={item.href} className={classes.navLink}><span
-                                            className={classes.smallNumber}>0{index + 1}</span> {item.text}</Link>
-                                    ) : (
-                                        <a href={item.href} className={classes.navLink}><span
-                                            className={classes.smallNumber}>0{index + 1}</span> {item.text}</a>
-                                    )}
-                                </li>
-                            ))}
-                            <li className={classes.nav} onClick={(e) => e.stopPropagation()}>
-                                <div className={`${classes.navLink} ${classes.modeListItem}`}>
-                                    <p>Dark / Light</p>
-                                    <ThemeSwitch isOnAbsolute={true}/>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-
-                </div>,
-                document.getElementById('menu-root')
-            )
-            }
-        </>
-    );*/

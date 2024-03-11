@@ -24,10 +24,9 @@ function Navbar() {
     const {openMenu} = useMobileMenu()
     const lenisScroll = useLenis()
     const scrollToOptions = (offsetHeight) => ({
-        // Customize scroll options if needed
         offset: -offsetHeight,
         duration: 1.5,
-        easing: (x) => x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2, // Example easing function
+        easing: (x) => x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2,
         immediate: false,
         lock: false,
         force: false,
@@ -206,17 +205,15 @@ function Navbar() {
 
     function handleLinkClick(event) {
         event.preventDefault();
-        const target = event.target.closest('a'); // Ensure you get the <a> tag even if the click is on a nested element
+        const target = event.target.closest('a');
         if(!target) return
         const href = target.getAttribute('href');
 
-        // Check if the link is a router link
         if (href.startsWith('/')) {
             navigate(href);
             return;
         }
 
-        // Handle internal link scrolling
         const id = href.replace('#', '');
         const element = document.getElementById(id);
         const navbar = document.getElementById('navBar');

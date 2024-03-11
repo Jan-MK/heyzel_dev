@@ -1,4 +1,3 @@
-import React from 'react';
 import classes from './NavigationOptions.module.scss';
 
 const NavigationOptions = ({ googleUrl, appleUrl }) => {

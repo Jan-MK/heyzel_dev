@@ -29,7 +29,7 @@ const defaultValues = {
     mail: '',
     street: '',
     zip: '',
-    city: '', // TILL HERE OK
+    city: '',
     currentEmployment: "Please select...",
     desiredEmployment: "Please select...",
     salary: '',
@@ -63,11 +63,8 @@ const schema = z.object({
         .refine(val => !isNaN(Date.parse(val)), {message: 'Birthday must be a valid date.'})
         .refine(val => new Date(val) <= eighteenYearsAgo, {message: 'You must be at least 18 years old.'}),
     photo: z.any()
-        // First, check if a file has been provided.
         /* TODO Required check: .refine((files) => files instanceof FileList && files.length > 0, `Please insert a photo`)*/
-        // Next, check the file size, but only if there is a file.
         .refine((files) => files[0] && files[0].size <= MAX_FILE_SIZE, `Maximum image size is 5MB.`)
-        // Finally, check the file type, again only if there is a file.
         .refine(
             (files) => files[0] && ACCEPTED_IMAGE_TYPES.includes(files[0].type),
             "Only .jpg, .jpeg, .png, and .webp formats are supported."
@@ -107,7 +104,7 @@ const schema = z.object({
 })
 
 
-function JobForm(props) {
+function JobForm() {
     // TODO: TabIndex for each section, prevent back from leaving this form
     const {openModal} = useModal()
     const refArray = useRef([]);
@@ -201,9 +198,7 @@ function JobForm(props) {
         return {
             ...register(fieldName, options),
             onBlur: (e) => {
-                // Original onBlur functionality, if any
                 options?.onBlur?.(e);
-                // Save form data whenever any field is blurred
                 saveFormDataToCookie();
             },
         };
@@ -366,16 +361,8 @@ function JobForm(props) {
         },
         {
             name: "Personal information II",
-            fields: [/*'marital', */'nationality', 'confession', 'ssn'], // Required Fields
+            fields: ['nationality', 'confession', 'ssn'], // Required Fields
             html: <>
-                {/*                <div className={`${classes.fieldWrapper}`}>
-                    <p>Marital status<span className={classes.required}>*</span></p>
-                    <input tabIndex={currentStep === 2 ? 1 : -1} type={"text"} {...registerWithSave('marital')}
-                           placeholder={"Marital status"}/>
-                    <div
-                        className={`${errors.marital?.message ? classes.error : classes.noError}`}>{errors.marital?.message || ' '}</div>
-                </div>*/}
-
                 <div className={classes.fieldWrapper}>
                     <p>Nationality<span className={classes.required}>*</span></p>
                     <select defaultValue={"Please select..."}
@@ -387,13 +374,6 @@ function JobForm(props) {
                         className={`${errors.nationality?.message ? classes.error : classes.noError}`}>{errors.nationality?.message}
                     </div>
                 </div>
-                {/*                <div className={classes.fieldWrapper}>
-                    <p>Nationality<span className={classes.required}>*</span></p>
-                    <input tabIndex={currentStep === 2 ? 2 : -1}
-                           type={"text"} {...registerWithSave('nationality')} placeholder={"Nationality"}/>
-                    <div
-                        className={`${errors.nationality?.message ? classes.error : classes.noError}`}>{errors.nationality?.message}</div>
-                </div>*/}
                 <div className={classes.fieldWrapper}>
                     <p>Confession<span className={classes.required}>*</span></p>
                     <input tabIndex={currentStep === 2 ? 3 : -1}
@@ -665,15 +645,13 @@ function JobForm(props) {
 
                     if (response.status === 202) {
                         console.log('Message sent but photo could not be attached');
-                        /*console.warn('Message sent but photo could not be attached');
-                        alert('Message sent but photo could not be attached'); // Or handle this more gracefully in your UI*/
                     } else {
                         console.log('Message sent successfully');
                     }
                     setAnswered(true)
                     setSuccessful(true);
                 })
-                .catch(error => {
+                .catch(() => {
                     console.log('Could not send application, please send it manually.')
                     setFormData(formContent)
                     setAnswered(true)

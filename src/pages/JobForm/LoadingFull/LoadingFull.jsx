@@ -1,4 +1,4 @@
-import classes from "./Reset.module.scss"
+import classes from "./LoadingFull.module.scss"
 import {PuffLoader} from "react-spinners";
 
 function LoadingFull({ text }) {
