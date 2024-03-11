@@ -10,9 +10,10 @@ import {IoCloseSharp, IoMenu} from "react-icons/io5";
 import {useMobileMenu} from "../MobileMenuContext.jsx";
 import {useGSAP} from "@gsap/react";
 import {navigationItems} from "../../utility/Vars.jsx";
+import {useLenis} from "@studio-freight/react-lenis";
 
 const MobileMenu = ({clingRight, isAdditional}) => {
-    // Inside MobileMenu component
+    let lenis = useLenis()
     const {isSmartphone, isTablet} = useWindowDimensions();
     const {isOpen, closeMenu} = useMobileMenu();
     const menuRef = useRef(null)
@@ -44,13 +45,17 @@ const MobileMenu = ({clingRight, isAdditional}) => {
                         duration: 0.15,
                         ease: "power2.in",
                         stagger: 0.05,
-                        onComplete: () => document.body.style.overflow = 'hidden',
+                        onComplete: () => {
+                            lenis.stop()
+                            document.body.style.overflow = 'hidden'
+                        },
                     }, "<"); // Use "<" to slightly overlap the start of this animation with the end of the previous one
                 console.log("FOUND")
             } else {
                 console.log("NOT FOUND")
             }
         } else {
+            lenis?.start()
             document.body.style.overflow = 'unset';
             const tl = gsap.timeline({
                 onComplete: () => {
@@ -78,6 +83,7 @@ const MobileMenu = ({clingRight, isAdditional}) => {
 
             // Restore body overflow only if closing the modal or unmounting
             if (isVisible) {
+                lenis?.start()
                 document.body.style.overflow = 'unset';
             }
         };

@@ -3,8 +3,10 @@ import gsap from "gsap";
 import Backdrop from "./Backdrop.jsx";
 import classes from "./Modal.module.scss";
 import {IoCloseSharp} from "react-icons/io5";
+import {useLenis} from "@studio-freight/react-lenis";
 
 function Modal({showModal, closeModal, content}) {
+    let lenis = useLenis()
     const modalRef = useRef(null);
     const [isVisible, setIsVisible] = useState(false);
 
@@ -19,11 +21,15 @@ function Modal({showModal, closeModal, content}) {
                 opacity: 1,
                 duration: .25,
                 ease: "none",
-                onComplete: () => document.body.style.overflow = 'hidden'
+                onComplete: () => {
+                    lenis.stop()
+                    document.body.style.overflow = 'hidden'
+                }
             });
 
         } else if (!showModal && isVisible) {
             document.body.style.overflow = 'unset';
+            lenis.start()
             gsap.to(modalElement, {
                 opacity: 0,
                 duration: .25,
@@ -37,6 +43,7 @@ function Modal({showModal, closeModal, content}) {
 
             // Restore body overflow only if closing the modal or unmounting
             if (isVisible) {
+                lenis.start()
                 document.body.style.overflow = 'unset';
             }
         };
