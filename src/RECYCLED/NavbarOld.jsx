@@ -44,12 +44,12 @@ function NavbarOld({notTop}) {
         return () => window.removeEventListener('scroll', checkScrollPosition);
     }, [hasScrolledPast]);
 
-    useEffect(() => {
+/*    useEffect(() => {
         const scrollTriggerRefresh = () => {
             ScrollTrigger.refresh();
         }
         scrollTriggerRefresh()
-    }, [width, height]);
+    }, [width, height]);*/
 
     useGSAP(() => {
         const navbar = navbarRef.current

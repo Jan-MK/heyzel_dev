@@ -11,11 +11,13 @@ export const MobileMenuProvider = ({ children }) => {
     // Assuming menuRef is managed here; adjust according to your setup
 
 
-    const openMenu = () => {
+    const openMenu = (e) => {
+        e?.preventDefault()
         setIsOpen(true);
     };
 
-    const closeMenu = () => {
+    const closeMenu = (e) => {
+        e?.preventDefault()
         setIsOpen(false)
     };
 

@@ -25,17 +25,30 @@ function getWindowDimensions() {
     };
 }
 
+function debounce(fn, ms) {
+    let timer;
+    return _ => {
+        clearTimeout(timer);
+        timer = setTimeout(_ => {
+            timer = null;
+            fn.apply(this, arguments);
+        }, ms);
+    };
+}
+
+
 export function WindowDimensionsProvider({children}) {
     const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
 
     useEffect(() => {
-        function handleResize() {
+        const debouncedHandleResize = debounce(() => {
             setWindowDimensions(getWindowDimensions());
-        }
+        }, 250); // Adjust debounce time as needed
 
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
+        window.addEventListener('resize', debouncedHandleResize);
+        return () => window.removeEventListener('resize', debouncedHandleResize);
     }, []);
+
 
     return (
         <WindowDimensionsContext.Provider value={windowDimensions}>

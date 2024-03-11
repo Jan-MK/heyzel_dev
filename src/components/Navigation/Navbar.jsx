@@ -50,6 +50,7 @@ function Navbar(props) {
                         start: "bottom bottom",
                         end: "center center",
                         scrub: 1,
+                        invalidateOnRefresh: true,
                     }
                 })
 
@@ -61,6 +62,7 @@ function Navbar(props) {
                         start: "center 75%",
                         end: "top top",
                         scrub: 1,
+                        invalidateOnRefresh: true,
                     }
                 })
 
@@ -71,6 +73,7 @@ function Navbar(props) {
                         start: "center center",
                         end: "top top",
                         scrub: 1,
+                        invalidateOnRefresh: true,
                     }
                 })
 
@@ -147,7 +150,8 @@ function Navbar(props) {
                     start: "center center",
                     end: "top 25%",
                     scrub: .5,
-                    markers: false
+                    markers: false,
+                    invalidateOnRefresh: true,
                 }
 
                 gsap.from(linkList, {
@@ -164,14 +168,15 @@ function Navbar(props) {
                 })
             }
         })
+
     })
 
-    useEffect(() => {
+/*    useEffect(() => {
         const scrollTriggerRefresh = () => {
             ScrollTrigger.refresh();
         }
         scrollTriggerRefresh()
-    }, [width, height]); //TODO - do i need that?
+    }, [width, height]); //TODO - do i need that? Causes problems*/
 
     useEffect(() => {
         // Useeffect to decide if navBar is past top by getting the bottom border of the hero element. Important!!
@@ -291,7 +296,7 @@ function Navbar(props) {
             </nav>
         }
         {isSmartphone && //MOBILE
-            <nav className={`${classes.navWrapper}`} id={"navBar"}>
+            <nav className={`${classes.navWrapper} ${classes.mobile} `} id={"navBar"}>
                 <div className={classes.navMenuWrapper}>
                     <div className={classes.logoContainer} id={'menuLogo'}><a onClick={handleLogoClick}><Logo
                         width={"175px"}/></a></div>

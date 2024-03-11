@@ -4,8 +4,7 @@ nav.navWrapper {
   background-color: var(--background);
   z-index: 995;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   overflow: hidden;
   height: 66px;
   position: sticky;
@@ -22,12 +21,13 @@ nav.navWrapper {
     width: 100%;
     position: relative;
     padding: 0 15px;
+    max-width: 1080px;
 
     .logoContainer {
       position: absolute;
-      top: 0;
-      left: 0;
-      transform: translateY(calc(-50% - 3px));
+      left: 15px;
+      top: 50%;
+      transform: translateY(calc(-50% + 3px));
     }
 
     .navLinks {
@@ -153,7 +153,7 @@ nav.navWrapper {
     }
   }*/
 
-  .navMenuWrapper {
+  .navMenuWrapper.mobile {
     position: absolute;
     top: 0;
     height: 66px;
