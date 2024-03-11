@@ -32,6 +32,7 @@ function Navbar() {
         lock: false,
         force: false,
     });
+
 /*    const [hasScrolledPast, setHasScrolledPast] = useState({top: false, bottom: false})
 
     let initialNavbarHeight = 250*/
@@ -42,7 +43,9 @@ function Navbar() {
             const linkHeap = document.getElementById('linkHeap');
             let heapHeight = linkHeap.offsetHeight
             navbar.style.marginTop = `${heapHeight - 66}px`
+            ScrollTrigger.refresh()
         }
+
     }
 
     useEffect(() => {
