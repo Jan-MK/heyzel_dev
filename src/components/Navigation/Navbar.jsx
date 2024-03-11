@@ -14,15 +14,19 @@ import {
     navigationItems
 } from "../../utility/Vars.jsx";
 import {useLenis} from "@studio-freight/react-lenis";
-import {useEffect} from "react";
+import {useEffect, useRef, useState} from "react";
+import {useTranslation} from "react-i18next";
 
 gsap.registerPlugin(ScrollTrigger);
 
 function Navbar() {
+    const {t, i18n} = useTranslation();
     const navigate = useNavigate();
     const {width, isSmartphone, isTablet, isDesktop} = useWindowDimensions()
     const {openMenu} = useMobileMenu()
     const lenisScroll = useLenis()
+    const [dimensions, setDimensions] = useState({marginRefWidth: 0, marginRefHeight: 0});
+    const marginRef = useRef(null);
     const scrollToOptions = (offsetHeight) => ({
         offset: -offsetHeight,
         duration: 1.5,
@@ -32,28 +36,43 @@ function Navbar() {
         force: false,
     });
 
-/*    const [hasScrolledPast, setHasScrolledPast] = useState({top: false, bottom: false})
-
-    let initialNavbarHeight = 250*/
-
-    const fitMargin = () => {
-        if(isSmartphone) {
-            const navbar = document.getElementById('navBar');
-            const linkHeap = document.getElementById('linkHeap');
-            let heapHeight = linkHeap.offsetHeight
-            navbar.style.marginTop = `${heapHeight - 66}px`
-            ScrollTrigger.refresh() // TODO Causes scroll up and down issues
+    useEffect(() => {
+        const fitMargin = () => {
+            if (isSmartphone) {
+                const navbar = document.getElementById('navBar');
+                const linkHeap = document.getElementById('linkHeapTwin');
+                let heapHeight = linkHeap.offsetHeight
+                navbar.style.marginTop = `${heapHeight - 66}px`
+                ScrollTrigger.refresh() // TODO Causes scroll up and down issues
+            }
         }
 
-    }
+        if (isSmartphone) {
+            fitMargin()
+        }
+    }, [dimensions.marginRefWidth, dimensions.marginRefHeight]);
 
+
+    // Observer for the margin over the navbar to control the height continuously
     useEffect(() => {
-        fitMargin()
+        const observeTarget = marginRef.current;
+        if (observeTarget && isSmartphone) {
+            const resizeObserver = new ResizeObserver(entries => {
+                entries.forEach(entry => {
+                    setDimensions({
+                        marginRefWidth: entry.contentRect.width,
+                        marginRefHeight: entry.contentRect.height,
+                    });
+                });
+            });
+
+            resizeObserver.observe(observeTarget);
+
+            return () => {
+                resizeObserver.unobserve(observeTarget);
+            };
+        }
     }, []);
-
-    useEffect(() => {
-        fitMargin()
-    }, [width]);
 
     const mobileAnimations = () => {
         //MOBILE
@@ -149,7 +168,6 @@ function Navbar() {
 
     }, [isSmartphone])
 
-
     function handleLogoClick(event) {
         event.preventDefault()
         document.body.scrollIntoView({
@@ -174,39 +192,41 @@ function Navbar() {
         let temp = filterNbyPriority(4, navigationItems)
         menuItems = temp.map((item, idx) => {
             return <li key={idx} className={classes.navLink}><a
-                href={item.href}>{`${isDesktop || isTablet ? '' : '#'}${item.text}`}</a></li>
+                href={item.href}>{`${isDesktop || isTablet ? '' : '#'}${t(`menu.${item.key}`)}`}</a></li>
         })
     } else {
         menuItems = navigationItems.map((item, idx) => {
             return <li key={idx} className={classes.navLink}><a
-                href={item.href}>{`${isDesktop ? '' : '#'}${item.text}`}</a></li>
+                href={item.href}>{`${isDesktop ? '' : '#'}${t(`menu.${item.key}`)}`}</a></li>
         })
     }
-
 
     let gotoLinks
     if (isSmartphone) {
         gotoLinks = [...navigationItems,
             {
                 href: "#menu",
-                text: "Food"
-            },{
+                key: "food"
+            }, {
                 href: "#menu",
-                text: "Drinks"
-            },{
+                key: "drinks"
+            }, {
                 href: "#locations",
-                text: "Opening hours"
+                key: "hours"
             },
+            {href: "#about", text: "About", priority: 9, key: "about"},
+            {href: "#events", text: "Events", priority: 3, key: "events"},
+            {href: "#menu", text: "Menu", priority: 1, key: "menu"},
         ].map((item, idx) => {
             return <li key={idx} className={classes.navLink}><a
-                href={item.href}>{`#${item.text}`}</a></li>
+                href={item.href}>{`#${t(`menu.${item.key}`)}`}</a></li>
         })
     }
 
     function handleLinkClick(event) {
         event.preventDefault();
         const target = event.target.closest('a');
-        if(!target) return
+        if (!target) return
         const href = target.getAttribute('href');
 
         if (href.startsWith('/')) {
@@ -224,7 +244,8 @@ function Navbar() {
         }
     }
 
-    let menuIcon = <div className={classes.menuIconWrapper} style={{cursor: 'pointer'}} id={'menuIcon'} onClick={openMenu}><IoMenu
+    let menuIcon = <div className={classes.menuIconWrapper} style={{cursor: 'pointer'}} id={'menuIcon'}
+                        onClick={openMenu}><IoMenu
         size={40}/></div>
 
     return <>
@@ -266,9 +287,17 @@ function Navbar() {
                     </div>
                     <div className={classes.heapContainer} id={'heapContainer'}>
                         <div className={classes.linkHeap} id={'linkHeap'}>
-                            <h2 id={'heapHeading'}>Goto:</h2>
+                            <h2 id={'heapHeading'}>{t('menu.goTo')}</h2>
                             <ul className={`${classes.heap} `} id={'heapList'}
                                 onClick={(event) => handleLinkClick(event)}>
+                                {gotoLinks}
+                            </ul>
+                        </div>
+                    </div>
+                    <div className={`${classes.heapContainer} ${classes.twin}`} id={'heapContainerTwin'}>
+                        <div className={`${classes.linkHeap} ${classes.twin}`} ref={marginRef} id={'linkHeapTwin'}>
+                            <h2 id={'heapHeading'}>{t('menu.goTo')}</h2>
+                            <ul className={`${classes.heap} `}>
                                 {gotoLinks}
                             </ul>
                         </div>

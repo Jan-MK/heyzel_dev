@@ -1,4 +1,4 @@
-import {useEffect} from 'react'
+import {useEffect, useTransition} from 'react'
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import {ThemeProvider} from './context/ThemeContext.jsx';
 import './App.scss'
@@ -6,7 +6,7 @@ import Home from "./pages/Home.jsx";
 import JobForm from "./pages/JobForm/JobForm.jsx";
 import {ReferenceProvider} from "./context/ReferenceContext.jsx";
 import {ModalProvider} from "./context/ModalContext.jsx";
-import { WindowDimensionsProvider} from "./context/WindowDimensionsContext.jsx";
+import {WindowDimensionsProvider} from "./context/WindowDimensionsContext.jsx";
 import {MobileMenuProvider} from "./context/MobileMenuContext.jsx";
 import ReactLenis from "@studio-freight/react-lenis";
 

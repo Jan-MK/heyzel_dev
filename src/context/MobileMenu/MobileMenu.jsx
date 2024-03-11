@@ -9,8 +9,11 @@ import {IoCloseSharp} from "react-icons/io5";
 import {useMobileMenu} from "../MobileMenuContext.jsx";
 import {navigationItems} from "../../utility/Vars.jsx";
 import {useLenis} from "@studio-freight/react-lenis";
+import {useTranslation} from "react-i18next";
+import ReactCountryFlag from "react-country-flag";
 
 const MobileMenu = () => {
+    const { t, i18n } = useTranslation();
     let lenis = useLenis()
     const {isOpen, closeMenu} = useMobileMenu();
     const menuRef = useRef(null)
@@ -112,17 +115,26 @@ const MobileMenu = () => {
                         <li className={classes.nav} key={index}>
                             {item.isRouterLink ? (
                                 <Link to={item.href} className={classes.navLink}><span
-                                    className={classes.smallNumber}>0{index + 1}</span> {item.text}</Link>
+                                    className={classes.smallNumber}>0{index + 1}</span> {t(`menu.${item.key}`)}</Link>
                             ) : (
                                 <a href={item.href} className={classes.navLink}><span
-                                    className={classes.smallNumber}>0{index + 1}</span> {item.text}</a>
+                                    className={classes.smallNumber}>0{index + 1}</span> {t(`menu.${item.key}`)}</a>
                             )}
                         </li>
                     ))}
                     <li className={classes.nav} onClick={(e) => e.stopPropagation()}>
                         <div className={`${classes.navLink} ${classes.modeListItem}`}>
-                            <p>Dark / Light</p>
+                            <p>{t('general.mode')}</p>
                             <ThemeSwitch isOnAbsolute={true}/>
+                        </div>
+                    </li>
+                    <li className={classes.nav} onClick={(e) => {
+                        e.stopPropagation()
+                        i18n.changeLanguage(i18n.resolvedLanguage === 'en' ? 'de' : 'en' )
+                    }}>
+                        <div className={`${classes.navLink} ${classes.modeListItem}`}>
+                            <p>{t('general.switch')}</p>
+                            <ReactCountryFlag svg style={{width: '25px', height: 'auto'}} countryCode={i18n.resolvedLanguage === 'en' ? 'DE' : 'GB' }/>
                         </div>
                     </li>
                 </ul>

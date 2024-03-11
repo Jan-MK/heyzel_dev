@@ -3,12 +3,12 @@ export const minWidthTablet = maxWidthMobile + 1
 export const maxWidthTablet = 1024
 export const minWidthDesktop = maxWidthTablet + 1
 export const navigationItems = [
-    {href: "#about", text: "About", priority: 9},
-    {href: "#events", text: "Events", priority: 3},
-    {href: "#menu", text: "Menu", priority: 1},
-    {href: "#locations", text: "Locations", priority: 2},
-    {href: "#contact", text: "Contact", priority: 10},
-    {href: "/jobs", text: "Jobs", isRouterLink: true, priority: 5},
+    {href: "#about", text: "About", priority: 9, key: "about"},
+    {href: "#events", text: "Events", priority: 3, key: "events"},
+    {href: "#menu", text: "Menu", priority: 1, key: "menu"},
+    {href: "#locations", text: "Locations", priority: 2, key: "locations"},
+    {href: "#contact", text: "Contact", priority: 10, key: "contact"},
+    {href: "/jobs", text: "Jobs", isRouterLink: true, priority: 5, key: "jobs"},
 ];
 export const legalArray = [
     {

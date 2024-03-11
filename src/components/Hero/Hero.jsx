@@ -18,6 +18,7 @@ import {useWindowDimensions} from "../../context/WindowDimensionsContext.jsx";
 import {useMobileMenu} from "../../context/MobileMenuContext.jsx";
 import {maxWidthMobile, minWidthTablet} from "../../utility/Vars.jsx";
 import {useLenis} from "@studio-freight/react-lenis";
+import {useTranslation} from "react-i18next";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -36,14 +37,13 @@ let images = [
 let countPerColumn = 3
 
 
-
 function HeroComponent() {
+    const { t, i18n } = useTranslation();
     const leftContainer = useRef(null)
     const rightContainer = useRef(null)
     const containerRef = useRef(null)
     const heroWrapper = useRef(null)
     const {isSmartphone} = useWindowDimensions()
-    const {openMenu} = useMobileMenu()
     const lenisScroll = useLenis()
     const scrollToOptions = (offsetHeight) => ({
         offset: -offsetHeight,
@@ -149,9 +149,12 @@ function HeroComponent() {
                             </div>
                             <p>A <span>unique</span> vibe</p>
                         </div>
-                        <p>Good talks, working between meetings, pre-party at night - we've got you!</p>
-                        <p onClick={openMenu}>Switch to <span> </span> <ReactCountryFlag svg style={{width: '25px', height: 'auto'}}
-                                                                      countryCode={'DE'}/></p>
+                        <p>{t('hero.dscr')}</p>
+                        <button className={'third'}
+                                onClick={() => i18n.changeLanguage(i18n.resolvedLanguage === 'en' ? 'de' : 'en' )}>
+                            {t('general.switch')}
+                            <ReactCountryFlag svg style={{width: '25px', height: 'auto'}} countryCode={i18n.resolvedLanguage === 'en' ? 'DE' : 'GB' }/>
+                        </button>
                     </div>
                 </div>
                 <div className={classes.scrollIconContainer} onClick={handleScrollDownClick}>

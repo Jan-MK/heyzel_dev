@@ -16,7 +16,6 @@ nav.navWrapper {
   -moz-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25);
 
 
-
   .navMenuWrapper.nonMobile {
     display: flex;
     flex-direction: row;
@@ -94,8 +93,25 @@ nav.navWrapper {
       bottom: 0;
       left: 50%;
       transform: translateX(-50%);
+      z-index: 10;
+    }
 
-      .linkHeap {
+
+    &.twin {
+      @include mobile {
+        pointer-events: none !important;
+        user-select: none !important;
+        position: absolute !important;
+        visibility: hidden !important;
+        opacity: 1 !important;
+        color: red !important;
+        background-color: blue;
+        z-index: 5;
+      }
+    }
+
+    .linkHeap {
+      @include mobile {
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -108,14 +124,18 @@ nav.navWrapper {
         width: 100%;
         transform: translateX(-50%);
         z-index: 2;
+        opacity: 1;
+      }
 
-
-        h2 {
+      h2 {
+        @include mobile {
           color: var(--text-primary);
           font-size: inherit;
         }
+      }
 
-        ul.heap {
+      ul.heap {
+        @include mobile {
           position: relative;
           display: flex;
           flex-direction: row;
@@ -126,8 +146,10 @@ nav.navWrapper {
           list-style-type: none;
           font-size: inherit;
           overflow: hidden;
+        }
 
-          li {
+        li {
+          @include mobile {
             position: relative;
             align-self: center;
             font-weight: bold;
@@ -137,36 +159,43 @@ nav.navWrapper {
             cursor: pointer;
             font-size: inherit;
             padding: 10px;
-
-            a, .link {
+          }
+          a, .link {
+            @include mobile {
               font-size: inherit;
               text-decoration: none;
               color: var(--text-primary);
               display: block;
+            }
 
-
-              &:visited {
+            &:visited {
+              @include mobile {
                 color: inherit;
               }
+            }
 
 
-              &:hover {
+            &:hover {
+              @include mobile {
                 opacity: 1;
-
-                &::before {
+              }
+              &::before {
+                @include mobile {
                   width: 100%;
                 }
               }
+            }
 
-              &::before {
+            &::before {
+              @include mobile {
                 transition: 300ms;
                 height: 5px;
                 content: "";
                 position: absolute;
                 background-color: var(--accent);
                 width: 0;
-                bottom: 0; // Adjusted to 0 for the underline to be at the bottom of the list item
-                left: 0; // Ensure the line starts from the left edge
+                bottom: 0;
+                left: 0;
               }
             }
           }
