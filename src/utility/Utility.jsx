@@ -13,10 +13,7 @@ export const randomColors = [
     }, {
         bg: '#00c5d1',
         text: '#000'
-    }, /*{
-        bg: '#d60f84',
-        text: '#fff'
-    },*/ {
+    }, {
         bg: '#70BAFF',
         text: '#fff'
     }, {
@@ -24,10 +21,6 @@ export const randomColors = [
         text: '#fff'
     }
 ]
-
-export function getRandomColor() {
-    return randomColors[Math.floor(Math.random() * randomColors.length)]
-}
 
 function shuffleArray(array) {
     let tempArray = array.slice();

@@ -5,15 +5,19 @@ nav.navWrapper {
   z-index: 995;
   display: flex;
   justify-content: center;
-  overflow: hidden;
   height: 66px;
   position: sticky;
   top: 0;
   width: 100vw;
   max-width: 100%;
 
+  -webkit-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.25);
 
-  .navMenuWrapper {
+
+
+  .navMenuWrapper.nonMobile {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -35,14 +39,17 @@ nav.navWrapper {
       display: flex;
       align-items: center;
       justify-content: flex-end;
+
       .linkUl {
         width: calc(100% - 250px);
         display: flex;
         align-items: center;
         justify-content: space-between;
         position: relative;
+
         .navLink {
           position: relative;
+
           a, .link {
             text-decoration: none;
             color: var(--text-primary);
@@ -78,80 +85,93 @@ nav.navWrapper {
     }
   }
 
+  .heapContainer {
+    @include mobile {
+      width: 100vw;
+      max-width: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
 
- /* .linkHeap {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    font-size: 26px;
-    position: relative;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
+      .linkHeap {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        font-size: 26px;
 
-    h2 {
-      color: var(--text-primary);
-      font-size: inherit;
-    }
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 100%;
+        transform: translateX(-50%);
 
-    ul.heap {
-      position: relative;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      flex-wrap: wrap;
-      justify-content: center;
 
-      list-style-type: none;
-      font-size: inherit;
-      overflow: hidden;
-
-      li {
-        position: relative;
-        align-self: center;
-        font-weight: bold;
-        text-transform: uppercase;
-        display: inline-block;
-        opacity: 0.75;
-        cursor: pointer;
-        font-size: inherit;
-        padding: 10px;
-
-        a, .link {
-          font-size: inherit;
-          text-decoration: none;
+        h2 {
           color: var(--text-primary);
-          display: block;
+          font-size: inherit;
+        }
+
+        ul.heap {
+          position: relative;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          flex-wrap: wrap;
+          justify-content: center;
+
+          list-style-type: none;
+          font-size: inherit;
+          overflow: hidden;
+
+          li {
+            position: relative;
+            align-self: center;
+            font-weight: bold;
+            text-transform: uppercase;
+            display: inline-block;
+            opacity: 0.75;
+            cursor: pointer;
+            font-size: inherit;
+            padding: 10px;
+
+            a, .link {
+              font-size: inherit;
+              text-decoration: none;
+              color: var(--text-primary);
+              display: block;
 
 
-          &:visited {
-            color: inherit;
-          }
+              &:visited {
+                color: inherit;
+              }
 
 
-          &:hover {
-            opacity: 1;
+              &:hover {
+                opacity: 1;
 
-            &::before {
-              width: 100%;
+                &::before {
+                  width: 100%;
+                }
+              }
+
+              &::before {
+                transition: 300ms;
+                height: 5px;
+                content: "";
+                position: absolute;
+                background-color: var(--accent);
+                width: 0;
+                bottom: 0; // Adjusted to 0 for the underline to be at the bottom of the list item
+                left: 0; // Ensure the line starts from the left edge
+              }
             }
-          }
-
-          &::before {
-            transition: 300ms;
-            height: 5px;
-            content: "";
-            position: absolute;
-            background-color: var(--accent);
-            width: 0;
-            bottom: 0; // Adjusted to 0 for the underline to be at the bottom of the list item
-            left: 0; // Ensure the line starts from the left edge
           }
         }
       }
     }
-  }*/
+  }
 
   .navMenuWrapper.mobile {
     position: absolute;
@@ -164,6 +184,7 @@ nav.navWrapper {
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
+
 
     .quickLinks {
       width: 100%;
@@ -204,3 +225,4 @@ nav.navWrapper {
     }
   }
 }
+

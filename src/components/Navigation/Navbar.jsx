@@ -1,31 +1,39 @@
 import classes from "./Navbar.module.scss"
-import {Link} from "react-router-dom";
-import React, {useEffect, useRef, useState} from "react";
+import {useNavigate} from "react-router-dom";
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {useGSAP} from "@gsap/react";
 import {useWindowDimensions} from "../../context/WindowDimensionsContext.jsx";
-import MobileMenu from "../../context/MobileMenu/MobileMenu.jsx";
 import {IoMenu} from "react-icons/io5";
 import Logo from "../Logo/Logo.jsx";
 import ThemeSwitch from "../ThemeSwitch/ThemeSwitch.jsx";
 import {useMobileMenu} from "../../context/MobileMenuContext.jsx";
 import {
     maxWidthMobile,
-    maxWidthTablet,
-    minWidthDesktop,
     minWidthTablet,
     navigationItems
 } from "../../utility/Vars.jsx";
+import {useLenis} from "@studio-freight/react-lenis";
 
 gsap.registerPlugin(ScrollTrigger);
 
-function Navbar(props) {
-    const {width, height, isSmartphone, isTablet, isDesktop} = useWindowDimensions()
+function Navbar() {
+    const navigate = useNavigate();
+    const {isSmartphone, isTablet, isDesktop} = useWindowDimensions()
     const {openMenu} = useMobileMenu()
-    const [hasScrolledPast, setHasScrolledPast] = useState({top: false, bottom: false})
+    const lenisScroll = useLenis()
+    const scrollToOptions = (offsetHeight) => ({
+        // Customize scroll options if needed
+        offset: -offsetHeight,
+        duration: 1.5,
+        easing: (x) => x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2, // Example easing function
+        immediate: false,
+        lock: false,
+        force: false,
+    });
+/*    const [hasScrolledPast, setHasScrolledPast] = useState({top: false, bottom: false})
 
-    let initialNavbarHeight = 250
+    let initialNavbarHeight = 250*/
 
     useGSAP(() => {
         const matchMedia = gsap.matchMedia()
@@ -34,16 +42,29 @@ function Navbar(props) {
             const navbar = document.getElementById('navBar');
             const logo = document.getElementById('menuLogo');
             const icon = document.getElementById('menuIcon');
-            /*            const spacer = document.getElementById('navSpacer');
-                        const heapUl = document.getElementById('heapList');
-                        const linkHeap = document.getElementById('linkHeap');
-                        const heading = document.getElementById('heapHeading');
-                        const listItems = document.querySelectorAll('#heapList li');
-                        const listItemLinks = document.querySelectorAll('#heapList li a');*/
+            const linkHeap = document.getElementById('linkHeap');
+            const heapContainer = document.getElementById('heapContainer');
 
-            if (navbar && icon && logo) {
 
-                gsap.from(icon, {
+            if (navbar && icon && logo && heapContainer) {
+                let heapHeight = linkHeap.offsetHeight
+                gsap.set(navbar, {marginTop: `${heapHeight - 66}px`})
+
+                gsap.to(heapContainer, {
+                    scale: .2,
+                    transformOrigin: "bottom bottom",
+                    y: '-13px',
+                    opacity: 0,
+                    scrollTrigger: {
+                        trigger: navbar,
+                        start: () => `bottom-=${heapHeight}px top`,
+                        end: "bottom top+=66px",
+                        scrub: true,
+                        markers: false,
+                    }
+                })
+
+/*                gsap.from(icon, {
                     opacity: 0,
                     scrollTrigger: {
                         trigger: navbar,
@@ -52,88 +73,28 @@ function Navbar(props) {
                         scrub: 1,
                         invalidateOnRefresh: true,
                     }
-                })
+                })*/
+
+                let sctr = {
+                    trigger: navbar,
+                    start: "center 25%",
+                    end: "center top+=66px",
+                    scrub: 1,
+                    markers: false,
+                    invalidateOnRefresh: true,
+                }
 
                 gsap.from(icon, {
-                    left: "50%",
-                    xPercent: -50,
-                    scrollTrigger: {
-                        trigger: navbar,
-                        start: "center 75%",
-                        end: "top top",
-                        scrub: 1,
-                        invalidateOnRefresh: true,
-                    }
+                    opacity: 0,
+                    scrollTrigger: sctr
                 })
 
                 gsap.from(logo, {
                     opacity: 0,
-                    scrollTrigger: {
-                        trigger: navbar,
-                        start: "center center",
-                        end: "top top",
-                        scrub: 1,
-                        invalidateOnRefresh: true,
-                    }
+                    scrollTrigger: {...sctr, start: 'bottom 20%', markers: false}
                 })
 
             }
-            /* TODO Working solution without resizing on scroll up for mobile
-
-            let sctr = {
-                trigger: navbar,
-                start: "top top",
-                end: "bottom top",
-                scrub: true,
-                markers: true,
-            }
-
-            gsap.from(navbar, {
-                height: "250px",
-                scrollTrigger: sctr,
-            })
-
-
-            gsap.from(icon, {
-                opacity: 0,
-                scrollTrigger: {
-                    ...sctr,
-                    start: "65% top"}
-            })
-            gsap.from(logo, {
-                opacity: 0,
-                scrollTrigger: {
-                    ...sctr,
-                    start: "75% top"}
-            })
-            gsap.from(icon, {
-                left: "50%",
-                xPercent: -50,
-                scrollTrigger: {
-                    ...sctr,
-                    start: "75% top"}
-            })
-
-            gsap.to(heapUl, {
-                opacity: 0,
-                width: "60px",
-                //top: -heapUl.offsetTop,
-                scrollTrigger: sctr
-            })
-            gsap.to(heading, {
-                opacity: 0,
-                fontSize: "1px",
-                scrollTrigger: sctr
-            })
-            gsap.to(listItems, {
-                fontSize: "1px",
-                //top: 0,
-                scrollTrigger: sctr
-            })
-            gsap.to(listItemLinks, {
-                padding: 0,
-                scrollTrigger: sctr
-            })*/
         })
 
         matchMedia.add(`(min-width: ${minWidthTablet}px)`, () => {
@@ -142,7 +103,7 @@ function Navbar(props) {
             const logo = document.getElementById('menuLogo');
             const linkList = document.getElementById('linkList');
             const navbar = document.getElementById('navBar');
-            const icon = document.getElementById('menuIcon');
+            /*const icon = document.getElementById('menuIcon');*/
 
             if (navbar && logo && linkList && linkContainer) {
                 let sctr = {
@@ -171,14 +132,14 @@ function Navbar(props) {
 
     })
 
-/*    useEffect(() => {
-        const scrollTriggerRefresh = () => {
-            ScrollTrigger.refresh();
-        }
-        scrollTriggerRefresh()
-    }, [width, height]); //TODO - do i need that? Causes problems*/
+    /*    useEffect(() => {
+            const scrollTriggerRefresh = () => {
+                ScrollTrigger.refresh();
+            }
+            scrollTriggerRefresh()
+        }, [width, height]); //TODO - do i need that? Causes problems*/
 
-    useEffect(() => {
+/*    useEffect(() => {
         // Useeffect to decide if navBar is past top by getting the bottom border of the hero element. Important!!
         const checkScrollPosition = () => {
             let hero = document.getElementById('hero')
@@ -214,7 +175,7 @@ function Navbar(props) {
         checkScrollPosition();
 
         return () => window.removeEventListener('scroll', checkScrollPosition);
-    }, [hasScrolledPast.top, hasScrolledPast.bottom]);
+    }, [hasScrolledPast.top, hasScrolledPast.bottom]);*/
 
     function handleLogoClick(event) {
         event.preventDefault()
@@ -224,36 +185,20 @@ function Navbar(props) {
         })
     }
 
-    function handleLinkClick(event) {
-        event.preventDefault();
-        const target = event.target;
-        const id = target.getAttribute('href')?.replace('#', '');
-        if (!id) return;
-        const element = document.getElementById(id);
-        const navbar = document.getElementById('navBar');
-        let offsetHeight = navbar?.offsetHeight || 0
-        element.style.scrollMargin = `${offsetHeight}px`
-        element?.scrollIntoView({
-            block: 'start',
-            behavior: 'smooth'
-        })
-    }
-
-    function filterNbyPrio(n, array) {
+    function filterNbyPriority(n, array) {
         if (n === 0 || array.length === 0) {
             return [];
         }
 
-        const sortedByPriority = [...array].sort((a, b) =>  a.priority - b.priority);
+        const sortedByPriority = [...array].sort((a, b) => a.priority - b.priority);
         const nthHighestPriority = sortedByPriority[n - 1]?.priority;
         const filtered = array.filter(item => item.priority < nthHighestPriority);
         return filtered.slice(0, n);
     }
 
-    let menuItems = []
-
+    let menuItems
     if (isTablet) {
-        let temp = filterNbyPrio(4, navigationItems)
+        let temp = filterNbyPriority(4, navigationItems)
         menuItems = temp.map((item, idx) => {
             return <li key={idx} className={classes.navLink}><a
                 href={item.href}>{`${isDesktop || isTablet ? '' : '#'}${item.text}`}</a></li>
@@ -264,12 +209,69 @@ function Navbar(props) {
                 href={item.href}>{`${isDesktop ? '' : '#'}${item.text}`}</a></li>
         })
     }
+    /*
+    export const navigationItems = [
+    {href: "#about", text: "About", priority: 9},
+    {href: "#events", text: "Events", priority: 3},
+    {href: "#menu", text: "Menu", priority: 1},
+    {href: "#locations", text: "Locations", priority: 2},
+    {href: "#contact", text: "Contact", priority: 10},
+    {href: "/jobs", text: "Jobs", isRouterLink: true, priority: 5},
+];
+     */
+
+
+    let gotoLinks
+    if (isSmartphone) {
+        gotoLinks = [...navigationItems,
+            {
+                href: "#menu",
+                text: "Food"
+            },{
+                href: "#menu",
+                text: "Drinks"
+            },{
+                href: "#locations",
+                text: "Opening hours"
+            },
+        ].map((item, idx) => {
+            return <li key={idx} className={classes.navLink}><a
+                href={item.href}>{`#${item.text}`}</a></li>
+        })
+    }
+
+    function handleLinkClick(event) {
+        event.preventDefault();
+        const target = event.target.closest('a'); // Ensure you get the <a> tag even if the click is on a nested element
+        const href = target.getAttribute('href');
+
+        // Check if the link is a router link
+        if (href.startsWith('/')) {
+            navigate(href);
+            return;
+        }
+
+        // Handle internal link scrolling
+        const id = href.replace('#', '');
+        const element = document.getElementById(id);
+        const navbar = document.getElementById('navBar');
+        let offsetHeight = navbar?.offsetHeight || 0;
+
+        if (element) {
+            //element.style.scrollMarginTop = `${offsetHeight}px`; // Prefer scrollMarginTop for better support
+            lenisScroll.scrollTo(element, scrollToOptions(offsetHeight));
+            /*            element.scrollIntoView({
+                            block: 'start',
+                            behavior: 'smooth'
+                        });*/
+        }
+    }
 
 
     return <>
         {isDesktop &&
             <nav className={classes.navWrapper} id={"navBar"}>
-                <div className={`${classes.navMenuWrapper}`}>
+                <div className={`${classes.navMenuWrapper} ${classes.nonMobile}`}>
                     <div className={classes.logoContainer} id={'menuLogo'}><a onClick={handleLogoClick}><Logo
                         width={"175px"}/></a></div>
                     <div className={`${classes.navLinks}`} id={'desktopLinkContainer'}>
@@ -282,13 +284,14 @@ function Navbar(props) {
             </nav>}
         {isTablet &&
             <nav className={classes.navWrapper} id={"navBar"}>
-                <div className={`${classes.navMenuWrapper}`}>
+                <div className={`${classes.navMenuWrapper} ${classes.nonMobile}`}>
                     <div className={classes.logoContainer} id={'menuLogo'}><a onClick={handleLogoClick}><Logo
                         width={"175px"}/></a></div>
                     <div className={`${classes.navLinks}`} id={'desktopLinkContainer'}>
                         <ul className={`${classes.linkUl}`} id={'linkList'} onClick={handleLinkClick}>
                             {menuItems}
-                            <div className={classes.menuIconWrapper} id={'menuIcon'} onClick={openMenu}><IoMenu size={40}/></div>
+                            <div className={classes.menuIconWrapper} id={'menuIcon'} onClick={openMenu}><IoMenu
+                                size={40}/></div>
                             <ThemeSwitch isOnAbsolute={true}/>
                         </ul>
                     </div>
@@ -296,24 +299,28 @@ function Navbar(props) {
             </nav>
         }
         {isSmartphone && //MOBILE
-            <nav className={`${classes.navWrapper} ${classes.mobile} `} id={"navBar"}>
-                <div className={classes.navMenuWrapper}>
-                    <div className={classes.logoContainer} id={'menuLogo'}><a onClick={handleLogoClick}><Logo
-                        width={"175px"}/></a></div>
-                    <div className={classes.menuIconWrapper} id={'menuIcon'} onClick={openMenu}><IoMenu size={40}/>
+            <>
+                <nav className={`${classes.navWrapper} `} id={"navBar"}>
+                    <div className={`${classes.navMenuWrapper} ${classes.mobile}`}>
+                        <div className={classes.logoContainer} id={'menuLogo'}><a onClick={handleLogoClick}><Logo
+                            width={"175px"}/></a></div>
+                        <div className={classes.menuIconWrapper} id={'menuIcon'} onClick={openMenu}><IoMenu
+                            size={40}/>
+                        </div>
                     </div>
-                    {/*                    <div className={classes.quickLinks} onClick={handleLinkClick}>
-                        {navigationItems.map((el, idx) => <a key={idx} href={el.href}>{el.text}</a>)}
-                    </div>*/}
-                </div>
+                    <div className={classes.heapContainer} id={'heapContainer'}>
+                        <div className={classes.linkHeap} id={'linkHeap'}>
+                            <h2 id={'heapHeading'}>Goto:</h2>
+                            <ul className={`${classes.heap} `} id={'heapList'}
+                                onClick={(event) => handleLinkClick(event)}>
+                                {gotoLinks}
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
 
-                {/*<div className={classes.linkHeap} id={'linkHeap'}>
-                    <h2 id={'heapHeading'}>Jump to:</h2>
-                    <ul className={`${classes.heap} `} id={'heapList'} onClick={(event) => handleLinkClick(event, true)}>
-                        {menuItems}
-                    </ul>
-                </div>*/}
-            </nav>}
+            </>
+        }
     </>
 }
 

@@ -14,9 +14,6 @@ import {useModal} from '../context/ModalContext';
 import LegalModal from '../components/LegalModal/LegalModal.jsx';
 import Locations from "../components/Locations/Locations.jsx";
 import Navbar from "../components/Navigation/Navbar.jsx";
-import {useWindowDimensions} from "../context/WindowDimensionsContext.jsx";
-import {useMobileMenu} from "../context/MobileMenuContext.jsx";
-import NavbarOld from "../RECYCLED/NavbarOld.jsx";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,8 +22,6 @@ function Home() {
     const {menuContainerRef} = useContext(ReferenceContext)
     const {modalId} = useParams();
     const {openModal, paramOnClose} = useModal();
-    const {isSmartphone} = useWindowDimensions()
-    const {openMenu} = useMobileMenu()
 
     let insertionTitle = "heyzeln"
     let insertionSubTitle = "[hɛɨzɫɲ / ˈheɪzəln]"

@@ -43,10 +43,6 @@ function useDynamicFavicon() {
 }
 
 function SmoothScroll({children}) {
-    /*    const lenis = useLenis(({ scroll }) => {
-            // called every scroll
-        })*/
-
     return (
         <ReactLenis root>
             {children}
@@ -67,13 +63,8 @@ function App() {
                             <MobileMenuProvider>
                                 <Routes>
                                     <Route path="/" element={<SmoothScroll><Home/></SmoothScroll>}/>
-                                    <Route path="/test" element={<HorizontalMultiStep/>}/>
                                     <Route path="/jobs" element={<JobForm/>}/>
-                                    <Route path="/gsap" element={<Gsap/>}/>
                                     <Route path="/:modalId" element={<Home/>}/>
-                                    <Route path="/submitted" element={
-                                        <Submitted show={true} answered={false} successful={false}/>
-                                    }/>
                                 </Routes>
                             </MobileMenuProvider>
                         </WindowDimensionsProvider>

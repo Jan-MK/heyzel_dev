@@ -10,11 +10,11 @@ import Cookies from 'universal-cookie';
 import {days, prepareDataHTML, shifts} from "../../utility/Utility.jsx";
 import axios from "axios";
 import Logo from "../../components/Logo/Logo.jsx";
-import useWindowDimensions from "../../utility/WindowSize.jsx";
 import LegalModal from "../../components/LegalModal/LegalModal.jsx";
 import {useModal} from "../../context/ModalContext.jsx";
 import {available, unavailable} from "../../assets/employment.json"
 import {allTimeZone} from "../../utility/Vars.jsx";
+import {useWindowDimensions} from "../../context/WindowDimensionsContext.jsx";
 
 const defaultValues = {
     confirmation: false,
@@ -122,6 +122,7 @@ function JobForm(props) {
     const [selectedFile, setSelectedFile] = useState(null)
     const [visited, setVisited] = useState([0])
     const {width} = useWindowDimensions()
+
     const {
         register,
         handleSubmit,

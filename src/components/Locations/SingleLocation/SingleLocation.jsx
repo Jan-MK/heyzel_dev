@@ -1,8 +1,6 @@
 import classes from "./SingleLocation.module.scss"
 import NavigationOptions from "./NavigationOptions/NavigationOptions.jsx";
-import {getRandomColor} from "../../../utility/Utility.jsx";
 import VerticalTable from "../../VerticalTable/VerticalTable.jsx";
-import {useEffect} from "react";
 
 function SingleLocation({
                             title,

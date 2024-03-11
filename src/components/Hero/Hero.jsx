@@ -95,16 +95,17 @@ function HeroComponent() {
                     opacity: 0,
                     ease: "power2.inOut"
                 }))
-                tlLeft.to(leftColumn, {yPercent: -25});
+                tlLeft.to(leftColumn, {yPercent: -20});
                 tlRight.to(rightColumn, {yPercent: -15});
             })
             mm.add(`(max-width: ${maxWidthMobile}px)`, () => {
-                gsap.from(`.${classes.hero}`, .5, {
+                gsap.from(`.${classes.textContent}`, .5, {
                     opacity: 0,
                     delay: .5,
-                    ease: "power1.in"
+                    ease: "power1.in",
+                    stagger: 0.25,
                 })
-                tlLeft.to(leftColumn, {xPercent: 25});
+                tlLeft.to(leftColumn, {xPercent: 10});
                 tlRight.to(rightColumn, {xPercent: -5});
             })
         }
