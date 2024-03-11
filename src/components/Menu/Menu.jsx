@@ -26,7 +26,7 @@ export default function Menu() {
         </div>)
     }
 
-    let colors = useMemo(() => getDistinctRandomHex(4, '#FE0879'))
+    let colors = getDistinctRandomHex(4, '#FE0879')
 
     const renderedImg = menuCats.map((cat, idx) => (
         <div key={idx} className={classes.leftWrapper}>

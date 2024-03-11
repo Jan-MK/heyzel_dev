@@ -14,12 +14,13 @@ import {
     navigationItems
 } from "../../utility/Vars.jsx";
 import {useLenis} from "@studio-freight/react-lenis";
+import {useEffect} from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
 function Navbar() {
     const navigate = useNavigate();
-    const {isSmartphone, isTablet, isDesktop} = useWindowDimensions()
+    const {width, isSmartphone, isTablet, isDesktop} = useWindowDimensions()
     const {openMenu} = useMobileMenu()
     const lenisScroll = useLenis()
     const scrollToOptions = (offsetHeight) => ({
@@ -35,147 +36,117 @@ function Navbar() {
 
     let initialNavbarHeight = 250*/
 
+    const fitMargin = () => {
+        if(isSmartphone) {
+            const navbar = document.getElementById('navBar');
+            const linkHeap = document.getElementById('linkHeap');
+            let heapHeight = linkHeap.offsetHeight
+            navbar.style.marginTop = `${heapHeight - 66}px`
+        }
+    }
+
+    useEffect(() => {
+        fitMargin()
+    }, []);
+
+    useEffect(() => {
+        fitMargin()
+    }, [width]);
+
+    const mobileAnimations = () => {
+        //MOBILE
+        const navbar = document.getElementById('navBar');
+        const logo = document.getElementById('menuLogo');
+        const icon = document.getElementById('menuIcon');
+        const linkHeap = document.getElementById('linkHeap');
+        const heapContainer = document.getElementById('heapContainer');
+
+
+        if (navbar && icon && logo && heapContainer) {
+            let heapHeight = linkHeap.offsetHeight
+
+            gsap.to(heapContainer, {
+                scale: .2,
+                transformOrigin: "bottom bottom",
+                y: '-13px',
+                opacity: 0,
+                scrollTrigger: {
+                    trigger: navbar,
+                    start: () => `bottom-=${heapHeight}px top`,
+                    end: "bottom top+=66px",
+                    scrub: true,
+                    markers: false,
+                    invalidateOnRefresh: true,
+                }
+            })
+
+            let sctr = {
+                trigger: navbar,
+                start: "center 25%",
+                end: "center top+=66px",
+                scrub: 1,
+                markers: false,
+                invalidateOnRefresh: true,
+            }
+
+            gsap.from(icon, {
+                opacity: 0,
+                scrollTrigger: sctr
+            })
+
+            gsap.from(logo, {
+                opacity: 0,
+                scrollTrigger: {...sctr, start: 'bottom 20%', markers: false}
+            })
+
+        }
+    }
+
+    const nonMobileAnimations = () => {
+        // DESKTOP
+        const linkContainer = document.getElementById('desktopLinkContainer');
+        const logo = document.getElementById('menuLogo');
+        const linkList = document.getElementById('linkList');
+        const navbar = document.getElementById('navBar');
+        /*const icon = document.getElementById('menuIcon');*/
+
+        if (navbar && logo && linkList && linkContainer) {
+            let sctr = {
+                trigger: navbar,
+                start: "center center",
+                end: "top 25%",
+                scrub: .5,
+                markers: false,
+                invalidateOnRefresh: true,
+            }
+
+            gsap.from(linkList, {
+                width: linkContainer.offsetWidth,
+                scrollTrigger: sctr
+            })
+
+            gsap.from(logo, {
+                opacity: 0,
+                scrollTrigger: {
+                    ...sctr,
+                    start: "center 35%"
+                }
+            })
+        }
+    }
+
     useGSAP(() => {
         const matchMedia = gsap.matchMedia()
         matchMedia.add(`(max-width: ${maxWidthMobile}px)`, () => {
-            //MOBILE && TABLET
-            const navbar = document.getElementById('navBar');
-            const logo = document.getElementById('menuLogo');
-            const icon = document.getElementById('menuIcon');
-            const linkHeap = document.getElementById('linkHeap');
-            const heapContainer = document.getElementById('heapContainer');
-
-
-            if (navbar && icon && logo && heapContainer) {
-                let heapHeight = linkHeap.offsetHeight
-                gsap.set(navbar, {marginTop: `${heapHeight - 66}px`})
-
-                gsap.to(heapContainer, {
-                    scale: .2,
-                    transformOrigin: "bottom bottom",
-                    y: '-13px',
-                    opacity: 0,
-                    scrollTrigger: {
-                        trigger: navbar,
-                        start: () => `bottom-=${heapHeight}px top`,
-                        end: "bottom top+=66px",
-                        scrub: true,
-                        markers: false,
-                    }
-                })
-
-/*                gsap.from(icon, {
-                    opacity: 0,
-                    scrollTrigger: {
-                        trigger: navbar,
-                        start: "bottom bottom",
-                        end: "center center",
-                        scrub: 1,
-                        invalidateOnRefresh: true,
-                    }
-                })*/
-
-                let sctr = {
-                    trigger: navbar,
-                    start: "center 25%",
-                    end: "center top+=66px",
-                    scrub: 1,
-                    markers: false,
-                    invalidateOnRefresh: true,
-                }
-
-                gsap.from(icon, {
-                    opacity: 0,
-                    scrollTrigger: sctr
-                })
-
-                gsap.from(logo, {
-                    opacity: 0,
-                    scrollTrigger: {...sctr, start: 'bottom 20%', markers: false}
-                })
-
-            }
+            mobileAnimations()
         })
 
         matchMedia.add(`(min-width: ${minWidthTablet}px)`, () => {
-            // DESKTOP
-            const linkContainer = document.getElementById('desktopLinkContainer');
-            const logo = document.getElementById('menuLogo');
-            const linkList = document.getElementById('linkList');
-            const navbar = document.getElementById('navBar');
-            /*const icon = document.getElementById('menuIcon');*/
-
-            if (navbar && logo && linkList && linkContainer) {
-                let sctr = {
-                    trigger: navbar,
-                    start: "center center",
-                    end: "top 25%",
-                    scrub: .5,
-                    markers: false,
-                    invalidateOnRefresh: true,
-                }
-
-                gsap.from(linkList, {
-                    width: linkContainer.offsetWidth,
-                    scrollTrigger: sctr
-                })
-
-                gsap.from(logo, {
-                    opacity: 0,
-                    scrollTrigger: {
-                        ...sctr,
-                        start: "center 35%"
-                    }
-                })
-            }
+            nonMobileAnimations()
         })
 
-    })
+    }, [isSmartphone])
 
-    /*    useEffect(() => {
-            const scrollTriggerRefresh = () => {
-                ScrollTrigger.refresh();
-            }
-            scrollTriggerRefresh()
-        }, [width, height]); //TODO - do i need that? Causes problems*/
-
-/*    useEffect(() => {
-        // Useeffect to decide if navBar is past top by getting the bottom border of the hero element. Important!!
-        const checkScrollPosition = () => {
-            let hero = document.getElementById('hero')
-            if (hero) {
-                const elementTop = hero.getBoundingClientRect().bottom;
-                const elementBottom = hero.getBoundingClientRect().bottom + initialNavbarHeight;
-                if (elementTop <= 1) {
-                    setHasScrolledPast(prev => ({
-                        ...prev,
-                        top: true
-                    }));
-                } else {
-                    setHasScrolledPast(prev => ({
-                        ...prev,
-                        top: false
-                    }));
-                }
-                if (elementBottom <= 1) {
-                    setHasScrolledPast(prev => ({
-                        ...prev,
-                        bottom: true
-                    }));
-                } else {
-                    setHasScrolledPast(prev => ({
-                        ...prev,
-                        bottom: false
-                    }));
-                }
-            }
-        };
-
-        window.addEventListener('scroll', checkScrollPosition);
-        checkScrollPosition();
-
-        return () => window.removeEventListener('scroll', checkScrollPosition);
-    }, [hasScrolledPast.top, hasScrolledPast.bottom]);*/
 
     function handleLogoClick(event) {
         event.preventDefault()
@@ -209,16 +180,6 @@ function Navbar() {
                 href={item.href}>{`${isDesktop ? '' : '#'}${item.text}`}</a></li>
         })
     }
-    /*
-    export const navigationItems = [
-    {href: "#about", text: "About", priority: 9},
-    {href: "#events", text: "Events", priority: 3},
-    {href: "#menu", text: "Menu", priority: 1},
-    {href: "#locations", text: "Locations", priority: 2},
-    {href: "#contact", text: "Contact", priority: 10},
-    {href: "/jobs", text: "Jobs", isRouterLink: true, priority: 5},
-];
-     */
 
 
     let gotoLinks
@@ -243,6 +204,7 @@ function Navbar() {
     function handleLinkClick(event) {
         event.preventDefault();
         const target = event.target.closest('a'); // Ensure you get the <a> tag even if the click is on a nested element
+        if(!target) return
         const href = target.getAttribute('href');
 
         // Check if the link is a router link
@@ -258,15 +220,12 @@ function Navbar() {
         let offsetHeight = navbar?.offsetHeight || 0;
 
         if (element) {
-            //element.style.scrollMarginTop = `${offsetHeight}px`; // Prefer scrollMarginTop for better support
             lenisScroll.scrollTo(element, scrollToOptions(offsetHeight));
-            /*            element.scrollIntoView({
-                            block: 'start',
-                            behavior: 'smooth'
-                        });*/
         }
     }
 
+    let menuIcon = <div className={classes.menuIconWrapper} style={{cursor: 'pointer'}} id={'menuIcon'} onClick={openMenu}><IoMenu
+        size={40}/></div>
 
     return <>
         {isDesktop &&
@@ -290,8 +249,7 @@ function Navbar() {
                     <div className={`${classes.navLinks}`} id={'desktopLinkContainer'}>
                         <ul className={`${classes.linkUl}`} id={'linkList'} onClick={handleLinkClick}>
                             {menuItems}
-                            <div className={classes.menuIconWrapper} id={'menuIcon'} onClick={openMenu}><IoMenu
-                                size={40}/></div>
+                            {menuIcon}
                             <ThemeSwitch isOnAbsolute={true}/>
                         </ul>
                     </div>
@@ -304,9 +262,7 @@ function Navbar() {
                     <div className={`${classes.navMenuWrapper} ${classes.mobile}`}>
                         <div className={classes.logoContainer} id={'menuLogo'}><a onClick={handleLogoClick}><Logo
                             width={"175px"}/></a></div>
-                        <div className={classes.menuIconWrapper} id={'menuIcon'} onClick={openMenu}><IoMenu
-                            size={40}/>
-                        </div>
+                        {menuIcon}
                     </div>
                     <div className={classes.heapContainer} id={'heapContainer'}>
                         <div className={classes.linkHeap} id={'linkHeap'}>
