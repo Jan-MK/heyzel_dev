@@ -3,7 +3,6 @@ import classes from './Hero.module.scss'; // Make sure the path matches your fil
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {useGSAP} from "@gsap/react";
-import ReferenceContext from "../../context/ReferenceContext.jsx";
 import Logo from "../Logo/Logo.jsx";
 import drink from "../../assets/media/HeroImages/drink-1839134_1280.jpg"
 import woman from "../../assets/media/HeroImages/pexels-lisa-fotios-9853880.jpg"
@@ -18,6 +17,7 @@ import ReactCountryFlag from "react-country-flag";
 import {useWindowDimensions} from "../../context/WindowDimensionsContext.jsx";
 import {useMobileMenu} from "../../context/MobileMenuContext.jsx";
 import {maxWidthMobile, minWidthTablet} from "../../utility/Vars.jsx";
+import {useLenis} from "@studio-freight/react-lenis";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -44,18 +44,25 @@ function HeroComponent() {
     const heroWrapper = useRef(null)
     const {isSmartphone} = useWindowDimensions()
     const {openMenu} = useMobileMenu()
-
+    const lenisScroll = useLenis()
+    const scrollToOptions = (offsetHeight) => ({
+        offset: -offsetHeight,
+        duration: 1,
+        easing: (x) => x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2,
+        immediate: false,
+        lock: false,
+        force: false,
+    });
     const rightSlice = images.slice(countPerColumn)
 
 
 
     function handleScrollDownClick(e) {
-        e.preventDefault()
-        console.log("CLICKED")
-        document.getElementById('navBar')?.scrollIntoView({
-            block: 'start',
-            behavior: 'smooth'
-        })
+        e.preventDefault();
+        let element = document.getElementById('navBar');
+        if (!element) return
+        let offsetHeight = isSmartphone ? parseInt(element.style.marginTop.replace('px', '')) : 0;
+        lenisScroll.scrollTo(element, scrollToOptions(offsetHeight));
     }
 
     useGSAP(() => {
@@ -102,8 +109,7 @@ function HeroComponent() {
                 gsap.from(`.${classes.textContent}`, .5, {
                     opacity: 0,
                     delay: .5,
-                    ease: "power1.in",
-                    stagger: 0.25,
+                    ease: "power2.inOut",
                 })
                 tlLeft.to(leftColumn, {xPercent: 10});
                 tlRight.to(rightColumn, {xPercent: -5});
