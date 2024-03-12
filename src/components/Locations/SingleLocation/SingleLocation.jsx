@@ -1,6 +1,7 @@
 import classes from "./SingleLocation.module.scss"
 import NavigationOptions from "./NavigationOptions/NavigationOptions.jsx";
 import VerticalTable from "../../VerticalTable/VerticalTable.jsx";
+import {useTranslation} from "react-i18next";
 
 function SingleLocation({
                             title,
@@ -8,13 +9,13 @@ function SingleLocation({
                             address,
                             appleUrl,
                             googleUrl,
-                            mail,
-                            phone,
                             openingHours,
                             lastHeadLineRef,
                             headlineId
                         }) {
     const {street, zip, city} = address
+    const { t } = useTranslation();
+
 
     return (<>
 
@@ -23,32 +24,27 @@ function SingleLocation({
             <div className={classes.generalInformation}>
                 <VerticalTable
                     contentSizeBig={true}
-                    heading={'Contact'}
+                    heading={t('locations.general.t1.title')}
                     entries={[
                         {
-                            title: "Address",
+                            title: t('locations.general.t1.sub1'),
                             description: <><p>{street}</p>
                                 <p>{zip} {city}</p>
                                 <NavigationOptions
                                     appleUrl={appleUrl}
                                     googleUrl={googleUrl}
                                 /></>
-                        },
-                        {
-                            title: "Mail:",
-                            description: <a href={`mailto:${mail}`}>{mail}</a>
-                        },
-                        {
-                            title: "Phone:",
-                            description: phone,
                         }
                     ]}
                 />
                 <VerticalTable
                     contentSizeBig={true}
-                    heading="Opening hours"
+                    heading={t('locations.general.t2.title')}
                     entries={[
-                        {title: 'Day', description: <p className={classes.heading}>Hours</p>},
+                        {
+                            title: t('locations.general.t2.sub1'),
+                            description: <p className={classes.heading}>{t('locations.general.t2.sub2')}</p>
+                        },
                         ...openingHours
                     ]}
                 />

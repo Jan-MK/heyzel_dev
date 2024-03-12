@@ -60,7 +60,9 @@
       p {
 
         font-size: clamp(.5em, 10vw, 2em);
-
+        @include mobile {
+          text-align: center;
+        }
         span {
 
           font-weight: bold;

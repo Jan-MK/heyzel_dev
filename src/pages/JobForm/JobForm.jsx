@@ -16,6 +16,10 @@ import {available, unavailable} from "../../assets/employment.json"
 import {allTimeZone} from "../../utility/Vars.jsx";
 import {useWindowDimensions} from "../../context/WindowDimensionsContext.jsx";
 
+// TODO: Modularize fieldWrappers to reduce steps array,
+// TODO: EventListener for Enter key to try hitting next and point out unfilled required fields
+// TODO: Green next-button when select desired EMployment wrong first, right after and wrong after.
+
 const defaultValues = {
     confirmation: false,
     firstName: '',

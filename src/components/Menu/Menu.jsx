@@ -5,11 +5,13 @@ import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {useModal} from "../../context/ModalContext.jsx";
 import {getDistinctRandomHex} from "../../utility/Utility.jsx";
+import {useTranslation} from "react-i18next";
 
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Menu() {
+    const { t, i18n } = useTranslation();
     let menuCats = menuArray.categories
     const itemListWrapperRef = useRef(null)
     const {openModal} = useModal()
@@ -57,16 +59,11 @@ export default function Menu() {
         <>
             <div className={classes.menuSection}>
                 <h1 className={'sectionHeading'}>
-                    MENU
+                    {t('cardMenu.title')}
                 </h1>
-
                 <div className={classes.description}>
                     <p>
-                        Dive into our menu featuring a variety of coffees, from classic espressos to rich lattes,
-                        alongside
-                        house-made ice teas and crafted cocktails. Plus, enjoy a selection of delectable snacks perfect
-                        for any
-                        time of day.
+                        {t('cardMenu.dscr')}
                     </p>
                 </div>
                 <div className={classes.menuWrapper}>
@@ -75,14 +72,15 @@ export default function Menu() {
                              style={{backgroundColor: colors[0].bg, color: colors[0].text}}>
                             <div className={`${classes.text}`}>
                                 <div className={classes.reverseOrder}>
-                                    <h3>Tasty coffee.</h3>
-                                    <p>During the day</p>
+                                    <h3>{t('cardMenu.day.title')}</h3>
+                                    <p>{t('cardMenu.day.subtitle')}</p>
                                 </div>
-                                <p>From expertly brewed plain coffee to a variety of special blends, we got you.</p>
-                                <button className={"third"} onClick={() => toggleMount(1)}>Day menu</button>
+                                <p>{t('cardMenu.day.dscr')}</p>
+                                <button className={"third"} onClick={() => toggleMount(1)}>{t('cardMenu.day.btn')}</button>
                             </div>
                             <div className={classes.photo}>
                                 <img
+                                    alt={t('cardMenu.day.title')}
                                     src={"https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&w=800"}/>
                             </div>
                         </div>
@@ -91,16 +89,14 @@ export default function Menu() {
                              style={{backgroundColor: colors[2].bg, color: colors[2].text}}>
                             <div className={`${classes.text}`}>
                                 <div className={classes.reverseOrder}>
-                                    <h3>Amazing cocktails.</h3>
-                                    <p>Afterwork</p>
+                                    <h3>{t('cardMenu.night.title')}</h3>
+                                    <p>{t('cardMenu.night.subtitle')}</p>
                                 </div>
-                                <p>Transitioned to a bar at night we offer drinks and snacks while you're invited to
-                                    enjoy the
-                                    atmosphere.</p>
-                                <button className={"third"} onClick={() => toggleMount(1)}>Bar menu</button>
+                                <p>{t('cardMenu.night.dscr')}</p>
+                                <button className={"third"} onClick={() => toggleMount(1)}>{t('cardMenu.night.btn')}</button>
                             </div>
                             <div className={classes.photo}>
-                                <img
+                                <img alt={t('cardMenu.night.title')}
                                     src={"https://cdn.pixabay.com/photo/2023/04/26/16/20/cocktail-7952751_1280.jpg"}/>
                             </div>
                         </div>
@@ -108,9 +104,9 @@ export default function Menu() {
                         <div className={`${classes.div2} ${classes.gridItem} ${classes.commonContent} ${classes.text}`}
                              style={{backgroundColor: colors[1].bg, color: colors[1].text}}>
                             <div className={classes.text}>
-                                <h3>Food & Snacks</h3>
-                                <p>A small variety of food and snacks to avoid you being hangry!</p>
-                                <button className={"third"} onClick={() => toggleMount(2)}>Show me food</button>
+                                <h3>{t('cardMenu.food.title')}</h3>
+                                <p>{t('cardMenu.food.dscr')}</p>
+                                <button className={"third"} onClick={() => toggleMount(2)}>{t('cardMenu.food.btn')}</button>
                             </div>
                         </div>
 
@@ -118,12 +114,12 @@ export default function Menu() {
                              style={{backgroundColor: colors[3].bg, color: colors[3].text}}>
                             <div className={classes.photo}>
                                 <img src={"https://cdn.pixabay.com/photo/2015/09/01/21/00/coffee-beans-917613_1280.jpg"}
-                                     alt={"our selection"}/>
+                                     alt={t('cardMenu.coffee.title')}/>
                             </div>
                             <div className={classes.text}>
-                                <h3>We love coffee</h3>
-                                <p>... and we're picky. Discover our coffee selection</p>
-                                <button className={"third"}>Discover</button>
+                                <h3>{t('cardMenu.coffee.title')}</h3>
+                                <p>{t('cardMenu.coffee.dscr')}</p>
+                                <button className={"third"}>{t('cardMenu.coffee.btn')}</button>
                             </div>
                         </div>
 

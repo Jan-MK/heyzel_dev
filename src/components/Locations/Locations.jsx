@@ -12,10 +12,11 @@ import SingleLocation from "./SingleLocation/SingleLocation.jsx";
 import {useWindowDimensions} from "../../context/WindowDimensionsContext.jsx";
 import {useEffect} from "react";
 import {maxWidthMobile, minWidthTablet} from "../../utility/Vars.jsx";
+import {useTranslation} from "react-i18next";
 
 
 function Locations() {
-
+    const { t, i18n } = useTranslation();
     const {height, width, isSmartphone} = useWindowDimensions()
 
     useGSAP(() => {
@@ -101,16 +102,12 @@ function Locations() {
         <div className={classes.locationsSection} id={'locationsContainer'}>
             <div className={`${classes.sectionHeading}`} id={'locationsTitle'}>
                 <h1>
-                    LOCATIONS
+                    {t('locations.title')}
                 </h1>
             </div>
             <div className={classes.description}>
                 <p>
-                    Dive into our menu featuring a variety of coffees, from classic espressos to rich lattes,
-                    alongside
-                    house-made ice teas and crafted cocktails. Plus, enjoy a selection of delectable snacks perfect
-                    for any
-                    time of day.
+                    {t('locations.dscr')}
                 </p>
             </div>
             <div className={classes.contentWrap}>
@@ -143,10 +140,9 @@ function Locations() {
                     <div className={classes.locationsLeftWrapper}>
                         <div className={classes.locationsLeftContent} id={'leftLocationsContainer'}>
                             <div className={classes.locationWrapper} id={'firstLocation'}>
-
                                 <SingleLocation
                                     title={'Königsplatz'}
-                                    description={'You are on the go and need some snacks or coffee?'}
+                                    description={t('locations.loc1.dscr')}
                                     address={{
                                         street: 'Konrad-Adenauer-Allee 7',
                                         zip: '86150',
@@ -154,24 +150,22 @@ function Locations() {
                                     }}
                                     appleUrl={'https://maps.apple.com/?address=Konrad-Adenauer-Allee%207,%2086150%20Augsburg,%20Deutschland&auid=16570894358265817992&ll=48.365661,10.894951&lsp=9902&q=Heyzel%20Coffee'}
                                     googleUrl={'https://maps.app.goo.gl/oHHYBbkYjxZNFp447'}
-                                    mail={'kp@heyzel.de'}
-                                    phone={'+49 821 4504480'}
                                     openingHours={[
                                         {
-                                            title: 'Monday - Thursday',
-                                            description: '7 AM - 11 PM'
+                                            title: t('locations.loc1.openingHours.e1.title'),
+                                            description: t('locations.loc1.openingHours.e1.dscr')
                                         },
                                         {
-                                            title: 'Friday',
-                                            description: '7 AM - 10 PM'
+                                            title: t('locations.loc1.openingHours.e2.title'),
+                                            description: t('locations.loc1.openingHours.e2.dscr')
                                         },
                                         {
-                                            title: 'Saturday',
-                                            description: '12 PM - 10 PM'
+                                            title: t('locations.loc1.openingHours.e3.title'),
+                                            description: t('locations.loc1.openingHours.e3.dscr')
                                         },
                                         {
-                                            title: 'Sunday',
-                                            description: 'closed'
+                                            title: t('locations.loc1.openingHours.e4.title'),
+                                            description: t('locations.loc1.openingHours.e4.dscr')
                                         },
                                     ]}
                                 />
@@ -181,7 +175,7 @@ function Locations() {
 
                                 <SingleLocation
                                     title={'Rathausplatz'}
-                                    description={'In a leisure atmosphere enjoy coffee in the morning or drinks at night.'}
+                                    description={t('locations.loc2.dscr')}
                                     address={{
                                         street: 'Steingasse 3',
                                         zip: '86150',
@@ -189,16 +183,14 @@ function Locations() {
                                     }}
                                     appleUrl={'https://maps.apple.com/?address=Steingasse%203%0A86150%20Augsburg%0ADeutschland&auid=6092646678093466525&ll=48.369263,10.897474&lsp=9902&q=Heyzel%20Coffee'}
                                     googleUrl={'https://maps.app.goo.gl/kRCkC4GS6cwheenG8'}
-                                    mail={'rp@heyzel.de'}
-                                    phone={'+49 821 4504480'}
                                     openingHours={[
                                         {
-                                            title: 'Monday - Saturday',
-                                            description: '9:30 AM - 1 AM'
+                                            title: t(`locations.loc2.openingHours.e1.title`),
+                                            description: t('locations.loc2.openingHours.e1.dscr')
                                         },
                                         {
-                                            title: 'Sunday',
-                                            description: '11 AM - 1 AM'
+                                            title: t('locations.loc2.openingHours.e2.title'),
+                                            description: t('locations.loc2.openingHours.e2.dscr')
                                         },
                                     ]}
                                 />
@@ -209,28 +201,26 @@ function Locations() {
                                 <SingleLocation
                                     headlineId={'headlineId'}
                                     title={'Universität'}
-                                    description={'Between courses or to exchange between your fellow students.'}
+                                    description={t('locations.loc3.dscr')}
                                     address={{
-                                        street: 'Idler Str. 24d',
+                                        street: 'Salomon-Idler Str. 24d',
                                         zip: '86159',
                                         city: 'Augsburg',
                                     }}
                                     appleUrl={'https://maps.apple.com/?address=Salomon-Idler-Stra%C3%9Fe%2024D,%2086159%20Augsburg,%20Deutschland&auid=3153212030896744291&ll=48.333709,10.899892&lsp=9902&q=Heyzel%20Coffee'}
                                     googleUrl={'https://maps.app.goo.gl/GSGcfWKiUCFqiLYT9'}
-                                    mail={'uni@heyzel.de'}
-                                    phone={'+49 821 4504480'}
                                     openingHours={[
                                         {
-                                            title: 'Monday - Friday',
-                                            description: '7:30 AM - 10 PM'
+                                            title: t('locations.loc3.openingHours.e1.title'),
+                                            description: t('locations.loc3.openingHours.e1.dscr')
                                         },
                                         {
-                                            title: 'Saturday',
-                                            description: '11 AM - 18 PM'
+                                            title: t('locations.loc3.openingHours.e2.title'),
+                                            description: t('locations.loc3.openingHours.e2.dscr')
                                         },
                                         {
-                                            title: 'Sunday',
-                                            description: 'closed'
+                                            title: t('locations.loc3.openingHours.e3.title'),
+                                            description: t('locations.loc3.openingHours.e3.dscr')
                                         },
                                     ]}
                                 />
