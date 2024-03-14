@@ -451,6 +451,11 @@ i18n
                             }
                         }
                     },
+                    footer: {
+                        imprint: "Imprint",
+                        privacy: "Privacy",
+                        rights: "All rights reserved."
+                    }
                 }
             },
             de: {
@@ -507,7 +512,7 @@ i18n
                         general: {
                             t1: {
                                 title: "Kontakt",
-                                sub1: "Address",
+                                sub1: "Addresse",
                                 sub2: "E-Mail",
                                 sub3: "Telefon"
                             },
@@ -677,7 +682,7 @@ i18n
                             err: "Dies ist ein Pflichtfeld"
                         },
                         desiredEmp: {
-                            label: "Desired Employment",
+                            label: "Angestrebtes Arbeitsverhältnis",
                             ph: "Bitte wählen...",
                             err1: "Dies ist ein Pflichtfeld",
                             err2: "Derzeit suchen wir keinen Mitarbeiter für die gewählte Anstellung",
@@ -876,7 +881,7 @@ i18n
                             },
                             success: {
                                 t1: "Super, vielen Dank!",
-                                t2: "Wir haben Deine Bewerbung bekommen und melden uns fix bei Dir. Bis dahin, wie wär's mit einem Kaffee oder einer Margarita bei uns?",
+                                t2: "Wir haben Deine Bewerbung bekommen und melden uns bei Dir. Bis dahin, wie wär's mit einem Kaffee oder einer Margarita bei uns?",
                                 t3: "Wir freuen uns auf Dich :)",
                                 t4: "Dein Heyzel Team"
                             },
@@ -894,6 +899,11 @@ i18n
                             }
                         }
                     },
+                    footer: {
+                       imprint: "Impressum",
+                       privacy: "Datenschutz",
+                       rights: "Alle Rechte vorbehalten."
+                    }
                 }
             }
         }

@@ -1,10 +1,10 @@
 {
-  "available": [
-    "Full-Time",
-    "Part-Time"
-  ],
   "unavailable": [
-    "Mini-Job",
-    "Working-Student"
+      "options.o1",
+    "options.o2"
+    ],
+  "available": [
+    "options.o3",
+    "options.o4"
   ]
 }
