@@ -16,10 +16,12 @@ import {available, unavailable} from "../../assets/employment.json"
 import {allTimeZone, maxWidthMobile, minWidthTablet} from "../../utility/Vars.jsx";
 import {useWindowDimensions} from "../../context/WindowDimensionsContext.jsx";
 import {Trans, useTranslation} from "react-i18next";
+import {DevTool} from "@hookform/devtools";
 
 // TODO: Modularize fieldWrappers to reduce steps array,
 // TODO: EventListener for Enter key to try hitting next and point out unfilled required fields
 // TODO: Green next-button when select desired EMployment wrong first, right after and wrong after.
+// TODO: Still an 'split' error when triggering manually. (Think it comes from photo)
 
 
 const currentEmploymentOptions = ["Schüler", "Student", "Arbeitnehmer", "Selbstständig", "Arbeitslos/Arbeitssuchend"]
@@ -35,15 +37,14 @@ eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear() - 18);
 
 function JobForm() {
     const {t} = useTranslation();
-    // TODO Remodel Please select standard value to ''
     const defaultValues = {
-        desiredEmployment: ""/*t('jobForm.general.selectPH')*/,
+        desiredEmployment: "",
         confirmation: false,
         firstName: '',
         lastName: '',
         birthday: '',
         photo: undefined,
-        nationality: t('jobForm.general.selectPH'),
+        nationality: "",
         confession: '',
         ssn: '',
         phone: '',
@@ -51,10 +52,10 @@ function JobForm() {
         street: '',
         zip: '',
         city: '',
-        currentEmployment: t('jobForm.general.selectPH'),
+        currentEmployment: "",
         salary: '',
         entry: '',
-        earnings: t('jobForm.general.selectPH'),
+        earnings: "",
         experience: '',
         availability: days.reduce((acc, day) => ({...acc, [day]: [false, false, false]}), {}),
         motivation: '',
@@ -108,7 +109,7 @@ function JobForm() {
             birthday: z.string()
                 .refine(val => !isNaN(Date.parse(val)), {message: t('jobForm.birthday.err1')})
                 .refine(val => new Date(val) <= eighteenYearsAgo, {message: t('jobForm.birthday.err2')}),
-            photo: z.any()
+/*            photo: z.any()
                 .optional()
                 .refine((files) => !files || files.length === 0 || (files[0] && files[0].size <= MAX_FILE_SIZE), {
                     message: t('jobForm.photo.err1'),
@@ -116,7 +117,7 @@ function JobForm() {
                 .refine(
                     (files) => !files || files.length === 0 || (files[0] && ACCEPTED_IMAGE_TYPES.includes(files[0].type)),
                     {message: t('jobForm.photo.err2')}
-                ),
+                ),*/
 
             nationality: string().refine(val => val !== defaultValues.nationality, t('jobForm.nationality.err')),
             confession: string().min(1, {message: t('jobForm.confession.err')}),
@@ -404,9 +405,9 @@ function JobForm() {
                 {/* Nationality */}
                 <div className={classes.fieldWrapper}>
                     <label htmlFor="job-form-nationality">{t('jobForm.nationality.label')}<span className={classes.required}>*</span></label>
-                    <select id="job-form-nationality" defaultValue={t('jobForm.nationality.ph')}
+                    <select id="job-form-nationality" defaultValue={""}
                             tabIndex={currentStep === 2 ? 1 : -1} {...registerWithSave('nationality')}>
-                        <option value={t('jobForm.nationality.ph')} hidden={true}>{t('jobForm.nationality.ph')}</option>
+                        <option value={""} hidden={true}>{t('jobForm.general.selectPH')}</option>
                         {nationalityOptions}
                     </select>
                     <div className={`${errors.nationality?.message ? classes.error : classes.noError}`}>{errors.nationality?.message}</div>
@@ -475,9 +476,9 @@ function JobForm() {
                 {/* Current Employment */}
                 <div className={classes.fieldWrapper}>
                     <label htmlFor="job-form-currentEmployment">{t('jobForm.currentEmp.label')}<span className={classes.required}>*</span></label>
-                    <select id="job-form-currentEmployment" defaultValue={t('jobForm.currentEmp.ph')}
+                    <select id="job-form-currentEmployment" defaultValue={""}
                             tabIndex={currentStep === 4 ? 1 : -1} {...registerWithSave('currentEmployment')}>
-                        <option value={t('jobForm.currentEmp.ph')} hidden={true}>{t('jobForm.currentEmp.ph')}</option>
+                        <option value={""} hidden={true}>{t('jobForm.general.selectPH')}</option>
                         {currentEmploymentOptions.map((option, idx) => (
                             <option key={idx}
                                     value={t(`jobForm.currentEmp.options.o${idx + 1}.val`)}>{t(`jobForm.currentEmp.options.o${idx + 1}.label`)}</option>
@@ -488,9 +489,9 @@ function JobForm() {
                 {/* Earnings */}
                 <div className={classes.fieldWrapper}>
                     <label htmlFor="job-form-earnings">{t('jobForm.earnings.label')}<span className={classes.required}>*</span></label>
-                    <select id="job-form-earnings" defaultValue={t('jobForm.earnings.ph')}
+                    <select id="job-form-earnings" defaultValue={""}
                             tabIndex={currentStep === 4 ? 2 : -1} {...registerWithSave('earnings')}>
-                        <option value={t('jobForm.earnings.ph')} hidden={true}>{t('jobForm.earnings.ph')}</option>
+                        <option value={""} hidden={true}>{t('jobForm.general.selectPH')}</option>
                         {otherEarnings.map((option, idx) => (
                             <option key={idx}
                                     value={t(`jobForm.earnings.options.o${idx + 1}.val`)}>{t(`jobForm.earnings.options.o${idx + 1}.label`)}</option>
@@ -665,7 +666,6 @@ function JobForm() {
         );
     });
 
-
     function handleSave(formContent) {
         console.log("SUBMITTED")
         setSubmitted(true)
@@ -785,7 +785,10 @@ function JobForm() {
                             </ul>
                         </div>
                         <div className={classes.buttons}>
-                            <button tabIndex={991} onClick={trigger}
+                            <button tabIndex={991} onClick={(e) => {
+                                e.preventDefault()
+                                trigger(steps[currentStep].fields
+                            )}}
                                     className={`${classes.ctrlBtn} ${classes.enabled} secondary`}>TRIGGER
                             </button>
                             {currentStep !== 0 && <button tabIndex={991} onClick={handleBackClick}
@@ -800,6 +803,7 @@ function JobForm() {
                         </div>
                     </div>
                 </form>}
+            <DevTool control={control} />
             {!resetting && submitted &&
                 <Submitted show={submitted} answered={answered} successful={successful} formData={formData}
                            cleanForm={cleanForm}/>}

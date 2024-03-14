@@ -66,7 +66,11 @@
     gap: 15px;
     padding: 25px;
     background-color: var(--overlay);
-    color: var(--text-primary)
+    color: var(--text-primary);
+
+    h2, p, a {
+      text-align: center;
+    }
   }
 }
 
