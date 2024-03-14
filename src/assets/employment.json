@@ -1,10 +1,10 @@
 {
   "available": [
-    "Werksstudent",
-    "Geringfügig (520 Euro-Basis)"
+    "Full-Time",
+    "Part-Time"
   ],
   "unavailable": [
-    "Vollzeit",
-    "Teilzeit"
+    "Mini-Job",
+    "Working-Student"
   ]
 }

@@ -35,7 +35,7 @@
   thead {
     th {
       background-color: var(--form-background-matrix-highlight); // Light grey background for the header
-      text-align: left;
+      text-align: center;
       padding: 10px 15px; // Adjust the padding to control the spacing
 
       &:first-child {
@@ -409,6 +409,7 @@
     }
 
     .buttons {
+      margin-right: 250px;
       display: flex;
       justify-content: center;
       align-items: center;

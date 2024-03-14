@@ -1,4 +1,5 @@
-export const days = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
+export const days = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
+export const shiftsJoFo = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
 export const shifts = ['7:30', '13:00', '16:00'];
 export const randomColors = [
     {

@@ -5,7 +5,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {string, z} from 'zod'
 import {IoChevronBackOutline, IoTrashOutline} from "react-icons/io5";
 import Submitted from "./Submitted/Submitted.jsx";
-import LoadingFull from "./LoadingFull/LoadingFull.jsx";
+import Loading from "../../components/Loading/Loading.jsx";
 import Cookies from 'universal-cookie';
 import {days, prepareDataHTML, shifts} from "../../utility/Utility.jsx";
 import axios from "axios";
@@ -15,17 +15,19 @@ import {useModal} from "../../context/ModalContext.jsx";
 import {available, unavailable} from "../../assets/employment.json"
 import {allTimeZone} from "../../utility/Vars.jsx";
 import {useWindowDimensions} from "../../context/WindowDimensionsContext.jsx";
+import {DevTool} from "@hookform/devtools";
 
 // TODO: Modularize fieldWrappers to reduce steps array,
 // TODO: EventListener for Enter key to try hitting next and point out unfilled required fields
 // TODO: Green next-button when select desired EMployment wrong first, right after and wrong after.
+
 
 const defaultValues = {
     confirmation: false,
     firstName: '',
     lastName: '',
     birthday: '',
-    photo: {},
+    photo: undefined,
     nationality: "Please select...",
     confession: '',
     ssn: '',
@@ -43,6 +45,7 @@ const defaultValues = {
     availability: days.reduce((acc, day) => ({...acc, [day]: [false, false, false]}), {}),
     motivation: '',
 }
+
 const currentEmploymentOptions = ["Schüler", "Student", "Arbeitnehmer", "Selbstständig", "Arbeitslos/Arbeitssuchend"]
 const desiredEmploymentOptions = ["Vollzeit", "Teilzeit", "Werksstudent", "Geringfügig (520 Euro-Basis)"]
 const otherEarnings = ['BAföG', 'Kindergeld', 'Waisenrente', 'Keine']
@@ -67,12 +70,17 @@ const schema = z.object({
         .refine(val => !isNaN(Date.parse(val)), {message: 'Birthday must be a valid date.'})
         .refine(val => new Date(val) <= eighteenYearsAgo, {message: 'You must be at least 18 years old.'}),
     photo: z.any()
-        /* TODO Required check: .refine((files) => files instanceof FileList && files.length > 0, `Please insert a photo`)*/
-        .refine((files) => files[0] && files[0].size <= MAX_FILE_SIZE, `Maximum image size is 5MB.`)
+        .optional()
+        .refine((files) => !files || files.length === 0 || (files[0] && files[0].size <= MAX_FILE_SIZE), {
+            message: `Maximum image size is 5MB.`,
+        })
         .refine(
-            (files) => files[0] && ACCEPTED_IMAGE_TYPES.includes(files[0].type),
-            "Only .jpg, .jpeg, .png, and .webp formats are supported."
+            (files) => !files || files.length === 0 || (files[0] && ACCEPTED_IMAGE_TYPES.includes(files[0].type)),
+            {
+                message: "Only .jpg, .jpeg, .png, and .webp formats are supported.",
+            }
         ),
+
     nationality: string().refine(val => val !== defaultValues.nationality, 'Selection required'),
     confession: string().min(1, {message: 'Confession is required'}),
     ssn: string().min(1, {message: 'Social security number is required'}),
@@ -91,13 +99,13 @@ const schema = z.object({
         .refine(val => !isNaN(val), {message: 'Salary must be a number.'}),
     experience: string().optional(), // TODO Is optional but has issues and needs to be filled out.
     availability: z.object({
-        Montag: z.array(z.boolean().optional()).optional(),
-        Dienstag: z.array(z.boolean().optional()).optional(),
-        Mittwoch: z.array(z.boolean().optional()).optional(),
-        Donnerstag: z.array(z.boolean().optional()).optional(),
-        Freitag: z.array(z.boolean().optional()).optional(),
-        Samstag: z.array(z.boolean().optional()).optional(),
-        Sonntag: z.array(z.boolean().optional()).optional(),
+        MO: z.array(z.boolean().optional()).optional(),
+        TU: z.array(z.boolean().optional()).optional(),
+        WE: z.array(z.boolean().optional()).optional(),
+        TH: z.array(z.boolean().optional()).optional(),
+        FR: z.array(z.boolean().optional()).optional(),
+        SA: z.array(z.boolean().optional()).optional(),
+        SU: z.array(z.boolean().optional()).optional(),
     }).refine(availability =>
             Object.values(availability).some(day => day.includes(true)),
         {
@@ -125,10 +133,11 @@ function JobForm() {
     const {width} = useWindowDimensions()
 
     const {
+        control,
         register,
         handleSubmit,
         watch,
-        formState: {errors},
+        formState: {errors, isValid},
         setValue,
         trigger,
         reset
@@ -140,7 +149,7 @@ function JobForm() {
     const cookies = new Cookies()
 
     const nationalityOptions = useMemo(() => allTimeZone.map((option, idx) => (
-            <option key={idx} value={option.name}>{option.Name}</option>
+            <option key={idx} value={option.Name}>{option.Name}</option>
         ))
     )
 
@@ -186,7 +195,6 @@ function JobForm() {
 
     useEffect(() => {
         if (visited.length > 0) {
-            // Ensure component layout has stabilized
             requestAnimationFrame(() => {
                 handleGoTo(visited[visited.length - 1]);
             });
@@ -574,19 +582,19 @@ function JobForm() {
                     const isCheckboxChecked = typeof value === 'boolean' && value;
                     const isArrayWithCheckedBoxes = value && typeof value === 'object' && checkAtLeastOneCheckboxChecked(value);
                     // Check if the value is a File or an array containing at least one File object that's not empty
-                    const isNonEmptyFileArray = value && value instanceof FileList && value[0] instanceof File && value[0].size > 0;
+/*                    const isNonEmptyFileArray = value && value instanceof FileList && value[0] instanceof File && value[0].size > 0;
                     if (isNonEmptyFileArray) {
                         setSelectedFile(value[0])
-                    }
+                    }*/
                     // Determine if the value is valid based on type
-                    return isNonEmptyText || isCheckboxChecked || isArrayWithCheckedBoxes | isNonEmptyFileArray;
+                    return isNonEmptyText || isCheckboxChecked || isArrayWithCheckedBoxes /*| isNonEmptyFileArray;*/
                 })
         }
 
         function noErrorsGlobal() {
             return errors !== null && Object.keys(errors).length === 0
         }
-
+        console.log(errors, (currentStep < steps.length - 1 && requiredHaveContent()) || (currentStep === steps.length - 1 && requiredHaveContent() && noErrorsGlobal()))
         if ((currentStep < steps.length - 1 && requiredHaveContent()) || (currentStep === steps.length - 1 && requiredHaveContent() && noErrorsGlobal())) {
             setButtonDisabled(false)
         } else {
@@ -630,6 +638,7 @@ function JobForm() {
 
 
     function handleSave(formContent) {
+        console.log("SUBMITTED")
         setSubmitted(true)
         const dataToSend = new FormData();
         let renderedFormData = prepareDataHTML(formContent);
@@ -710,7 +719,7 @@ function JobForm() {
 
     return (
         <>
-            {resetting && <LoadingFull text={"Preparing job form..."}/>}
+            {resetting && <Loading text={"Preparing job form..."}/>}
             {!resetting && !submitted &&
                 <form onSubmit={handleSubmit(handleSave)} className={`${classes.formContainer}`} ref={formContainerRef}>
                     <div className={classes.topControl}>
@@ -747,18 +756,22 @@ function JobForm() {
                             </ul>
                         </div>
                         <div className={classes.buttons}>
+                            <button tabIndex={991} onClick={trigger}
+                                                                 className={`${classes.ctrlBtn} ${classes.enabled} secondary`}>TRIGGER
+                        </button>
                             {currentStep !== 0 && <button tabIndex={991} onClick={handleBackClick}
                                                           className={`${classes.ctrlBtn} ${classes.enabled} secondary`}>BACK
                             </button>}
                             {currentStep !== steps.length - 1 ?
                                 <button disabled={buttonDisabled} tabIndex={990} onClick={handleNextClick}
                                         className={`${classes.ctrlBtn}  ${buttonDisabled ? 'button-disabled' : 'button-confirm'}`}>NEXT
-                                </button> : <button disabled={buttonDisabled} tabIndex={990} type={"submit"}
-                                                    className={`${classes.ctrlBtn} ${buttonDisabled ? 'button-disabled' : 'button-confirm'}`}>SUBMIT
+                                </button> : <button disabled={!isValid} tabIndex={990} type={"submit"}
+                                                    className={`${classes.ctrlBtn} ${isValid ? 'button-confirm' : 'button-disabled' }`}>SUBMIT
                                 </button>}
                         </div>
                     </div>
                 </form>}
+            <DevTool control={control}/>
             {!resetting && submitted &&
                 <Submitted show={submitted} answered={answered} successful={successful} formData={formData}
                            cleanForm={cleanForm}/>}

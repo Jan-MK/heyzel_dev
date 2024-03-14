@@ -177,7 +177,7 @@ function Locations() {
                                     title={'Rathausplatz'}
                                     description={t('locations.loc2.dscr')}
                                     address={{
-                                        street: 'Steingasse 3',
+                                        street: 'Steingasse 1-3',
                                         zip: '86150',
                                         city: 'Augsburg',
                                     }}

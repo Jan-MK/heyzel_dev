@@ -22,14 +22,14 @@ function Modal({showModal, closeModal, content}) {
                 duration: .25,
                 ease: "none",
                 onComplete: () => {
-                    lenis.stop()
+                    lenis?.stop()
                     document.body.style.overflow = 'hidden'
                 }
             });
 
         } else if (!showModal && isVisible) {
             document.body.style.overflow = 'unset';
-            lenis.start()
+            lenis?.start()
             gsap.to(modalElement, {
                 opacity: 0,
                 duration: .25,
@@ -41,7 +41,7 @@ function Modal({showModal, closeModal, content}) {
             gsap.killTweensOf(modalElement);
 
             if (isVisible) {
-                lenis.start()
+                lenis?.start()
                 document.body.style.overflow = 'unset';
             }
         };

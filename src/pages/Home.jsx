@@ -1,25 +1,38 @@
 import classes from "./Home.module.scss"
-import Menu from "../components/Menu/Menu.jsx";
 import Hero from "../components/Hero/Hero.jsx";
-import {useContext, useEffect, useRef} from "react";
+import {useContext, useEffect, useRef, Suspense, lazy} from "react";
 import ReferenceContext from "../context/ReferenceContext.jsx";
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
-import Footer from "../components/Footer/Footer.jsx";
-import InsertionBlock from "../components/InsertionBlock/InsertionBlock.jsx";
-import Contact from "../components/Contact/Contact.jsx";
 import {getDistinctRandomHex} from "../utility/Utility.jsx";
 import {useParams} from 'react-router-dom';
 import {useModal} from '../context/ModalContext';
+import Navbar from "../components/Navigation/Navbar.jsx";
+/*import Menu from "../components/Menu/Menu.jsx";
 import LegalModal from '../components/LegalModal/LegalModal.jsx';
 import Locations from "../components/Locations/Locations.jsx";
-import Navbar from "../components/Navigation/Navbar.jsx";
+import InsertionBlock from "../components/InsertionBlock/InsertionBlock.jsx";
+import Contact from "../components/Contact/Contact.jsx";
+import Footer from "../components/Footer/Footer.jsx";*/
 import {useTranslation} from "react-i18next";
+import {Helmet} from "react-helmet";
+import Loading from "../components/Loading/Loading.jsx";
+
+const Menu = lazy(() => import('../components/Menu/Menu.jsx'))
+const Locations = lazy(() => import('../components/Locations/Locations.jsx'))
+const Contact = lazy(() => import('../components/Contact/Contact.jsx'))
+const Footer = lazy(() => import('../components/Footer/Footer.jsx'))
+const InsertionBlock = lazy(() => import('../components/InsertionBlock/InsertionBlock.jsx'))
+const LegalModal = lazy(() => import('../components/LegalModal/LegalModal.jsx'))
+
 
 gsap.registerPlugin(ScrollTrigger);
+<Helmet>
+
+</Helmet>
 
 function Home() {
-    const { t, i18n } = useTranslation();
+    const {t, i18n} = useTranslation();
     const aboutRef = useRef(null)
     const {menuContainerRef} = useContext(ReferenceContext)
     const {modalId} = useParams();

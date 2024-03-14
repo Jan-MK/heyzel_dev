@@ -53,7 +53,11 @@ function App() {
                         <WindowDimensionsProvider>
                             <MobileMenuProvider>
                                 <Routes>
-                                    <Route path="/" element={<SmoothScroll><Home/></SmoothScroll>}/>
+                                    <Route path="/" element={
+                                        <ReactLenis root>
+                                            <Home/>
+                                        </ReactLenis>
+                                    }/>
                                     <Route path="/jobs" element={<JobForm/>}/>
                                     <Route path="/:modalId" element={<Home/>}/>
                                 </Routes>
