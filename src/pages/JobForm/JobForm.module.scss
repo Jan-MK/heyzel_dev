@@ -35,7 +35,7 @@
   thead {
     th {
       background-color: var(--form-background-matrix-highlight); // Light grey background for the header
-      text-align: left;
+      text-align: center;
       padding: 10px 15px; // Adjust the padding to control the spacing
 
       &:first-child {
@@ -162,9 +162,11 @@
         }
 
         .fieldWrapper {
+          display: flex;
+          flex-direction: column;
           width: 100%;
 
-          p {
+          p, label {
             padding-left: 5px;
             width: 100%;
           }
@@ -245,7 +247,7 @@
             justify-content: center;
             gap: 5px;
 
-            p {
+            p, label {
               text-align: center;
             }
 
@@ -260,8 +262,9 @@
                 width: 100%;
               }
 
-              p {
+              p, label {
                 flex-grow: 1;
+                text-align: left;
               }
 
               @include mobile {

@@ -1,7 +1,7 @@
-import classes from "./LoadingFull.module.scss"
+import classes from "./Loading.module.scss"
 import {PuffLoader} from "react-spinners";
 
-function LoadingFull({ text }) {
+function Loading({ text }) {
 
     return (
         <div className={classes.resetScreen}>
@@ -15,4 +15,4 @@ function LoadingFull({ text }) {
     );
 }
 
-export default LoadingFull;
+export default Loading;

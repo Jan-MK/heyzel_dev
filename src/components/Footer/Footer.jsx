@@ -2,10 +2,12 @@ import classes from "./Footer.module.scss"
 import Logo from "../Logo/Logo.jsx";
 import {useModal} from "../../context/ModalContext.jsx";
 import LegalModal from "../LegalModal/LegalModal.jsx";
+import {useTranslation} from "react-i18next";
 
 
 function Footer() {
     const {openModal} = useModal()
+    const {t} = useTranslation()
 
     const year = new Date().getFullYear()
 
@@ -54,11 +56,11 @@ function Footer() {
                 </div>
                 <div className={classes.legalWrapper}>
                     <div className={classes.legal}>
-                        <a onClick={() => toggleMount(true)}><p>IMPRINT</p></a>
-                        <a onClick={() => toggleMount(false)}><p>PRIVACY</p></a>
+                        <a onClick={() => toggleMount(true)}><p>{t('footer.imprint')}</p></a>
+                        <a onClick={() => toggleMount(false)}><p>{t('footer.privacy')}</p></a>
                     </div>
                     <div className={classes.rights}>
-                        <p>Copyright © {year}. All Rights Reserved.</p>
+                        <p>Copyright © {year}. {t('footer.rights')}.</p>
                     </div>
                 </div>
 

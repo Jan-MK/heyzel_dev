@@ -1,0 +1,20 @@
+{
+  "unavailable": [
+    {
+      "value": "fulltime",
+      "title": "jobForm.desiredEmp.options.o1.label"
+    }, {
+      "value": "parttime",
+      "title": "jobForm.desiredEmp.options.o2.label"
+    }
+  ],
+  "available": [
+    {
+      "value": "workingstudent",
+      "title": "jobForm.desiredEmp.options.o3.label"
+    }, {
+      "value": "minijob",
+      "title": "jobForm.desiredEmp.options.o4.label"
+    }
+  ]
+}

@@ -215,6 +215,7 @@ nav.navWrapper {
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
+    z-index: 15;
 
 
     .quickLinks {
@@ -237,6 +238,7 @@ nav.navWrapper {
       left: 15px;
       top: 50%;
       transform: translateY(calc(-50% + 3px));
+      z-index: 16;
     }
 
     .menuIconWrapper {
@@ -246,7 +248,7 @@ nav.navWrapper {
       justify-content: center;
       width: fit-content;
       cursor: pointer;
-      z-index: 5;
+      z-index: 16;
 
       @include mobile {
         position: absolute;

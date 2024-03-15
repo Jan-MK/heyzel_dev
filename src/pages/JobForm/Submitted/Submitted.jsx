@@ -1,23 +1,26 @@
 import classes from "./Submitted.module.scss"
 import {useEffect, useState} from "react";
-import LoadingFull from "../LoadingFull/LoadingFull.jsx";
+import Loading from "../../../components/Loading/Loading.jsx";
 import {prepareData} from "../../../utility/Utility.jsx";
 import {Link} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 function Submitted({show, answered, successful, formData, cleanForm}) {
-    const [content, setContent] = useState(<LoadingFull text={"Sending application..."}/>)
+    const {t} = useTranslation()
+    const [content, setContent] = useState(<Loading text={t("jobForm.submitted.status.sending")}/>)
     const [currentClass, setCurrentClass] = useState("")
 
-
+// {t("jobForm.submitted.")}
 
     useEffect(() => {
         const mailToLink = `mailto:jan.kraemer@selfmail.eu`;
         const generateError = () => {
             setContent(<>
-                <h2>An error occurred!</h2>
-                <p>Please write an E-Mail to</p>
+                <h2>{t("jobForm.submitted.error.t1")}</h2>
+                <p>{t("jobForm.submitted.error.t2")}</p>
                 <a href={mailToLink}>bewerbung@heyzel.de</a>
-                <Link to={"/"}>Go to main page.</Link>
+                <p>{t("jobForm.submitted.error.t3")}</p>
+                <Link to={"/"}>{t("jobForm.submitted.status.goTo")}</Link>
             </>)
             setCurrentClass(classes.error)
         }
@@ -25,9 +28,11 @@ function Submitted({show, answered, successful, formData, cleanForm}) {
         if (answered) {
             if (successful) {
                 setContent(<>
-                    <h2>Success!</h2>
-                    <p>Your application has been sent. We will get back to you asap!</p>
-                    <Link to={"/"}>Go to main page.</Link>
+                    <h2>{t("jobForm.submitted.success.t1")}</h2>
+                    <p>{t("jobForm.submitted.success.t2")}</p>
+                    <p>{t("jobForm.submitted.success.t3")}</p>
+                    <p>{t("jobForm.submitted.success.t4")}</p>
+                    <Link to={"/"}>{t("jobForm.submitted.status.goTo")}</Link>
                 </>)
                 setCurrentClass(classes.success)
             } else {
@@ -39,10 +44,11 @@ function Submitted({show, answered, successful, formData, cleanForm}) {
                         const mailBody = encodeURIComponent(content);
                         const mailToWithData = `${mailToLink}?subject=${mailSubject}&body=${mailBody}`;
                         setContent(<>
-                            <h2>Oops, something went wrong...</h2>
-                            <p>No worries, you can send it via your local e-mail client.</p>
-                            <a href={mailToWithData}>Send my application via mail.</a>
-                            <Link to={"/"}>Go to main page.</Link>
+                            <h2>{t("jobForm.submitted.warning.t1")}</h2>
+                            <p>{t("jobForm.submitted.warning.t2")}</p>
+                            <a href={mailToWithData}>{t("jobForm.submitted.warning.t3")}</a>
+                            <p>{t("jobForm.submitted.warning.t4")}</p>
+                            <Link to={"/"}>{t("jobForm.submitted.status.goTo")}</Link>
                         </>)
                         setCurrentClass(classes.warning)
                     } else {

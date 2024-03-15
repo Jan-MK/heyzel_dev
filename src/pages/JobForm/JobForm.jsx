@@ -5,7 +5,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {string, z} from 'zod'
 import {IoChevronBackOutline, IoTrashOutline} from "react-icons/io5";
 import Submitted from "./Submitted/Submitted.jsx";
-import LoadingFull from "./LoadingFull/LoadingFull.jsx";
+import Loading from "../../components/Loading/Loading.jsx";
 import Cookies from 'universal-cookie';
 import {days, prepareDataHTML, shifts} from "../../utility/Utility.jsx";
 import axios from "axios";
@@ -13,38 +13,18 @@ import Logo from "../../components/Logo/Logo.jsx";
 import LegalModal from "../../components/LegalModal/LegalModal.jsx";
 import {useModal} from "../../context/ModalContext.jsx";
 import {available, unavailable} from "../../assets/employment.json"
-import {allTimeZone} from "../../utility/Vars.jsx";
+import {allTimeZone, maxWidthMobile, minWidthTablet} from "../../utility/Vars.jsx";
 import {useWindowDimensions} from "../../context/WindowDimensionsContext.jsx";
+import {Trans, useTranslation} from "react-i18next";
 
 // TODO: Modularize fieldWrappers to reduce steps array,
 // TODO: EventListener for Enter key to try hitting next and point out unfilled required fields
 // TODO: Green next-button when select desired EMployment wrong first, right after and wrong after.
+// TODO: Still an 'split' error when triggering manually. (Think it comes from photo)
 
-const defaultValues = {
-    confirmation: false,
-    firstName: '',
-    lastName: '',
-    birthday: '',
-    photo: {},
-    nationality: "Please select...",
-    confession: '',
-    ssn: '',
-    phone: '',
-    mail: '',
-    street: '',
-    zip: '',
-    city: '',
-    currentEmployment: "Please select...",
-    desiredEmployment: "Please select...",
-    salary: '',
-    entry: '',
-    earnings: 'Please select...',
-    experience: '',
-    availability: days.reduce((acc, day) => ({...acc, [day]: [false, false, false]}), {}),
-    motivation: '',
-}
+
 const currentEmploymentOptions = ["Schüler", "Student", "Arbeitnehmer", "Selbstständig", "Arbeitslos/Arbeitssuchend"]
-const desiredEmploymentOptions = ["Vollzeit", "Teilzeit", "Werksstudent", "Geringfügig (520 Euro-Basis)"]
+const desiredEmploymentOptions = [...unavailable, ...available]
 const otherEarnings = ['BAföG', 'Kindergeld', 'Waisenrente', 'Keine']
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
@@ -54,61 +34,33 @@ const today = new Date();
 const eighteenYearsAgo = new Date();
 eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear() - 18);
 
-const schema = z.object({
-    confirmation: z.boolean().refine(val => val === true, {
-        message: "You must accept the privacy terms to proceed.",
-    }),
-    desiredEmployment: string()
-        .refine(val => val !== defaultValues.desiredEmployment, 'Selection required')
-        .refine(val => !unavailable.includes(val), {message: `Currently, we are not searching for an employee for the chosen employment.`}),
-    firstName: string().min(1, {message: 'First name is required.'}),
-    lastName: string().min(1, {message: 'Last name is required.'}),
-    birthday: z.string()
-        .refine(val => !isNaN(Date.parse(val)), {message: 'Birthday must be a valid date.'})
-        .refine(val => new Date(val) <= eighteenYearsAgo, {message: 'You must be at least 18 years old.'}),
-    photo: z.any()
-        /* TODO Required check: .refine((files) => files instanceof FileList && files.length > 0, `Please insert a photo`)*/
-        .refine((files) => files[0] && files[0].size <= MAX_FILE_SIZE, `Maximum image size is 5MB.`)
-        .refine(
-            (files) => files[0] && ACCEPTED_IMAGE_TYPES.includes(files[0].type),
-            "Only .jpg, .jpeg, .png, and .webp formats are supported."
-        ),
-    nationality: string().refine(val => val !== defaultValues.nationality, 'Selection required'),
-    confession: string().min(1, {message: 'Confession is required'}),
-    ssn: string().min(1, {message: 'Social security number is required'}),
-    mail: string().email(),
-    phone: string().min(1, {message: 'Phone number is required.'}),
-    street: string().min(1, {message: 'Street is required.'}),
-    zip: string().min(1, {message: 'Zip code is required.'}),
-    city: string().min(1, {message: 'City is required.'}),
-    currentEmployment: string().refine(val => val !== defaultValues.currentEmployment, 'Selection required'),
-    earnings: string().refine(val => val !== defaultValues.earnings, 'Selection required'),
-    entry: z.string()
-        .refine(val => !isNaN(Date.parse(val)), {message: 'Entry must be a valid date.'})
-        .refine(val => new Date(val) > today, {message: 'Entry date must be in the future.'}),
-    salary: z.string()
-        .transform(val => parseFloat(val)) // Transform the string to a number for validation.
-        .refine(val => !isNaN(val), {message: 'Salary must be a number.'}),
-    experience: string().optional(), // TODO Is optional but has issues and needs to be filled out.
-    availability: z.object({
-        Montag: z.array(z.boolean().optional()).optional(),
-        Dienstag: z.array(z.boolean().optional()).optional(),
-        Mittwoch: z.array(z.boolean().optional()).optional(),
-        Donnerstag: z.array(z.boolean().optional()).optional(),
-        Freitag: z.array(z.boolean().optional()).optional(),
-        Samstag: z.array(z.boolean().optional()).optional(),
-        Sonntag: z.array(z.boolean().optional()).optional(),
-    }).refine(availability =>
-            Object.values(availability).some(day => day.includes(true)),
-        {
-            message: "You must be available for at least one shift on any day.",
-        }
-    ),
-    motivation: string().optional(),
-})
-
-
 function JobForm() {
+    const {t} = useTranslation();
+    const defaultValues = {
+        desiredEmployment: "",
+        confirmation: false,
+        firstName: '',
+        lastName: '',
+        birthday: '',
+        photo: undefined,
+        nationality: "",
+        confession: '',
+        ssn: '',
+        phone: '',
+        mail: '',
+        street: '',
+        zip: '',
+        city: '',
+        currentEmployment: "",
+        salary: '',
+        entry: '',
+        earnings: "",
+        experience: '',
+        availability: days.reduce((acc, day) => ({...acc, [day]: [false, false, false]}), {}),
+        motivation: '',
+    }
+
+
     // TODO: TabIndex for each section, prevent back from leaving this form
     const {openModal} = useModal()
     const refArray = useRef([]);
@@ -120,27 +72,106 @@ function JobForm() {
     const [resetting, setResetting] = useState(true)
     const [buttonDisabled, setButtonDisabled] = useState(true)
     const [successful, setSuccessful] = useState(null);
-    const [selectedFile, setSelectedFile] = useState(null)
+    const [selectedFile] = useState(null)
     const [visited, setVisited] = useState([0])
     const {width} = useWindowDimensions()
+    const [mode, setMode] = useState({
+        isSmartphone: width <= maxWidthMobile,
+        isTablet: width >= minWidthTablet && width <= 1150,
+        isDesktop: width > 1150
+    })
 
+    useEffect(() => {
+        setMode(prev => ({
+            ...prev,
+            isSmartphone: width <= maxWidthMobile,
+            isTablet: width >= minWidthTablet && width <= 1150,
+            isDesktop: width > 1150
+        }))
+    }, [width]);
+
+    const createSchema = () => {
+        return z.object({
+            /*
+            Setting constraints of what is currently searched for:
+            Goto assets/employment.json and manipulate the unavailable array according to the options in i18n.js files:
+            path: resources[lang].translation.jobForm.desiredEmp.options.o[X]
+            */
+            desiredEmployment: string()
+                .refine(val => val !== "", {message: t('jobForm.desiredEmp.err1')})
+                .refine(val => !unavailable.map(entry => {
+                    return t(`jobForm.desiredEmp.${entry}.val`)
+                }).includes(val), {message: t('jobForm.desiredEmp.err2')}),
+            confirmation: z.boolean().refine(val => val === true, {message: t('jobForm.conf.err')}),
+            firstName: string().min(1, {message: t('jobForm.fn.err')}),
+            lastName: string().min(1, {message: t('jobForm.ln.err')}),
+            birthday: z.string()
+                .refine(val => !isNaN(Date.parse(val)), {message: t('jobForm.birthday.err1')})
+                .refine(val => new Date(val) <= eighteenYearsAgo, {message: t('jobForm.birthday.err2')}),
+/*            photo: z.any()
+                .optional()
+                .refine((files) => !files || files.length === 0 || (files[0] && files[0].size <= MAX_FILE_SIZE), {
+                    message: t('jobForm.photo.err1'),
+                })
+                .refine(
+                    (files) => !files || files.length === 0 || (files[0] && ACCEPTED_IMAGE_TYPES.includes(files[0].type)),
+                    {message: t('jobForm.photo.err2')}
+                ),*/
+
+            nationality: string().refine(val => val !== defaultValues.nationality, t('jobForm.nationality.err')),
+            confession: string().min(1, {message: t('jobForm.confession.err')}),
+            ssn: string().optional(),
+            mail: z.string().min(1, {message: t('jobForm.mail.err1')}).email({message: t('jobForm.mail.err2')}),
+            phone: string().min(1, {message: t('jobForm.phone.err')}),
+            street: string().min(1, {message: t('jobForm.street.err')}),
+            zip: string().min(1, {message: t('jobForm.zip.err')}),
+            city: string().min(1, {message: t('jobForm.city.err')}),
+            currentEmployment: string().refine(val => val !== defaultValues.currentEmployment, t('jobForm.currentEmp.err')),
+            earnings: string().refine(val => val !== defaultValues.earnings, t('jobForm.earnings.err')),
+            entry: z.string()
+                .refine(val => !isNaN(Date.parse(val)), {message: t('jobForm.entry.err1')})
+                .refine(val => new Date(val) > today, {message: t('jobForm.entry.err2')}),
+            salary: z.string()
+                .min(1, {message: t('jobForm.salary.err1')})
+                .regex(/^-?\d+([.,]\d+)?$/, {message: t('jobForm.salary.err2')})
+                .regex(/^-?\d+([.,]\d{1,2})?$/, {message: t('jobForm.salary.err3')}),
+            experience: string().optional(), // TODO Is optional but has issues and needs to be filled out.
+            availability: z.object({
+                MO: z.array(z.boolean().optional()).optional(),
+                TU: z.array(z.boolean().optional()).optional(),
+                WE: z.array(z.boolean().optional()).optional(),
+                TH: z.array(z.boolean().optional()).optional(),
+                FR: z.array(z.boolean().optional()).optional(),
+                SA: z.array(z.boolean().optional()).optional(),
+                SU: z.array(z.boolean().optional()).optional(),
+            }).refine(availability => {
+                    return Object.values(availability).some(day => day.includes(true))
+                }, {
+                    message: t('jobForm.availability.err'),
+                }
+            ),
+            motivation: string().optional(),
+        })
+    }
     const {
+        control,
         register,
         handleSubmit,
         watch,
-        formState: {errors},
+        formState: {errors, isValid},
         setValue,
         trigger,
         reset
     } = useForm({
-        resolver: zodResolver(schema),
+        resolver: zodResolver(createSchema()),
         mode: 'all',
         defaultValues: defaultValues,
     });
     const cookies = new Cookies()
 
+
     const nationalityOptions = useMemo(() => allTimeZone.map((option, idx) => (
-            <option key={idx} value={option.name}>{option.Name}</option>
+            <option key={idx} value={option.Name}>{option.Name}</option>
         ))
     )
 
@@ -186,7 +217,6 @@ function JobForm() {
 
     useEffect(() => {
         if (visited.length > 0) {
-            // Ensure component layout has stabilized
             requestAnimationFrame(() => {
                 handleGoTo(visited[visited.length - 1]);
             });
@@ -292,228 +322,235 @@ function JobForm() {
 
     let steps = [
         {
-            name: "Privacy confirmation",
+            name: t('jobForm.steps.desktop.s1'),
             fields: ['confirmation', 'desiredEmployment'], // Required Fields
             html: <>
                 <Logo width={"clamp(150px, 25vw, 500px)"}/>
                 <div className={`reverseOrder`}>
-                    <h2>Job application form</h2>
-                    <p>Welcome to our</p>
+                    <h2>{t('jobForm.intro.title')}</h2>
+                    <p>{t('jobForm.intro.sub')}</p>
                 </div>
+                {/* Desired Employment */}
                 <div className={classes.fieldWrapper}>
-                    <p>Desired Employment<span className={classes.required}>*</span></p>
-                    <select defaultValue={"Please select..."}
-                            tabIndex={currentStep === 4 ? 3 : -1} {...registerWithSave('desiredEmployment')}>
-                        <option value={"Please select..."} hidden={true}>Please select...</option>
+                    <label htmlFor="job-form-desiredEmployment">{t('jobForm.desiredEmp.label')}<span className={classes.required}>*</span></label>
+                    <select id="job-form-desiredEmployment" defaultValue={""} tabIndex={currentStep === 0 ? 1 : -1} {...registerWithSave('desiredEmployment')}>
+                        <option value={""} hidden={true}>{t('jobForm.general.selectPH')}</option>
                         {desiredEmploymentOptions.map(option => (
-                            <option key={option} value={option}>{option}</option>
+                            <option key={option} value={t(`jobForm.desiredEmp.${option}.val`)}>{t(`jobForm.desiredEmp.${option}.label`)}</option>
                         ))}
                     </select>
-                    <div
-                        className={`${errors.desiredEmployment?.message ? classes.error : classes.noError}`}>{errors.desiredEmployment?.message}
-                    </div>
+                    <div className={`${errors.desiredEmployment?.message ? classes.error : classes.noError}`}>{errors.desiredEmployment?.message}</div>
                 </div>
+                {/* Confirmation */}
                 <div className={`${classes.confirmation} ${classes.fieldWrapper}`}>
-                    <input id={'confirmation'} className={classes.cbSmall} tabIndex={currentStep === 0 ? 1 : -1}
+                    <input id='job-form-confirmation' className={classes.cbSmall} tabIndex={currentStep === 0 ? 2 : -1}
                            type={"checkbox"} {...registerWithSave('confirmation')}/>
-                    <label>To proceed with the application process confirm that you have read
-                        and agreed to our <a onClick={() => openModal(<LegalModal showImprint={false}/>)}>terms
-                            of privacy</a> on how we use the data.<span className={classes.required}>*</span></label>
-                    <div
-                        className={`${errors.confirmation?.message ? classes.error : classes.noError}`}>{errors.confirmation?.message}</div>
+                    <label htmlFor="job-form-confirmation">
+                        <Trans i18nKey="jobForm.conf.label">
+                            Please confirm that you have read and agreed to our
+                            <a onClick={() => openModal(<LegalModal showImprint={false}/>)}>
+                                terms of privacy
+                            </a>
+                            on how we use the data.
+                        </Trans>
+                        <span className={classes.required}>*</span>
+                    </label>
+                    <div className={`${errors.confirmation?.message ? classes.error : classes.noError}`}>{errors.confirmation?.message}</div>
                 </div>
             </>
         },
         {
-            name: "Personal information I",
+            name: t('jobForm.steps.desktop.s2'),
             fields: ['firstName', 'lastName', 'birthday'], // Required Fields
             html: <>
+                {/* First Name */}
                 <div className={`${classes.fieldWrapper}`}>
-                    <p>First name<span className={classes.required}>*</span></p>
-                    <input tabIndex={currentStep === 1 ? 1 : -1} type={"text"} {...registerWithSave('firstName')}
-                           placeholder={"First name"}/>
-                    <div
-                        className={`${errors.firstName?.message ? classes.error : classes.noError}`}>{errors.firstName?.message || ' '}</div>
+                    <label htmlFor="job-form-firstName">{t('jobForm.fn.label')}<span className={classes.required}>*</span></label>
+                    <input id="job-form-firstName" tabIndex={currentStep === 1 ? 1 : -1} type={"text"} {...registerWithSave('firstName')}
+                           placeholder={t('jobForm.fn.ph')}/>
+                    <div className={`${errors.firstName?.message ? classes.error : classes.noError}`}>{errors.firstName?.message || ' '}</div>
                 </div>
+                {/* Last Name */}
                 <div className={classes.fieldWrapper}>
-                    <p>Last Name<span className={classes.required}>*</span></p>
-                    <input tabIndex={currentStep === 1 ? 2 : -1}
-                           type={"text"} {...registerWithSave('lastName')} placeholder={"Last name"}/>
-                    <div
-                        className={`${errors.lastName?.message ? classes.error : classes.noError}`}>{errors.lastName?.message}</div>
+                    <label htmlFor="job-form-lastName">{t('jobForm.ln.label')}<span className={classes.required}>*</span></label>
+                    <input id="job-form-lastName" tabIndex={currentStep === 1 ? 2 : -1}
+                           type={"text"} {...registerWithSave('lastName')} placeholder={t('jobForm.ln.ph')}/>
+                    <div className={`${errors.lastName?.message ? classes.error : classes.noError}`}>{errors.lastName?.message}</div>
                 </div>
+                {/* Birthday */}
                 <div className={classes.fieldWrapper}>
-                    <p>Birthday<span className={classes.required}>*</span></p>
-                    <input tabIndex={currentStep === 1 ? 3 : -1}
+                    <label htmlFor="job-form-birthday">{t('jobForm.birthday.label')}<span className={classes.required}>*</span></label>
+                    <input id="job-form-birthday" tabIndex={currentStep === 1 ? 3 : -1}
                            type={"date"} {...registerWithSave('birthday')} />
-                    <div
-                        className={`${errors.birthday?.message ? classes.error : classes.noError}`}>{errors.birthday?.message}</div>
+                    <div className={`${errors.birthday?.message ? classes.error : classes.noError}`}>{errors.birthday?.message}</div>
                 </div>
+                {/* Photo */}
                 <div className={classes.fieldWrapper}>
-                    <p>Application-/Portrait photo</p>
-                    <input
-                        tabIndex={currentStep === 1 ? 4 : -1}
-                        type="file"
-                        id="photo"
-                        accept="image/*"
-                        {...registerWithSave('photo')}
+                    <label htmlFor="job-form-photo">{t('jobForm.photo.label')}</label>
+                    <input id="job-form-photo"
+                           tabIndex={currentStep === 1 ? 4 : -1}
+                           type="file"
+                           accept="image/*"
+                           {...registerWithSave('photo')}
                     />
-                    <div
-                        className={`${errors.photo?.message ? classes.error : classes.noError}`}>{errors.photo?.message}</div>
+                    <div className={`${errors.photo?.message ? classes.error : classes.noError}`}>{errors.photo?.message}</div>
                 </div>
             </>
         },
         {
-            name: "Personal information II",
-            fields: ['nationality', 'confession', 'ssn'], // Required Fields
+            name: t('jobForm.steps.desktop.s3'),
+            fields: ['nationality', 'confession'], // Required Fields
             html: <>
+                {/* Nationality */}
                 <div className={classes.fieldWrapper}>
-                    <p>Nationality<span className={classes.required}>*</span></p>
-                    <select defaultValue={"Please select..."}
-                            tabIndex={currentStep === 4 ? 1 : -1} {...registerWithSave('nationality')}>
-                        <option value={"Please select..."} hidden={true}>Please select...</option>
+                    <label htmlFor="job-form-nationality">{t('jobForm.nationality.label')}<span className={classes.required}>*</span></label>
+                    <select id="job-form-nationality" defaultValue={""}
+                            tabIndex={currentStep === 2 ? 1 : -1} {...registerWithSave('nationality')}>
+                        <option value={""} hidden={true}>{t('jobForm.general.selectPH')}</option>
                         {nationalityOptions}
                     </select>
-                    <div
-                        className={`${errors.nationality?.message ? classes.error : classes.noError}`}>{errors.nationality?.message}
-                    </div>
+                    <div className={`${errors.nationality?.message ? classes.error : classes.noError}`}>{errors.nationality?.message}</div>
                 </div>
+                {/* Confession */}
                 <div className={classes.fieldWrapper}>
-                    <p>Confession<span className={classes.required}>*</span></p>
-                    <input tabIndex={currentStep === 2 ? 3 : -1}
-                           type={"text"} {...registerWithSave('confession')} placeholder={"Confession"}/>
-                    <div
-                        className={`${errors.confession?.message ? classes.error : classes.noError}`}>{errors.confession?.message}</div>
+                    <label htmlFor="job-form-confession">{t('jobForm.confession.label')}<span className={classes.required}>*</span></label>
+                    <input id="job-form-confession" tabIndex={currentStep === 2 ? 2 : -1}
+                           type={"text"} {...registerWithSave('confession')} placeholder={t('jobForm.confession.ph')}/>
+                    <div className={`${errors.confession?.message ? classes.error : classes.noError}`}>{errors.confession?.message}</div>
                 </div>
+                {/* Social Security Number (SSN) */}
                 <div className={classes.fieldWrapper}>
-                    <p>Social security number<span className={classes.required}>*</span></p>
-                    <input tabIndex={currentStep === 2 ? 4 : -1}
-                           type={"text"} {...registerWithSave('ssn')} placeholder={"Social security number"}/>
-                    <div
-                        className={`${errors.ssn?.message ? classes.error : classes.noError}`}>{errors.ssn?.message}</div>
+                    <label htmlFor="job-form-ssn">{t('jobForm.ssn.label')}</label>
+                    <input id="job-form-ssn" tabIndex={currentStep === 2 ? 3 : -1}
+                           type={"text"} {...registerWithSave('ssn')} placeholder={t('jobForm.ssn.ph')}/>
                 </div>
             </>
         },
         {
-            name: "Contact information",
+            name: t('jobForm.steps.desktop.s4'),
             fields: ['mail', 'phone', 'street', 'zip', 'city'], // Required fields
             html: <>
+                {/* E-Mail */}
                 <div className={classes.fieldWrapper}>
-                    <p>E-Mail address<span className={classes.required}>*</span></p>
-                    <input tabIndex={currentStep === 3 ? 1 : -1}
-                           type={"email"} {...registerWithSave('mail')} placeholder={"E-Mail address"}/>
-                    <div
-                        className={`${errors.mail?.message ? classes.error : classes.noError}`}>{errors.mail?.message}</div>
+                    <label htmlFor="job-form-mail">{t('jobForm.mail.label')}<span className={classes.required}>*</span></label>
+                    <input id="job-form-mail" tabIndex={currentStep === 3 ? 1 : -1}
+                           type="email" {...registerWithSave('mail')} placeholder={t('jobForm.mail.ph')}/>
+                    <div className={`${errors.mail?.message ? classes.error : classes.noError}`}>{errors.mail?.message}</div>
                 </div>
+                {/* Phone */}
                 <div className={classes.fieldWrapper}>
-                    <p>Phone number<span className={classes.required}>*</span></p>
-                    <input tabIndex={currentStep === 3 ? 2 : -1}
-                           type={"tel"} {...registerWithSave('phone')} placeholder={"Phone number"}/>
-                    <div
-                        className={`${errors.phone?.message ? classes.error : classes.noError}`}>{errors.phone?.message}</div>
+                    <label htmlFor="job-form-phone">{t('jobForm.phone.label')}<span className={classes.required}>*</span></label>
+                    <input id="job-form-phone" tabIndex={currentStep === 3 ? 2 : -1}
+                           type="tel" {...registerWithSave('phone')} placeholder={t('jobForm.phone.ph')}/>
+                    <div className={`${errors.phone?.message ? classes.error : classes.noError}`}>{errors.phone?.message}</div>
                 </div>
+                {/* Street */}
                 <div className={classes.fieldWrapper}>
-                    <p>Street and house number<span className={classes.required}>*</span></p>
-                    <input tabIndex={currentStep === 3 ? 3 : -1}
-                           type={"text"} {...registerWithSave('street')} placeholder={"Street + House number"}/>
-                    <div
-                        className={`${errors.street?.message ? classes.error : classes.noError}`}>{errors.street?.message}</div>
+                    <label htmlFor="job-form-street">{t('jobForm.street.label')}<span className={classes.required}>*</span></label>
+                    <input id="job-form-street" tabIndex={currentStep === 3 ? 3 : -1}
+                           type="text" {...registerWithSave('street')} placeholder={t('jobForm.street.ph')}/>
+                    <div className={`${errors.street?.message ? classes.error : classes.noError}`}>{errors.street?.message}</div>
                 </div>
+                {/* ZIP */}
                 <div className={classes.fieldWrapper}>
-                    <p>ZIP<span className={classes.required}>*</span></p>
-                    <input tabIndex={currentStep === 3 ? 4 : -1} type={"text"} {...registerWithSave('zip')}
-                           placeholder={"Zip code"}/>
-                    <div
-                        className={`${errors.zip?.message ? classes.error : classes.noError}`}>{errors.zip?.message}</div>
+                    <label htmlFor="job-form-zip">{t('jobForm.zip.label')}<span className={classes.required}>*</span></label>
+                    <input id="job-form-zip" tabIndex={currentStep === 3 ? 4 : -1} type="text" {...registerWithSave('zip')}
+                           placeholder={t('jobForm.zip.ph')}/>
+                    <div className={`${errors.zip?.message ? classes.error : classes.noError}`}>{errors.zip?.message}</div>
                 </div>
+                {/* City */}
                 <div className={classes.fieldWrapper}>
-                    <p>City<span className={classes.required}>*</span></p>
-                    <input tabIndex={currentStep === 3 ? 5 : -1}
-                           type={"text"} {...registerWithSave('city')} placeholder={"City"}/>
-                    <div
-                        className={`${errors.city?.message ? classes.error : classes.noError}`}>{errors.city?.message}</div>
+                    <label htmlFor="job-form-city">{t('jobForm.city.label')}<span className={classes.required}>*</span></label>
+                    <input id="job-form-city" tabIndex={currentStep === 3 ? 5 : -1}
+                           type="text" {...registerWithSave('city')} placeholder={t('jobForm.city.ph')}/>
+                    <div className={`${errors.city?.message ? classes.error : classes.noError}`}>{errors.city?.message}</div>
                 </div>
             </>
+
         },
         {
-            name: "About your Job",
+            name: t('jobForm.steps.desktop.s5'),
             fields: ['currentEmployment', 'earnings', 'salary', 'entry'], // Required fields
             html: <>
+                {/* Current Employment */}
                 <div className={classes.fieldWrapper}>
-                    <p>Current Employment<span className={classes.required}>*</span></p>
-                    <select defaultValue={"Please select..."}
+                    <label htmlFor="job-form-currentEmployment">{t('jobForm.currentEmp.label')}<span className={classes.required}>*</span></label>
+                    <select id="job-form-currentEmployment" defaultValue={""}
                             tabIndex={currentStep === 4 ? 1 : -1} {...registerWithSave('currentEmployment')}>
-                        <option value={"Please select..."} hidden={true}>Please select...</option>
-                        {currentEmploymentOptions.map(option => (
-                            <option key={option} value={option}>{option}</option>
+                        <option value={""} hidden={true}>{t('jobForm.general.selectPH')}</option>
+                        {currentEmploymentOptions.map((option, idx) => (
+                            <option key={idx}
+                                    value={t(`jobForm.currentEmp.options.o${idx + 1}.val`)}>{t(`jobForm.currentEmp.options.o${idx + 1}.label`)}</option>
                         ))}
                     </select>
-                    <div
-                        className={`${errors.currentEmployment?.message ? classes.error : classes.noError}`}>{errors.currentEmployment?.message}
-                    </div>
+                    <div className={`${errors.currentEmployment?.message ? classes.error : classes.noError}`}>{errors.currentEmployment?.message}</div>
                 </div>
+                {/* Earnings */}
                 <div className={classes.fieldWrapper}>
-                    <p>Other earnings<span className={classes.required}>*</span></p>
-                    <select defaultValue={"Please select..."}
+                    <label htmlFor="job-form-earnings">{t('jobForm.earnings.label')}<span className={classes.required}>*</span></label>
+                    <select id="job-form-earnings" defaultValue={""}
                             tabIndex={currentStep === 4 ? 2 : -1} {...registerWithSave('earnings')}>
-                        <option value={"Please select..."} hidden={true}>Please select...</option>
-                        {otherEarnings.map(option => (
-                            <option key={option} value={option}>{option}</option>
+                        <option value={""} hidden={true}>{t('jobForm.general.selectPH')}</option>
+                        {otherEarnings.map((option, idx) => (
+                            <option key={idx}
+                                    value={t(`jobForm.earnings.options.o${idx + 1}.val`)}>{t(`jobForm.earnings.options.o${idx + 1}.label`)}</option>
                         ))}
                     </select>
-                    <div
-                        className={`${errors.earnings?.message ? classes.error : classes.noError}`}>{errors.earnings?.message}
-                    </div>
+                    <div className={`${errors.earnings?.message ? classes.error : classes.noError}`}>{errors.earnings?.message}</div>
                 </div>
+                {/* Salary */}
                 <div className={classes.fieldWrapper}>
-                    <div>
-                        <p>Desired salary (net in € per hour)<span className={classes.required}>*</span></p>
-                        <input tabIndex={currentStep === 4 ? 4 : -1}
-                               type={"tel"} {...registerWithSave('salary')} placeholder={"Salary"}/>
-                        <div
-                            className={`${errors.salary?.message ? classes.error : classes.noError}`}>{errors.salary?.message}</div>
-                    </div>
+                    <label htmlFor="job-form-salary">{t('jobForm.salary.label')}<span className={classes.required}>*</span></label>
+                    <input id="job-form-salary" tabIndex={currentStep === 4 ? 3 : -1}
+                           type={"tel"} {...registerWithSave('salary')} placeholder={t('jobForm.salary.ph')}/>
+                    <div className={`${errors.salary?.message ? classes.error : classes.noError}`}>{errors.salary?.message}</div>
                 </div>
+                {/* Entry Date */}
                 <div className={classes.fieldWrapper}>
-                    <div>
-                        <p>Entry date<span className={classes.required}>*</span></p>
-                        <input tabIndex={currentStep === 4 ? 5 : -1}
-                               type={"date"} {...registerWithSave('entry')} />
-                        <div
-                            className={`${errors.entry?.message ? classes.error : classes.noError}`}>{errors.entry?.message}</div>
-                    </div>
+                    <label htmlFor="job-form-entry">{t('jobForm.entry.label')}<span className={classes.required}>*</span></label>
+                    <input id="job-form-entry" tabIndex={currentStep === 4 ? 4 : -1}
+                           type={"date"} {...registerWithSave('entry')} />
+                    <div className={`${errors.entry?.message ? classes.error : classes.noError}`}>{errors.entry?.message}</div>
                 </div>
+                {/* Experience */}
                 <div className={classes.fieldWrapper}>
-                    <p>Previous experience</p>
-                    <textarea tabIndex={currentStep === 4 ? 6 : -1} rows={5} {...registerWithSave('experience')}
-                              placeholder={"Tell us about your experience"}/>
-                    <div
-                        className={`${errors.experience?.message ? classes.error : classes.noError}`}>{errors.experience?.message}</div>
+                    <label htmlFor="job-form-experience">{t('jobForm.experience.label')}</label>
+                    <textarea id="job-form-experience" tabIndex={currentStep === 4 ? 5 : -1} rows={5} {...registerWithSave('experience')}
+                              placeholder={t('jobForm.experience.ph')}/>
+                    <div className={`${errors.experience?.message ? classes.error : classes.noError}`}>{errors.experience?.message}</div>
                 </div>
             </>
         },
         {
-            name: "Availability",
+            name: t('jobForm.steps.desktop.s6'),
             fields: ['availability'],
             html: <>
+                {/* Availability */}
                 <div className={classes.fieldWrapper}>
-                    <p>When are you available?<span className={classes.required}>*</span></p>
+                    <label htmlFor="availability">{t('jobForm.availability.label')}<span className={classes.required}>*</span></label>
+                    <p>{t("jobForm.availability.dscr")}</p>
+                    <p>{t("jobForm.availability.ex")}</p>
                     <table className={classes.availabilityTable}>
                         <thead>
                         <tr>
-                            <th>Start<br/>Shift</th>
-                            {days.map(day => <th key={day}>{day}</th>)}
+                            <th>{t('jobForm.availability.start')}<br/>{t('jobForm.availability.shift')}</th>
+                            {days.map((day, idx) => mode.isSmartphone
+                                ? <th key={idx}>{t(`jobForm.availability.shifts.days.d${idx}`).substring(0, 3)}</th>
+                                : <th key={idx}>{t(`jobForm.availability.shifts.days.d${idx}`)}</th>
+                            )}
                         </tr>
                         </thead>
                         <tbody>
                         {shifts.map((option, shiftIndex) => (
-                            <tr key={option}>
-                                <td>{option}</td>
+                            <tr key={shiftIndex}>
+                                <td>{t(`jobForm.availability.shifts.s${shiftIndex}.label`)}<br/>{t(`jobForm.availability.shifts.s${shiftIndex}.time`)}
+                                </td>
                                 {days.map((day, dayIndex) => (
-                                    <td key={`${day}-${option}`}>
+                                    <td key={`${day}-${shiftIndex}`}>
                                         <input autoFocus={false}
                                                tabIndex={currentStep === 5 ? (shiftIndex * days.length) + dayIndex : -1}
                                                type="checkbox"
+                                               aria-label={`${t(`jobForm.availability.shifts.days.d${dayIndex}`)} - ${t(`jobForm.availability.shifts.s${shiftIndex}.label`)}`}
                                                {...registerWithSave(`availability.${day}[${shiftIndex}]`)}
                                         />
                                     </td>
@@ -525,30 +562,32 @@ function JobForm() {
                 </div>
                 <div
                     className={`${errors.availability?.message ? classes.error : classes.noError}`}>{errors.availability?.message}</div>
-                <div className={classes.availabilityButtons}>
+                <div className={classes.availabilityButtons}>{/*TODO: RESOLVE BUTTON HOVER PROBLEM @1500x1053px vp */}
                     <button tabIndex={currentStep === 5 ? (shifts.length * days.length) : -1} type="button"
-                            onClick={fillAllAvailability} className={"button-confirm"}>Always available
+                            onClick={fillAllAvailability}
+                            className={"button-confirm"}>{t("jobForm.availability.btn.fillAll")}
                     </button>
                     <button tabIndex={currentStep === 5 ? (shifts.length * days.length) + 1 : -1} type="button"
-                            onClick={clearAllAvailability} className={"button-warning"}>Clear selection
+                            onClick={clearAllAvailability}
+                            className={"button-warning"}>{t("jobForm.availability.btn.clearAll")}
                     </button>
                 </div>
             </>
         },
         {
-            name: "Additional",
+            name: t('jobForm.steps.desktop.s7'),
             fields: [],
-            html:
-                <>
-                    <div className={classes.fieldWrapper}>
-                        <p>More about you!<br/>If you have anything you want to tell us about you, feel free:</p>
-                        <textarea tabIndex={currentStep === 6 ? 1 : -1}
-                                  rows={5} {...registerWithSave('motivation')}
-                                  placeholder={"Tell us about you or your motivation"}/>
-                        <div
-                            className={`${errors.motivation?.message ? classes.error : classes.noError}`}>{errors.motivation?.message}</div>
-                    </div>
-                </>
+            html: <>
+                {/* Motivation */}
+                <div className={classes.fieldWrapper}>
+                    <label htmlFor="job-form-motivation">{t("jobForm.motivation.label")}</label>
+                    <textarea id="job-form-motivation" tabIndex={currentStep === 6 ? 1 : -1}
+                              rows={5} {...registerWithSave('motivation')}
+                              placeholder={t("jobForm.motivation.ph")}/>
+                    <div className={`${errors.motivation?.message ? classes.error : classes.noError}`}>{errors.motivation?.message}</div>
+                </div>
+            </>
+
         }
     ]
 
@@ -573,25 +612,27 @@ function JobForm() {
                     const isNonEmptyText = typeof value === 'string' && value.trim() !== '' && value !== 'Please select...';
                     const isCheckboxChecked = typeof value === 'boolean' && value;
                     const isArrayWithCheckedBoxes = value && typeof value === 'object' && checkAtLeastOneCheckboxChecked(value);
-                    // Check if the value is a File or an array containing at least one File object that's not empty
-                    const isNonEmptyFileArray = value && value instanceof FileList && value[0] instanceof File && value[0].size > 0;
-                    if (isNonEmptyFileArray) {
-                        setSelectedFile(value[0])
-                    }
-                    // Determine if the value is valid based on type
-                    return isNonEmptyText || isCheckboxChecked || isArrayWithCheckedBoxes | isNonEmptyFileArray;
+                    return isNonEmptyText || isCheckboxChecked || isArrayWithCheckedBoxes
                 })
         }
 
-        function noErrorsGlobal() {
-            return errors !== null && Object.keys(errors).length === 0
+        function currentHaveNoErrors() {
+            let errorArray = Object.keys(errors)
+            return steps[currentStep].fields.every(field => !errorArray.includes(field))
         }
 
-        if ((currentStep < steps.length - 1 && requiredHaveContent()) || (currentStep === steps.length - 1 && requiredHaveContent() && noErrorsGlobal())) {
-            setButtonDisabled(false)
-        } else {
-            setButtonDisabled(true)
+        function checkCurrentStep() {
+            let firstStepOk = currentStep === 0 ? currentHaveNoErrors() : true;
+            let isContent = requiredHaveContent();
+            setButtonDisabled(!(isContent && firstStepOk))
         }
+
+        if (currentStep === steps.length-1) {
+            setButtonDisabled(true)
+        } else {
+            checkCurrentStep()
+        }
+
     }, [currentStep, watched]);
 
     const navigationElements = steps.map((section, idx) => {
@@ -599,10 +640,6 @@ function JobForm() {
             let fields = steps[idx].fields;
             return fields.length === 0 || fields.every(field => !(field in errors))
         }
-
-        const isSmartphone = width <= 768;
-        const isTablet = width > 768 && width <= 1070;
-        const isDesktop = !isSmartphone && !isTablet;
 
         let className = classes.open;
         if (currentStep === idx) {
@@ -621,15 +658,15 @@ function JobForm() {
                 key={idx}
                 onClick={(e) => handleGoTo(idx, e)}
             >
-                {isDesktop && section.name}
-                {isTablet && `Step ${idx + 1}`}
-                {isSmartphone && idx + 1}
+                {mode.isDesktop && section.name}
+                {mode.isTablet && `Step ${t('jobForm.steps.tablet')} ${idx + 1}`}
+                {mode.isSmartphone && idx + 1}
             </li>
         );
     });
 
-
     function handleSave(formContent) {
+        console.log("SUBMITTED")
         setSubmitted(true)
         const dataToSend = new FormData();
         let renderedFormData = prepareDataHTML(formContent);
@@ -710,7 +747,7 @@ function JobForm() {
 
     return (
         <>
-            {resetting && <LoadingFull text={"Preparing job form..."}/>}
+            {resetting && <Loading text={"Preparing job form..."}/>}
             {!resetting && !submitted &&
                 <form onSubmit={handleSubmit(handleSave)} className={`${classes.formContainer}`} ref={formContainerRef}>
                     <div className={classes.topControl}>
@@ -747,14 +784,20 @@ function JobForm() {
                             </ul>
                         </div>
                         <div className={classes.buttons}>
+                            <button tabIndex={991} onClick={(e) => {
+                                e.preventDefault()
+                                trigger(steps[currentStep].fields
+                            )}}
+                                    className={`${classes.ctrlBtn} ${classes.enabled} secondary`}>TRIGGER
+                            </button>
                             {currentStep !== 0 && <button tabIndex={991} onClick={handleBackClick}
                                                           className={`${classes.ctrlBtn} ${classes.enabled} secondary`}>BACK
                             </button>}
                             {currentStep !== steps.length - 1 ?
                                 <button disabled={buttonDisabled} tabIndex={990} onClick={handleNextClick}
                                         className={`${classes.ctrlBtn}  ${buttonDisabled ? 'button-disabled' : 'button-confirm'}`}>NEXT
-                                </button> : <button disabled={buttonDisabled} tabIndex={990} type={"submit"}
-                                                    className={`${classes.ctrlBtn} ${buttonDisabled ? 'button-disabled' : 'button-confirm'}`}>SUBMIT
+                                </button> : <button disabled={!isValid} tabIndex={990} type={"submit"}
+                                                    className={`${classes.ctrlBtn} ${isValid ? 'button-confirm' : 'button-disabled'}`}>SUBMIT
                                 </button>}
                         </div>
                     </div>
