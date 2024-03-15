@@ -16,7 +16,6 @@ import {available, unavailable} from "../../assets/employment.json"
 import {allTimeZone, maxWidthMobile, minWidthTablet} from "../../utility/Vars.jsx";
 import {useWindowDimensions} from "../../context/WindowDimensionsContext.jsx";
 import {Trans, useTranslation} from "react-i18next";
-import {DevTool} from "@hookform/devtools";
 
 // TODO: Modularize fieldWrappers to reduce steps array,
 // TODO: EventListener for Enter key to try hitting next and point out unfilled required fields
@@ -803,7 +802,6 @@ function JobForm() {
                         </div>
                     </div>
                 </form>}
-            <DevTool control={control} />
             {!resetting && submitted &&
                 <Submitted show={submitted} answered={answered} successful={successful} formData={formData}
                            cleanForm={cleanForm}/>}
