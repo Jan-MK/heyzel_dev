@@ -59,7 +59,6 @@ function App() {
                                             </Suspense>
                                         </ErrorBoundary>
                                     }/>
-                                    <Route path="/jobsskeleton" element={<SkeletonJob/>}/>
                                     <Route path="/:modalId" element={<Home/>}/>
                                 </Routes>
                             </MobileMenuProvider>
