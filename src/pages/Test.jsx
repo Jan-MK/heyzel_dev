@@ -9,7 +9,6 @@ export default function Test() {
     const {t} = useTranslation()
     const {mode} = useContext(ThemeContext)
     const [turnstileError, setTurnstileError] = useState('')
-    const [token, setToken] = useState()
     const [turnstileToken, setTurnstileToken] = useState('');
 
 
@@ -25,9 +24,10 @@ export default function Test() {
         try {
             const response = await fetch(verificationUrl, {
                 method: 'POST',
+                body: JSON.stringify({ cfSiteKey }),
                 headers: {
-                    'Content-Type': 'application/json',
-                },
+                    'content-type': 'application/json'
+                }
             });
 
             if (!response.ok) throw new Error('Network response was not ok');
@@ -67,7 +67,6 @@ export default function Test() {
 
                 />
                 <div>{turnstileError}</div>
-                <div>{token || "NO TOKEN"}</div>
                 <button type={'submit'}>SUBMIT</button>
             </form>
         </>
