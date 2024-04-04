@@ -24,7 +24,7 @@ export default function Test() {
         try {
             const response = await fetch(verificationUrl, {
                 method: 'POST',
-                body: JSON.stringify({ cfSiteKey }),
+                body: JSON.stringify({ token: cfSiteKey }),
                 headers: {
                     'content-type': 'application/json'
                 }
@@ -37,10 +37,10 @@ export default function Test() {
             if (data.success) {
                 submitFormData(formData);
             } else {
-                setTurnstileError(t('cloudflare.errorFail'));
+                setTurnstileError(data.error);
             }
         } catch (error) {
-            setTurnstileError(t('cloudflare.errorRequest'));
+            setTurnstileError(error);
         }
     };
 
@@ -52,7 +52,7 @@ export default function Test() {
         <>
             <form onSubmit={handleSubmit}>
                 <Turnstile
-                    siteKey={cfSiteKey}
+                    siteKey={"1x00000000000000000000AA"}
                     theme={mode}
                     onSuccess={() => setTurnstileError("OK")}
                     onExpire={() => setTurnstileError("EXPIRED")}
