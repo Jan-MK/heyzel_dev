@@ -14,13 +14,42 @@ i18n
         resources: {
             en: {
                 translation: {
+                    general: {
+                        switch: "Wechsle zu",
+                        mode: "Dark / Light"
+                    },
+                    cloudflare: {
+                        errors: {
+                            completeVerification: "Please complete the security verification.",
+                            verificationFailed: "Verification failed. Please verify that you're not a robot.",
+                            requestProblem: "There was a problem with your verification request. Please try again or send us an e-mail.",
+                            verificationExpired: "The verification has expired. Please verify again or send us an e-mail.",
+                            verificationError: "An error occurred during verification. Please try again or send us an e-mail."
+                        }
+                    },
                     hero: {
                         top: "A <1>unique<1> vibe",
                         dscr: "Step into HEYZEL: A world of vibrant flavors, chill tunes, and the perfect ambiance for every part of your day.",
                     },
-                    general: {
-                        switch: "Wechsle zu",
-                        mode: "Dark / Light"
+                    about: {
+                        dscr1: "Welcome to Heyzel Coffee, where every cup tells a story.",
+                        dscr2: "At the pulse of Augsburg, we're more than just a coffee shop - we're the city's top spot for coffee buffs, the coolest drinks, and unforgettable vibes.",
+                        after: "Cheers to great coffee and awesome drinks!",
+                        card1: {
+                            subtitle: "we are",
+                            title: "coffee <1>lovers</1>",
+                            dscr: "At Heyzel, we're all about believing that a good cup of coffee is way more than just a drink—it's an experience. That's why we snag the finest beans from a cozy little roastery in Italy to make sure every sip is a blast of flavor and aroma.Our journey kicked off with a passion to bring folks together over a shared love for coffee and great drinks."
+                        },
+                        card2: {
+                            subtitle: "we are",
+                            title: "<1>sustainable</1>",
+                            dscr: "But, hey, we're not just about awesome coffee. We're all in for sustainability, supporting the local scene, and shrinking our eco-footprint. From eco-friendly packaging to climate-neutral ingredients, we're always on the lookout for new ways to positively impact our community and the planet."
+                        },
+                        card3: {
+                            subtitle: "we are",
+                            title: "your<1> day makers</1>!",
+                            dscr: "Whether you're grabbing your morning wake-up call on your way to work, uni, or school, or chilling on the weekend with friends over ice-cold margaritas, we're here to make every visit epic. Drop by for some sunny vibes on the Rathausplatz terrace, relaxed drinks at Königsplatz, or a quick escape between lectures at uni and see how passion, quality, and an amazing team make all the difference in every cup."
+                        }
                     },
                     menu: {
                         hours: "Opening hours",
@@ -460,13 +489,43 @@ i18n
             },
             de: {
                 translation: {
+                    general: {
+                        switch: "Switch to",
+                        mode: "Dunkel / Hell"
+                    },
+                    cloudflare: {
+                        errors: {
+                            completeVerification: "Bitte vervollständige die Sicherheitsverifizierung.",
+                            verificationFailed: "Verifizierung fehlgeschlagen. Bitte bestätige, dass Du ein Mensch bist.",
+                            requestProblem: "Es gab ein Problem mit Deiner Verifizierungsanfrage. Bitte versuch es erneut oder sende uns eine E-Mail.",
+                            verificationExpired: "Die Verifizierung ist abgelaufen. Bitte verifiziere Dich erneut oder sende uns eine E-Mail.",
+                            verificationError: "Bei der Verifizierung ist ein Fehler aufgetreten. Bitte versuch es erneut oder sende uns eine E-Mail."
+                        }
+                    },
                     hero: {
                         top: "A <1>unique<1> vibe",
                         dscr: "Tauche ein in HEYZEL: Eine Welt voller lebendiger Aromen, entspannter Musik und der perfekten Atmosphäre für jeden Moment deines Tages.",
                     },
-                    general: {
-                        switch: "Switch to",
-                        mode: "Dunkel / Hell"
+                    about: {
+                        dscr1: "Willkommen bei Heyzel Coffee, wo jede Tasse eine Geschichte erzählt.",
+                        dscr2: "Eingebettet im Herzen Augsburgs, sind wir mehr als nur ein Coffeeshop - wir sind der Hotspot der Stadt für Kaffeeliebhaber, die coolsten Drinks und unvergessliche Momente.",
+                        after: "Prost auf guten Kaffee und geile Drinks!",
+                        card1: {
+                            subtitle: "wir",
+                            title: "<1>lieben</1> Kaffee",
+                            dscr: "Wir bei Heyzel glauben, dass guter Kaffee mehr ist als nur ein Getränk - es ist ein Erlebnis. Deshalb beziehen wir die feinsten Bohnen aus einer kleinen Rösterei in Italien, um sicherzustellen, dass jeder Schluck eine Explosion aus Geschmack und Aroma ist.<1/><1/>Unsere Reise begann mit der Leidenschaft, Menschen bei einer gemeinsamen Liebe zu Kaffee und guten Drinks zusammenzubringen."
+                        },
+                        card2: {
+                            subtitle: "wir sind",
+                            title: "<1>nachhaltig</1>",
+                            dscr: "Aber unser Engagement geht über guten Kaffee hinaus. Wir setzen uns für Nachhaltigkeit ein, unterstützen lokale Unternehmen der Stadt und reduzieren unseren ökologischen Fußabdruck. Von umweltfreundlicher Verpackung bis hin zu klimaneutral beschafften Zutaten erkunden wir ständig neue Möglichkeiten, um einen positiven Einfluss auf unsere Gemeinschaft und den Planeten zu haben."
+
+                        },
+                        card3: {
+                            subtitle: "wir sind",
+                            title: "für <1>dich</1> da",
+                            dscr: "Ob Du Dir Deinen morgendlichen Muntermacher auf dem Weg zur Arbeit, Uni oder Schule schnappst oder am Wochenende mit Freunden bei eiskalten Margaritas entspannst, wir sind hier, um jeden Besuch unvergesslich zu machen. Komm vorbei auf der Sonnnenterrasse am Rathausplatz, auf entspannte Drinks am Königsplatz oder zwischen Deinen Vorlesungen an der Uni und erlebe den Unterschied, den Leidenschaft, Qualität und ein grandioses Team in jeder Tasse ausmachen können."
+                        }
                     },
                     menu: {
                         hours: "Öffnungszeiten",
@@ -531,11 +590,11 @@ i18n
                                     dscr: '7 - 23',
                                 },
                                 e2: {
-                                    title: 'Fri',
+                                    title: 'Fr',
                                     dscr: '7 - 22',
                                 },
                                 e3: {
-                                    title: 'Sat',
+                                    title: 'Sa',
                                     dscr: '12 - 22',
                                 },
                                 e4: {

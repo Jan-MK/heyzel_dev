@@ -71,7 +71,7 @@ function InsertionBlock({title, subtitle, description, idx, boldIntro, order, bg
     ));
 
     return (
-        <div className={classes.insertionSection} style={{backgroundColor: `${bg}`, color: `${text}`}}
+        <div id={`insertionBlock${idx}`} className={classes.insertionSection} style={{backgroundColor: `${bg}`, color: `${text}`}}
              ref={insertionRef}>
             <div className={`${classes.insertionBlockWrapper} container`}
                  style={{color: 'inherit', flexDirection: order ? 'row-reverse' : 'row'}}>

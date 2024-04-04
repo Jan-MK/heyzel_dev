@@ -8,15 +8,9 @@ import {getDistinctRandomHex} from "../utility/Utility.jsx";
 import {useParams} from 'react-router-dom';
 import {useModal} from '../context/ModalContext';
 import Navbar from "../components/Navigation/Navbar.jsx";
-/*import Menu from "../components/Menu/Menu.jsx";
-import LegalModal from '../components/LegalModal/LegalModal.jsx';
-import Locations from "../components/Locations/Locations.jsx";
-import InsertionBlock from "../components/InsertionBlock/InsertionBlock.jsx";
-import Contact from "../components/Contact/Contact.jsx";
-import Footer from "../components/Footer/Footer.jsx";*/
 import {useTranslation} from "react-i18next";
 import {Helmet} from "react-helmet";
-import Loading from "../components/Loading/Loading.jsx";
+import About from "../components/About/About.jsx";
 
 const Menu = lazy(() => import('../components/Menu/Menu.jsx'))
 const Locations = lazy(() => import('../components/Locations/Locations.jsx'))
@@ -33,7 +27,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 function Home() {
     const {t, i18n} = useTranslation();
-    const aboutRef = useRef(null)
     const {menuContainerRef} = useContext(ReferenceContext)
     const {modalId} = useParams();
     const {openModal, paramOnClose} = useModal();
@@ -96,11 +89,10 @@ function Home() {
             <Hero/>
             <Navbar/>
             <main className={`${classes.mainContent}`} id={"home"}>
-                <section className={`${classes.contentSection}`} id={"about"}>
-                    <div className={`${classes.bgSectionHeading} ${classes.centered}`}>
-                        <h1 ref={aboutRef}>
-                            {t('menu.about')}
-                        </h1>
+                <section className={`${classes.contentSection} `} id={"about"}>
+                    <div className={`${classes.bgSectionHeading} ${classes.centered} container`}>
+
+                        <About />
                     </div>
                 </section>
                 <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle} order={false}

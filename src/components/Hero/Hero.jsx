@@ -1,5 +1,5 @@
 import {useContext, useRef} from 'react';
-import classes from './Hero.module.scss'; // Make sure the path matches your file structure
+import classes from './Hero.module.scss';
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {useGSAP} from "@gsap/react";

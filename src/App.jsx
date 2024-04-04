@@ -12,6 +12,7 @@ import ReactLenis from "@studio-freight/react-lenis";
 import SkeletonJob from "./components/Skeleton/SkeletonJob.jsx";
 import {ErrorBoundary} from "react-error-boundary";
 import ErrorFallBack from "./components/Skeleton/ErrorFallBack.jsx";
+import Test from "./pages/Test.jsx";
 
 function useDynamicFavicon() {
     useEffect(() => {
@@ -60,6 +61,7 @@ function App() {
                                         </ErrorBoundary>
                                     }/>
                                     <Route path="/:modalId" element={<Home/>}/>
+                                    <Route path="/TEST" element={<Test/>} />
                                 </Routes>
                             </MobileMenuProvider>
                         </WindowDimensionsProvider>

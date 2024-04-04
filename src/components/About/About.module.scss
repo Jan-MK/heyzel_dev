@@ -1,0 +1,154 @@
+@import "../../App.scss";
+
+.aboutSectionContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+
+  .textContainer{
+    max-width: 1080px;
+  }
+  p {
+    text-align: center;
+    font-size: clamp(0.5em, 10vw, 1.25em);
+
+    &.outro {
+      font-weight: bold;
+      margin-bottom: 50px;
+    }
+  }
+
+
+
+  .aboutWrapper {
+    overflow-x: hidden;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    min-height: 50vh;
+    justify-content: space-around;
+    max-height: calc(100vh - 66px);
+
+    .timeLine {
+      height: 50px;
+      max-width: 90%;
+      align-self: center;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      svg {
+        width: 100vw;
+        max-width: min(1080px, 90%);
+
+        path {
+          fill: var(--text-primary);
+        }
+
+        .mask {
+          width: 0%;
+          fill: var(--accent);
+        }
+      }
+    }
+
+    .aboutContainer {
+      display: flex;
+      width: 300vw;
+
+
+      section {
+        width: 100vw;
+        max-width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+
+        .col {
+          display: flex;
+          gap: 3em;
+          width: 100%;
+          max-width: 1080px;
+          justify-content: center;
+          align-items: center;
+
+          @include tablet {
+            flex-direction: column;
+          }
+
+          @include mobile {
+            flex-direction: column;
+          }
+
+          .photo,
+          .text {
+            width: 50%;
+
+            @include mobile {
+              width: 80%;
+
+            }
+            @include tablet {
+              width: 80%;
+            }
+          }
+
+          .photo {
+            height: 100%;
+            overflow: hidden;
+            border-radius: 15px;
+
+
+            @include mobile {
+              height: auto;
+
+            }
+            @include tablet {
+              height: auto;
+              flex-grow: 1;
+            }
+
+            img {
+              display: block;
+              height: 100%;
+              width: 100%;
+              object-position: center;
+              object-fit: cover;
+
+            }
+          }
+
+
+          .text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+
+            @include tablet {
+              height: auto;
+              flex-grow: 2;
+            }
+
+            .highlight {
+              color: var(--accent)
+            }
+
+            p {
+              font-size: clamp(0.4em, 8vw, 1.15em);
+            }
+          }
+        }
+
+
+      }
+
+
+    }
+  }
+}
+

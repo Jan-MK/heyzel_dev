@@ -2,7 +2,7 @@ import classes from "./Contact.module.scss"
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
-import {useEffect, useMemo, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import VerticalTable from "../VerticalTable/VerticalTable.jsx";
 import HighlightBox from "../HighlightBox/HighlightBox.jsx";
 import {useModal} from "../../context/ModalContext.jsx";
@@ -10,9 +10,14 @@ import LegalModal from "../LegalModal/LegalModal.jsx";
 import {Trans, useTranslation} from "react-i18next";
 import {Link} from "react-router-dom";
 import {IoArrowForward} from "react-icons/io5";
+import {cfSiteKey} from "../../utility/Vars.jsx";
+import ThemeContext from "../../context/ThemeContext.jsx";
+import {Turnstile} from "@marsidev/react-turnstile";
+import i18next from "i18next";
 
 function Contact() {
     const {t} = useTranslation();
+    const {mode} = useContext(ThemeContext)
     const defaultValues = {
         firstName: '',
         lastName: '',
@@ -23,6 +28,8 @@ function Contact() {
         confirmation: false
     }
     const [typeIsOther, setTypeIsOther] = useState(false)
+    const [turnstileToken, setTurnstileToken] = useState('');
+    const [turnstileError, setTurnstileError] = useState('');
     const {
         register,
         handleSubmit,
@@ -52,17 +59,61 @@ function Contact() {
         });
     }
 
-
     const watchType = watch("type");
 
     // Use useEffect to react to changes in 'type' field
     useEffect(() => {
-        console.log("CHANGE IN TYPE")
         setTypeIsOther(watchType === t('contact.form.type.options.o3.val'))
-    }, [watchType]);
+    }, [watchType, t]);
 
-    const handleSave = (formData) => {
-        trigger()
+    const handleSave = async (formData) => {
+        if (!turnstileToken) {
+            setTurnstileError(t('cloudflare.promptVerify')); // Set error message
+            return;
+        }
+        verifyWithTurnstile(formData);
+    };
+
+    const onSuccess = (token) => {
+        setTurnstileToken(token);
+        setTurnstileError('');
+    };
+
+    const onExpire = () => {
+        setTurnstileError(t('errors.verificationExpired'));
+    };
+
+    const onError = (error) => {
+        setTurnstileError(`${t('errors.verificationError')} : ${error}`);
+    };
+
+    const verifyWithTurnstile = async (formData) => {
+        // Example endpoint, replace with your actual verification endpoint
+        const verificationUrl = 'https://api.heyzel.de/verification.php';
+        try {
+            const response = await fetch(verificationUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `cf-turnstile-response=${turnstileToken}`,
+            });
+
+            if (!response.ok) throw new Error('Network response was not ok');
+
+            const data = await response.json();
+
+            if (data.success) {
+                submitFormData(formData);
+            } else {
+                setTurnstileError(t('cloudflare.errorFail'));
+            }
+        } catch (error) {
+            setTurnstileError(t('cloudflare.errorRequest'));
+        }
+    };
+
+    const submitFormData = (formData) => {
         if (Object.keys(errors).length !== 0) {
             reset(formData)
             trigger()
@@ -190,8 +241,26 @@ function Contact() {
                         {errors.confirmation?.message}
                     </div>
                 </div>
-                <button disabled={!isValid} type={"submit"}
-                        className={`${classes.submit}`}>{t('contact.form.btn')}</button>
+                <div className={`${classes.rowWrapper} ${classes.notRowFlex}`}>
+                    <Turnstile
+                        sitekey={cfSiteKey}
+                        theme={mode}
+                        onSuccess={onSuccess}
+                        onExpire={onExpire}
+                        onError={onError}
+                        options={{
+                            language: i18next.resolvedLanguage,
+                            size: "normal",
+                            refreshExpired: "manual",
+                            appearance: "always"
+                        }}
+
+                    />
+                    <div className={`${turnstileError ? classes.error : classes.noError}`}>
+                        {turnstileError}
+                    </div>
+                </div>
+                <button disabled={!isValid} type={"submit"} className={`${classes.submit}`}>{t('contact.form.btn')}</button>
             </form>
         </div>
     );
