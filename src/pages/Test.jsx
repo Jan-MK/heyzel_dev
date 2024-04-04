@@ -16,10 +16,10 @@ export default function Test() {
         e.preventDefault()
         // REQUEST
         console.log("request token")
-        verifyWithTurnstile({data: "NO DATA"})
+        verifyWithTurnstile()
     }
 
-    const verifyWithTurnstile = async (formData) => {
+    const verifyWithTurnstile = async () => {
         const verificationUrl = 'https://api.heyzel.de/verification.php';
         try {
             const response = await fetch(verificationUrl, {
@@ -29,36 +29,37 @@ export default function Test() {
                     'content-type': 'application/json'
                 }
             });
-
-            if (!response.ok) throw new Error('Network response was not ok');
+            console.log(response)
+            //if (!response.ok) throw new Error('Network response was not ok');
 
             const data = await response.json();
 
             if (data.success) {
-                submitFormData(formData);
+                submitFormData();
             } else {
-                setTurnstileError(data.error);
+                console.log(data)
+//                setTurnstileError(data.error);
             }
         } catch (error) {
-            setTurnstileError(error);
+            console.log(error)
+//            setTurnstileError(error);
         }
     };
 
-    function submitFormData(formData) {
-        console.log("Submitted ", formData)
+    function submitFormData() {
+        console.log("Submitted ")
     }
 
     return (
         <>
             <form onSubmit={handleSubmit}>
                 <Turnstile
-                    siteKey={"1x00000000000000000000AA"}
+                    siteKey={cfSiteKey}
                     theme={mode}
                     onSuccess={() => setTurnstileError("OK")}
                     onExpire={() => setTurnstileError("EXPIRED")}
-                    onError={(err) => setTurnstileError("Other", err)}
+                    onError={() => setTurnstileError("Other")}
                     options={{
-                        action: "handleToken",
                         language: i18next.resolvedLanguage,
                         size: "normal",
                         refreshExpired: "manual",
