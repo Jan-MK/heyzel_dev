@@ -10,16 +10,11 @@ import LegalModal from "../LegalModal/LegalModal.jsx";
 import {Trans, useTranslation} from "react-i18next";
 import {Link} from "react-router-dom";
 import {IoArrowForward} from "react-icons/io5";
-import {cfSiteKey} from "../../utility/Vars.jsx";
-import ThemeContext from "../../context/ThemeContext.jsx";
-import {Turnstile} from "@marsidev/react-turnstile";
-import i18next from "i18next";
 import Validation from "../Validation/Validation.jsx";
 import VerificationContext from "../../context/VerificationContext.jsx";
 
 function Contact() {
     const {t} = useTranslation();
-    const {mode} = useContext(ThemeContext)
     const defaultValues = {
         firstName: '',
         lastName: '',
@@ -35,7 +30,6 @@ function Contact() {
         handleSubmit,
         watch,
         formState: {errors, isValid},
-        trigger,
         reset
     } = useForm({
         resolver: zodResolver(createSchema(typeIsOther)),
@@ -67,57 +61,11 @@ function Contact() {
         setTypeIsOther(watchType === t('contact.form.type.options.o3.val'))
     }, [watchType, t]);
 
-    const handleSave = async (formData) => {
-        if (!turnstileToken) {
-            setTurnstileError(t('cloudflare.promptVerify')); // Set error message
-            return;
-        }
-        verifyWithTurnstile(formData);
-    };
 
-    const onSuccess = (token) => {
-        setTurnstileToken(token);
-        setTurnstileError('');
-    };
 
-    const onExpire = () => {
-        setTurnstileError(t('errors.verificationExpired'));
-    };
-
-    const onError = (error) => {
-        setTurnstileError(`${t('errors.verificationError')} : ${error}`);
-    };
-
-    const verifyWithTurnstile = async (formData) => {
-        // Example endpoint, replace with your actual verification endpoint
-        const verificationUrl = 'https://api.heyzel.de/verification.php';
-        try {
-            const response = await fetch(verificationUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: `cf-turnstile-response=${turnstileToken}`,
-            });
-
-            if (!response.ok) throw new Error('Network response was not ok');
-
-            const data = await response.json();
-
-            if (data.success) {
-                submitFormData(formData);
-            } else {
-                setTurnstileError(t('cloudflare.errorFail'));
-            }
-        } catch (error) {
-            setTurnstileError(t('cloudflare.errorRequest'));
-        }
-    };
-
-    const submitFormData = (formData) => {
+    const handleSave = (formData) => {
         if (Object.keys(errors).length !== 0) {
             reset(formData)
-            trigger()
         } else {
             console.log("OK Submit")
         }
