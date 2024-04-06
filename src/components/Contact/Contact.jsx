@@ -85,7 +85,7 @@ function Contact() {
                         </h3>
                         <p>{t('contact.highlight.dscr')}</p>
                         <Link to={"/jobs"}>
-                            <div><IoArrowForward size={35}/> <p><span className={'bigger bold'}>Apply now!</span>
+                            <div><IoArrowForward size={35}/> <p><span className={'bigger bold'}>{t('contact.highlight.btn')}</span>
                             </p></div>
                         </Link>
                     </div>
@@ -94,11 +94,12 @@ function Contact() {
                     <VerticalTable contentSizeBig={true} heading={'OFFICE'} entries={
                         [{
                             title: t('contact.general.sub1'),
-                            description: <><p>Böheimstr. 3</p>
+                            description: <><p>HEYZEL COFFEE GmbH</p>
+                                <p>Böheimstr. 3</p>
                                 <p>86153 Augsburg</p></>
                         }, {
                             title: t('contact.general.sub2'),
-                            description: <a href={`mailto:kontakt@heyzel.de`}>{"kontakt@heyzel.de"}</a>
+                            description: <a href={`mailto:info@heyzel.de`}>{"info@heyzel.de"}</a>
                         }, {
                             title: t('contact.general.sub3'),
                             description: "+49 821 450448-0"

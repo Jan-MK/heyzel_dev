@@ -67,12 +67,12 @@ export default function Menu() {
                             <h3 className={classes.rightItemHeading}>{t(item.name)}</h3>
                         </div>
                         <div className={classes.priceWrapper}>
-                            {item.price1 ? <p className={classes.itemPrice}>{t(item.price1)}</p> : <p>-</p>}
-                            {item.price2 ? <p className={classes.itemPrice}>{t(item.price2)}</p> : <p>-</p>}
+                            {item.price1 ? <p className={classes.itemPrice}>{item.headline ? t(item.price1) : item.price1}</p> : <p>-</p>}
+                            {item.price2 ? <p className={classes.itemPrice}>{item.headline ? t(item.price2) : item.price2}</p> : <p>-</p>}
                         </div>
                     </div>
                     <div>
-                        {item.description && <p className={classes.itemDescription}>{t(item.description)}</p>}
+                        {item.description && <p className={classes.itemDescription}>{item.description.length > 1 && t(item.description)}</p>}
                     </div>
                 </li>
             ))}
