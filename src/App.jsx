@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import {ThemeProvider} from './context/ThemeContext.jsx';
 import './App.scss'
 import Home from "./pages/Home.jsx";
+
 const JobForm = lazy(() => import("./pages/JobForm/JobForm.jsx"));
 import {ReferenceProvider} from "./context/ReferenceContext.jsx";
 import {ModalProvider} from "./context/ModalContext.jsx";
@@ -12,7 +13,9 @@ import ReactLenis from "@studio-freight/react-lenis";
 import SkeletonJob from "./components/Skeleton/SkeletonJob.jsx";
 import {ErrorBoundary} from "react-error-boundary";
 import ErrorFallBack from "./components/Skeleton/ErrorFallBack.jsx";
-import Test from "./pages/Test.jsx";
+import Validation from "./components/Validation/Validation.jsx";
+import {CookieProvider} from "./context/CookieContext.jsx";
+import {VerificationProvider} from "./context/VerificationContext.jsx";
 
 function useDynamicFavicon() {
     useEffect(() => {
@@ -43,30 +46,34 @@ function App() {
     return (
         <Router>
             <ThemeProvider>
-                <ReferenceProvider>
-                    <ModalProvider>
-                        <WindowDimensionsProvider>
-                            <MobileMenuProvider>
-                                <Routes>
-                                    <Route path="/" element={
-                                        <ReactLenis root>
-                                            <Home/>
-                                        </ReactLenis>
-                                    }/>
-                                    <Route path="/jobs" element={
-                                        <ErrorBoundary FallbackComponent={ErrorFallBack}>
-                                            <Suspense fallback={<SkeletonJob/>}>
-                                                <JobForm/>
-                                            </Suspense>
-                                        </ErrorBoundary>
-                                    }/>
-                                    <Route path="/:modalId" element={<Home/>}/>
-                                    <Route path="/TEST" element={<Test/>} />
-                                </Routes>
-                            </MobileMenuProvider>
-                        </WindowDimensionsProvider>
-                    </ModalProvider>
-                </ReferenceProvider>
+                <CookieProvider>
+                    <VerificationProvider>
+                        <ReferenceProvider>
+                            <ModalProvider>
+                                <WindowDimensionsProvider>
+                                    <MobileMenuProvider>
+                                        <Routes>
+                                            <Route path="/" element={
+                                                <ReactLenis root>
+                                                    <Home/>
+                                                </ReactLenis>
+                                            }/>
+                                            <Route path="/jobs" element={
+                                                <ErrorBoundary FallbackComponent={ErrorFallBack}>
+                                                    <Suspense fallback={<SkeletonJob/>}>
+                                                        <JobForm/>
+                                                    </Suspense>
+                                                </ErrorBoundary>
+                                            }/>
+                                            <Route path="/:modalId" element={<Home/>}/>
+                                            <Route path="/TEST" element={<Validation/>}/>
+                                        </Routes>
+                                    </MobileMenuProvider>
+                                </WindowDimensionsProvider>
+                            </ModalProvider>
+                        </ReferenceProvider>
+                    </VerificationProvider>
+                </CookieProvider>
             </ThemeProvider>
         </Router>
     );

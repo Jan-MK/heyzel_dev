@@ -155,19 +155,6 @@ body, html {
       overflow: hidden;
 
 
-/*      &::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: var(--accent);
-        transform: translateX(-100%);
-        transition: all .3s;
-        z-index: -1;
-      }*/
-
       &:hover {
         color: white !important;
         scale: 1.02 !important;
@@ -224,6 +211,44 @@ body, html {
     }
   }
 
+  .verificationBox {
+    width: 100%;
+    height: 125px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    outline: unset;
+    transition: outline 300ms;
+
+    .cookieInForm {
+      h4, p {
+        text-align: center;
+      }
+      h4 {
+        font-size: 20px;
+      }
+      p {
+        font-size: 14px;
+      }
+    }
+
+    &.outlined {
+      outline: 2px solid var(--accent);
+    }
+
+    .btnCookieConsent {
+      margin-top: 5px;
+      color: var(--light-shades-100op);
+      border: none;
+      font-size: 16px;
+      border-radius: var(--button-border-radius);
+      padding: 5px 10px;
+      font-weight: var(--button-font-weight);
+      transition: background-color 0.3s ease, filter 0.3s ease;
+    }
+  }
+
   input, textarea, select {
     background-color: var(--form-background);
     border: 1px solid var(--form-border);
@@ -271,7 +296,6 @@ body, html {
         -webkit-appearance: none;
     }*/
   }
-
 
   textarea {
     min-height: 150px;
@@ -323,4 +347,15 @@ span {
   &.bold {
     font-weight: bold;
   }
+}
+
+.noError, .error {
+  display: none; // Default state hidden
+  color: var(--delete); // Assuming you have a color variable for errors
+  transition: opacity 0.5s ease-in-out;
+}
+
+.error {
+  display: block; // Only show when there's an error
+  opacity: 1;
 }

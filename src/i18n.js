@@ -19,6 +19,12 @@ i18n
                         mode: "Dark / Light"
                     },
                     cloudflare: {
+                        suspense: "Loading",
+                        cookies: {
+                            title: "Cookies disabled!",
+                            dscr: "You need to activate cookies to use this form. This is just to make sure no bots use this form.",
+                            approval: "Accept"
+                        },
                         errors: {
                             completeVerification: "Please complete the security verification.",
                             verificationFailed: "Verification failed. Please verify that you're not a robot.",
@@ -62,6 +68,134 @@ i18n
                         jobs: "Jobs",
                         food: "Food",
                         drinks: "Drinks",
+                        sizes: {
+                            size1a: "SMALL",
+                            size1b: "0,3l",
+                            size2a: "BIG",
+                            size2b: "0,5l",
+                            size3: " ",
+                            size4: "PC.",
+                        },
+                        additives: {
+                            title: "Notes and Additives",
+                            drinks: {
+                                1: "1) Caffeine",
+                                2: "2) Taurine",
+                                3: "3) Quinine",
+                                4: "4) Coloring",
+                            }
+                        },
+                        verSort: "Various Varieties",
+                        cat1: {
+                            title: "Coffee & Tea",
+                            dscr: "Enjoy our selection of fantastic coffees and other hot drinks.",
+                            products: {
+                                title1: "Coffee",
+                                kaffee: "Coffee",
+                                cappu: "Cappuccino",
+                                milkUno: "Milchkaffee",
+                                milkDop: "Double Milchkaffee",
+                                latMac: "Latte Macchiato",
+                                caramel: "Caramelito",
+                                heyz: "Heyzel Coffee",
+                                mocca: "Mocca Cappuccino",
+                                moccaW: "White Mocca Cappuccino",
+                                flav: "Flavour",
+
+                                title2: "Tea",
+                                heiSch: "Hot Chocolate",
+                                heiZit: "Hot Lemon",
+                                heiOra: "Hot Orange",
+                                tee: "Tea",
+                                chaTee: "Chai Tea / Latte",
+                                oraSaf: "Freshly Pressed Orange Juice",
+                                iceTea: "ICE TEA Lemon/Peach",
+                            },
+                        },
+                        cat2: {
+                            title: "Refreshments and Cocktails",
+                            dscr: "Throughout the day... Description Warning for alcohol?",
+                            products: {
+                                title1: "Milkshakes",
+                                schok: "Chocolate",
+                                van: "Vanilla",
+                                erdb: "Strawberry",
+                                bana: "Banana",
+                                banaPea: "Banana Peanut",
+                                banaDop: "Double Banana",
+                                banaCoo: "Banana Cookie",
+                                cocru: "Jule's Coffee Cruncher",
+                                pea: "Peanut Delight",
+                                manLas: "Mango Lassi",
+
+                                title2: "From the Fridge",
+                                biona: "Bionade",
+                                spezi: "Spezi",
+                                speziEn: "Spezi Energy",
+                                prov: "Proviant",
+                                mozWas: "Mozart Source",
+                                mozWasDscr: "Still or Sparkling",
+                                rebu: "Red Bull",
+                                cluMa: "Club Mate",
+                                cola: "Coca Cola",
+                                irse: "Irseer 0.5l",
+                                desp: "Desperados",
+                                teger: "Tegernseer",
+                                heine: "Heineken",
+                                coro: "Corona",
+                                goess: "Gösser Radler",
+
+                                title3: "Cocktails",
+                                erdMar: "Strawberry Margarita",
+                                manMar: "Mango Margarita",
+                                lonIsl: "Long Island",
+                                caipi: "Caipirinha",
+                                cubLib: "Cuba Libre",
+                                smirKir: "Smirnoff Cherry",
+                                smirRB: "Smirnoff Red Bull",
+                                ginTon: "Gin Tonic",
+                                apeSpri: "Aperol Spritz",
+                            }
+                        },
+                        cat3: {
+                            title: "Snacks",
+                            dscr: "Throughout the day... Description Additives??",
+                            products: {
+                                title1: "Sandwiches & Wraps",
+                                toRiSa: "Tomato Ricotta Sandwich",
+                                tomMoz: "Tomato Mozzarella Sandwich",
+                                schiKae: "Ham-Cheese Sandwich",
+                                salaWra: "Salami Wrap",
+                                spicSal: "Spicy Salami Wrap",
+                                zuccWra: "Zucchini Wrap",
+                                chiWra: "Chicken-Caesar Wrap",
+
+                                title2: "Salads",
+                                nuSa: "Pasta Salad",
+                                pasSa: "Pasta Salad",
+                                couFeSa: "Couscous with Feta",
+                                couSa: "Couscous without Feta",
+
+                                title3: "Sweets",
+                                cook: "Cookie",
+                                schoBroe: "Chocolate Bread",
+                                buCro: "Butter Croissant",
+                                vaCro: "Vanilla Croissant",
+                                piCro: "Pistachio Croissant",
+                                apriCro: "Apricot Croissant",
+                                do: "Donut",
+                                preDo: "Premium Donut",
+                                muf: "Muffin",
+                                preMuf: "Premium Muffin",
+
+                                title4: "Fruity",
+                                osa: "Fruit Salad",
+                                ana: "Pineapple",
+                                melo: "Melon",
+                                app: "Apple",
+                                appKu: "Apple Pie",
+                            }
+                        }
                     },
                     cardMenu: {
                         title: "Coffee, Drinks & Snacks",
@@ -494,6 +628,12 @@ i18n
                         mode: "Dunkel / Hell"
                     },
                     cloudflare: {
+                        suspense: "Laden",
+                        cookies: {
+                            title: "Cookies deaktiviert!",
+                            dscr: "Du musst Cookies aktivieren, um dieses Formular zu verwenden. Das dient dazu, sicherzustellen, dass keine Bots dieses Formular verwenden.",
+                            approval: "Akzeptieren"
+                        },
                         errors: {
                             completeVerification: "Bitte vervollständige die Sicherheitsverifizierung.",
                             verificationFailed: "Verifizierung fehlgeschlagen. Bitte bestätige, dass Du ein Mensch bist.",
@@ -538,6 +678,134 @@ i18n
                         jobs: "Jobs",
                         food: "Speisen",
                         drinks: "Getränke",
+                        sizes: {
+                            size1a: "KLEIN",
+                            size1b: "0,3l",
+                            size2a: "GROß",
+                            size2b: "0,5l",
+                            size3: " ",
+                            size4: "Stk.",
+                        },
+                        additives: {
+                            title: "Hinweise und Zusätze",
+                            drinks: {
+                                1: "1) Koffein",
+                                2: "2) Taurin",
+                                3: "3) Chinin",
+                                4: "4) Farbstoff",
+                            }
+                        },
+                        verSort: "Verschiedene Sorten",
+                        cat1: {
+                            title: "Kaffee & Tee",
+                            dscr: "Genieße unsere Auswahl fantastischen Kaffees und anderen Heißgetränken.",
+                            products: {
+                                title1: "Kaffee",
+                                kaffee: "Kaffee",
+                                cappu: "Cappuccino",
+                                milkUno: "Milchkaffee",
+                                milkDop: "Milchkaffee Doppelt",
+                                latMac: "Latte Macchiato",
+                                caramel: "Caramelito",
+                                heyz: "Heyzel Coffee",
+                                mocca: "Mocca Cappuccino",
+                                moccaW: "White Mocca Cappuccino",
+                                flav: "Flavour",
+
+                                title2: "Tee",
+                                heiSch: "Heiße Schokolade",
+                                heiZit: "Heiße Zitrone",
+                                heiOra: "Heiße Orange",
+                                tee: "Tee",
+                                chaTee: "Chai-Tee / Latte",
+                                oraSaf: "Frisch gepresster Orangensaft (SORT)",
+                                iceTea: "ICE TEA Zitrone/Pfirsich",
+                            },
+                        },
+                        cat2: {
+                            title: "Erfrischung und Cocktails",
+                            dscr: "Über den Tag... Beschreibung Warnhinweis für Alkohol?",
+                            products: {
+                                title1: "Milchshakes",
+                                schok: "Schokolade",
+                                van: "Vanille",
+                                erdb: "Erdbeere",
+                                bana: "Banane",
+                                banaPea: "Banane Erdnuss",
+                                banaDop: "Double Banana",
+                                banaCoo: "Banana Cookie",
+                                cocru: "Jule's Coffee Cruncher",
+                                pea: "Peanut Delight",
+                                manLas: "Mango Lassi",
+
+                                title2: "Aus dem Kühlschrank",
+                                biona: "Bionade",
+                                spezi: "Spezi",
+                                speziEn: "Spezi Energy",
+                                prov: "Proviant",
+                                mozWas: "Mozart Quelle",
+                                mozWasDscr: "Still oder Sprudel",
+                                rebu: "Red Bull",
+                                cluMa: "Club Mate",
+                                cola: "Coca Cola",
+                                irse: "Irseer 0.5l",
+                                desp: "Desperados",
+                                teger: "Tegernseer",
+                                heine: "Heineken",
+                                coro: "Corona",
+                                goess: "Gösser Radler",
+
+                                title3: "Cocktails",
+                                erdMar: "Erdbeer Margarita",
+                                manMar: "Mango Margarita",
+                                lonIsl: "Long Island",
+                                caipi: "Caipirinha",
+                                cubLib: "Cuba Libre",
+                                smirKir: "Smirnoff Kirsch",
+                                smirRB: "Smirnoff Red Bull",
+                                ginTon: "Gin Tonic",
+                                apeSpri: "Aperol Spritz",
+                            }
+                        },
+                        cat3: {
+                            title: "Snacks",
+                            dscr: "Über den Tag... Beschreibung Zusätze??",
+                            products: {
+                                title1: "Sandwiches & Wraps",
+                                toRiSa: "Tomate Ricotta Sandwich",
+                                tomMoz: "Tomate Mozzarella Sandwich",
+                                schiKae: "Schinken-Käse Sandwich",
+                                salaWra: "Salami Wrap",
+                                spicSal: "Scharfe Salami Wrap",
+                                zuccWra: "Zucchini Wrap",
+                                chiWra: "Chicken-Caesar Wrap",
+
+                                title2: "Salate",
+                                nuSa: "Nudelsalat",
+                                pasSa: "Pasta Salat (SAME!??!)",
+                                couFeSa: "Couscous mit Feta",
+                                couSa: "Couscous ohne Feta",
+
+                                title3: "Süßes",
+                                cook: "Cookie",
+                                schoBroe: "Schokobrötchen",
+                                buCro: "Buttercroissant",
+                                vaCro: "Vallinecroissant",
+                                piCro: "Pistazie Croissant",
+                                apriCro: "Aprikose Croissant",
+                                do: "Donut",
+                                preDo: "Premium Donut",
+                                muf: "Muffin",
+                                preMuf: "Premium Muffin",
+
+                                title4: "Obstig",
+                                osa: "Obstsalat",
+                                ana: "Ananas",
+                                melo: "Melone",
+                                app: "Apfel",
+                                appKu: "Apfelkuchen",
+                            }
+                        }
                     },
                     cardMenu: {
                         title: "Kaffee, Getränke und Snacks",
@@ -959,9 +1227,11 @@ i18n
                         }
                     },
                     footer: {
-                       imprint: "Impressum",
-                       privacy: "Datenschutz",
-                       rights: "Alle Rechte vorbehalten."
+                        imprint: "Impressum",
+                        privacy: "Datenschutz",
+                        title: "OptOut von Cookies",
+                        explanation: "Gesetzte Cookies werden gelöscht.",
+                        rights: "Alle Rechte vorbehalten."
                     }
                 }
             }

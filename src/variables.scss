@@ -20,7 +20,7 @@
   --form-background: var(--light-shades-100op);
   --form-background-matrix-basic: var(--light-shades-100op);
   --form-background-matrix-highlight: var(--light-shades-100op);
-  --form-placeholder: var(--dark-shades-50op);
+  --form-placeholder: var(--disabled);
   --form-filter: invert(1);
 
   --transition: 500ms ease;
@@ -47,7 +47,7 @@
   --form-background: var(--light-shades-5op);
   --form-background-matrix-basic: #424242;
   --form-background-matrix-highlight: #313131;
-  --form-placeholder: var(--light-shades-50op);
+  --form-placeholder: var(--light-shades-75op);
   --form-filter: invert(0);
 
   --transition: var(--transition-duration-500) ease;
@@ -110,7 +110,7 @@
   --warning: #E0C061;
   --confirm: #479079;
   --delete: #F44336;
-  --disabled: #999999;
+  --disabled: #727272;
   /* Media variables and break points */
   --content-max-width: 1040px;
   --breakpoint-min-width-tablet: 1000px;

@@ -14,6 +14,8 @@ import {cfSiteKey} from "../../utility/Vars.jsx";
 import ThemeContext from "../../context/ThemeContext.jsx";
 import {Turnstile} from "@marsidev/react-turnstile";
 import i18next from "i18next";
+import Validation from "../Validation/Validation.jsx";
+import VerificationContext from "../../context/VerificationContext.jsx";
 
 function Contact() {
     const {t} = useTranslation();
@@ -28,8 +30,6 @@ function Contact() {
         confirmation: false
     }
     const [typeIsOther, setTypeIsOther] = useState(false)
-    const [turnstileToken, setTurnstileToken] = useState('');
-    const [turnstileError, setTurnstileError] = useState('');
     const {
         register,
         handleSubmit,
@@ -43,6 +43,7 @@ function Contact() {
         defaultValues: defaultValues,
     });
     const {openModal} = useModal();
+    const {isVerified} = useContext(VerificationContext)
 
     function createSchema(typeIsOther) {
         return z.object({
@@ -160,12 +161,12 @@ function Contact() {
             <form className={classes.formContainer} onSubmit={handleSubmit(handleSave)}>
                 <div className={classes.rowWrapper}>
                     <div>
-                        <p>{t('contact.form.fn.label')}:</p>
-                        <input type={'text'} {...register('firstName')} placeholder={t('contact.form.fn.ph')}/>
+                        <label htmlFor={'cFirstName'}>{t('contact.form.fn.label')}:</label>
+                        <input id={'cFirstName'} type={'text'} {...register('firstName')} placeholder={t('contact.form.fn.ph')}/>
                     </div>
                     <div>
-                        <p>{t('contact.form.ln.label')}<span className={classes.required}>*</span>:</p>
-                        <input type={'text'} {...register('lastName')} placeholder={t('contact.form.ln.ph')}/>
+                        <label htmlFor={'cLastName'}>{t('contact.form.ln.label')}<span className={classes.required}>*</span>:</label>
+                        <input id={'cLastName'} type={'text'} {...register('lastName')} placeholder={t('contact.form.ln.ph')}/>
                         <div
                             className={`${errors.lastName?.message ? classes.error : classes.noError}`}>{errors.lastName?.message}
                         </div>
@@ -173,15 +174,15 @@ function Contact() {
                 </div>
                 <div className={classes.rowWrapper}>
                     <div>
-                        <p>{t('contact.form.mail.label')}<span className={classes.required}>*</span>:</p>
-                        <input type={'text'} {...register('mail')} placeholder={t('contact.form.mail.ph')}/>
+                        <label htmlFor={'mail'}>{t('contact.form.mail.label')}<span className={classes.required}>*</span>:</label>
+                        <input id={'mail'} type={'text'} {...register('mail')} placeholder={t('contact.form.mail.ph')}/>
                         <div
                             className={`${errors.mail?.message ? classes.error : classes.noError}`}>{errors.mail?.message}
                         </div>
                     </div>
                     <div>
-                        <p>{t('contact.form.phone.label')}:</p>
-                        <input type={'tel'} {...register('phone')} placeholder={t('contact.form.phone.ph')}/>
+                        <label htmlFor={'phone'}>{t('contact.form.phone.label')}:</label>
+                        <input id={'phone'} type={'tel'} {...register('phone')} placeholder={t('contact.form.phone.ph')}/>
                         <div
                             className={`${errors.phone?.message ? classes.error : classes.noError}`}>{errors.phone?.message}
                         </div>
@@ -189,8 +190,8 @@ function Contact() {
                 </div>
                 <div className={`${classes.rowWrapper}`}>
                     <div>
-                        <p>{t('contact.form.type.label')}<span className={classes.required}>*</span>: </p>
-                        <select defaultValue={t('contact.form.type.ph')}
+                        <label htmlFor={'type'}>{t('contact.form.type.label')}<span className={classes.required}>*</span>: </label>
+                        <select id={'type'} defaultValue={t('contact.form.type.ph')}
                                 {...register('type')}>
                             <option value={t('contact.form.type.ph')}
                                     hidden={true}>{t('contact.form.type.ph')}</option>
@@ -206,8 +207,8 @@ function Contact() {
                         </div>
                     </div>
                     {typeIsOther && <div>
-                        <p>{t('contact.form.sub.label')}<span className={classes.required}>*</span>:</p>
-                        <input type={'text'} max={50} {...register('subject')} placeholder={t('contact.form.sub.ph')}/>
+                        <label htmlFor={'subject'}>{t('contact.form.sub.label')}<span className={classes.required}>*</span>:</label>
+                        <input type={'text'} id={'subject'} max={50} {...register('subject')} placeholder={t('contact.form.sub.ph')}/>
                         <div className={`${errors.subject?.message ? classes.error : classes.noError}`}>
                             {errors.subject?.message}
                         </div>
@@ -215,8 +216,8 @@ function Contact() {
                 </div>
                 <div className={`${classes.rowWrapper} ${classes.notRowFlex}`}>
                     <div className={classes.fullWidth}>
-                        <p>{t('contact.form.msg.label')}<span className={classes.required}>*</span>:</p>
-                        <textarea rows={5} maxLength={1000} {...register('message')}
+                        <label htmlFor={'message'}>{t('contact.form.msg.label')}<span className={classes.required}>*</span>:</label>
+                        <textarea id={'message'} rows={5} maxLength={1000} {...register('message')}
                                   placeholder={t('contact.form.msg.ph')}/>
                     </div>
                     <div className={`${errors.message?.message ? classes.error : classes.noError}`}>
@@ -226,7 +227,7 @@ function Contact() {
                 <div className={`${classes.rowWrapper} ${classes.notRowFlex}`}>
                     <div className={`${classes.confirmation}`}>
                         <input id={'confirm'} type={"checkbox"} {...register('confirmation')}/>
-                        <label>
+                        <label htmlFor={'confirm'}>
                             <Trans i18nKey="contact.form.conf.label">
                                 Please confirm that you have read and agreed to our
                                 <a onClick={() => openModal(<LegalModal showImprint={false}/>)}>
@@ -242,25 +243,9 @@ function Contact() {
                     </div>
                 </div>
                 <div className={`${classes.rowWrapper} ${classes.notRowFlex}`}>
-                    <Turnstile
-                        sitekey={cfSiteKey}
-                        theme={mode}
-                        onSuccess={onSuccess}
-                        onExpire={onExpire}
-                        onError={onError}
-                        options={{
-                            language: i18next.resolvedLanguage,
-                            size: "normal",
-                            refreshExpired: "manual",
-                            appearance: "always"
-                        }}
-
-                    />
-                    <div className={`${turnstileError ? classes.error : classes.noError}`}>
-                        {turnstileError}
-                    </div>
+                    <Validation />
                 </div>
-                <button disabled={!isValid} type={"submit"} className={`${classes.submit}`}>{t('contact.form.btn')}</button>
+                <button disabled={!isValid || !isVerified} type={"submit"} className={`${classes.submit}`}>{t('contact.form.btn')}</button>
             </form>
         </div>
     );

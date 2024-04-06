@@ -30,6 +30,10 @@
     justify-content: space-around;
     max-height: calc(100vh - 66px);
 
+    @include mobile {
+      max-height: unset;
+    }
+
     .timeLine {
       height: 50px;
       max-width: 90%;
@@ -58,6 +62,10 @@
       display: flex;
       width: 300vw;
 
+      @include mobile {
+        flex-direction: column;
+        gap: 50px;
+      }
 
       section {
         width: 100vw;
@@ -81,6 +89,7 @@
 
           @include mobile {
             flex-direction: column;
+            gap: 1em;
           }
 
           .photo,

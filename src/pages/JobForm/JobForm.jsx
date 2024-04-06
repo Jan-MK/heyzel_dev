@@ -1,5 +1,5 @@
 import classes from "./JobForm.module.scss"
-import {useEffect, useMemo, useRef, useState} from 'react';
+import {useContext, useEffect, useMemo, useRef, useState} from 'react';
 import {useForm} from 'react-hook-form'
 import {zodResolver} from "@hookform/resolvers/zod";
 import {string, z} from 'zod'
@@ -16,6 +16,8 @@ import {available, unavailable} from "../../assets/employment.json"
 import {allTimeZone, maxWidthMobile, minWidthTablet} from "../../utility/Vars.jsx";
 import {useWindowDimensions} from "../../context/WindowDimensionsContext.jsx";
 import {Trans, useTranslation} from "react-i18next";
+import Validation from "../../components/Validation/Validation.jsx";
+import VerificationContext from "../../context/VerificationContext.jsx";
 
 // TODO: Modularize fieldWrappers to reduce steps array,
 // TODO: EventListener for Enter key to try hitting next and point out unfilled required fields
@@ -26,8 +28,6 @@ import {Trans, useTranslation} from "react-i18next";
 const currentEmploymentOptions = ["Schüler", "Student", "Arbeitnehmer", "Selbstständig", "Arbeitslos/Arbeitssuchend"]
 const desiredEmploymentOptions = [...unavailable, ...available]
 const otherEarnings = ['BAföG', 'Kindergeld', 'Waisenrente', 'Keine']
-const MAX_FILE_SIZE = 5 * 1024 * 1024;
-const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
 
 
 const today = new Date();
@@ -63,6 +63,7 @@ function JobForm() {
 
     // TODO: TabIndex for each section, prevent back from leaving this form
     const {openModal} = useModal()
+    const {isVerified} = useContext(VerificationContext)
     const refArray = useRef([]);
     const formContainerRef = useRef(null);
     const [formData, setFormData] = useState("")
@@ -188,8 +189,8 @@ function JobForm() {
     }
 
     function cleanForm() {
-        cookies.remove('jobform')
-        cookies.remove('progress')
+        cookies.remove('heyzel_jobform')
+        cookies.remove('heyzel_progress')
         setVisited([0])
         setCurrentStep(0);
         reset(defaultValues);
@@ -197,8 +198,8 @@ function JobForm() {
 
     useEffect(() => {
         setResetting(true)
-        const savedFormData = cookies.get('jobform')
-        const progress = cookies.get('progress')
+        const savedFormData = cookies.get('heyzel_jobform')
+        const progress = cookies.get('heyzel_progress')
         if (savedFormData) {
             reset(savedFormData)
             if (progress) {
@@ -225,7 +226,7 @@ function JobForm() {
 
     const saveFormDataToCookie = () => {
         const formValues = watch(); // Get all current form values
-        cookies.set('jobform', formValues, {path: '/'});
+        cookies.set('heyzel_jobform', formValues, {path: '/'});
     };
 
     const registerWithSave = (fieldName, options) => {
@@ -271,7 +272,7 @@ function JobForm() {
 
             if (!visited.includes(currentStep + 1)) {
                 setVisited(prev => {
-                    cookies.set('progress', [...prev, currentStep + 1])
+                    cookies.set('heyzel_progress', [...prev, currentStep + 1])
                     return [...prev, currentStep + 1]
                 })
             }
@@ -357,6 +358,7 @@ function JobForm() {
                     </label>
                     <div className={`${errors.confirmation?.message ? classes.error : classes.noError}`}>{errors.confirmation?.message}</div>
                 </div>
+                <Validation />
             </>
         },
         {
@@ -645,7 +647,7 @@ function JobForm() {
         if (currentStep === idx) {
             className = classes.current;
         } else if (currentStep > idx || visited.includes(idx)) {
-            if (noErrorsCurrentStep()) {
+            if (noErrorsCurrentStep() && (idx !== 0 || isVerified)) {
                 className = classes.done;
             } else {
                 className = classes.incomplete;
@@ -784,20 +786,20 @@ function JobForm() {
                             </ul>
                         </div>
                         <div className={classes.buttons}>
-                            <button tabIndex={991} onClick={(e) => {
+{/*                            <button tabIndex={991} onClick={(e) => {
                                 e.preventDefault()
                                 trigger(steps[currentStep].fields
                             )}}
                                     className={`${classes.ctrlBtn} ${classes.enabled} secondary`}>TRIGGER
-                            </button>
+                            </button>*/}
                             {currentStep !== 0 && <button tabIndex={991} onClick={handleBackClick}
                                                           className={`${classes.ctrlBtn} ${classes.enabled} secondary`}>BACK
                             </button>}
                             {currentStep !== steps.length - 1 ?
-                                <button disabled={buttonDisabled} tabIndex={990} onClick={handleNextClick}
-                                        className={`${classes.ctrlBtn}  ${buttonDisabled ? 'button-disabled' : 'button-confirm'}`}>NEXT
-                                </button> : <button disabled={!isValid} tabIndex={990} type={"submit"}
-                                                    className={`${classes.ctrlBtn} ${isValid ? 'button-confirm' : 'button-disabled'}`}>SUBMIT
+                                <button disabled={buttonDisabled || (currentStep === 0 && !isVerified)} tabIndex={990} onClick={handleNextClick}
+                                        className={`${classes.ctrlBtn}  ${(buttonDisabled || (currentStep === 0 && !isVerified)) ? 'button-disabled' : 'button-confirm'}`}>NEXT
+                                </button> : <button disabled={!isValid || !isVerified} tabIndex={990} type={"submit"}
+                                                    className={`${classes.ctrlBtn} ${isValid && isVerified ? 'button-confirm' : 'button-disabled'}`}>SUBMIT
                                 </button>}
                         </div>
                     </div>

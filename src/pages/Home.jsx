@@ -11,13 +11,13 @@ import Navbar from "../components/Navigation/Navbar.jsx";
 import {useTranslation} from "react-i18next";
 import {Helmet} from "react-helmet";
 import About from "../components/About/About.jsx";
+import InsertionBlock from "../components/InsertionBlock/InsertionBlock.jsx";
+import Locations from "../components/Locations/Locations.jsx";
+import Menu from "../components/Menu/Menu.jsx";
+import Contact from "../components/Contact/Contact.jsx";
+import Footer from "../components/Footer/Footer.jsx";
+import LegalModal from "../components/LegalModal/LegalModal.jsx";
 
-const Menu = lazy(() => import('../components/Menu/Menu.jsx'))
-const Locations = lazy(() => import('../components/Locations/Locations.jsx'))
-const Contact = lazy(() => import('../components/Contact/Contact.jsx'))
-const Footer = lazy(() => import('../components/Footer/Footer.jsx'))
-const InsertionBlock = lazy(() => import('../components/InsertionBlock/InsertionBlock.jsx'))
-const LegalModal = lazy(() => import('../components/LegalModal/LegalModal.jsx'))
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -69,7 +69,7 @@ function Home() {
     // Routing leads to heyzel.de/imprint or else to open a proper modal. The race condition is eliminated of
     // opening again since state is not updated in this short amount.
     useEffect(() => {
-        if (modalId && !paramOnClose) {
+        if (modalId && !paramOnClose && openModal) {
             switch (modalId) {
                 case 'imprint': {
                     openModal(<LegalModal showImprint={true}/>, true);

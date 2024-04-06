@@ -1,219 +1,499 @@
 {
   "categories": [
     {
-      "name": "Coffee",
-      "description": "Enjoy our variation of coffees.",
+      "name": "menu.cat1.title",
+      "description": "menu.cat1.dscr",
       "images": [
-        "/media/images/coffees.jpg"
+        "/media/images/coffee-b.webp"
       ],
       "items": [
         {
-          "name": "SALADE THAÏ asdfsd fds",
-          "description": "Iceberg lettuce, carrots, cucumber, soy bean, marinated chicken, fresh mint, cilantro, peanuts",
-          "price": "13.90€"
+          "headline": true,
+          "name": "menu.cat1.products.title1",
+          "price1": "menu.sizes.size1a",
+          "price2": "menu.sizes.size2a"
         },
         {
-          "name": "SALADE POULET MARINÉ, AVOCAT",
-          "description": "Romaine, lamb's lettuce, red cabbage, carrots, marinated chicken, avocado, cashews",
-          "price": "13.90€"
+          "name": "menu.cat1.products.kaffee",
+          "description": " ",
+          "price1": "3,60€",
+          "price2": "4,50€"
         },
         {
-          "name": "SALADE MINI PENNE",
-          "description": "Mini penne, cherry tomatoes, pesto, pine nuts, shaved parmesan",
-          "price": "13.90€"
+          "name": "menu.cat1.products.cappu",
+          "description": " ",
+          "price1": "3,90€",
+          "price2": "4,90€"
         },
         {
-          "name": "SALADE P'TITE LENTILLES",
-          "description": "Green lentils, Red onions, Chickpeas, Cherry tomatoes, Fêta, Coriander, Hazelnuts",
-          "price": "13.90€"
+          "name": "menu.cat1.products.milkUno",
+          "description": " ",
+          "price1": "3,80€",
+          "price2": "4,60€"
         },
         {
-          "name": "SALADE GREQUE",
-          "description": "Arugula, Fêta, Cherry tomatoes, Cucumber, Onions, Black olives.",
-          "price": "13.90€"
+          "name": "menu.cat1.products.milkDop",
+          "description": " ",
+          "price2": "4,80€"
         },
         {
-          "name": "SALADE QUINOA GOURMAND",
-          "description": "Bulghour, Quinoa, Broccoli, Chicken, Basil, Cherry tomatoes, Parmesan, Olive oil.",
-          "price": "13.90€"
+          "name": "menu.cat1.products.latMac",
+          "description": " ",
+          "price1": "4,10€",
+          "price2": "5,20€"
         },
         {
-          "name": "SALADE BRESAOLA",
-          "description": "Iceberg Salad, Cherry Tomatoes, Artichoke Heart, Nuts, Bresaola, Parmesan . Served with Bresaola sauce.",
-          "price": "13.90€"
+          "name": "menu.cat1.products.caramel",
+          "description": " ",
+          "price1": "4,30€",
+          "price2": "5,40€"
         },
         {
-          "name": "SALADE MEKONG",
-          "description": "Chinese cabbage, Carrot, Soybean Sprouts, Vermicelli transparent, Lemongrass, Ginger, Coriander, Peanuts, sautéed marinated beef.",
-          "price": "13.90€"
+          "name": "menu.cat1.products.heyz",
+          "description": " ",
+          "price1": "4,30€",
+          "price2": "5,40€"
         },
         {
-          "name": "POKE BOWL SAUMON",
-          "description": "Sushi Rice, Marinated Salmon, Mango, Radish, Cucumber, Red Cabbage, Red Pepper, Ketone, Sauce (Soy, Sesame Oil, Rice Vinegar, Ginger, Garlic)",
-          "price": "16.90€"
+          "name": "menu.cat1.products.mocca",
+          "description": " ",
+          "price1": "4,30€",
+          "price2": "5,40€"
         },
         {
-          "name": "BURRATA",
-          "description": "Seasoned with candied tomatoes and cashews. Accompanied by its tomato farandole: Pineapple, Cocktail, Heart of Beef, Crimean black, Green Zebra, fleur de sel and olive oil",
-          "price": "14.60€"
+          "name": "menu.cat1.products.moccaW",
+          "description": " ",
+          "price1": "4,30€",
+          "price2": "5,40€"
         },
         {
-          "name": "MILLE FEUILLE DE LÉGUMES",
-          "description": "With Zucchini, Eggplant, Tomato, Tapenade, Sesame seed, balsamic cream",
-          "price": "14.90€"
+          "name": "menu.cat1.products.flav",
+          "description": " ",
+          "price2": "+0,70€"
         },
         {
-          "name": "TARTARE DE SAUMON",
-          "description": "Served with Roasted Sesame Sheathed Rice, Soy Sauce and Cucumber",
-          "price": "21.00€"
+          "headline": true,
+          "name": "menu.cat1.products.title2",
+          "price1": "menu.sizes.size1a",
+          "price2": "menu.sizes.size2a"
+        },
+        {
+          "name": "menu.cat1.products.heiSch",
+          "description": " ",
+          "price1": "4,10€",
+          "price2": "4,90€"
+        },
+        {
+          "name": "menu.cat1.products.heiZit",
+          "description": " ",
+          "price1": "4,10€",
+          "price2": "4,90€"
+        },
+        {
+          "name": "menu.cat1.products.heiOra",
+          "description": " ",
+          "price1": "4,20€",
+          "price2": "5,10€"
+        },
+        {
+          "name": "menu.cat1.products.tee",
+          "description": " ",
+          "price2": "4,60€"
+        },
+        {
+          "name": "menu.cat1.products.chaTee",
+          "description": " ",
+          "price1": "4,60€",
+          "price2": "5,40€"
+        },
+        {
+          "name": "menu.cat1.products.oraSaf",
+          "description": " ",
+          "price1": "4,80€",
+          "price2": "7,30€"
+        },
+        {
+          "name": "menu.cat1.products.iceTea",
+          "description": " ",
+          "price2": "4,60€"
         }
       ]
     },
     {
-      "name": "Drinks",
-      "description": "Enjoy our selection of drinks",
+      "name": "menu.cat2.title",
+      "description": "menu.cat2.dscr",
+      "additivesTitle": "menu.additives.title",
+      "additives": [
+        "menu.additives.drinks.1",
+        "menu.additives.drinks.2",
+        "menu.additives.drinks.3",
+        "menu.additives.drinks.4"
+      ],
       "images": [
-        "/media/images/drinks.jpg"
+        "/media/images/drinks-b.webp"
       ],
       "items": [
         {
-        "name":"LE NORDIQUE TOASTÉ JAMBON",
-        "description":"Ham, cheddar, arugula, tomato, mayonnaise",
-        "price":"6.9€"
+          "headline": true,
+          "name": "menu.cat2.products.title1",
+          "price1": "menu.sizes.size3",
+          "price2": "menu.sizes.size2a"
         },
         {
-        "name":"LE NORDIQUE TOASTÉ POULET",
-        "description":"Chicken, curry sauce, arugula, tomato, mayonnaise",
-        "price":"6.9€"
+          "name": "menu.cat2.products.schok",
+          "description": " ",
+          "price2": "5,30€"
         },
         {
-        "name":"LE CLUB (EXCLU DE LA FORMULE DÉJEUNER)",
-        "description":"White bread, Pastrami, bacon, Swiss cheese, lettuce, tomato, mayonnaise",
-        "price":"9€"
+          "name": "menu.cat2.products.van",
+          "description": " ",
+          "price2": "5,10€"
         },
         {
-        "name":"QUICHE CHÈVRE, ÉPINARD",
-        "description":"Goat cheese and spinach quiche",
-        "price":"6.9€"
+          "name": "menu.cat2.products.erdb",
+          "description": " ",
+          "price2": "5,60€"
         },
         {
-        "name":"QUICHE LORRAINE",
-        "description":"Bacon bits, egg and cream quiche",
-        "price":"6.9€"
+          "name": "menu.cat2.products.bana",
+          "description": " ",
+          "price2": "5,60€"
         },
         {
-        "name":"LA QUICHE MÉDITERRANÉENNE",
-        "description":"Tuna, Mustard, Tomato, Basil",
-        "price":"6.9€"
+          "name": "menu.cat2.products.banaPea",
+          "description": " ",
+          "price2": "5,90€"
         },
         {
-        "name":"PANINI CALIFORNIEN",
-        "description":"Chicken, cheddar, tomato, olive oil, basil",
-        "price":"7.80€"
+          "name": "menu.cat2.products.banaDop",
+          "description": " ",
+          "price2": "5,90€"
         },
         {
-        "name":"PANINI 3 FROMAGES",
-        "description":"Swiss cheese, gorgonzola, goat cheese, tomato, olive oil, basil",
-        "price":"7.80€"
+          "name": "menu.cat2.products.banaCoo",
+          "description": " ",
+          "price2": "6,10€"
         },
         {
-        "name":"PANINI VÉGÉTARIEN",
-        "description":"Eggplant, tomato and marinated zucchini, goat cheese, olive oil, basil",
-        "price":"7.80€"
+          "name": "menu.cat2.products.cocru",
+          "description": " ",
+          "price2": "6,10€"
         },
         {
-        "name":"FOCACCIA",
-        "description":"Goat Cheese, Marinated eggplant, tomato, Arugula, ham,swiss cheese",
-        "price":"6.9€"
+          "name": "menu.cat2.products.pea",
+          "description": " ",
+          "price2": "6,10€"
         },
         {
-        "name":"PLANCHA CHARCUTERIE",
-        "description":"Serrano ham, herb ham, thinly cut Chorizo, coppa, homemade country terrine (may vary according to season)",
-        "price":"15€"
+          "name": "menu.cat2.products.manLas",
+          "description": " ",
+          "price2": "6,10€"
+        },
+
+
+        {
+          "headline": true,
+          "name": "menu.cat2.products.title2",
+          "price1": "menu.sizes.size3",
+          "price2": "menu.sizes.size4"
         },
         {
-        "name":"PLANCHA FROMAGES",
-        "description":"Saint-Nectaire, Comté, Bleu cheese, chèvre cendré, fig jam (may vary according to season)",
-        "price":"14€"
+          "name": "menu.cat2.products.biona",
+          "description": "menu.verSort",
+          "price2": "3,10€"
         },
         {
-        "name":"LES RILLETTES DE THON",
-        "description":"Tuna rillettes (shredded tuna terrine) served with toasted bread",
-        "price":"14€"
+          "name": "menu.cat2.products.spezi",
+          "description": " ",
+          "price2": "2,90€"
         },
         {
-        "name":"LE P’TIT CAMEMBERT AU FOUR",
-        "description":"small oven toasted Camembert with a side of toasted bread",
-        "price":"9€"
+          "name": "menu.cat2.products.speziEn",
+          "description": " ",
+          "price2": "3,10€"
         },
         {
-        "name":"FRITES FRAICHES MAISON",
-        "description":"Side of french fries (thick cut)",
-        "price":"5€"
+          "name": "menu.cat2.products.prov",
+          "description": "menu.verSort",
+          "price2": "3,10€"
+        },
+        {
+          "name": "menu.cat2.products.mozWas",
+          "description": "menu.cat2.products.mozWasDscr",
+          "price2": "2,70€"
+        },
+        {
+          "name": "menu.cat2.products.rebu",
+          "description": "menu.verSort",
+          "price2": "3,30€"
+        },
+        {
+          "name": "menu.cat2.products.cluMa",
+          "description": " ",
+          "price2": "3,40€"
+        },
+        {
+          "name": "menu.cat2.products.cola",
+          "description": "menu.verSort",
+          "price2": "2,90€"
+        },
+        {
+          "name": "menu.cat2.products.irse",
+          "description": "menu.verSort",
+          "price2": "4,30€"
+        },
+        {
+        "name": "menu.cat2.products.teger",
+        "description": " ",
+        "price2": "3,30€"
+        },
+        {
+        "name": "menu.cat2.products.heine",
+          "description": " ",
+          "price2": "3,30€"
+        },
+        {
+          "name": "menu.cat2.products.desp",
+          "description": " ",
+          "price2": "3,90€"
+        },
+        {
+          "name": "menu.cat2.products.coro",
+          "description": " ",
+          "price2": "3,90€"
+        },
+        {
+          "name": "menu.cat2.products.goess",
+          "description": " ",
+          "price2": "3,30€"
+        },
+
+
+        {
+          "headline": true,
+          "name": "menu.cat2.products.title3",
+          "price1": "menu.sizes.size1b",
+          "price2": "menu.sizes.size2b"
+        },
+        {
+          "name": "menu.cat2.products.erdMar",
+          "additives": [
+            "4"
+          ],
+          "description": " ",
+          "price1": "6,10€",
+          "price2": "11,40€"
+        },
+        {
+          "name": "menu.cat2.products.manMar",
+          "additives": [
+            "4"
+          ],
+          "description": " ",
+          "price1": "6,10€",
+          "price2": "11,40€"
+        },
+        {
+          "name": "menu.cat2.products.lonIsl",
+          "description": " ",
+          "price2": "10,80€"
+        },
+        {
+          "name": "menu.cat2.products.caipi",
+          "description": " ",
+          "price2": "10,80€"
+        },
+        {
+          "name": "menu.cat2.products.cubLib",
+          "description": " ",
+          "price1": "9,20€"
+        },
+        {
+          "name": "menu.cat2.products.smirKir",
+          "description": " ",
+          "price1": "8,10€"
+        },
+        {
+          "name": "menu.cat2.products.smirRB",
+          "additives": [
+            "1",
+            "2",
+            "4"
+          ],
+          "description": " ",
+          "price1": "8,10€"
+        },
+        {
+          "name": "menu.cat2.products.ginTon",
+          "description": " ",
+          "price1": "8,90€"
+        },
+        {
+          "name": "menu.cat2.products.apeSpri",
+          "description": " ",
+          "price1": "7,60€"
         }
       ]
     },
     {
-      "name": "Food",
-      "description": "See some main dishes here",
+      "name": "menu.cat3.title",
+      "description": "menu.cat3.dscr",
       "images": [
-        "/media/images/food.jpg"
+        "/media/images/food-b.webp"
       ],
       "items": [
         {
-        "name":"BURGER L’AUTHENTIQUE",
-        "description":"Lettuce, tomato, marinated ground beef, caramelized onions, cheddar, Cornichons (tangy French pickles)",
-        "price":"15.50€"
+          "headline": true,
+          "name": "menu.cat3.products.title1",
+          "price1": "menu.sizes.size3",
+          "price2": "menu.sizes.size4"
         },
         {
-        "name":"BURGER PROVENÇAL",
-        "description":"Rare cooking recommended! Salad, Tomato, Cheddar, Prepared Beef (with tomato caviar, grated counting, herbs from Provence), French fries",
-        "price":"15.50€"
+          "name": "menu.cat3.products.toRiSa",
+          "description": " ",
+          "price2": "4,70€"
         },
         {
-        "name":"BURGER LE FERMIER",
-        "description":"Lettuce, tomato, braised and marinated chicken, Swiss cheese, chive ,mustard,& garlic sauce",
-        "price":"15.50€"
+          "name": "menu.cat3.products.tomMoz",
+          "description": " ",
+          "price2": "4,40€"
         },
         {
-        "name":"BURGER IBÉRIQUE",
-        "description":"Salad, Tomato, Emmental, Chorizo/Mayo Sauce. Marinated chicken (with tomato caviar and snacky chorizo), French fries",
-        "price":"15.50€"
+          "name": "menu.cat3.products.schiKae",
+          "description": " ",
+          "price2": "4,90€"
         },
         {
-        "name":"BURGER VÉGÉTARIEN",
-        "description":"Galette de Légumes (carrot, corn, potato, onion, curry, egg), Salad, Tomato, White sauce (Saint-Morêt, dill, cucumber, citrus juice), French fries",
-        "price":"15.50€"
+          "name": "menu.cat3.products.salaWra",
+          "description": " ",
+          "price2": "5,20€"
         },
         {
-        "name":"MAGRET DE CANARD",
-        "description":"Whole pan seared duck breast served with fig chutney, mixed green salad and french fries",
-        "price":"22.50€"
+          "name": "menu.cat3.products.spicSal",
+          "description": " ",
+          "price2": "5,20€"
         },
         {
-        "name":"TARTARE DE BŒUF CHAROLAIS",
-        "description":"Beef tartare: Raw prime beef, marinated soy sauce, olive oil, Worcester sauce, Tabasco, served with black olives,sun dried tomatoes, parmesan and a side of french fries",
-        "price":"18.50€"
+          "name": "menu.cat3.products.zuccWra",
+          "description": " ",
+          "price2": "4,80€"
         },
         {
-        "name":"CARPACCIO DE BOEUF",
-        "description":"thinly sliced prime beef, served raw with cold pressed citrus olive oil, sun dried tomatoes,capers and a side of mixed greens",
-        "price":"14.90€"
+          "name": "menu.cat3.products.chiWra",
+          "description": " ",
+          "price2": "5,20€"
         },
         {
-        "name":"BROCHETTES DE POULET SATÉ",
-        "description":"Trio of Marinated Chicken Skewers, Saté Sauce, Steamed Rice, Small Salad. 100% FRENCH POULTRY",
-        "price":"15.90€"
+          "headline": true,
+          "name": "menu.cat3.products.title2",
+          "price1": "menu.sizes.size3",
+          "price2": "menu.sizes.size4"
         },
         {
-        "name":"CÔTE DE BOEUF",
-        "description":"Served on his board with Fleur de Sel and Pink Berries, accompanied by a Homemade Pepper Sauce, Baked Potato, White Sauce, Small Salad. 500 gr, PATURAGES IRELAND",
-        "price":"29.00€"
+          "name": "menu.cat3.products.nuSa",
+          "description": " ",
+          "price2": "4,80€"
         },
         {
-        "name":"FILET DE BOEUF",
-        "description":"Served with Salad and Fresh Homemade Fries with your choice: Its Pepper Sauce or its Maître d'Hôtel Butter. 200 GR, SELECTION & FRENCH QUALITY",
-        "price":"22.50€"
+          "name": "menu.cat3.products.pasSa",
+          "description": " ",
+          "price2": "4,80€"
+        },
+        {
+          "name": "menu.cat3.products.couFeSa",
+          "description": " ",
+          "price2": "4,80€"
+        },
+        {
+          "name": "menu.cat3.products.couSa",
+          "description": " ",
+          "price2": "4,50€"
+        },
+        {
+          "headline": true,
+          "name": "menu.cat3.products.title3",
+          "price1": "menu.sizes.size3",
+          "price2": "menu.sizes.size4"
+        },
+        {
+          "name": "menu.cat3.products.cook",
+          "description": " ",
+          "price2": "2,10€"
+        },
+        {
+          "name": "menu.cat3.products.schoBroe",
+          "description": " ",
+          "price2": "1,60€"
+        },
+        {
+          "name": "menu.cat3.products.buCro",
+          "description": " ",
+          "price2": "2,20€"
+        },
+        {
+          "name": "menu.cat3.products.vaCro",
+          "description": " ",
+          "price2": "2,90€"
+        },
+        {
+          "name": "menu.cat3.products.piCro",
+          "description": " ",
+          "price2": "3,50€"
+        },
+        {
+          "name": "menu.cat3.products.apriCro",
+          "description": " ",
+          "price2": "3,10€"
+        },
+        {
+          "name": "menu.cat3.products.do",
+          "description": " ",
+          "price2": "2,40€"
+        },
+        {
+          "name": "menu.cat3.products.preDo",
+          "description": " ",
+          "price2": "2,60€"
+        },
+        {
+          "name": "menu.cat3.products.muf",
+          "description": " ",
+          "price2": "2,60€"
+        },
+        {
+          "name": "menu.cat3.products.preMuf",
+          "description": " ",
+          "price2": "3,10€"
+        },
+        {
+          "headline": true,
+          "name": "menu.cat3.products.title4",
+          "price1": "menu.sizes.size3",
+          "price2": "menu.sizes.size4"
+        },
+        {
+          "name": "menu.cat3.products.osa",
+          "description": " ",
+          "price2": "4,20€"
+        },
+        {
+          "name": "menu.cat3.products.ana",
+          "description": " ",
+          "price2": "3,50€"
+        },
+        {
+          "name": "menu.cat3.products.melo",
+          "description": " ",
+          "price2": "3,50€"
+        },
+        {
+          "name": "menu.cat3.products.app",
+          "description": " "
+        },
+        {
+          "name": "menu.cat3.products.appKu",
+          "description": " ",
+          "price2": "3,80€"
         }
       ]
     }

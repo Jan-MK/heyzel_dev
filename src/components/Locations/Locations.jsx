@@ -8,7 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 import cafe1 from "../../assets/media/HeroImages/cafe-1869656_1280.jpg"
 import cafe2 from "../../assets/media/HeroImages/cafe-789635_1280.jpg"
 import cafe3 from "../../assets/media/HeroImages/coffeehouse-2600877_1280.jpg"
-import SingleLocation from "./SingleLocation/SingleLocation.jsx";
+import SingleLocation from "../SingleLocation/SingleLocation.jsx";
 import {useWindowDimensions} from "../../context/WindowDimensionsContext.jsx";
 import {useEffect} from "react";
 import {maxWidthMobile, minWidthTablet} from "../../utility/Vars.jsx";

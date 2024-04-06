@@ -13,7 +13,7 @@ import {useTranslation} from "react-i18next";
 import ReactCountryFlag from "react-country-flag";
 
 const MobileMenu = () => {
-    const { t, i18n } = useTranslation();
+    const {t, i18n} = useTranslation();
     let lenis = useLenis()
     const {isOpen, closeMenu} = useMobileMenu();
     const menuRef = useRef(null)
@@ -54,26 +54,28 @@ const MobileMenu = () => {
                 console.log("NOT FOUND")
             }
         } else {
-            lenis?.start()
-            document.body.style.overflow = 'unset';
-            const tl = gsap.timeline({
-                onComplete: () => {
-                    setIsVisible(false);
-                }
-            });
-            tl.to(navItemsRef.current, {
-                opacity: 0,
-                marginBottom: -5,
-                duration: 0.05,
-                ease: "power2.out",
-                stagger: 0.05,
-            })
-                .to(mmc, {
+            if (mmc && navItemsRef) {
+                lenis?.start()
+                document.body.style.overflow = 'unset';
+                const tl = gsap.timeline({
+                    onComplete: () => {
+                        setIsVisible(false);
+                    }
+                });
+                tl.to(navItemsRef.current, {
                     opacity: 0,
-                    duration: 0.5,
-                    top: "-100%",
-                    ease: "power1.inOut",
-                }, "<");
+                    marginBottom: -5,
+                    duration: 0.05,
+                    ease: "power2.out",
+                    stagger: 0.05,
+                })
+                    .to(mmc, {
+                        opacity: 0,
+                        duration: 0.5,
+                        top: "-100%",
+                        ease: "power1.inOut",
+                    }, "<");
+            }
         }
         return () => {
             gsap.killTweensOf(mmc);
@@ -130,11 +132,12 @@ const MobileMenu = () => {
                     </li>
                     <li className={classes.nav} onClick={(e) => {
                         e.stopPropagation()
-                        i18n.changeLanguage(i18n.resolvedLanguage === 'en' ? 'de' : 'en' )
+                        i18n.changeLanguage(i18n.resolvedLanguage === 'en' ? 'de' : 'en')
                     }}>
                         <div className={`${classes.navLink} ${classes.modeListItem}`}>
                             <p>{t('general.switch')}</p>
-                            <ReactCountryFlag svg style={{width: '25px', height: 'auto'}} countryCode={i18n.resolvedLanguage === 'en' ? 'DE' : 'GB' }/>
+                            <ReactCountryFlag svg style={{width: '25px', height: 'auto'}}
+                                              countryCode={i18n.resolvedLanguage === 'en' ? 'DE' : 'GB'}/>
                         </div>
                     </li>
                 </ul>

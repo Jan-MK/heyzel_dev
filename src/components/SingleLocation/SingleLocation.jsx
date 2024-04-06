@@ -1,6 +1,6 @@
 import classes from "./SingleLocation.module.scss"
 import NavigationOptions from "./NavigationOptions/NavigationOptions.jsx";
-import VerticalTable from "../../VerticalTable/VerticalTable.jsx";
+import VerticalTable from "../VerticalTable/VerticalTable.jsx";
 import {useTranslation} from "react-i18next";
 
 function SingleLocation({

@@ -2,10 +2,12 @@ import classes from "./About.module.scss"
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {useGSAP} from "@gsap/react";
-import coffee from "../../assets/media/about/coffee.jpeg"
-import substainable from "../../assets/media/about/sustainable-cups.png"
+import shop from "../../assets/media/about/heyzel-shop.webp"
+import substainable from "../../assets/media/about/sustainable-cups.webp"
+import heart from "../../assets/media/about/with-love.webp"
 import {Trans, useTranslation} from "react-i18next";
 import {useWindowDimensions} from "../../context/WindowDimensionsContext.jsx";
+import {minWidthTablet} from "../../utility/Vars.jsx";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,6 +16,7 @@ function About(props) {
     const {isSmartphone, isTablet} = useWindowDimensions()
 
     useGSAP(() => {
+        if(isSmartphone) return 0;
         const container = document.getElementById("about");
         const wrapper = document.getElementById('aboutWrapper')
         const outro = document.getElementById('aboutOutro')
@@ -32,31 +35,35 @@ function About(props) {
             startPin = `top+=${wrapper.offsetTop} top+=64px`
         }
 
-        let scrollTween = gsap.to(sections, {
-            xPercent: -100 * (sections.length - 1),
-            ease: "none",
-            scrollTrigger: {
-                trigger: container,
-                start: startPin,
-                pin: true,
-                scrub: 1,
-                end: endDistance,
-                pinSpacer: false,
-                markers: true,
-                onUpdate: (self) => {
-                    mask.style.width = Math.min(self.progress * 100, 100) + "%";
-                }
-            }
-        });
 
-        let scrollTween3 = gsap.from(outro, {
-            opacity: 0,
-            scrollTrigger: {
-                trigger: insertionBlock,
-                start: "center bottom",
-                end: "+=25",
-                scrub: 1,
-            }
+        matchMedia.add(`(min-width: ${minWidthTablet}px)`, () => {
+            let scrollTween = gsap.to(sections, {
+                xPercent: -100 * (sections.length - 1),
+                ease: "none",
+                scrollTrigger: {
+                    pin: true,
+                    pinSpacer: false,
+                    trigger: container,
+                    start: startPin,
+                    scrub: 1,
+                    end: endDistance,
+                    markers: false,
+                    onUpdate: (self) => {
+                        mask.style.width = Math.min(self.progress * 100, 100) + "%";
+                    }
+                }
+            });
+
+
+            let scrollTween3 = gsap.from(outro, {
+                opacity: 0,
+                scrollTrigger: {
+                    trigger: insertionBlock,
+                    start: "center bottom",
+                    end: "+=25",
+                    scrub: 1,
+                }
+            })
         })
 
     })
@@ -74,7 +81,7 @@ function About(props) {
                 </div>
                 <div id={"aboutWrapper"} className={classes.aboutWrapper}>
 
-                    <div className={classes.timeLine}>
+                    {!isSmartphone && <div className={classes.timeLine}>
                         <svg viewBox="0 0 900 10" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M9.89998 6C9.43671 8.28224 7.41896 10 5 10C2.23858 10 0 7.76142 0 5C0 2.23858 2.23858 0 5 0C7.41896 0 9.43671 1.71776 9.89998 4H445.1C445.563 1.71776 447.581 0 450 0C452.419 0 454.437 1.71776 454.9 4H890.1C890.563 1.71776 892.581 0 895 0C897.761 0 900 2.23858 900 5C900 7.76142 897.761 10 895 10C892.581 10 890.563 8.28224 890.1 6H454.9C454.437 8.28224 452.419 10 450 10C447.581 10 445.563 8.28224 445.1 6H9.89998Z"/>
@@ -88,14 +95,14 @@ function About(props) {
                                 <rect id={"aboutMask"} className={classes.mask} y="-49" height="99"/>
                             </g>
                         </svg>
-                    </div>
+                    </div>}
                     <div id={"aboutContainer"} className={`${classes.aboutContainer} ${classes.scrollx}`}>
                         <section className={`${classes.sec1} ${classes.pin}`}>
                             <div className={classes.col}>
                                 <div className={classes.photo}>
                                     <img
                                         alt={t('cardMenu.day.title')}
-                                        src={coffee}/>
+                                        src={shop}/>
                                 </div>
                                 <div className={classes.text}>
                                     <div>
@@ -141,7 +148,7 @@ function About(props) {
                                 <div className={classes.photo}>
                                     <img
                                         alt={t('cardMenu.day.title')}
-                                        src={substainable}/>
+                                        src={heart}/>
                                 </div>
                                 <div className={classes.text}>
                                     <div>

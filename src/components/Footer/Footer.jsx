@@ -3,12 +3,13 @@ import Logo from "../Logo/Logo.jsx";
 import {useModal} from "../../context/ModalContext.jsx";
 import LegalModal from "../LegalModal/LegalModal.jsx";
 import {useTranslation} from "react-i18next";
+import {useCookie} from "../../context/CookieContext.jsx";
 
 
 function Footer() {
     const {openModal} = useModal()
     const {t} = useTranslation()
-
+    const {isAllowed, setAllow} = useCookie()
     const year = new Date().getFullYear()
 
 
@@ -59,8 +60,12 @@ function Footer() {
                         <a onClick={() => toggleMount(true)}><p>{t('footer.imprint')}</p></a>
                         <a onClick={() => toggleMount(false)}><p>{t('footer.privacy')}</p></a>
                     </div>
+                    <div className={classes.cookieContainer}>
+                        <p className={classes.cleanCookies} onClick={() => setAllow(false)}>Opt-out cookies</p>
+                        <p className={classes.subtext}>Cookies will be removed and disallowed.</p>
+                    </div>
                     <div className={classes.rights}>
-                        <p>Copyright © {year}. {t('footer.rights')}.</p>
+                        <p>Copyright © {year}. {t('footer.rights')}</p>
                     </div>
                 </div>
 

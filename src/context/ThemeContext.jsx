@@ -8,13 +8,13 @@ export function ThemeProvider({children}) {
     const [mode, setMode] = useState('light');
 
     useEffect(() => {
-        // 1. Check if there's a 'mode' cookie
-        const modeCookie = cookies.get('mode');
+        // Check if there's a 'heyzel_mode' cookie
+        const modeCookie = cookies.get('heyzel_mode');
 
         // If the cookie exists and has a valid value, use it
         if (modeCookie && (modeCookie === 'dark' || modeCookie === 'light')) {
             setMode(modeCookie);
-            cookies.set('mode', `${modeCookie}`, {path: '/'})
+            cookies.set('heyzel_mode', `${modeCookie}`, {path: '/'})
             document.documentElement.setAttribute('data-theme', `${modeCookie}`);
         } else {
             // 2. Check user/browser settings for color scheme
@@ -22,11 +22,11 @@ export function ThemeProvider({children}) {
 
             if (userPrefersDark) {
                 setMode('dark');
-                cookies.set('mode', 'dark', {path: '/'})
+                cookies.set('heyzel_mode', 'dark', {path: '/'})
                 document.documentElement.setAttribute('data-theme', 'dark');
             } else {
                 setMode('light');
-                cookies.set('mode', 'light', {path: '/'})
+                cookies.set('heyzel_mode', 'light', {path: '/'})
                 document.documentElement.setAttribute('data-theme', 'light');
             }
         }
@@ -36,7 +36,7 @@ export function ThemeProvider({children}) {
         e?.preventDefault()
         setMode(() => {
             const newMode = mode === 'light' ? 'dark' : 'light';
-            cookies.set('mode', newMode, {path: '/'})
+            cookies.set('heyzel_mode', newMode, {path: '/'})
             document.documentElement.setAttribute('data-theme', `${newMode}`);
             return newMode
         })
