@@ -2,18 +2,16 @@ import classes from "./Locations.module.scss"
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {useGSAP} from "@gsap/react";
-
-gsap.registerPlugin(ScrollTrigger);
-
-import cafe1 from "../../assets/media/HeroImages/cafe-1869656_1280.jpg"
-import cafe2 from "../../assets/media/HeroImages/cafe-789635_1280.jpg"
-import cafe3 from "../../assets/media/HeroImages/coffeehouse-2600877_1280.jpg"
+import koepi from "../../assets/media/locations/heyzel-koenigsplatz.webp"
+import rathi from "../../assets/media/locations/heyzel-rathausplatz.webp"
+import uni from "../../assets/media/about/heyzel-shop.webp"
 import SingleLocation from "../SingleLocation/SingleLocation.jsx";
 import {useWindowDimensions} from "../../context/WindowDimensionsContext.jsx";
 import {useEffect} from "react";
 import {maxWidthMobile, minWidthTablet} from "../../utility/Vars.jsx";
 import {useTranslation} from "react-i18next";
 
+gsap.registerPlugin(ScrollTrigger);
 
 function Locations() {
     const { t, i18n } = useTranslation();
@@ -117,20 +115,20 @@ function Locations() {
                             <div className={classes.locationsPhotos}>
                                 <div className={classes.shadow}>
                                     <div className={classes.locationsPhoto} title={1}>
-                                        <img src={cafe1} alt={""}/>
+                                        <img src={koepi} alt={"HEYZEL Königsplatz"}/>
                                     </div>
                                 </div>
                                 <div className={classes.shadow}>
 
                                     <div className={classes.locationsPhoto} title={2}>
-                                        <img src={cafe2} alt={""}/>
+                                        <img src={rathi} alt={"HEYZEL Rathausplatz"}/>
                                     </div>
                                 </div>
 
                                 <div className={classes.shadow}>
 
                                     <div className={classes.locationsPhoto} title={3}>
-                                        <img src={cafe3} alt={""}/>
+                                        <img src={uni} alt={"HEYZEL Universität"}/>
                                     </div>
                                 </div>
 

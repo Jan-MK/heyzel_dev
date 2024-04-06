@@ -1,6 +1,6 @@
 import classes from "./Menu.module.scss";
 import menuArray from '../../assets/menu.json'
-import {useEffect, useRef} from "react";
+import {useRef} from "react";
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {useModal} from "../../context/ModalContext.jsx";
@@ -10,7 +10,6 @@ import coffee from "../../assets/media/menu/coffee.webp"
 //import beans from "../../assets/media/menu/beans.webp"
 import food from "../../assets/media/menu/food.webp"
 import drinks from "../../assets/media/menu/drinks.webp"
-import logo from "../Logo/Logo.jsx";
 
 
 gsap.registerPlugin(ScrollTrigger);
