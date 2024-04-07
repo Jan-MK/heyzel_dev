@@ -12,6 +12,11 @@ import {Link} from "react-router-dom";
 import {IoArrowForward} from "react-icons/io5";
 import Validation from "../Validation/Validation.jsx";
 import VerificationContext from "../../context/VerificationContext.jsx";
+import {prepareContactHtml, prepareDataHTML} from "../../utility/Utility.jsx";
+import axios from "axios";
+import Loading from "../Loading/Loading.jsx";
+import Submitted from "./Submitted/Submitted.jsx";
+import {useGSAP} from "@gsap/react";
 
 function Contact() {
     const {t} = useTranslation();
@@ -29,7 +34,7 @@ function Contact() {
         register,
         handleSubmit,
         watch,
-        formState: {errors, isValid},
+        formState: {errors, isValid, isSubmitting, isSubmitted},
         reset
     } = useForm({
         resolver: zodResolver(createSchema(typeIsOther)),
@@ -38,6 +43,10 @@ function Contact() {
     });
     const {openModal} = useModal();
     const {isVerified} = useContext(VerificationContext)
+    const [ isAnswered, setIsAnswered ] = useState(false)
+    const [ isSubmitSuccessful, setIsSubmitSuccessful ] = useState(false)
+    const [ sendingError, setSendingError ] = useState(false)
+    const [render, setRender] = useState(false)
 
     function createSchema(typeIsOther) {
         return z.object({
@@ -63,13 +72,46 @@ function Contact() {
 
 
 
-    const handleSave = (formData) => {
-        if (Object.keys(errors).length !== 0) {
-            reset(formData)
-        } else {
-            console.log("OK Submit")
-        }
-        // TODO !!! Create api endpoint for it
+
+    function handleSave(formContent) {
+        const dataToSend = new FormData();
+        console.log(formContent)
+
+
+
+
+        setTimeout(() => {
+            try {
+            let renderedFormData = prepareContactHtml(formContent);
+                if (renderedFormData) {
+
+                    dataToSend.append('emailContent', renderedFormData);
+
+                    axios.post('https://api.heyzel.de/sendContact.php', dataToSend, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data',
+                        },
+                    })
+                        .then(response => {
+                            console.log(response)
+                            if (response.status === 500) throw new Error();
+                            setIsAnswered(true)
+                            setIsSubmitSuccessful(true);
+                        })
+                        .catch(() => {
+                            console.log('Could not send application, please send it manually.')
+                            setIsAnswered(true)
+                            setIsSubmitSuccessful(false);
+                        });
+                } else {
+                    setIsAnswered(true);
+                    setIsSubmitSuccessful(false);
+                }
+            } catch (e) {
+                setIsAnswered(true);
+                setIsSubmitSuccessful(false);
+            }
+        }, 5000)
     }
 
 
@@ -107,7 +149,7 @@ function Contact() {
                     }/>
                 </div>
             </div>
-            <form className={classes.formContainer} onSubmit={handleSubmit(handleSave)}>
+            <form className={classes.formContainer} id={"formWrapper"} onSubmit={handleSubmit(handleSave)}>
                 <div className={classes.rowWrapper}>
                     <div>
                         <label htmlFor={'cFirstName'}>{t('contact.form.fn.label')}:</label>
@@ -194,8 +236,12 @@ function Contact() {
                 <div className={`${classes.rowWrapper} ${classes.notRowFlex}`}>
                     <Validation />
                 </div>
-                <button disabled={!isValid || !isVerified} type={"submit"} className={`${classes.submit}`}>{t('contact.form.btn')}</button>
+                <button disabled={!isValid || !isVerified} type={"submit"} className={`${classes.submit} primary`}>{t('contact.form.btn')}</button>
+                {(isSubmitting || isSubmitted) && <Loading text={t('contact.states.loading')} divOverlay={true}/>}
+                {isAnswered && sendingError && <Submitted success={false} heading={t('contact.states.error')} text={t('contact.states.errorDsc')} divOverlay={true}/>}
+                {isAnswered && isSubmitSuccessful && <Submitted success={true} heading={t('contact.states.success')} text={t('contact.states.successDsc')} divOverlay={true}/>}
             </form>
+
         </div>
     );
 }

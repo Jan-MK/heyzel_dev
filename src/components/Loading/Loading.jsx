@@ -1,10 +1,12 @@
 import classes from "./Loading.module.scss"
 import {PuffLoader} from "react-spinners";
 
-function Loading({ text }) {
+function Loading({ text, divOverlay }) {
+
+    let viewClass = divOverlay ? `${classes.generalSetting} ${classes.divOverlay}` : `${classes.generalSetting} ${classes.fullScreen}`
 
     return (
-        <div className={classes.resetScreen}>
+        <div className={viewClass}>
 
             <PuffLoader
                 loading

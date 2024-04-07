@@ -29,7 +29,6 @@ function About(props) {
         let endDistance = "+=2500"
         let pinAnchor = container
         let matchMedia = gsap.matchMedia()
-        console.log(sections)
         if (isTablet) {
             pinAnchor = wrapper
             startPin = `top+=${wrapper.offsetTop} top+=64px`

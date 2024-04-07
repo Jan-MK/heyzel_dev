@@ -173,6 +173,32 @@ export function prepareDataHTML(formData) {
     return content.join(''); // Return the entire content as a single HTML string
 }
 
+export function prepareContactHtml(formData) {
+    let content = [];
+
+    try {
+        content.push(`<h2>Kontaktinformationen</h2>`);
+        content.push(`<p><strong>Vorname:</strong> ${formData.firstName || 'Keine Angabe'}</p>`);
+        content.push(`<p><strong>Nachname:</strong> ${formData.lastName}</p>`);
+        content.push(`<p><strong>Mail:</strong> ${formData.mail}</p>`);
+        content.push(`<p><strong>Telefon:</strong> ${formData.phone || 'Keine Angabe'}</p>`);
+        content.push(`<br/>`);
+        content.push(`<br/>`);
+        if (formData.subject) {
+            content.push(`<p><strong>Anfragetyp (eigen):</strong> ${formData.subject}</p>`);
+        } else {
+            content.push(`<p><strong>Anfragetyp:</strong> ${formData.type}</p>`);
+        }
+        content.push(`<p><strong>--Nachricht - BEGINN--</strong></p>`);
+        content.push(`<p>${formData.message}</p>`);
+        content.push(`<p><strong>--Nachricht - ENDE--</strong></p>`);
+    } catch (e) {
+        return null;
+    }
+
+    return content.join(''); // Return the entire content as a single HTML string
+}
+
 
 function calculateAge(date) {
     const birthday = new Date(date);

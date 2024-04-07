@@ -308,6 +308,13 @@ i18n
                             dscr: "Looking to join the coolest crew in town? @HEYZEL is where it's at! If you love coffee, good vibes, and making people's day, we want you. Come be a part of us. Apply now and let's make some magic happen together!",
                             btn: "Apply now!"
                         },
+                        states: {
+                            loading: "Sending...",
+                            success: "Sent!",
+                            successDsc: "We will get get in touch with you!",
+                            error: "Error!",
+                            errorDsc: "Please send us an e-mail to info@heyzel.de"
+                        },
                         form: {
                             fn: {
                                 label: "First name",
@@ -918,6 +925,13 @@ i18n
                             title: "Ein Job <1>@HEYZEL</1>?",
                             dscr: "Du willst Teil der coolsten Crew der Stadt werden? @HEYZEL ist genau der richtige Ort dafür! Wenn Du Kaffee liebst, gute Vibes schätzt und gerne den Tag von Menschen verschönerst, dann wollen wir Dich! Bewirb Dich jetzt und lass uns gemeinsam Magie erschaffen!",
                             btn: "Jetzt bewerben!"
+                        },
+                        states: {
+                            loading: "Wird gesendet...",
+                            success: "Gesendet!",
+                            successDsc: "Wir melden uns!",
+                            error: "Fehler!",
+                            errorDsc: "Sende uns eine E-Mail an info@heyzel.de"
                         },
                         form: {
                             fn: {

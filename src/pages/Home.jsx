@@ -14,10 +14,13 @@ import About from "../components/About/About.jsx";
 import InsertionBlock from "../components/InsertionBlock/InsertionBlock.jsx";
 import Locations from "../components/Locations/Locations.jsx";
 import Menu from "../components/Menu/Menu.jsx";
-import Contact from "../components/Contact/Contact.jsx";
+//import Contact from "../components/Contact/Contact.jsx";
 import Footer from "../components/Footer/Footer.jsx";
 import LegalModal from "../components/LegalModal/LegalModal.jsx";
+import Loading from "../components/Loading/Loading.jsx";
 
+
+const Contact = lazy(() => import("../components/Contact/Contact.jsx"))
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -92,7 +95,7 @@ function Home() {
                 <section className={`${classes.contentSection} `} id={"about"}>
                     <div className={`${classes.bgSectionHeading} ${classes.centered} container`}>
 
-                        <About />
+                        <About/>
                     </div>
                 </section>
                 <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle} order={false}
@@ -107,7 +110,9 @@ function Home() {
                     </div>
                 </section>
                 <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle} order={true} boldIntro={"..."}
-                                idx={3} description={[insertions[2][i18n.resolvedLanguage], insertions[3][i18n.resolvedLanguage]]} bg={colors[1].bg}
+                                idx={3}
+                                description={[insertions[2][i18n.resolvedLanguage], insertions[3][i18n.resolvedLanguage]]}
+                                bg={colors[1].bg}
                                 text={colors[1].text}/>
                 <section className={`${classes.contentSection} ${classes.imageOverlay} ${classes.fullHeight}`}
                          ref={menuContainerRef}
@@ -115,21 +120,27 @@ function Home() {
                     <Menu/>
                 </section>
                 <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle} order={false} boldIntro={"..."}
-                                idx={5} description={[insertions[4][i18n.resolvedLanguage], insertions[5][i18n.resolvedLanguage]]} bg={colors[2].bg}
+                                idx={5}
+                                description={[insertions[4][i18n.resolvedLanguage], insertions[5][i18n.resolvedLanguage]]}
+                                bg={colors[2].bg}
                                 text={colors[2].text}/>
                 <section className={`${classes.contentSection}`} id={"locations"}>
                     <Locations/>
                 </section>
                 <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle} order={true} boldIntro={"..."}
-                                idx={7} description={[insertions[6][i18n.resolvedLanguage], insertions[7][i18n.resolvedLanguage]]} bg={colors[3].bg}
+                                idx={7}
+                                description={[insertions[6][i18n.resolvedLanguage], insertions[7][i18n.resolvedLanguage]]}
+                                bg={colors[3].bg}
                                 text={colors[3].text}/>
+
+
                 <section className={`${classes.contentSection}`} id={"contact"}>
                     <div className={`${classes.bgSectionHeading} ${classes.centered}`}>
-                        <h1>
-                            {t('menu.contact')}
-                        </h1>
+                        <h1>{t('menu.contact')}</h1>
                     </div>
-                    <Contact/>
+                    <Suspense fallback={<Loading/>}>
+                        <Contact/>
+                    </Suspense>
                 </section>
             </main>
             <Footer/>
