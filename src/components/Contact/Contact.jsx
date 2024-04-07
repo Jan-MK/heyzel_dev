@@ -173,7 +173,7 @@ function Contact() {
                     </div>
                     <div>
                         <label htmlFor={'phone'}>{t('contact.form.phone.label')}:</label>
-                        <input id={'phone'} type={'tel'} {...register('phone')} placeholder={t('contact.form.phone.ph')}/>
+                        <input id={'phone'} type={'tel'} {...register('phone')} placeholder={t('contact.form.phone.ph')}  autoComplete={"tel"}/>
                         <div
                             className={`${errors.phone?.message ? classes.error : classes.noError}`}>{errors.phone?.message}
                         </div>

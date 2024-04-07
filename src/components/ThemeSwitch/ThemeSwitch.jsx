@@ -18,6 +18,7 @@ const ThemeSwitch = ({isOnAbsolute}) => {
                 <span className={`${classes.slider} ${classes.round} ${mode === 'dark' ? 'checked' : 'unchecked'}`}>
                     {mode === 'light' ? <IoSunnyOutline className={`${classes.icon} ${classes.right}`} /> : <IoMoonOutline className={`${classes.icon} ${classes.left}`} />}
                 </span>
+                <span className={classes.visuallyHidden}>Toggle dark/light theme</span>
             </label>
         </div>
     );

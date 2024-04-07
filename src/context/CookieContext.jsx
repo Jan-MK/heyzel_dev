@@ -14,10 +14,6 @@ export const CookieProvider = ({ children }) => {
         setIsAllowed(allowCookie === true);
     }, []);
 
-    useEffect(() => {
-        console.log("User allowed cookies: ", isAllowed)
-    }, [isAllowed]);
-
     const setAllow = (allowValue) => {
         cookies.set('heyzel_allow', allowValue);
         setIsAllowed(allowValue);

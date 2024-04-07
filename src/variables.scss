@@ -1,17 +1,18 @@
 @font-face {
   font-family: 'Montserrat';
-  src: url('./fonts/Montserrat/Montserrat-VariableFont_wght.ttf') format('truetype');
-  font-weight: 100 900; /* Specifies the entire range of font weights */
+  src:
+          url('public/fonts/Montserrat/Montserrat-VariableFont_wght.ttf') format('truetype'),
+          url('public/fonts/Montserrat/Montserrat-VF.woff2') format('woff2');
+  font-weight: 100 900;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Inter';
-  src: url('src/fonts/Inter/Inter-VariableFont_slnt,wght.ttf') format('truetype');
+  src: url('public/fonts/Inter/Inter-VariableFont_slnt,wght.ttf') format('truetype');
   font-weight: 100 900; /* Specifies the entire range of font weights */
   font-style: normal;
 }
-
 
 [data-theme='light'] {
   --transition-pulse-color: var(--dark-shades-100op);
@@ -19,7 +20,7 @@
   --text-primary: var(--dark-shades-100op);
   --text-contrary: var(--light-accent-100op);
   --accent: #FE0879;
-  --accent2: #70BAFF;
+  --accent2: #38a2f8;
   //--accent2: var(--main-brand-color-100op);
   --accent3: var(--light-accent-100op);
 
@@ -36,6 +37,7 @@
   --overlay: var(--light-shades-50op);
   --overlayHeavy: var(--light-shades-75op);
   --overlayLight: var(--light-shades-25op);
+  --mute: #000;
 }
 
 [data-theme='dark'] {
@@ -63,6 +65,7 @@
   --overlay: var(--dark-shades-50op);
   --overlayHeavy: var(--dark-shades-100op);
   --overlayLight: var(--dark-shades-25op);
+  --mute: #bbbbbb;
 }
 
 :root {

@@ -149,8 +149,7 @@
         align-items: center !important;
         gap: 25px;
         max-width: 100vw;
-        padding-left: 5px;
-        padding-right: 5px;
+        padding: 5px;
 
         margin-top: auto;
         margin-bottom: auto;
@@ -251,7 +250,7 @@
               text-align: center;
             }
 
-            &.confirmation {
+            .confirmation {
               flex-direction: row;
               width: clamp(35vw, 50vw, 60vw);
               padding-left: 15px;

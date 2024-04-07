@@ -343,19 +343,22 @@ function JobForm() {
                     <div className={`${errors.desiredEmployment?.message ? classes.error : classes.noError}`}>{errors.desiredEmployment?.message}</div>
                 </div>
                 {/* Confirmation */}
-                <div className={`${classes.confirmation} ${classes.fieldWrapper}`}>
+                <div className={`${classes.fieldWrapper}`}>
+                    <div className={classes.confirmation}>
+
                     <input id='job-form-confirmation' className={classes.cbSmall} tabIndex={currentStep === 0 ? 2 : -1}
                            type={"checkbox"} {...registerWithSave('confirmation')}/>
-                    <label htmlFor="job-form-confirmation">
-                        <Trans i18nKey="jobForm.conf.label">
-                            Please confirm that you have read and agreed to our
-                            <a onClick={() => openModal(<LegalModal showImprint={false}/>)}>
-                                terms of privacy
-                            </a>
-                            on how we use the data.
-                        </Trans>
-                        <span className={classes.required}>*</span>
-                    </label>
+                        <label htmlFor="job-form-confirmation">
+                            <Trans i18nKey="jobForm.conf.label">
+                                Please confirm that you have read and agreed to our
+                                <a onClick={() => openModal(<LegalModal showImprint={false}/>)}>
+                                    terms of privacy
+                                </a>
+                                on how we use the data.
+                            </Trans>
+                            <span className={classes.required}>*</span>
+                        </label>
+                    </div>
                     <div className={`${errors.confirmation?.message ? classes.error : classes.noError}`}>{errors.confirmation?.message}</div>
                 </div>
                 <Validation />
@@ -443,7 +446,9 @@ function JobForm() {
                 <div className={classes.fieldWrapper}>
                     <label htmlFor="job-form-phone">{t('jobForm.phone.label')}<span className={classes.required}>*</span></label>
                     <input id="job-form-phone" tabIndex={currentStep === 3 ? 2 : -1}
-                           type="tel" {...registerWithSave('phone')} placeholder={t('jobForm.phone.ph')}/>
+                           type="tel" {...registerWithSave('phone')} placeholder={t('jobForm.phone.ph')}
+                           autoComplete={"tel"}
+                    />
                     <div className={`${errors.phone?.message ? classes.error : classes.noError}`}>{errors.phone?.message}</div>
                 </div>
                 {/* Street */}

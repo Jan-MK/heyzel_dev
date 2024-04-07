@@ -26,7 +26,6 @@ function Locations() {
 
         matchMedia.add(`(min-width: ${minWidthTablet}px)`, () => {
             // DESKTOP VERSION
-            console.log("DESKTOP")
             locationWrappers.forEach((wrapper, index) => {
                 if (index === locationWrappers.length - 1) return null;
                 const photo = locationPhotos[index];

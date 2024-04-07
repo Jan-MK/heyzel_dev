@@ -1,6 +1,6 @@
 import classes from "./Menu.module.scss";
 import menuArray from '../../assets/menu.json'
-import {useRef} from "react";
+import {useMemo, useRef} from "react";
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {useModal} from "../../context/ModalContext.jsx";
@@ -35,30 +35,30 @@ export default function Menu() {
     }
 
     let colors = getDistinctRandomHex(4, '#FE0879')
+    const renderedAdditives = useMemo(() => menuCats.map((cat, idx) => (
+        cat.additivesTitle && cat.additives &&
+        <div key={cat.additivesTitle} className={classes.additives}>
+            <p className={classes.addTitle}>{t(cat.additivesTitle)}:</p>
+            {cat.additives.map((add, itemIdx) => (
+                <p key={itemIdx}>{t(add)}</p>
+            ))}
+        </div>
+    )), [menuCats, t]);
 
-    const renderedAdditives = menuCats.map((cat, idx) => (
-            cat.additivesTitle && cat.additives &&
-            <div key={cat.additivesTitle} className={classes.additives}>
-                <p className={classes.addTitle}>{t(cat.additivesTitle)}:</p>
-                {cat.additives.map((add, itemIdx) => (
-                    <p key={itemIdx}>{t(add)}</p>
-                ))}
-            </div>
-        )
-    )
-    const renderedImg = menuCats.map((cat, idx) => (
+    const renderedImg = useMemo(() => menuCats.map((cat, idx) => (
         <div key={idx} className={classes.leftWrapper}>
             <img className={classes.slideImage} src={cat.images[0]} alt={t(cat.name)}/>
-        </div>))
+        </div>
+    )), [menuCats, t]);
 
-    const renderedName = menuCats.map((cat, idx) => (
+    const renderedName = useMemo(() => menuCats.map((cat, idx) => (
         <div key={idx} className={classes.topWrapper}>
             <h2 className={classes.rightCatHeading}>{t(cat.name)}</h2>
             <p>{t(cat.description)}</p>
         </div>
-    ))
+    )), [menuCats, t]);
 
-    const renderedContent = menuCats.map((cat, idx) => (
+    const renderedContent = useMemo(() => menuCats.map((cat, idx) => (
         <ul key={idx} className={classes.itemList}>
             {cat.items.map((item) => (
                 <li key={item.name} className={`${classes.listItem} ${item.headline ? classes.first : ''}`}>
@@ -77,7 +77,8 @@ export default function Menu() {
                 </li>
             ))}
         </ul>
-    ));
+    )), [menuCats, t]);
+
 
     return (
         <>

@@ -26,7 +26,7 @@ function Footer() {
                 <div className={classes.topBorder}></div>
                 <Logo width={'clamp(100px, 50vw, 450px)'}/>
                 <div className={classes.socialNavWrapper}>
-                    <h4>Follow us</h4>
+                    <p>Follow us</p>
                     <div className={classes.socialNav}>
                         <a href="https://www.instagram.com/heyzelcoffee/" className={classes.socialLink} target="_blank"
                            aria-label="Facebook" rel="noreferrer">

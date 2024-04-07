@@ -14,7 +14,6 @@ import About from "../components/About/About.jsx";
 import InsertionBlock from "../components/InsertionBlock/InsertionBlock.jsx";
 import Locations from "../components/Locations/Locations.jsx";
 import Menu from "../components/Menu/Menu.jsx";
-//import Contact from "../components/Contact/Contact.jsx";
 import Footer from "../components/Footer/Footer.jsx";
 import LegalModal from "../components/LegalModal/LegalModal.jsx";
 import Loading from "../components/Loading/Loading.jsx";
