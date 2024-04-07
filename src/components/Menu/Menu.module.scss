@@ -136,6 +136,11 @@
           padding: 25px;
           height: 100%;
 
+
+          h2 {
+            font-size: 2rem;
+          }
+
           p, h1, h2, h3, h4 {
             text-align: center;
           }
@@ -316,7 +321,6 @@
       transition: background-color .3s;
 
 
-
       &:hover {
         background-color: var(--disabled);
       }
@@ -344,6 +348,7 @@
 
         .priceWrapper {
           width: 135px;
+
           p {
             width: 50%;
             text-align: center;
@@ -367,6 +372,7 @@
         &.first {
           margin-top: 15px;
           padding: 0;
+
           div {
             h3,
             p {
@@ -390,6 +396,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
+
       p {
         font-size: 13px;
 

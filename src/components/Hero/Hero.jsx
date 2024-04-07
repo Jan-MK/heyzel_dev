@@ -152,7 +152,7 @@ function HeroComponent() {
                         <button className={'third'}
                                 onClick={() => i18n.changeLanguage(i18n.resolvedLanguage === 'en' ? 'de' : 'en' )}>
                             {t('general.switch')}
-                            <ReactCountryFlag svg style={{width: '25px', height: 'auto'}} countryCode={i18n.resolvedLanguage === 'en' ? 'DE' : 'GB' }/>
+                            <ReactCountryFlag svg style={{width: '25px', height: 'auto'}} aria-label={i18n.resolvedLanguage === 'en' ? 'Language German' : 'Language English'} countryCode={i18n.resolvedLanguage === 'en' ? 'DE' : 'GB' }/>
                         </button>
                     </div>
                 </div>

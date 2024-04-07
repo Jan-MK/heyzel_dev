@@ -120,11 +120,11 @@ function Contact() {
             <div className={classes.contactInfo}>
                 <HighlightBox>
                     <div className={classes.wrapper}>
-                        <h3>
+                        <h2>
                             <Trans i18nKey="contact.highlight.title">
                                 You want to work <span className="bigger bold">@HEYZEL</span>?
                             </Trans>
-                        </h3>
+                        </h2>
                         <p>{t('contact.highlight.dscr')}</p>
                         <Link to={"/jobs"}>
                             <div><IoArrowForward size={35}/> <p><span className={'bigger bold'}>{t('contact.highlight.btn')}</span>
@@ -133,7 +133,7 @@ function Contact() {
                     </div>
                 </HighlightBox>
                 <div className={classes.office}>
-                    <VerticalTable contentSizeBig={true} heading={'OFFICE'} entries={
+                    <VerticalTable contentSizeBig={true} heading={'OFFICE'} hierarchy={2} entries={
                         [{
                             title: t('contact.general.sub1'),
                             description: <><p>HEYZEL COFFEE GmbH</p>

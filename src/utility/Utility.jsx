@@ -4,7 +4,7 @@ export const shifts = ['7:30', '13:00', '16:00'];
 export const randomColors = [
     {
         bg: '#68c1c9',
-        text: '#000'
+        text: '#fff'
     }, {
         bg: '#ffd400',
         text: '#000'
@@ -13,7 +13,7 @@ export const randomColors = [
         text: '#fff'
     }, {
         bg: '#00c5d1',
-        text: '#000'
+        text: '#fff'
     }, {
         bg: '#70BAFF',
         text: '#fff'

@@ -153,7 +153,7 @@ export default function Menu() {
                              style={{backgroundColor: colors[0].bg, color: colors[0].text}}>
                             <div className={`${classes.text}`}>
                                 <div className={classes.reverseOrder}>
-                                    <h3>{t('cardMenu.day.title')}</h3>
+                                    <h2>{t('cardMenu.day.title')}</h2>
                                     <p>{t('cardMenu.day.subtitle')}</p>
                                 </div>
                                 <p>{t('cardMenu.day.dscr')}</p>
@@ -171,7 +171,7 @@ export default function Menu() {
                              style={{backgroundColor: colors[2].bg, color: colors[2].text}}>
                             <div className={`${classes.text}`}>
                                 <div className={classes.reverseOrder}>
-                                    <h3>{t('cardMenu.night.title')}</h3>
+                                    <h2>{t('cardMenu.night.title')}</h2>
                                     <p>{t('cardMenu.night.subtitle')}</p>
                                 </div>
                                 <p>{t('cardMenu.night.dscr')}</p>
@@ -191,7 +191,7 @@ export default function Menu() {
                                      alt={t('cardMenu.food.title')}/>
                             </div>
                             <div className={classes.text}>
-                                <h3>{t('cardMenu.food.title')}</h3>
+                                <h2>{t('cardMenu.food.title')}</h2>
                                 <p>{t('cardMenu.food.dscr')}</p>
                                 <button className={"third"}
                                         onClick={() => toggleMount(2)}>{t('cardMenu.food.btn')}</button>

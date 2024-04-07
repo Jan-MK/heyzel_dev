@@ -77,7 +77,7 @@ function InsertionBlock({title, subtitle, description, idx, boldIntro, order, bg
                  style={{color: 'inherit', flexDirection: order ? 'row-reverse' : 'row'}}>
                 <div className={classes.title} style={{color: 'inherit'}}>
                     <h2 style={{color: 'inherit'}}>{title}</h2>
-                    <h4 style={{color: 'inherit'}} className={classes.subtitle} ref={subtitleRef}>{subtitle}</h4>
+                    <p style={{color: 'inherit'}} className={classes.subtitle} ref={subtitleRef}>{subtitle}</p>
                 </div>
                 <div className={classes.description}>
                     <p style={{color: 'inherit'}}><span>{boldIntro} </span>{content}</p>

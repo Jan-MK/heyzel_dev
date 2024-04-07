@@ -8,8 +8,9 @@ const ThemeSwitch = ({isOnAbsolute}) => {
 
     return (
         <div className={classes.themeSwitch} onClick={isOnAbsolute ? toggleMode : () => {}}>
-            <label className={classes.switch}>
+            <label htmlFor={'theme-switch'} className={classes.switch}>
                 <input
+                    id={"theme-switch"}
                     type="checkbox"
                     checked={mode === 'dark'}
                     onChange={isOnAbsolute ? () => {} : toggleMode}

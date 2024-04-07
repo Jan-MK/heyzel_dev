@@ -19,7 +19,7 @@ function SingleLocation({
 
     return (<>
 
-            <h1 className={classes.locationTitle} ref={lastHeadLineRef ? lastHeadLineRef : null} id={headlineId ? 'headlineId': ''}>{title}</h1>
+            <h2 className={classes.locationTitle} ref={lastHeadLineRef ? lastHeadLineRef : null} id={headlineId ? 'headlineId': ''}>{title}</h2>
             <p className={classes.description}>{description}</p>
             <div className={classes.generalInformation}>
                 <VerticalTable
@@ -40,6 +40,7 @@ function SingleLocation({
                 <VerticalTable
                     contentSizeBig={true}
                     heading={t('locations.general.t2.title')}
+                    hierarchy={3}
                     entries={[
                         {
                             title: t('locations.general.t2.sub1'),

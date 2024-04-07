@@ -248,6 +248,7 @@ function Navbar() {
                         onClick={openMenu}><IoMenu
         size={40}/></div>
 
+// TODO Added li-Element for access => Still necessary?
     return <>
         {isDesktop &&
             <nav className={classes.navWrapper} id={"navBar"}>
@@ -257,7 +258,7 @@ function Navbar() {
                     <div className={`${classes.navLinks}`} id={'desktopLinkContainer'}>
                         <ul className={`${classes.linkUl}`} id={'linkList'} onClick={handleLinkClick}>
                             {menuItems}
-                            <ThemeSwitch isOnAbsolute={true}/>
+                            <li className={classes.navLink}><ThemeSwitch isOnAbsolute={true}/></li>
                         </ul>
                     </div>
                 </div>
@@ -271,7 +272,7 @@ function Navbar() {
                         <ul className={`${classes.linkUl}`} id={'linkList'} onClick={handleLinkClick}>
                             {menuItems}
                             {menuIcon}
-                            <ThemeSwitch isOnAbsolute={true}/>
+                            <li className={classes.navLink}><ThemeSwitch isOnAbsolute={true}/></li>
                         </ul>
                     </div>
                 </div>

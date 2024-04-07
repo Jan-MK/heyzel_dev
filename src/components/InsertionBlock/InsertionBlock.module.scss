@@ -38,12 +38,13 @@
         font-size: clamp(1.8em, 15vw, 3.8em);
       }
 
-      h4.subtitle {
+      p.subtitle {
         z-index: 3;
         position: absolute;
         color: white !important;
         transform: translate(-20%, -25%);
         opacity: .25;
+        font-weight: 600;
         font-size: clamp(3.5em, 10vw, 6em);
       }
 

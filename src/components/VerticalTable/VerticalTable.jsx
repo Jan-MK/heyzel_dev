@@ -2,7 +2,22 @@ import classes from "./VerticalTable.module.scss"
 
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-function VerticalTable({contentSizeBig, heading, entries}) {
+function VerticalTable({contentSizeBig, heading, entries, hierarchy}) {
+    let headLine
+    switch (hierarchy) {
+        case 1: {
+            headLine = <h1 className={classes.tableHeading}>{heading}</h1>
+            break;
+        }
+        case 2: {
+            headLine = <h2 className={classes.tableHeading}>{heading}</h2>
+            break;
+        }
+        case 3: {
+            headLine = <h3 className={classes.tableHeading}>{heading}</h3>
+            break;
+        }
+    }
     const renderedEntries = entries.map((entry, idx) => {
         // Determine the description content based on the type of entry.description
         let descriptionContent;
@@ -28,7 +43,7 @@ function VerticalTable({contentSizeBig, heading, entries}) {
     });
     return (
         <>
-            <h4 className={classes.tableHeading}>{heading}</h4>
+            {headLine}
             <div className={classes.adjTable}>
                 {renderedEntries}
             </div>
