@@ -24,7 +24,7 @@ export default function Validation() {
                 {!isAllowed &&
                     <>
                         <div className={'cookieInForm'}>
-                            <h4>{t('cloudflare.cookies.title')}</h4>
+                            <p style={{fontSize: "20px", fontWeight: "700"}}>{t('cloudflare.cookies.title')}</p>
                             <p>{t('cloudflare.cookies.dscr')}</p>
                         </div>
                         <button className={'btnCookieConsent button-confirm'} onClick={(e) => {
