@@ -163,6 +163,7 @@ function HeroComponent() {
                                      src={image[0]}
                                      alt={idx}/>*/}
                                 <BlurryLoadingImage
+                                    lazy={false}
                                     alt={`Heyzel-Coffee-HeroImage${idx}`}
                                     preview={image[1]}
                                     image={image[0]}
@@ -181,6 +182,7 @@ function HeroComponent() {
                                      src={image[0]}
                                      alt={idx}/>*/}
                                 <BlurryLoadingImage
+                                    lazy={false}
                                     alt={`Heyzel-Coffee-HeroImage${idx}`}
                                     preview={image[1]}
                                     image={image[0]}

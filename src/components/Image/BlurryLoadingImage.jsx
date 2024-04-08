@@ -7,6 +7,7 @@ const BlurryLoadingImage = ({
                                 alt,
                                 imageStyleClass,
                                 bgColor = 'transparent',
+    lazy = true,
     objFit
                             }) => {
     const [currentImage, setCurrentImage] = useState(preview);
@@ -38,7 +39,7 @@ const BlurryLoadingImage = ({
                     background: bgColor,
                     objectFit: objFit
                 }}
-                loading={"lazy"}
+                loading={lazy ? "lazy" : "eager"}
                 src={currentImage}
                 alt={alt}
                 className={dynamicImageClass}
