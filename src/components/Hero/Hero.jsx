@@ -4,23 +4,14 @@ import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {useGSAP} from "@gsap/react";
 import Logo from "../Logo/Logo.jsx";
-/*import drink from "../../assets/media/HeroImages/drink-1839134_1280.webp"*/
 import drinkTn from "../../assets/media/HeroImages/drink-1839134_1280-tn.webp"
-/*import woman from "../../assets/media/HeroImages/pexels-lisa-fotios-9853880.webp"*/
 import womanTn from "../../assets/media/HeroImages/pexels-lisa-fotios-9853880-tn.webp"
-/*import dark from "../../assets/media/HeroImages/dark-2595778_1280.webp"*/
 import darkTn from "../../assets/media/HeroImages/dark-2595778_1280-tn.webp"
-/*import coffeehouse from "../../assets/media/HeroImages/coffeehouse-2600877_1280.webp"*/
 import coffeehouseTn from "../../assets/media/HeroImages/coffeehouse-2600877_1280-tn.webp"
-/*import cShop from "../../assets/media/HeroImages/coffee-shop-393954_1280.webp"*/
 import cShopTn from "../../assets/media/HeroImages/coffee-shop-393954_1280-tn.webp"
-/*import coffee1 from "../../assets/media/HeroImages/coffee-5495609_1280.webp"*/
 import coffee1Tn from "../../assets/media/HeroImages/coffee-5495609_1280-tn.webp"
-/*import coffee2 from "../../assets/media/HeroImages/coffee-2439999_1280.webp"*/
 import coffee2Tn from "../../assets/media/HeroImages/coffee-2439999_1280-tn.webp"
-/*import cafe1 from "../../assets/media/HeroImages/cafe-1869656_1280.webp"*/
 import cafe1Tn from "../../assets/media/HeroImages/cafe-1869656_1280-tn.webp"
-/*import cafe2 from "../../assets/media/HeroImages/cafe-789635_1280.webp"*/
 import cafe2Tn from "../../assets/media/HeroImages/cafe-789635_1280-tn.webp"
 import ReactCountryFlag from "react-country-flag";
 import {useWindowDimensions} from "../../context/WindowDimensionsContext.jsx";
@@ -31,30 +22,6 @@ import BlurryLoadingImage from "../Image/BlurryLoadingImage.jsx";
 
 gsap.registerPlugin(ScrollTrigger);
 
-
-/*let images = [
-    drink,
-    woman,
-    dark,
-    coffeehouse,
-    cShop,
-    coffee1,
-    coffee2,
-    cafe1,
-    cafe2,
-]*/
-
-/*let images = [
-    [drink, drinkTn],
-    [woman, womanTn],
-    [dark, darkTn],
-    [coffeehouse, coffeehouseTn],
-    [cShop, cShopTn],
-    [coffee1, coffee1Tn],
-    [coffee2, coffee2Tn],
-    [cafe1, cafe1Tn],
-    [cafe2, cafe2Tn],
-]*/
 let countPerColumn = 3
 
 
@@ -128,10 +95,10 @@ function HeroComponent() {
                 gsap.to(rightColumn, {yPercent: -15, scrollTrigger: trigger});
             })
             mm.add(`(max-width: ${maxWidthMobile}px)`, () => {
-                gsap.from(`.${classes.textContent}`, .15, {
+                /*gsap.from(`.${classes.textContent}`, .15, {
                     opacity: 0,
                     ease: "power2.inOut",
-                })
+                })*/
                 gsap.to(leftColumn, {xPercent: 10, scrollTrigger: trigger});
                 gsap.to(rightColumn, {xPercent: -5, scrollTrigger: trigger});
             })
@@ -151,6 +118,7 @@ function HeroComponent() {
                                      src={image[0]}
                                      alt={idx}/>*/}
                             <BlurryLoadingImage
+                                fetchPrio={"high"}
                                 lazy={false}
                                 alt={`Heyzel-Coffee-HeroImage${idx}`}
                                 preview={image[1]}
