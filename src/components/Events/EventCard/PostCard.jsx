@@ -29,7 +29,7 @@ function PostCard({ post }) {
     const renderAlbumItem = (item) => {
         switch (item.media_type) {
             case 'IMAGE':
-                return <img src={item.media_url} alt="Album item" />;
+                return <img loading="lazy" src={item.media_url} alt="Album item" />;
             case 'VIDEO':
                 return <video controls src={item.media_url} />;
             default:
@@ -40,7 +40,7 @@ function PostCard({ post }) {
     const renderMedia = () => {
         switch (post.media_type) {
             case 'IMAGE':
-                return <img src={post.media_url} alt="Post" />;
+                return <img loading="lazy" src={post.media_url} alt="Post" />;
             case 'VIDEO':
                 return <video controls src={post.media_url} />;
             case 'CAROUSEL_ALBUM':

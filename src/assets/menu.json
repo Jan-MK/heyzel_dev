@@ -4,7 +4,8 @@
       "name": "menu.cat1.title",
       "description": "menu.cat1.dscr",
       "images": [
-        "/media/images/coffee-b.webp"
+        "/media/images/coffee.webp",
+        "/media/images/coffee-tn.webp"
       ],
       "items": [
         {
@@ -130,7 +131,8 @@
         "menu.additives.drinks.4"
       ],
       "images": [
-        "/media/images/drinks-b.webp"
+        "/media/images/drinks.webp",
+        "/media/images/drinks-tn.webp"
       ],
       "items": [
         {
@@ -339,7 +341,8 @@
       "name": "menu.cat3.title",
       "description": "menu.cat3.dscr",
       "images": [
-        "/media/images/food-b.webp"
+        "/media/images/food.webp",
+        "/media/images/food-tn.webp"
       ],
       "items": [
         {

@@ -2,14 +2,16 @@ import classes from "./Locations.module.scss"
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {useGSAP} from "@gsap/react";
-import koepi from "../../assets/media/locations/heyzel-koenigsplatz.webp"
-import rathi from "../../assets/media/locations/heyzel-rathausplatz.webp"
-import uni from "../../assets/media/about/heyzel-shop.webp"
+import koepiTn from "../../assets/media/locations/heyzel-koenigsplatz-tn.webp"
+import rathiTn from "../../assets/media/locations/heyzel-rathausplatz-tn.webp"
+import uniTn from "../../assets/media/locations/heyzel-universitaet-tn.webp"
 import SingleLocation from "../SingleLocation/SingleLocation.jsx";
 import {useWindowDimensions} from "../../context/WindowDimensionsContext.jsx";
 import {useEffect} from "react";
 import {maxWidthMobile, minWidthTablet} from "../../utility/Vars.jsx";
 import {useTranslation} from "react-i18next";
+import Image from "../Image/BlurryLoadingImage.jsx";
+import BlurryLoadingImage from "../Image/BlurryLoadingImage.jsx";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -77,6 +79,10 @@ function Locations() {
         })
     })
 
+    let koepi = "/assets/media/locations/heyzel-koenigsplatz.webp"
+    let rathi = "/assets/media/locations/heyzel-rathausplatz.webp"
+    let uni = "/assets/media/locations/heyzel-universitaet.webp"
+
     useEffect(() => {
         if (isSmartphone) {
 
@@ -114,20 +120,24 @@ function Locations() {
                             <div className={classes.locationsPhotos}>
                                 <div className={classes.shadow}>
                                     <div className={classes.locationsPhoto} title={1}>
-                                        <img src={koepi} alt={"HEYZEL Königsplatz"}/>
+                                        <BlurryLoadingImage image={koepi} preview={koepiTn} alt={"HEYZEL Königsplatz"}/>
+                                        {/*<img loading="lazy" src={koepi} alt={"HEYZEL Königsplatz"}/>*/}
                                     </div>
                                 </div>
                                 <div className={classes.shadow}>
 
                                     <div className={classes.locationsPhoto} title={2}>
-                                        <img src={rathi} alt={"HEYZEL Rathausplatz"}/>
+                                        <BlurryLoadingImage image={rathi} preview={rathiTn} alt={"HEYZEL Rathausplatz"}/>
+                                        {/*<img loading="lazy" src={rathi} alt={"HEYZEL Rathausplatz"}/>*/}
                                     </div>
                                 </div>
 
                                 <div className={classes.shadow}>
 
                                     <div className={classes.locationsPhoto} title={3}>
-                                        <img src={uni} alt={"HEYZEL Universität"}/>
+                                        <BlurryLoadingImage image={uni} preview={uniTn} alt={"HEYZEL Universität"}/>
+
+                                        {/*<img loading="lazy" src={uni} alt={"HEYZEL Universität"}/>*/}
                                     </div>
                                 </div>
 

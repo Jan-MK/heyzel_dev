@@ -6,19 +6,25 @@ import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {useModal} from "../../context/ModalContext.jsx";
 import {getDistinctRandomHex} from "../../utility/Utility.jsx";
 import {useTranslation} from "react-i18next";
-import coffee from "../../assets/media/menu/coffee.webp"
-//import beans from "../../assets/media/menu/beans.webp"
-import food from "../../assets/media/menu/food.webp"
-import drinks from "../../assets/media/menu/drinks.webp"
+import coffeeTn from "../../assets/media/menu/coffee-tn.webp"
+//import beansTn from "../../assets/media/menu/beans-tn.webp"
+import foodTn from "../../assets/media/menu/food-tn.webp"
+import drinksTn from "../../assets/media/menu/drinks-tn.webp"
+import BlurryLoadingImage from "../Image/BlurryLoadingImage.jsx";
 
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Menu() {
-    const {t, i18n} = useTranslation();
+    const {t} = useTranslation();
     let menuCats = menuArray.categories
     const itemListWrapperRef = useRef(null)
     const {openModal} = useModal()
+
+    let coffee = "/assets/media/menu/coffee.webp"
+    let food = "/assets/media/menu/food.webp"
+    let drinks = "/assets/media/menu/drinks.webp"
+    //let beans = "/assets/media/menu/beans.webp"
 
 
     function toggleMount(idx) {
@@ -35,7 +41,7 @@ export default function Menu() {
     }
 
     let colors = getDistinctRandomHex(4, '#FE0879')
-    const renderedAdditives = useMemo(() => menuCats.map((cat, idx) => (
+    const renderedAdditives = useMemo(() => menuCats.map((cat) => (
         cat.additivesTitle && cat.additives &&
         <div key={cat.additivesTitle} className={classes.additives}>
             <p className={classes.addTitle}>{t(cat.additivesTitle)}:</p>
@@ -47,7 +53,7 @@ export default function Menu() {
 
     const renderedImg = useMemo(() => menuCats.map((cat, idx) => (
         <div key={idx} className={classes.leftWrapper}>
-            <img className={classes.slideImage} src={cat.images[0]} alt={t(cat.name)}/>
+            <BlurryLoadingImage preview={cat.images[1]} image={cat.images[0]} alt={t(cat.name)} imageStyleClass={classes.slideImage} />
         </div>
     )), [menuCats, t]);
 
@@ -104,9 +110,8 @@ export default function Menu() {
                                 <button className={"third"} onClick={() => toggleMount(1)}>{t('cardMenu.day.btn')}</button>
                             </div>
                             <div className={classes.photo}>
-                                <img
-                                    alt={t('cardMenu.day.title')}
-                                    src={"https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&w=800"}/>
+                                                                <BlurryLoadingImage alt={t('cardMenu.day.title')} image={coffee} preview={coffeeTn} />
+
                             </div>
                         </div>
 
@@ -121,8 +126,7 @@ export default function Menu() {
                                 <button className={"third"} onClick={() => toggleMount(1)}>{t('cardMenu.night.btn')}</button>
                             </div>
                             <div className={classes.photo}>
-                                <img alt={t('cardMenu.night.title')}
-                                    src={"https://cdn.pixabay.com/photo/2023/04/26/16/20/cocktail-7952751_1280.jpg"}/>
+<BlurryLoadingImage alt={t('cardMenu.night.title')} image={drinks} preview={drinksTn} />
                             </div>
                         </div>
 
@@ -138,8 +142,7 @@ export default function Menu() {
                         <div className={`${classes.div3} ${classes.gridItem} ${classes.horizontal}`}
                              style={{backgroundColor: colors[3].bg, color: colors[3].text}}>
                             <div className={classes.photo}>
-                                <img src={"https://cdn.pixabay.com/photo/2015/09/01/21/00/coffee-beans-917613_1280.jpg"}
-                                     alt={t('cardMenu.coffee.title')}/>
+                                <BlurryLoadingImage alt={t('cardMenu.coffee.title')} image={coffee} preview={coffeeTn} />
                             </div>
                             <div className={classes.text}>
                                 <h3>{t('cardMenu.coffee.title')}</h3>
@@ -162,9 +165,11 @@ export default function Menu() {
                                         onClick={() => toggleMount(0)}>{t('cardMenu.day.btn')}</button>
                             </div>
                             <div className={classes.photo}>
-                                <img
+                                <BlurryLoadingImage alt={t('cardMenu.day.title')} image={coffee} preview={coffeeTn} />
+                                {/*<img
+                                    loading="lazy"
                                     alt={t('cardMenu.day.title')}
-                                    src={coffee}/>
+                                    src={coffee}/>*/}
                             </div>
                         </div>
 
@@ -180,16 +185,21 @@ export default function Menu() {
                                         onClick={() => toggleMount(1)}>{t('cardMenu.night.btn')}</button>
                             </div>
                             <div className={classes.photo}>
-                                <img alt={t('cardMenu.night.title')}
-                                     src={drinks}/>
+                                <BlurryLoadingImage alt={t('cardMenu.night.title')} image={drinks} preview={drinksTn} />
+                                {/*<img
+                                    loading="lazy"
+                                    alt={t('cardMenu.night.title')}
+                                     src={drinks}/>*/}
                             </div>
                         </div>
 
                         <div className={`${classes.div2} ${classes.gridItem} ${classes.horizontal}`}
                              style={{backgroundColor: colors[3].bg, color: colors[3].text}}>
                             <div className={classes.photo}>
-                                <img src={food}
-                                     alt={t('cardMenu.food.title')}/>
+                                <BlurryLoadingImage alt={t('cardMenu.food.title')} image={food} preview={foodTn} />
+                                {/*<img src={food}
+                                     loading="lazy"
+                                     alt={t('cardMenu.food.title')}/>*/}
                             </div>
                             <div className={classes.text}>
                                 <h2>{t('cardMenu.food.title')}</h2>

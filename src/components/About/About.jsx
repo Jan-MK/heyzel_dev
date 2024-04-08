@@ -2,12 +2,13 @@ import classes from "./About.module.scss"
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {useGSAP} from "@gsap/react";
-import shop from "../../assets/media/about/heyzel-shop.webp"
-import substainable from "../../assets/media/about/sustainable-cups.webp"
-import heart from "../../assets/media/about/with-love.webp"
+import shopTn from "../../assets/media/about/heyzel-shop-tn.webp"
+import substainableTn from "../../assets/media/about/sustainable-cups-tn.webp"
+import heartTn from "../../assets/media/about/with-love-tn.webp"
 import {Trans, useTranslation} from "react-i18next";
 import {useWindowDimensions} from "../../context/WindowDimensionsContext.jsx";
 import {minWidthTablet} from "../../utility/Vars.jsx";
+import BlurryLoadingImage from "../Image/BlurryLoadingImage.jsx";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -67,6 +68,9 @@ function About(props) {
 
     })
 
+    let shop = "assets/media/about/heyzel-shop.webp"
+    let substainable = "assets/media/about/sustainable-cups.webp"
+    let heart = "assets/media/about/with-love.webp"
 
     return (
         <>
@@ -99,9 +103,15 @@ function About(props) {
                         <section className={`${classes.sec1} ${classes.pin}`}>
                             <div className={classes.col}>
                                 <div className={classes.photo}>
-                                    <img
+{/*                                    <img
+                                        loading="lazy"
                                         alt={t('cardMenu.day.title')}
-                                        src={shop}/>
+                                        src={shop}/>*/}
+                                    <BlurryLoadingImage
+                                    alt={t('cardMenu.day.title')}
+                                    preview={shopTn}
+                                    image={shop}
+                                    />
                                 </div>
                                 <div className={classes.text}>
                                     <div>
@@ -124,9 +134,15 @@ function About(props) {
 
                             <div className={classes.col}>
                                 <div className={classes.photo}>
-                                    <img
+                                    <BlurryLoadingImage
                                         alt={t('cardMenu.day.title')}
-                                        src={substainable}/>
+                                        preview={substainableTn}
+                                        image={substainable}
+                                    />
+                                    {/*<img
+                                        loading="lazy"
+                                        alt={t('cardMenu.day.title')}
+                                        src={substainable}/>*/}
                                 </div>
                                 <div className={classes.text}>
                                     <div>
@@ -145,9 +161,15 @@ function About(props) {
 
                             <div className={classes.col}>
                                 <div className={classes.photo}>
-                                    <img
+                                    <BlurryLoadingImage
                                         alt={t('cardMenu.day.title')}
-                                        src={heart}/>
+                                        preview={heartTn}
+                                        image={heart}
+                                    />
+                                    {/*<img
+                                        loading="lazy"
+                                        alt={t('cardMenu.day.title')}
+                                        src={heart}/>*/}
                                 </div>
                                 <div className={classes.text}>
                                     <div>
