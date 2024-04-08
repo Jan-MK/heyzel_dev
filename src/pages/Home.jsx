@@ -10,12 +10,20 @@ import {useModal} from '../context/ModalContext';
 import Navbar from "../components/Navigation/Navbar.jsx";
 import {useTranslation} from "react-i18next";
 import {Helmet} from "react-helmet";
-import About from "../components/About/About.jsx";
+/*import About from "../components/About/About.jsx";
 import InsertionBlock from "../components/InsertionBlock/InsertionBlock.jsx";
 import Locations from "../components/Locations/Locations.jsx";
 import Menu from "../components/Menu/Menu.jsx";
 import Footer from "../components/Footer/Footer.jsx";
-import LegalModal from "../components/LegalModal/LegalModal.jsx";
+import LegalModal from "../components/LegalModal/LegalModal.jsx";*/
+
+const About = lazy(() => import ("../components/About/About.jsx"));
+const InsertionBlock = lazy(() => import ("../components/InsertionBlock/InsertionBlock.jsx"));
+const Locations = lazy(() => import ("../components/Locations/Locations.jsx"));
+const Menu = lazy(() => import ("../components/Menu/Menu.jsx"));
+const Footer = lazy(() => import ("../components/Footer/Footer.jsx"));
+const LegalModal = lazy(() => import ("../components/LegalModal/LegalModal.jsx"));
+
 import Loading from "../components/Loading/Loading.jsx";
 
 
@@ -94,13 +102,18 @@ function Home() {
                 <section className={`${classes.contentSection} `} id={"about"}>
                     <div className={`${classes.bgSectionHeading} ${classes.centered} container`}>
 
-                        <About/>
+                        <Suspense fallback={<Loading/>}>
+                            <About/>
+                        </Suspense>
                     </div>
                 </section>
-                <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle} order={false}
-                                boldIntro={insertionIntro} idx={1}
-                                description={[insertions[0][i18n.resolvedLanguage], insertions[1][i18n.resolvedLanguage]]}
-                                bg={colors[0].bg} text={colors[0].text}/>
+                <Suspense fallback={<Loading/>}>
+                    <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle}
+                                                                 order={false}
+                                                                 boldIntro={insertionIntro} idx={1}
+                                                                 description={[insertions[0][i18n.resolvedLanguage], insertions[1][i18n.resolvedLanguage]]}
+                                                                 bg={colors[0].bg} text={colors[0].text}/>
+                </Suspense>
                 <section className={`${classes.contentSection}`} id={"events"}>
                     <div className={`${classes.bgSectionHeading} ${classes.centered}`}>
                         <h1>
@@ -108,29 +121,42 @@ function Home() {
                         </h1>
                     </div>
                 </section>
-                <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle} order={true} boldIntro={"..."}
-                                idx={3}
-                                description={[insertions[2][i18n.resolvedLanguage], insertions[3][i18n.resolvedLanguage]]}
-                                bg={colors[1].bg}
-                                text={colors[1].text}/>
+                <Suspense fallback={<Loading/>}>
+                    <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle}
+                                                                 order={true} boldIntro={"..."}
+                                                                 idx={3}
+                                                                 description={[insertions[2][i18n.resolvedLanguage], insertions[3][i18n.resolvedLanguage]]}
+                                                                 bg={colors[1].bg}
+                                                                 text={colors[1].text}/>
+                </Suspense>
                 <section className={`${classes.contentSection} ${classes.imageOverlay} ${classes.fullHeight}`}
                          ref={menuContainerRef}
                          id={"menu"}>
-                    <Menu/>
+                    <Suspense fallback={<Loading/>}>
+                        <Menu/>
+                    </Suspense>
                 </section>
-                <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle} order={false} boldIntro={"..."}
-                                idx={5}
-                                description={[insertions[4][i18n.resolvedLanguage], insertions[5][i18n.resolvedLanguage]]}
-                                bg={colors[2].bg}
-                                text={colors[2].text}/>
+                <Suspense fallback={<Loading/>}>
+                    <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle}
+                                                                 order={false} boldIntro={"..."}
+                                                                 idx={5}
+                                                                 description={[insertions[4][i18n.resolvedLanguage], insertions[5][i18n.resolvedLanguage]]}
+                                                                 bg={colors[2].bg}
+                                                                 text={colors[2].text}/>
+                </Suspense>
                 <section className={`${classes.contentSection}`} id={"locations"}>
-                    <Locations/>
+                    <Suspense fallback={<Loading/>}>
+                        <Locations/>
+                    </Suspense>
                 </section>
-                <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle} order={true} boldIntro={"..."}
-                                idx={7}
-                                description={[insertions[6][i18n.resolvedLanguage], insertions[7][i18n.resolvedLanguage]]}
-                                bg={colors[3].bg}
-                                text={colors[3].text}/>
+                <Suspense fallback={<Loading/>}>
+                    <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle}
+                                                                 order={true} boldIntro={"..."}
+                                                                 idx={7}
+                                                                 description={[insertions[6][i18n.resolvedLanguage], insertions[7][i18n.resolvedLanguage]]}
+                                                                 bg={colors[3].bg}
+                                                                 text={colors[3].text}/>
+                </Suspense>
 
 
                 <section className={`${classes.contentSection}`} id={"contact"}>
@@ -142,7 +168,9 @@ function Home() {
                     </Suspense>
                 </section>
             </main>
-            <Footer/>
+            <Suspense fallback={<Loading/>}>
+                <Footer/>
+            </Suspense>
         </>
     );
 }
