@@ -87,8 +87,8 @@ i18n
                         },
                         verSort: "Various Varieties",
                         cat1: {
-                            title: "Coffee & Tea",
-                            dscr: "Enjoy our selection of fantastic coffees and other hot drinks.",
+                            title: "Coffee, Tea & shakes",
+                            dscr: "Enjoy our selection of fantastic coffees, other hot drinks and milkshakes.",
                             products: {
                                 title1: "Coffee",
                                 kaffee: "Coffee",
@@ -110,13 +110,9 @@ i18n
                                 chaTee: "Chai Tea / Latte",
                                 oraSaf: "Freshly Pressed Orange Juice",
                                 iceTea: "ICE TEA Lemon/Peach",
-                            },
-                        },
-                        cat2: {
-                            title: "Refreshments and Cocktails",
-                            dscr: "Throughout the day... Description Warning for alcohol?",
-                            products: {
-                                title1: "Milkshakes",
+                                iceKaff: "Iced Coffee / Chocolate",
+
+                                title3: "Milkshakes",
                                 schok: "Chocolate",
                                 van: "Vanilla",
                                 erdb: "Strawberry",
@@ -127,8 +123,13 @@ i18n
                                 cocru: "Jule's Coffee Cruncher",
                                 pea: "Peanut Delight",
                                 manLas: "Mango Lassi",
-
-                                title2: "From the Fridge",
+                            },
+                        },
+                        cat2: {
+                            title: "Refreshments and Cocktails",
+                            dscr: "Throughout the day... Description Warning for alcohol?",
+                            products: {
+                                title1: "From the Fridge",
                                 biona: "Bionade",
                                 spezi: "Spezi",
                                 speziEn: "Spezi Energy",
@@ -145,7 +146,7 @@ i18n
                                 coro: "Corona",
                                 goess: "Gösser Radler",
 
-                                title3: "Cocktails",
+                                title2: "Cocktails",
                                 erdMar: "Strawberry Margarita",
                                 manMar: "Mango Margarita",
                                 lonIsl: "Long Island",
@@ -201,7 +202,7 @@ i18n
                         title: "Coffee, Drinks & Snacks",
                         dscr: "Dive into our menu featuring a variety of coffees, from classic espressos to rich lattes, alongside house-made ice teas and crafted cocktails. Plus, enjoy a selection of delectable snacks perfect for any time of day.",
                         day: {
-                            title: "Tasty coffee.",
+                            title: "Tasty coffee, tea and shakes",
                             subtitle: "Attention, hot!",
                             dscr: "From expertly brewed plain coffee to a variety of special blends, we got you.",
                             btn: "to coffee",
@@ -704,8 +705,8 @@ i18n
                         },
                         verSort: "Verschiedene Sorten",
                         cat1: {
-                            title: "Kaffee & Tee",
-                            dscr: "Genieße unsere Auswahl fantastischen Kaffees und anderen Heißgetränken.",
+                            title: "Kaffee,Tee & Shakes",
+                            dscr: "Genieße unsere Auswahl fantastischen Kaffees, anderen Heißgetränken und Milchshakes.",
                             products: {
                                 title1: "Kaffee",
                                 kaffee: "Kaffee",
@@ -727,13 +728,8 @@ i18n
                                 chaTee: "Chai-Tee / Latte",
                                 oraSaf: "Frisch gepresster Orangensaft (SORT)",
                                 iceTea: "ICE TEA Zitrone/Pfirsich",
-                            },
-                        },
-                        cat2: {
-                            title: "Erfrischung und Cocktails",
-                            dscr: "Über den Tag... Beschreibung Warnhinweis für Alkohol?",
-                            products: {
-                                title1: "Milchshakes",
+
+                                title3: "Milchshakes",
                                 schok: "Schokolade",
                                 van: "Vanille",
                                 erdb: "Erdbeere",
@@ -744,8 +740,15 @@ i18n
                                 cocru: "Jule's Coffee Cruncher",
                                 pea: "Peanut Delight",
                                 manLas: "Mango Lassi",
+                            },
+                        },
+                        cat2: {
+                            title: "Erfrischung und Cocktails",
+                            dscr: "Über den Tag... Beschreibung Warnhinweis für Alkohol?",
+                            products: {
 
-                                title2: "Aus dem Kühlschrank",
+
+                                title1: "Aus dem Kühlschrank",
                                 biona: "Bionade",
                                 spezi: "Spezi",
                                 speziEn: "Spezi Energy",
@@ -762,7 +765,7 @@ i18n
                                 coro: "Corona",
                                 goess: "Gösser Radler",
 
-                                title3: "Cocktails",
+                                title2: "Cocktails",
                                 erdMar: "Erdbeer Margarita",
                                 manMar: "Mango Margarita",
                                 lonIsl: "Long Island",
@@ -818,7 +821,7 @@ i18n
                         title: "Kaffee, Getränke und Snacks",
                         dscr: "Tauch ein in unsere Speisekarte, die eine Vielzahl von Kaffees bietet – von klassischen Espressos bis hin zu reichhaltigen Lattes, neben hausgemachten Eistees und handgemachten Cocktails. Genieße außerdem eine Auswahl köstlicher Snacks, perfekt für jede Tageszeit.",
                         day: {
-                            title: "Kaffee & Tee",
+                            title: "Kaffee, Tee & Shakes",
                             subtitle: "Vorsicht, heiß!",
                             dscr: "Von meisterhaft gebrühtem einfachen Kaffee bis hin zu einer Vielzahl besonderer Mischungen, wir haben, was Du brauchst.",
                             btn: "zum Kaffee",

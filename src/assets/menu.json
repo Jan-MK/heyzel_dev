@@ -117,6 +117,67 @@
           "name": "menu.cat1.products.iceTea",
           "description": " ",
           "price2": "4,60€"
+        },
+        {
+          "name": "menu.cat1.products.iceKaff",
+          "description": " ",
+          "price2": "7,10€"
+        },
+        {
+          "headline": true,
+          "name": "menu.cat1.products.title3",
+          "price1": "menu.sizes.size3",
+          "price2": "menu.sizes.size2a"
+        },
+        {
+          "name": "menu.cat1.products.schok",
+          "description": " ",
+          "price2": "5,30€"
+        },
+        {
+          "name": "menu.cat1.products.van",
+          "description": " ",
+          "price2": "5,10€"
+        },
+        {
+          "name": "menu.cat1.products.erdb",
+          "description": " ",
+          "price2": "5,60€"
+        },
+        {
+          "name": "menu.cat1.products.bana",
+          "description": " ",
+          "price2": "5,60€"
+        },
+        {
+          "name": "menu.cat1.products.banaPea",
+          "description": " ",
+          "price2": "5,90€"
+        },
+        {
+          "name": "menu.cat1.products.banaDop",
+          "description": " ",
+          "price2": "5,90€"
+        },
+        {
+          "name": "menu.cat1.products.banaCoo",
+          "description": " ",
+          "price2": "6,10€"
+        },
+        {
+          "name": "menu.cat1.products.cocru",
+          "description": " ",
+          "price2": "6,10€"
+        },
+        {
+          "name": "menu.cat1.products.pea",
+          "description": " ",
+          "price2": "6,10€"
+        },
+        {
+          "name": "menu.cat1.products.manLas",
+          "description": " ",
+          "price2": "6,10€"
         }
       ]
     },
@@ -135,67 +196,9 @@
         "/assets/media/menu/drinks-tn.webp"
       ],
       "items": [
-        {
+                {
           "headline": true,
           "name": "menu.cat2.products.title1",
-          "price1": "menu.sizes.size3",
-          "price2": "menu.sizes.size2a"
-        },
-        {
-          "name": "menu.cat2.products.schok",
-          "description": " ",
-          "price2": "5,30€"
-        },
-        {
-          "name": "menu.cat2.products.van",
-          "description": " ",
-          "price2": "5,10€"
-        },
-        {
-          "name": "menu.cat2.products.erdb",
-          "description": " ",
-          "price2": "5,60€"
-        },
-        {
-          "name": "menu.cat2.products.bana",
-          "description": " ",
-          "price2": "5,60€"
-        },
-        {
-          "name": "menu.cat2.products.banaPea",
-          "description": " ",
-          "price2": "5,90€"
-        },
-        {
-          "name": "menu.cat2.products.banaDop",
-          "description": " ",
-          "price2": "5,90€"
-        },
-        {
-          "name": "menu.cat2.products.banaCoo",
-          "description": " ",
-          "price2": "6,10€"
-        },
-        {
-          "name": "menu.cat2.products.cocru",
-          "description": " ",
-          "price2": "6,10€"
-        },
-        {
-          "name": "menu.cat2.products.pea",
-          "description": " ",
-          "price2": "6,10€"
-        },
-        {
-          "name": "menu.cat2.products.manLas",
-          "description": " ",
-          "price2": "6,10€"
-        },
-
-
-        {
-          "headline": true,
-          "name": "menu.cat2.products.title2",
           "price1": "menu.sizes.size3",
           "price2": "menu.sizes.size4"
         },
@@ -273,7 +276,7 @@
 
         {
           "headline": true,
-          "name": "menu.cat2.products.title3",
+          "name": "menu.cat2.products.title2",
           "price1": "menu.sizes.size1b",
           "price2": "menu.sizes.size2b"
         },

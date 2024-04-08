@@ -166,10 +166,6 @@ export default function Menu() {
                             </div>
                             <div className={classes.photo}>
                                 <BlurryLoadingImage alt={t('cardMenu.day.title')} image={coffee} preview={coffeeTn} />
-                                {/*<img
-                                    loading="lazy"
-                                    alt={t('cardMenu.day.title')}
-                                    src={coffee}/>*/}
                             </div>
                         </div>
 
@@ -186,10 +182,6 @@ export default function Menu() {
                             </div>
                             <div className={classes.photo}>
                                 <BlurryLoadingImage alt={t('cardMenu.night.title')} image={drinks} preview={drinksTn} />
-                                {/*<img
-                                    loading="lazy"
-                                    alt={t('cardMenu.night.title')}
-                                     src={drinks}/>*/}
                             </div>
                         </div>
 
@@ -197,9 +189,6 @@ export default function Menu() {
                              style={{backgroundColor: colors[3].bg, color: colors[3].text}}>
                             <div className={classes.photo}>
                                 <BlurryLoadingImage alt={t('cardMenu.food.title')} image={food} preview={foodTn} />
-                                {/*<img src={food}
-                                     loading="lazy"
-                                     alt={t('cardMenu.food.title')}/>*/}
                             </div>
                             <div className={classes.text}>
                                 <h2>{t('cardMenu.food.title')}</h2>

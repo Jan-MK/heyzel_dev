@@ -14,6 +14,8 @@ import ErrorFallBack from "./components/Skeleton/ErrorFallBack.jsx";
 import {CookieProvider} from "./context/CookieContext.jsx";
 import {VerificationProvider} from "./context/VerificationContext.jsx";
 import {useTranslation} from "react-i18next";
+import { HelmetProvider } from 'react-helmet-async';
+
 
 const JobForm = lazy(() => import("./pages/JobForm/JobForm.jsx"));
 
@@ -51,6 +53,7 @@ function App() {
     return (
         <Router>
             <ThemeProvider>
+                <HelmetProvider>
                 <CookieProvider>
                     <VerificationProvider>
                         <ReferenceProvider>
@@ -81,6 +84,7 @@ function App() {
                         </ReferenceProvider>
                     </VerificationProvider>
                 </CookieProvider>
+                </HelmetProvider>
             </ThemeProvider>
         </Router>
     );

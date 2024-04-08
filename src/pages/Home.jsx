@@ -1,6 +1,6 @@
 import classes from "./Home.module.scss"
 import Hero from "../components/Hero/Hero.jsx";
-import {useContext, useEffect, useRef, Suspense, lazy, useLayoutEffect} from "react";
+import {useContext, useEffect, useRef, Suspense, lazy, useLayoutEffect, useState} from "react";
 import ReferenceContext from "../context/ReferenceContext.jsx";
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
@@ -9,7 +9,6 @@ import {useParams} from 'react-router-dom';
 import {useModal} from '../context/ModalContext';
 import Navbar from "../components/Navigation/Navbar.jsx";
 import {useTranslation} from "react-i18next";
-import {Helmet} from "react-helmet";
 /*import About from "../components/About/About.jsx";
 import InsertionBlock from "../components/InsertionBlock/InsertionBlock.jsx";
 import Locations from "../components/Locations/Locations.jsx";
@@ -25,23 +24,18 @@ const Footer = lazy(() => import ("../components/Footer/Footer.jsx"));
 const LegalModal = lazy(() => import ("../components/LegalModal/LegalModal.jsx"));
 const Contact = lazy(() => import("../components/Contact/Contact.jsx"))
 const Events = lazy(() => import("../components/Events/Events.jsx"))
-
+import metaData from "../assets/meta.jsx";
 import Loading from "../components/Loading/Loading.jsx";
-import {useLenis} from "@studio-freight/react-lenis";
-import i18next from "i18next";
+import {Helmet} from "react-helmet-async";
 
 
 gsap.registerPlugin(ScrollTrigger);
-<Helmet>
-
-</Helmet>
 
 function Home() {
     const {t, i18n} = useTranslation();
     const {menuContainerRef} = useContext(ReferenceContext)
     const {modalId} = useParams();
     const {openModal, paramOnClose} = useModal();
-    const lenisScroll = useLenis()
 
     let insertionTitle = "heyzeln"
     let insertionSubTitle = "[hɛɨzɫɲ / ˈheɪzəln]"
@@ -91,6 +85,13 @@ function Home() {
         }
     }
 
+    const [currentSeo, setCurrentSeo] = useState();
+
+    useEffect(() => {
+        // Determine the current section and update currentSeo state
+
+    }, [modalId, i18n.language]);
+
     useEffect(() => {
         // Mapping object for modalIds to language and location
         const modalIdMapping = {
@@ -104,18 +105,35 @@ function Home() {
             'contact': { language: 'en', location: 'contact' },
             'kontakt': { language: 'de', location: 'contact' }
         };
+        let identifier
+        if(modalId) {
+            if (modalIdMapping[modalId]) {
+                const { language, location } = modalIdMapping[modalId];
+                if (language) {
+                    i18n.changeLanguage(language);
+                }
+                console.log(modalIdMapping[modalId])
+                identifier = modalIdMapping[modalId].location
 
-        if (modalId && modalIdMapping[modalId]) {
-            const { language, location } = modalIdMapping[modalId];
-            if (language) {
-                i18n.changeLanguage(language);
+                setTimeout(() => {
+                    handleNavigation(location);
+                }, 500);
             }
-
-            setTimeout(() => {
-                handleNavigation(location);
-            }, 500);
+        } else {
+            identifier = 'home'
         }
-    }, [modalId, i18n]);
+        console.log(metaData)
+        const seoData = metaData[identifier];
+        console.log(seoData)
+        if(seoData) {
+            setCurrentSeo({
+                title: seoData.title[i18n.resolvedLanguage],
+                description: seoData.description[i18n.resolvedLanguage],
+                keywords: seoData.keywords[i18n.resolvedLanguage]
+            });
+        }
+
+    }, [modalId, i18n.language, i18n]);
 
     // Routing leads to heyzel.de/imprint or else to open a proper modal. The race condition is eliminated of
     // opening again since state is not updated in this short amount.
@@ -137,6 +155,11 @@ function Home() {
 
     return (
         <>
+            <Helmet>
+                <title>{currentSeo?.title}</title>
+                <meta name="description" content={currentSeo?.description} />
+                <meta name="keywords" content={currentSeo?.keywords} />
+            </Helmet>
             <Hero/>
             <Navbar/>
             <main className={`${classes.mainContent}`} id={"home"}>

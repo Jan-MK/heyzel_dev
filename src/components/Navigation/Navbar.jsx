@@ -223,6 +223,7 @@ function Navbar() {
         })
     }
 
+    // TODO When /kontakt, lösche das nach einer Zeit, damit beim refresh nicht wieder angesteuert wird.
     function handleLinkClick(event) {
         event.preventDefault();
         const target = event.target.closest('a');
