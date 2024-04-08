@@ -18,6 +18,8 @@ import {useWindowDimensions} from "../../context/WindowDimensionsContext.jsx";
 import {Trans, useTranslation} from "react-i18next";
 import Validation from "../../components/Validation/Validation.jsx";
 import VerificationContext from "../../context/VerificationContext.jsx";
+import metaData from "../../assets/meta.jsx";
+import {Helmet} from "react-helmet-async";
 
 // TODO: Modularize fieldWrappers to reduce steps array,
 // TODO: EventListener for Enter key to try hitting next and point out unfilled required fields
@@ -35,7 +37,7 @@ const eighteenYearsAgo = new Date();
 eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear() - 18);
 
 function JobForm() {
-    const {t} = useTranslation();
+    const {t, i18n} = useTranslation();
     const defaultValues = {
         desiredEmployment: "",
         confirmation: false,
@@ -81,6 +83,20 @@ function JobForm() {
         isTablet: width >= minWidthTablet && width <= 1150,
         isDesktop: width > 1150
     })
+    const [currentSeo, setCurrentSeo] = useState();
+
+
+    useEffect(() => {
+        const seoData = metaData['jobs'];
+        if(seoData) {
+            setCurrentSeo({
+                title: seoData.title[i18n.resolvedLanguage],
+                description: seoData.description[i18n.resolvedLanguage],
+                keywords: seoData.keywords[i18n.resolvedLanguage]
+            });
+        }
+
+    }, [i18n.language, i18n]);
 
     useEffect(() => {
         setMode(prev => ({
@@ -754,6 +770,11 @@ function JobForm() {
 
     return (
         <>
+            <Helmet>
+                <title>{currentSeo?.title}</title>
+                <meta name="description" content={currentSeo?.description} />
+                <meta name="keywords" content={currentSeo?.keywords} />
+            </Helmet>
             {resetting && <Loading text={"Preparing job form..."}/>}
             {!resetting && !submitted &&
                 <form onSubmit={handleSubmit(handleSave)} className={`${classes.formContainer}`} ref={formContainerRef}>

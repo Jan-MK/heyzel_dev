@@ -36,6 +36,7 @@ function Home() {
     const {menuContainerRef} = useContext(ReferenceContext)
     const {modalId} = useParams();
     const {openModal, paramOnClose} = useModal();
+    const [currentSeo, setCurrentSeo] = useState();
 
     let insertionTitle = "heyzeln"
     let insertionSubTitle = "[hɛɨzɫɲ / ˈheɪzəln]"
@@ -85,12 +86,8 @@ function Home() {
         }
     }
 
-    const [currentSeo, setCurrentSeo] = useState();
 
-    useEffect(() => {
-        // Determine the current section and update currentSeo state
 
-    }, [modalId, i18n.language]);
 
     useEffect(() => {
         // Mapping object for modalIds to language and location
@@ -112,7 +109,6 @@ function Home() {
                 if (language) {
                     i18n.changeLanguage(language);
                 }
-                console.log(modalIdMapping[modalId])
                 identifier = modalIdMapping[modalId].location
 
                 setTimeout(() => {
@@ -122,9 +118,7 @@ function Home() {
         } else {
             identifier = 'home'
         }
-        console.log(metaData)
         const seoData = metaData[identifier];
-        console.log(seoData)
         if(seoData) {
             setCurrentSeo({
                 title: seoData.title[i18n.resolvedLanguage],
