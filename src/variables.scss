@@ -1,4 +1,5 @@
-@font-face {
+@import url('/public/fonts.css');
+/*@font-face {
   font-family: 'Montserrat';
   src:
           url('/public/fonts/Montserrat/Montserrat-VariableFont_wght.ttf') format('truetype'),
@@ -11,9 +12,9 @@
 @font-face {
   font-family: 'Inter';
   src: url('../public/fonts/Inter/Inter-VariableFont_slnt,wght.ttf') format('truetype');
-  font-weight: 100 900; /* Specifies the entire range of font weights */
+  font-weight: 100 900; !* Specifies the entire range of font weights *!
   font-style: normal;
-}
+}*/
 
 [data-theme='light'] {
   --transition-pulse-color: var(--dark-shades-100op);

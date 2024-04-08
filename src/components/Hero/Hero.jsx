@@ -97,10 +97,10 @@ function HeroComponent() {
                     scale: 1,
                     ease: "power2.inOut"
                 }))
-                tl.add(gsap.from(`.${classes.hero}`, .5, {
+/*                tl.add(gsap.from(`.${classes.hero}`, .5, {
                     opacity: 0,
                     ease: "power2.inOut"
-                }))
+                }))*/
                 tlLeft.to(leftColumn, {yPercent: -20});
                 tlRight.to(rightColumn, {yPercent: -15});
             })
