@@ -119,7 +119,7 @@
 
           @include mobile {
             height: 45vh;
-            width:  calc(45vh / 1.5);
+            width:  calc(45vh / 1.5) !important;
           }
         }
       }

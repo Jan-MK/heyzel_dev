@@ -155,7 +155,7 @@ function HeroComponent() {
                                 alt={`Heyzel-Coffee-HeroImage${idx}`}
                                 preview={image[1]}
                                 image={image[0]}
-                                objFit={"cover"}
+                                /*objFit={"cover"}*/
                                 imageStyleClass={classes.heroImage}
                             />
                         </div>
@@ -174,7 +174,7 @@ function HeroComponent() {
                                 alt={`Heyzel-Coffee-HeroImage${idx}`}
                                 preview={image[1]}
                                 image={image[0]}
-                                objFit={"cover"}
+                                /*objFit={"cover"}*/
                                 imageStyleClass={classes.heroImage}
                             />
                         </div>
