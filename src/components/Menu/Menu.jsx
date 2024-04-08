@@ -53,7 +53,7 @@ export default function Menu() {
 
     const renderedImg = useMemo(() => menuCats.map((cat, idx) => (
         <div key={idx} className={classes.leftWrapper}>
-            <BlurryLoadingImage preview={cat.images[1]} image={cat.images[0]} alt={t(cat.name)} imageStyleClass={classes.slideImage} />
+            <BlurryLoadingImage lazy={false} preview={cat.images[1]} image={cat.images[0]} alt={t(cat.name)} imageStyleClass={classes.slideImage} />
         </div>
     )), [menuCats, t]);
 

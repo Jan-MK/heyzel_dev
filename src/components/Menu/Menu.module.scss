@@ -226,6 +226,7 @@
   overflow: hidden;
   color: var(--text-primary);
 
+
   @include mobile {
     height: 95dvh;
     width: 95vw;
@@ -319,7 +320,10 @@
       padding: 10px 0;
       background-color: unset;
       transition: background-color .3s;
-
+      @include mobile {
+        overscroll-behavior: contain;
+        overflow-scrolling: touch;
+      }
 
       &:hover {
         background-color: var(--disabled);
@@ -344,6 +348,7 @@
           gap: 10px;
           justify-content: space-between;
           align-items: center;
+          max-width: 50%;
         }
 
         .priceWrapper {

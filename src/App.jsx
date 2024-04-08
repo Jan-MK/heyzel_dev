@@ -1,10 +1,8 @@
-import {useEffect, Suspense, lazy} from 'react'
+import {lazy, Suspense, useEffect} from 'react'
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import {ThemeProvider} from './context/ThemeContext.jsx';
 import './App.scss'
 import Home from "./pages/Home.jsx";
-
-const JobForm = lazy(() => import("./pages/JobForm/JobForm.jsx"));
 import {ReferenceProvider} from "./context/ReferenceContext.jsx";
 import {ModalProvider} from "./context/ModalContext.jsx";
 import {WindowDimensionsProvider} from "./context/WindowDimensionsContext.jsx";
@@ -13,9 +11,11 @@ import ReactLenis from "@studio-freight/react-lenis";
 import SkeletonJob from "./components/Skeleton/SkeletonJob.jsx";
 import {ErrorBoundary} from "react-error-boundary";
 import ErrorFallBack from "./components/Skeleton/ErrorFallBack.jsx";
-import Validation from "./components/Validation/Validation.jsx";
 import {CookieProvider} from "./context/CookieContext.jsx";
 import {VerificationProvider} from "./context/VerificationContext.jsx";
+import {useTranslation} from "react-i18next";
+
+const JobForm = lazy(() => import("./pages/JobForm/JobForm.jsx"));
 
 function useDynamicFavicon() {
     useEffect(() => {
@@ -42,6 +42,11 @@ function useDynamicFavicon() {
 
 function App() {
     useDynamicFavicon()
+    const { i18n } = useTranslation();
+
+    useEffect(() => {
+        document.documentElement.lang = i18n.language;
+    }, [i18n.language]);
 
     return (
         <Router>
@@ -65,8 +70,10 @@ function App() {
                                                     </Suspense>
                                                 </ErrorBoundary>
                                             }/>
-                                            <Route path="/:modalId" element={<Home/>}/>
-                                            <Route path="/TEST" element={<Validation/>}/>
+                                            <Route path="/:modalId" element={
+                                                <ReactLenis root>
+                                                    <Home/>
+                                                </ReactLenis>}/>
                                         </Routes>
                                     </MobileMenuProvider>
                                 </WindowDimensionsProvider>
