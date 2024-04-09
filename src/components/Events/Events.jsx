@@ -64,7 +64,7 @@ function Events() {
             let gallery = images[0].parentElement
             let match = gsap.matchMedia()
             match.add(`(min-width: ${minWidthTablet}px)`, () => {
-                gsap.from(images, {
+/*                gsap.from(images, {
                     opacity: 0,
                     stagger: 0.5,
                     scrollTrigger: {
@@ -73,7 +73,7 @@ function Events() {
                         end: "top 40%",
                         scrub: 1,
                     }
-                })
+                })*/
             })
             match.add(`(max-width: ${maxWidthMobile}px)`, () => {
                 gsap.from(images, {

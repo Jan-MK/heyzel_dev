@@ -1,3 +1,4 @@
+@import "../../../App.scss";
 .fullscreen {
   width: 100vw;
   height: 100dvh;
@@ -67,6 +68,9 @@
     padding: 25px;
     background-color: var(--overlay);
     color: var(--text-primary);
+    @include mobile {
+      width: 90vw;
+    }
 
     h2, p, a {
       text-align: center;

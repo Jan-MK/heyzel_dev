@@ -2034,3 +2034,4 @@ export const allTimeZone = [
         MobileCode: '+260'
     }, {Name: 'Zimbabwe', Code: 'ZW', Timezone: 'South Africa Standard Time', UTC: 'UTC+02:00', MobileCode: '+263'}
 ]
+
