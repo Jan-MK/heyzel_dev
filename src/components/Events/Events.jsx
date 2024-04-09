@@ -22,19 +22,14 @@ function Events() {
     const [error, setError] = useState();
 
     function instaDataFetch() {
-        /*console.log(instagram) TODO WHY PRINT LOG?*/
         setInstaData(instagram?.data.filter(isValidPost).slice(0, postCount))
-        /*axios.get('http://api.heyzel.de/instagram_data.json', {
-            method: 'post',
-            timeout: 1000,
+        axios.get('https://api.heyzel.de/getIGData.php', {
+            timeout: 8000, // Adjusted timeout to a more realistic value
             headers: {
                 "Content-Type": "application/json",
-                'Access-Control-Allow-Origin': '*' // Could work and fix the previous problem, but not in all APIs
-
-            },
-            data: {
-                property: "value",
-            },})
+                // 'Access-Control-Allow-Origin': '*' is not needed here; this is a response header, not a request header
+            }
+        })
             .then(response => {
                 const data = response.data;
                 console.log(data)
@@ -45,8 +40,9 @@ function Events() {
             .catch(error => {
                 setError("Could not fetch the data.");
                 console.error('There has been a problem with your fetch operation:', error);
-            });*/
+            });
     }
+
 
 
     useEffect(() => {

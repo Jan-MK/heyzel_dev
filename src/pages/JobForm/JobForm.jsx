@@ -344,7 +344,7 @@ function JobForm() {
             html: <>
                 <Logo width={"clamp(150px, 25vw, 500px)"}/>
                 <div className={`reverseOrder`}>
-                    <h2>{t('jobForm.intro.title')}</h2>
+                    <h1>{t('jobForm.intro.title')}</h1>
                     <p>{t('jobForm.intro.sub')}</p>
                 </div>
                 {/* Desired Employment */}
