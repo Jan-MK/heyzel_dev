@@ -13,7 +13,7 @@ function Submitted({show, answered, successful, formData, cleanForm}) {
 // {t("jobForm.submitted.")}
 
     useEffect(() => {
-        const mailToLink = `mailto:jan.kraemer@selfmail.eu`;
+        const mailToLink = `mailto:bewerbung@heyzel.de`;
         const generateError = () => {
             setContent(<>
                 <h2>{t("jobForm.submitted.error.t1")}</h2>

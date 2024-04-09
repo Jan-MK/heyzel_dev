@@ -161,7 +161,7 @@ export default function Menu() {
                                     <p>{t('cardMenu.day.subtitle')}</p>
                                 </div>
                                 <p>{t('cardMenu.day.dscr')}</p>
-                                <button className={"third"}
+                                <button className={"fourth"} style={{borderColor: colors[1].text}}
                                         onClick={() => toggleMount(0)}>{t('cardMenu.day.btn')}</button>
                             </div>
                             <div className={classes.photo}>
@@ -177,7 +177,7 @@ export default function Menu() {
                                     <p>{t('cardMenu.night.subtitle')}</p>
                                 </div>
                                 <p>{t('cardMenu.night.dscr')}</p>
-                                <button className={"third"}
+                                <button className={"fourth"} style={{borderColor: colors[2].text}}
                                         onClick={() => toggleMount(1)}>{t('cardMenu.night.btn')}</button>
                             </div>
                             <div className={classes.photo}>
@@ -193,7 +193,7 @@ export default function Menu() {
                             <div className={classes.text}>
                                 <h2>{t('cardMenu.food.title')}</h2>
                                 <p>{t('cardMenu.food.dscr')}</p>
-                                <button className={"third"}
+                                <button className={"fourth"} style={{borderColor: colors[3].text}}
                                         onClick={() => toggleMount(2)}>{t('cardMenu.food.btn')}</button>
                             </div>
                         </div>

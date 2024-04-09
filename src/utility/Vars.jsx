@@ -150,6 +150,109 @@ export const legalArray = [
                     Ihnen ein Beschwerderecht bei der zust&auml;ndigen Aufsichtsbeh&ouml;rde zu.</p>
                 <p>Hierzu sowie zu weiteren Fragen zum Thema Datenschutz k&ouml;nnen Sie sich jederzeit an uns
                     wenden.</p>
+
+
+                <h4>Datenschutzinformationen für Bewerber</h4>
+                <p>Information zum Datenschutz über unsere Verarbeitung von Bewerberdaten nach Art. 13, 14 und 21 der
+                    Datenschutz-Grundverordnung (DSGVO)</p>
+                <h5>Zwecke und Rechtsgrundlagen der Verarbeitung</h5>
+                <p>Wir verarbeiten Ihre personenbezogenen Daten im Einklang mit den Bestimmungen der europäischen
+                    Datenschutz-Grundverordnung (DSGVO) und dem Bundesdatenschutzgesetz (BDSG), soweit dies für
+                    die Entscheidung über die Begründung eines Beschäftigungsverhältnisses mit uns erforderlich ist.
+                    Rechtsgrundlage ist dabei Art. 88 DSGVO i. V. m. § 26 BDSG für Zwecke des Beschäftigungsverhältnisses,
+                    wenn dies für die Entscheidung über die Begründung eines Beschäftigungsverhältnisses erforderlich ist.
+                    Weiterhin können wir personenbezogene Daten von Ihnen verarbeiten, sofern dies zur Erfüllung rechtlicher
+                    Verpflichtungen (Art. 6 Abs. 1 lit. c DSGVO) oder zur Abwehr oder Geltendmachung von Rechtsansprüchen
+                    erforderlich ist. Rechtsgrundlage ist dabei Art. 6 Abs. 1 lit. f DSGVO. Das berechtigte Interesse ist
+                    beispielsweise eine Beweispflicht in einem Verfahren nach dem Allgemeinen Gleichbehandlungsgesetz
+                    (AGG).
+                    Erteilen Sie uns eine ausdrückliche Einwilligung zur Verarbeitung von personenbezogenen Daten für
+                    bestimmte Zwecke, ist die Rechtmäßigkeit dieser Verarbeitung auf Basis Ihrer Einwilligung nach Art. 6 Abs.
+                    1 lit. a DSGVO gegeben. Eine erteilte Einwilligung kann jederzeit mit Wirkung für die Zukunft widerrufen
+                    werden (s. Ziffer 9 dieser Datenschutzinformation).
+                    Kommt es zu einem Beschäftigungsverhältnis zwischen Ihnen und uns, können wir gemäß Art. 88
+                    DSGVO i. V. m. § 26 BDSG die bereits von Ihnen erhaltenen personenbezogenen Daten für Zwecke des
+                    Beschäftigungsverhältnisses weiterverarbeiten, soweit dies für die Durchführung oder Beendigung des
+                    Beschäftigungsverhältnisses oder zur Ausübung bzw. Erfüllung der sich aus einem Gesetz oder einem
+                    Tarifvertrag, einer Betriebs- oder Dienstvereinbarung (Kollektivvereinbarung) ergebenden Rechte und
+                    Pflichten der Interessenvertretung der Beschäftigten erforderlich ist.</p>
+                <h5>Kategorien personenbezogener Daten</h5>
+                <p>Wir verarbeiten nur solche Daten, die im Zusammenhang mit Ihrer Bewerbung stehen. Dies können
+                    allgemeine Daten zu Ihrer Person (Name, Anschrift, Kontaktdaten etc.), Angaben zu Ihrer beruflichen
+                    Qualifikation und Schulausbildung, Angaben zur beruflichen Weiterbildung sowie ggf. weitere Daten sein,
+                    die Sie uns im Zusammenhang mit Ihrer Bewerbung übermitteln.</p>
+                <h5>Quellen der Daten</h5>
+                <p>Wir verarbeiten personenbezogene Daten, die wir im Rahmen der Kontaktaufnahme bzw. Ihrer Bewerbung
+                    von Ihnen postalisch oder per E-Mail erhalten bzw. die Sie uns über das Bewerbungsformular übermitteln.</p>
+                <h5>Empfänger der Daten</h5>
+                <p>Wir geben Ihre personenbezogenen Daten innerhalb unseres Unternehmens ausschließlich an die Bereiche
+                    und Personen weiter, die diese Daten zur Erfüllung der vertraglichen und gesetzlichen Pflichten bzw. zur
+                    Umsetzung unseres berechtigten Interesses benötigen.
+                    Wir können Ihre personenbezogenen Daten an mit uns verbundene Unternehmen übermitteln, soweit dies
+                    im Rahmen der unter Ziffer 3 dieses Datenschutzinformationsblatts dargelegten Zwecke und
+                    Rechtsgrundlagen zulässig ist.
+                    Ihre personenbezogenen Daten werden in unserem Auftrag auf Basis von Auftragsverarbeitungsverträgen
+                    nach Art. 28 DSGVO verarbeitet. In diesen Fällen stellen wir sicher, dass die Verarbeitung von
+                    personenbezogenen Daten im Einklang mit den Bestimmungen der DSGVO erfolgt. Die Kategorien von
+                    Empfängern sind in diesem Fall Anbieter von Internetdienstanbieter sowie Anbieter von
+                    Bewerbermanagementsystemen und -software.
+                    Eine Datenweitergabe an Empfänger außerhalb des Unternehmens erfolgt ansonsten nur, soweit
+                    gesetzliche Bestimmungen dies erlauben oder gebieten, die Weitergabe zur Erfüllung rechtlicher
+                    Verpflichtungen erforderlich ist oder uns Ihre Einwilligung vorliegt.</p>
+                <h5>Übermittlung in ein Drittland</h5>
+                <p>Eine Übermittlung in ein Drittland ist nicht beabsichtigt.</p>
+                <h5>Dauer der Datenspeicherung</h5>
+                <p>Wir speichern Ihre personenbezogenen Daten, solange dies für die Entscheidung über Ihre Bewerbung
+                    erforderlich ist. Ihre personenbezogenen Daten bzw. Bewerbungsunterlagen werden spätestens sechs
+                    Monate nach Beendigung des Bewerbungsverfahrens (z. B. der Bekanntgabe der Absageentscheidung)
+                    gelöscht, sofern nicht eine längere Speicherung rechtlich erforderlich oder zulässig ist. Wir speichern
+                    Ihre personenbezogenen Daten darüber hinaus nur, soweit dies gesetzlich oder im konkreten Fall zur
+                    Geltendmachung, Ausübung oder Verteidigung von Rechtsansprüchen für die Dauer eines Rechtsstreits
+                    erforderlich ist.
+                    Für den Fall, dass Sie einer längeren Speicherung Ihrer personenbezogenen Daten zugestimmt haben,
+                    speichern wir diese nach Maßgabe Ihrer Einwilligungserklärung.
+                    Kommt es im Anschluss an das Bewerbungsverfahren zu einem Beschäftigungs-, Ausbildungs- oder
+                    Praktikantenverhältnis, werden Ihre Daten, soweit erforderlich und zulässig, zunächst weiterhin gespeichert
+                    und anschließend in die Personalakte überführt.</p>
+                <h5>Ihre Rechte</h5>
+                <p>Jede betroffene Person hat das Recht auf Auskunft nach Art. 15 DSGVO, das Recht auf Berichtigung
+                    nach Art. 16 DSGVO, das Recht auf Löschung nach Art. 17 DSGVO, das Recht auf Einschränkung der
+                    Verarbeitung nach Art. 18 DSGVO, das Recht auf Mitteilung nach Art. 19 DSGVO sowie das Recht auf
+                    Datenübertragbarkeit nach Art. 20 DSGVO.
+                    Darüber hinaus besteht ein Beschwerderecht bei einer Datenschutzaufsichtsbehörde nach Art. 77 DSGVO,
+                    wenn Sie der Ansicht sind, dass die Verarbeitung Ihrer personenbezogenen Daten nicht rechtmäßig erfolgt.
+                    Das Beschwerderecht besteht unbeschadet eines anderweitigen verwaltungsrechtlichen oder gerichtlichen
+                    Rechtsbehelfs.
+                    Sofern die Verarbeitung von Daten auf Grundlage Ihrer Einwilligung erfolgt, sind Sie nach Art. 7 DSGVO
+                    berechtigt, die Einwilligung in die Verwendung Ihrer personenbezogenen Daten jederzeit zu widerrufen.
+                    Bitte beachten Sie, dass der Widerruf erst für die Zukunft wirkt. Nicht davon betroffen sind Verarbeitungen,
+                    die vor dem Widerruf erfolgt sind. Bitte beachten Sie zudem, dass wir bestimmte Daten für die Erfüllung
+                    gesetzlicher Vorgaben ggf. für einen bestimmten Zeitraum aufbewahren müssen (s. Ziffer 8 dieser
+                    Datenschutzinformation).</p>
+                <p><strong>Widerspruchtsrecht:</strong><br/>
+                    Soweit die Verarbeitung Ihrer personenbezogenen Daten nach Art. 6 Abs. 1 lit. f DSGVO zur Wahrung
+                    berechtigter Interessen erfolgt, haben Sie gemäß Art. 21 DSGVO das Recht, aus Gründen, die sich
+                    aus Ihrer besonderen Situation ergeben, jederzeit Widerspruch gegen die Verarbeitung dieser Daten
+                    einzulegen. Wir verarbeiten diese personenbezogenen Daten dann nicht mehr, es sei denn, wir können
+                    zwingende schutzwürdige Gründe für die Verarbeitung nachweisen. Diese müssen Ihre Interessen, Rechte
+                    und Freiheiten überwiegen, oder die Verarbeitung muss der Geltendmachung, Ausübung oder Verteidigung
+                    von Rechtsansprüchen dienen.
+                    Zur Wahrung Ihrer Rechte können Sie sich unter den in Ziffer 3 angegebenen Kontaktdaten an uns
+                    wenden.
+                </p>
+                <h5>Erforderlichkeit der Bereitstellung personenbezogener Daten</h5>
+                <p>Die Bereitstellung Ihrer personenbezogenen Daten im Rahmen von Bewerbungsprozessen erfolgt freiwillig.
+                    Wir können eine Entscheidung zur Begründung eines Beschäftigungsverhältnisses jedoch nur treffen
+                    bzw. ein Beschäftigungsverhältnis mit Ihnen nur begründen, sofern Sie solche personenbezogenen Daten
+                    angeben, die zur Durchführung der Bewerbung erforderlich sind.</p>
+                <h5>Automatisierte Entscheidungsfindung</h5>
+<p>Die Entscheidung über Ihre Bewerbung beruht nicht ausschließlich auf einer automatisierten Verarbeitung.
+    Somit findet keine automatisierte Entscheidung im Einzelfall im Sinne des Art. 22 DSGVO statt.
+    Wir verarbeiten personenbezogene Daten, die wir im Rahmen der Kontaktaufnahme bzw. Ihrer Bewerbung
+    von Ihnen postalisch oder per E-Mail erhalten bzw. die Sie uns über das Bewerbungsformular übermitteln.</p>
+
+
+
                 <h3>Analyse-Tools und Tools von Dritt&shy;anbietern</h3>
                 <p>Beim Besuch dieser Website kann Ihr Surf-Verhalten statistisch ausgewertet werden. Das geschieht vor
                     allem mit sogenannten Analyseprogrammen.</p>
@@ -510,6 +613,28 @@ export const legalArray = [
                 <h2>1. Data Protection at a Glance</h2>
                 <h3>General Information</h3> <p>The following notes provide a simple overview of what happens to your personal data when you visit this website. Personal data is all data with which you can be personally identified. Detailed information on the subject of data protection can be found in our privacy policy listed below this text.</p>
                 <h3>Data Collection on This Website</h3> <h4>Who is responsible for the data collection on this website?</h4> <p>The data processing on this website is carried out by the website operator. You can find their contact details in the section “Information on the Responsible Party” in this privacy policy.</p> <h4>How do we collect your data?</h4> <p>Your data are collected when you provide it to us. This could, for example, be data you enter on a contact form.</p> <p>Other data are collected automatically or after your consent when you visit the website by our IT systems. These data are primarily technical data (e.g. internet browser, operating system, or time of page view). These data are collected automatically as soon as you enter this website.</p> <h4>What do we use your data for?</h4> <p>Part of the data is collected to ensure a flawless provision of the website. Other data can be used to analyze your user behavior.</p> <h4>What rights do you have regarding your data?</h4> <p>You always have the right to receive information about the origin, recipient, and purpose of your stored personal data free of charge. You also have the right to request the correction or deletion of these data. If you have given your consent to data processing, you can revoke this consent at any time for the future. In addition, you have the right to request the restriction of the processing of your personal data in certain circumstances. Furthermore, you have the right to lodge a complaint with the competent supervisory authority.</p> <p>You can contact us at any time regarding this and other questions on the subject of data protection.</p>
+                <h4>Privacy Information for Applicants</h4>
+                <p>Information on the protection of your data regarding the processing of applicant data according to Articles 13, 14, and 21 of the General Data Protection Regulation (GDPR).</p>
+                <h5>Purposes and Legal Bases of Processing</h5>
+                <p>We process your personal data in accordance with the provisions of the General Data Protection Regulation (GDPR) and the Federal Data Protection Act (BDSG), as necessary for deciding on the establishment of an employment relationship with us. The legal basis is Art. 88 GDPR in conjunction with § 26 BDSG for employment-related purposes, if necessary for making decisions regarding employment. Furthermore, we may process your personal data if it is necessary to fulfill legal obligations (Art. 6 para. 1 lit. c GDPR) or to defend or assert legal claims. The legal basis in this case is Art. 6 para. 1 lit. f GDPR. The legitimate interest includes, for example, proof in proceedings under the General Equal Treatment Act (AGG). If you provide explicit consent to the processing of personal data for specific purposes, the legality of this processing on the basis of your consent is given according to Art. 6 para. 1 lit. a GDPR. A given consent can be revoked at any time with effect for the future (see section 9 of this privacy information). Should an employment relationship between you and us be established, we may process the personal data already received from you for employment-related purposes according to Art. 88 GDPR in conjunction with § 26 BDSG, as far as this is necessary for carrying out or terminating the employment relationship or for exercising or fulfilling the rights and obligations of employee representation derived from a law or a collective agreement, a company or service agreement (collective agreement).</p>
+                <h5>Categories of Personal Data</h5>
+                <p>We only process data related to your application. This can be general data about you (name, address, contact details, etc.), details about your professional qualifications and education, information on further professional training, and other data you transmit to us in connection with your application.</p>
+                <h5>Sources of Data</h5>
+                <p>We process personal data that we receive from you by mail or email during the contact or your application process, or which you provide to us via the application form.</p>
+                <h5>Recipients of Data</h5>
+                <p>Within our company, we only pass on your personal data to areas and persons who need this data to fulfill contractual and legal obligations or to implement our legitimate interest. We may transmit your personal data to companies affiliated with us to the extent permissible for the purposes and legal bases set out in section 3 of this privacy information sheet. Your personal data is processed on our behalf on the basis of data processing agreements in accordance with Art. 28 GDPR. In these cases, we ensure that the processing of personal data complies with the provisions of the GDPR. The categories of recipients in this case are providers of internet services as well as providers of applicant management systems and software. Data transfer to recipients outside the company otherwise only takes place if legal provisions allow or require this, the transfer is necessary to fulfill legal obligations, or we have your consent.</p>
+                <h5>Transfer to a Third Country</h5>
+                <p>A transfer to a third country is not intended.</p>
+                <h5>Duration of Data Storage</h5>
+                <p>We store your personal data as long as it is necessary for the decision on your application. Your personal data or application documents will be deleted no later than six months after the conclusion of the application process (e.g., notification of the rejection decision), unless longer storage is legally required or permissible. We only store your personal data beyond this if required by law or in specific cases for the assertion, exercise, or defense of legal claims for the duration of a legal dispute. If you have agreed to longer storage of your personal data, we will store it according to your declaration of consent. Should an employment, training, or internship relationship follow the application process, your data, to the extent necessary and permissible, will initially continue to be stored and then transferred to the personnel file.</p>
+                <h5>Your Rights</h5>
+                <p>Every affected person has the right to information according to Art. 15 GDPR, the right to correction according to Art. 16 GDPR, the right to deletion according to Art. 17 GDPR, the right to restriction of processing according to Art. 18 GDPR, the right to notification according to Art. 19 GDPR, and the right to data portability according to Art. 20 GDPR. Furthermore, there is a right to lodge a complaint with a data protection supervisory authority according to Art. 77 GDPR if you believe that the processing of your personal data is not lawful. This right to lodge a complaint is without prejudice to any other administrative or judicial remedy. If the processing of data is based on your consent, you are entitled under Art. 7 GDPR to revoke your consent to the use of your personal data at any time. Please note that the revocation only works for the future. Processing that took place before the revocation is not affected. Please also note that we may need to retain certain data for a certain period to fulfill legal requirements (see section 8 of this privacy information).</p>
+                <p><strong>Right to Object:</strong><br/> If your personal data is processed according to Art. 6 para. 1 lit. f GDPR to protect legitimate interests, you have the right according to Art. 21 GDPR to object to the processing of this data at any time for reasons arising from your particular situation. We will then no longer process this personal data unless we can demonstrate compelling legitimate grounds for the processing that override your interests, rights, and freedoms, or the processing is for the establishment, exercise, or defense of legal claims. To exercise your rights, you can contact us using the contact details provided in section 3.</p>
+                <h5>Necessity of Providing Personal Data</h5>
+                <p>Providing your personal data during application processes is voluntary. However, we can only make a decision to establish an employment relationship or establish an employment relationship with you if you provide personal data necessary for the application process.</p>
+                <h5>Automated Decision-Making</h5>
+                <p>The decision on your application is not based solely on automated processing. Thus, no automated decision-making in the sense of Art. 22 GDPR takes place. We process personal data that we receive from you by mail or email during the contact or your application process, or which you provide to us via the application form.</p>
+
                 <h3>Analysis Tools and Tools from Third Parties</h3> <p>When visiting this website, your surfing behavior can be statistically evaluated. This is mainly done with so-called analysis programs.</p> <p>Detailed information on these analysis programs can be found in the following privacy policy.</p>
                 <h2>2. Hosting</h2>
                 <p>We host the content of our website with the following provider:</p>

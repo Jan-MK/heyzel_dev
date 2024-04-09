@@ -1,20 +1,15 @@
 import classes from "./Home.module.scss"
 import Hero from "../components/Hero/Hero.jsx";
-import {useContext, useEffect, useRef, Suspense, lazy, useLayoutEffect, useState} from "react";
+import {useContext, useEffect, Suspense, lazy, useState} from "react";
 import ReferenceContext from "../context/ReferenceContext.jsx";
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {getDistinctRandomHex} from "../utility/Utility.jsx";
-import {useNavigate, useParams} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import {useModal} from '../context/ModalContext';
 import Navbar from "../components/Navigation/Navbar.jsx";
 import {useTranslation} from "react-i18next";
-/*import About from "../components/About/About.jsx";
-import InsertionBlock from "../components/InsertionBlock/InsertionBlock.jsx";
-import Locations from "../components/Locations/Locations.jsx";
-import Menu from "../components/Menu/Menu.jsx";
-import Footer from "../components/Footer/Footer.jsx";
-import LegalModal from "../components/LegalModal/LegalModal.jsx";*/
+
 
 const About = lazy(() => import ("../components/About/About.jsx"));
 const InsertionBlock = lazy(() => import ("../components/InsertionBlock/InsertionBlock.jsx"));
@@ -24,27 +19,12 @@ const Footer = lazy(() => import ("../components/Footer/Footer.jsx"));
 const LegalModal = lazy(() => import ("../components/LegalModal/LegalModal.jsx"));
 const Contact = lazy(() => import("../components/Contact/Contact.jsx"))
 const Events = lazy(() => import("../components/Events/Events.jsx"))
-import metaData from "../assets/meta.jsx";
+import {generateSeo, modalIdMapping} from "../assets/metaInformation.jsx";
 import Loading from "../components/Loading/Loading.jsx";
-import {Helmet} from "react-helmet-async";
-
 
 gsap.registerPlugin(ScrollTrigger);
 
-const modalIdMapping = {
-    'about': { language: 'en', location: 'about' },
-    'ueber': { language: 'de', location: 'about' },
-    'events': { location: 'events' },
-    'speisekarte': { language: 'de', location: 'menu' },
-    'menu': { language: 'en', location: 'menu' },
-    'locations': { language: 'en', location: 'locations' },
-    'standorte': { language: 'de', location: 'locations' },
-    'contact': { language: 'en', location: 'contact' },
-    'kontakt': { language: 'de', location: 'contact' }
-};
-
 function Home() {
-    const navigate = useNavigate()
     const {t, i18n} = useTranslation();
     const {menuContainerRef} = useContext(ReferenceContext)
     const {modalId} = useParams();
@@ -93,59 +73,42 @@ function Home() {
         }
     }
 
+
     useEffect(() => {
-        let identifier
-        if(modalId) {
-            if (modalIdMapping[modalId]) {
+        // This checks if we're dealing with a legal/privacy modalId, which seems to be a special case
+        if (['legal', 'impressum', 'privacy', 'datenschutz'].includes(modalId)) {
+            // Handle the legal/privacy language change and modal opening
+            if (modalId && !paramOnClose && openModal) {
+                let showImprint = modalId === 'legal' || modalId === 'impressum';
+                let language = modalId === 'legal' || modalId === 'privacy' ? 'en' : 'de';
+
+                i18n.changeLanguage(language);
+                openModal(<LegalModal showImprint={showImprint} resetLegal={true} />, true);
+                let generated = generateSeo(modalIdMapping[modalId].location, i18n.resolvedLanguage);
+                setCurrentSeo(generated);
+            }
+        } else {
+            // Otherwise, proceed with normal modalId handling
+            let identifier = 'home'; // Default to home if no modalId is found
+            if (modalId && modalIdMapping[modalId]) {
                 const { language, location } = modalIdMapping[modalId];
                 if (language) {
                     i18n.changeLanguage(language);
                 }
-                identifier = modalIdMapping[modalId].location
-
-                setTimeout(() => {
-                    handleNavigation(location);
-                }, 500);
+                identifier = location;
+                setTimeout(() => handleNavigation(location), 500);
             }
-        } else {
-            identifier = 'home'
+            // Generate SEO metadata based on the identifier and current language
+            let generated = generateSeo(identifier, i18n.resolvedLanguage);
+            setCurrentSeo(generated);
         }
-        const seoData = metaData[identifier];
-        if(seoData) {
-            setCurrentSeo({
-                title: seoData.title[i18n.resolvedLanguage],
-                description: seoData.description[i18n.resolvedLanguage],
-                keywords: seoData.keywords[i18n.resolvedLanguage]
-            });
-        }
+    }, [modalId, i18n, openModal, paramOnClose]);
 
-    }, [modalId, i18n.language, i18n]);
-
-    // Routing leads to heyzel.de/imprint or else to open a proper modal. The race condition is eliminated of
-    // opening again since state is not updated in this short amount.
-    useEffect(() => {
-        if (modalId && !paramOnClose && openModal) {
-            switch (modalId) {
-                case 'imprint': {
-                    openModal(<LegalModal showImprint={true}/>, true);
-                    break;
-                }
-                case 'privacy': {
-                    openModal(<LegalModal showImprint={false}/>, true);
-                    break;
-                }
-            }
-        }
-    }, [modalId, openModal]);
 
 
     return (
         <>
-            <Helmet>
-                <title>{currentSeo?.title}</title>
-                <meta name="description" content={currentSeo?.description} />
-                <meta name="keywords" content={currentSeo?.keywords} />
-            </Helmet>
+            {currentSeo}
             <Hero/>
             <Navbar/>
             <main className={`${classes.mainContent}`} id={"home"}>

@@ -18,14 +18,9 @@ import {useWindowDimensions} from "../../context/WindowDimensionsContext.jsx";
 import {Trans, useTranslation} from "react-i18next";
 import Validation from "../../components/Validation/Validation.jsx";
 import VerificationContext from "../../context/VerificationContext.jsx";
-import metaData from "../../assets/meta.jsx";
-import {Helmet} from "react-helmet-async";
+import {generateSeo} from "../../assets/metaInformation.jsx";
 
-// TODO: Modularize fieldWrappers to reduce steps array,
 // TODO: EventListener for Enter key to try hitting next and point out unfilled required fields
-// TODO: Green next-button when select desired EMployment wrong first, right after and wrong after.
-// TODO: Still an 'split' error when triggering manually. (Think it comes from photo)
-
 
 const currentEmploymentOptions = ["Schüler", "Student", "Arbeitnehmer", "Selbstständig", "Arbeitslos/Arbeitssuchend"]
 const desiredEmploymentOptions = [...unavailable, ...available]
@@ -87,13 +82,9 @@ function JobForm() {
 
 
     useEffect(() => {
-        const seoData = metaData['jobs'];
+        const seoData = generateSeo('jobs', i18n.resolvedLanguage);
         if(seoData) {
-            setCurrentSeo({
-                title: seoData.title[i18n.resolvedLanguage],
-                description: seoData.description[i18n.resolvedLanguage],
-                keywords: seoData.keywords[i18n.resolvedLanguage]
-            });
+            setCurrentSeo(seoData);
         }
 
     }, [i18n.language, i18n]);
@@ -367,7 +358,11 @@ function JobForm() {
                         <label htmlFor="job-form-confirmation">
                             <Trans i18nKey="jobForm.conf.label">
                                 Please confirm that you have read and agreed to our
-                                <a onClick={() => openModal(<LegalModal showImprint={false}/>)}>
+                                <a onClick={(e) => {
+                                    e.preventDefault()
+                                    e.stopPropagation()
+                                    openModal(<LegalModal showImprint={false}/>)
+                                }}>
                                     terms of privacy
                                 </a>
                                 on how we use the data.
@@ -770,11 +765,7 @@ function JobForm() {
 
     return (
         <>
-            <Helmet>
-                <title>{currentSeo?.title}</title>
-                <meta name="description" content={currentSeo?.description} />
-                <meta name="keywords" content={currentSeo?.keywords} />
-            </Helmet>
+            {currentSeo}
             {resetting && <Loading text={"Preparing job form..."}/>}
             {!resetting && !submitted &&
                 <form onSubmit={handleSubmit(handleSave)} className={`${classes.formContainer}`} ref={formContainerRef}>

@@ -4,19 +4,19 @@ export const shifts = ['7:30', '13:00', '16:00'];
 export const randomColors = [
     {
         bg: '#68c1c9',
-        text: '#fff'
+        text: '#242224'
     }, {
         bg: '#ffd400',
         text: '#000'
     }, {
         bg: '#9697c0',
-        text: '#fff'
+        text: '#000'
     }, {
         bg: '#00c5d1',
-        text: '#fff'
+        text: '#151a16'
     }, {
         bg: '#70BAFF',
-        text: '#fff'
+        text: '#1c2125'
     }, {
         bg: '#FE0879',
         text: '#fff'

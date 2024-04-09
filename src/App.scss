@@ -151,8 +151,13 @@ body, html {
     }
 
     &.third {
-      background-color: transparent;
       border: 2px solid var(--accent);
+    }
+
+    &.third,
+    &.fourth {
+      background-color: transparent;
+      border: 2px solid;
       overflow: hidden;
 
 

@@ -4,15 +4,16 @@ import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {useGSAP} from "@gsap/react";
 import Logo from "../Logo/Logo.jsx";
-import drinkTn from "../../assets/media/HeroImages/drink-1839134_1280-tn.webp"
-import womanTn from "../../assets/media/HeroImages/pexels-lisa-fotios-9853880-tn.webp"
-import darkTn from "../../assets/media/HeroImages/dark-2595778_1280-tn.webp"
-import coffeehouseTn from "../../assets/media/HeroImages/coffeehouse-2600877_1280-tn.webp"
-import cShopTn from "../../assets/media/HeroImages/coffee-shop-393954_1280-tn.webp"
-import coffee1Tn from "../../assets/media/HeroImages/coffee-5495609_1280-tn.webp"
-import coffee2Tn from "../../assets/media/HeroImages/coffee-2439999_1280-tn.webp"
-import cafe1Tn from "../../assets/media/HeroImages/cafe-1869656_1280-tn.webp"
-import cafe2Tn from "../../assets/media/HeroImages/cafe-789635_1280-tn.webp"
+import cappWav from "../../assets/media/HeroImages/cappuccino-with-a-view-heyzel-tn.webp"
+import espress from "../../assets/media/HeroImages/espresso-heyzel-coffee-tn.webp"
+import heyz from "../../assets/media/HeroImages/heyzel-mug-coffee-cappuccino-tn.webp"
+import heyOut from "../../assets/media/HeroImages/heyzel-shop-coffee-outside2-tn.webp"
+import mill from "../../assets/media/HeroImages/muehle-heyzel-coffee-beans-tn.webp"
+import sweet from "../../assets/media/HeroImages/sweets-food-heyzel-coffee-tn.webp"
+import vinyl from "../../assets/media/HeroImages/vinyl-music-heyzel-coffee-tn.webp"
+import latteArt from "../../assets/media/HeroImages/latte-art-heyzel-coffee-tn.webp"
+import study from "../../assets/media/HeroImages/study-heyzel-coffee-tn.webp"
+import inHand from "../../assets/media/HeroImages/enjoy-cappuccino-heyzel-coffee-tn.webp"
 import ReactCountryFlag from "react-country-flag";
 import {useWindowDimensions} from "../../context/WindowDimensionsContext.jsx";
 import {maxWidthMobile, minWidthTablet} from "../../utility/Vars.jsx";
@@ -44,15 +45,16 @@ function HeroComponent() {
 
 
     let images2 = [
-        ["/assets/media/HeroImages/drink-1839134_1280.webp", drinkTn],
-        ["/assets/media/HeroImages/pexels-lisa-fotios-9853880.webp", womanTn],
-        ["/assets/media/HeroImages/dark-2595778_1280.webp", darkTn],
-        ["/assets/media/HeroImages/coffeehouse-2600877_1280.webp", coffeehouseTn],
-        ["/assets/media/HeroImages/coffee-shop-393954_1280.webp", cShopTn],
-        ["/assets/media/HeroImages/coffee-5495609_1280.webp", coffee1Tn],
-        ["/assets/media/HeroImages/coffee-2439999_1280.webp", coffee2Tn],
-        ["/assets/media/HeroImages/cafe-1869656_1280.webp", cafe1Tn],
-        ["/assets/media/HeroImages/cafe-789635_1280.webp", cafe2Tn],
+        ["/assets/media/HeroImages/espresso-heyzel-coffee.webp", espress],
+        ["/assets/media/HeroImages/heyzel-mug-coffee-cappuccino.webp", heyz],
+        ["/assets/media/HeroImages/heyzel-shop-coffee-outside2.webp", heyOut],
+        ["/assets/media/HeroImages/vinyl-music-heyzel-coffee.webp", vinyl],
+        ["/assets/media/HeroImages/sweets-food-heyzel-coffee.webp", sweet],
+        ["/assets/media/HeroImages/latte-art-heyzel-coffee.webp", latteArt],
+        ["/assets/media/HeroImages/study-heyzel-coffee.webp", study],
+        ["/assets/media/HeroImages/enjoy-cappuccino-heyzel-coffee.webp", inHand],
+        ["/assets/media/HeroImages/muehle-heyzel-coffee-beans.webp", mill],
+        ["/assets/media/HeroImages/cappuccino-with-a-view-heyzel.webp", cappWav],
     ]
     const rightSlice = images2.slice(countPerColumn)
 

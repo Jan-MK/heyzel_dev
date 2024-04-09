@@ -213,7 +213,7 @@ i18n
                         }
                     },
                     cardMenu: {
-                        title: "Coffee, Drinks & Snacks",
+                        title: "COFFEE, DRINKS & SNACKS",
                         dscr: "Dive into our menu featuring a variety of coffees, from classic espressos to rich lattes, alongside house-made ice teas and crafted cocktails. Plus, enjoy a selection of delectable snacks perfect for any time of day.",
                         day: {
                             title: "Tasty coffee, tea and shakes",
@@ -239,7 +239,7 @@ i18n
                         }
                     },
                     locations: {
-                        title: "Locations",
+                        title: "LOCATIONS",
                         dscr: "Dive into our menu featuring a variety of coffees, from classic espressos to rich lattes, alongside house-made ice teas and crafted cocktails. Plus, enjoy a selection of delectable snacks perfect for any time of day.",
                         general: {
                             t1: {
@@ -331,6 +331,7 @@ i18n
                             errorDsc: "Please send us an e-mail to info@heyzel.de"
                         },
                         form: {
+                            title: "CONTACT FORM",
                             fn: {
                                 label: "First name",
                                 ph: "Your first name",
@@ -846,7 +847,7 @@ i18n
                         }
                     },
                     cardMenu: {
-                        title: "Kaffee, Getränke und Snacks",
+                        title: "KAFFEE, GETRÄNKTE & SNACKS",
                         dscr: "Tauch ein in unsere Speisekarte, die eine Vielzahl von Kaffees bietet – von klassischen Espressos bis hin zu reichhaltigen Lattes, neben hausgemachten Eistees und handgemachten Cocktails. Genieße außerdem eine Auswahl köstlicher Snacks, perfekt für jede Tageszeit.",
                         day: {
                             title: "Kaffee, Tee & Shakes",
@@ -872,7 +873,7 @@ i18n
                         }
                     },
                     locations: {
-                        title: "Standorte",
+                        title: "STANDORTE",
                         dscr: "Tauch ein in unsere Speisekarte, die eine Vielzahl von Kaffees bietet – von klassischen Espressos bis hin zu reichhaltigen Lattes, neben hausgemachten Eistees und handgemachten Cocktails. Genieße außerdem eine Auswahl köstlicher Snacks, perfekt für jede Tageszeit.",
                         general: {
                             t1: {
@@ -965,6 +966,7 @@ i18n
                             errorDsc: "Sende uns eine E-Mail an info@heyzel.de"
                         },
                         form: {
+                            title: "KONTAKTFORMULAR",
                             fn: {
                                 label: "Vorname",
                                 ph: "Dein Vorname",

@@ -10,8 +10,8 @@ export const ModalProvider = ({ children }) => {
     const navigate = useNavigate()
     const [modalContent, setModalContent] = useState(null);
     const [showModal, setShowModal] = useState(false);
-    const [showUpArrow, setShowUpArrow] = useState(false);
-    const [showDownArrow, setShowDownArrow] = useState(false);
+/*    const [showUpArrow, setShowUpArrow] = useState(false);
+    const [showDownArrow, setShowDownArrow] = useState(false);*/
     const contentScrollRef = useRef(null);
     const [paramOnClose, setParamOnClose] = useState(false)
 
@@ -26,11 +26,11 @@ export const ModalProvider = ({ children }) => {
             navigate("/", { replace: true });
         }
         setShowModal(false);
-        setShowUpArrow(false);
-        setShowDownArrow(false);
+/*        setShowUpArrow(false);
+        setShowDownArrow(false);*/
     };
 
-    const checkScrollability = useCallback(() => {
+/*    const checkScrollability = useCallback(() => {
         if (!contentScrollRef.current) return;
 
         const wrapper = contentScrollRef.current;
@@ -39,9 +39,9 @@ export const ModalProvider = ({ children }) => {
         const isScrolledToBottom = wrapper.scrollHeight - wrapper.scrollTop <= wrapper.clientHeight;
         setShowUpArrow(isScrollable && !isScrolledToTop);
         setShowDownArrow(isScrollable && !isScrolledToBottom);
-    }, []);
+    }, []);*/
 
-    useEffect(() => {
+/*    useEffect(() => {
         const scrollContainer = contentScrollRef.current;
         if (scrollContainer) {
             scrollContainer.addEventListener('scroll', checkScrollability, { passive: true });
@@ -53,10 +53,10 @@ export const ModalProvider = ({ children }) => {
                 scrollContainer.removeEventListener('scroll', checkScrollability);
             }
         };
-    }, [checkScrollability]);
+    }, [checkScrollability]);*/
 
     return (
-        <ModalContext.Provider  value={{ openModal, closeModal, paramOnClose, showUpArrow, showDownArrow, contentScrollRef }}>
+        <ModalContext.Provider  value={{ openModal, closeModal, paramOnClose, contentScrollRef }}>
             {children}
             <Modal showModal={showModal} closeModal={closeModal} content={modalContent} />
         </ModalContext.Provider>

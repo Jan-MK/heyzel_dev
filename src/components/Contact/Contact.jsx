@@ -150,6 +150,7 @@ function Contact() {
                 </div>
             </div>
             <form className={classes.formContainer} id={"formWrapper"} onSubmit={handleSubmit(handleSave)}>
+                <h2>{t('contact.form.title')}</h2>
                 <div className={classes.rowWrapper}>
                     <div>
                         <label htmlFor={'cFirstName'}>{t('contact.form.fn.label')}:</label>
