@@ -5,7 +5,7 @@ import ReferenceContext from "../context/ReferenceContext.jsx";
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {getDistinctRandomHex} from "../utility/Utility.jsx";
-import {useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import {useModal} from '../context/ModalContext';
 import Navbar from "../components/Navigation/Navbar.jsx";
 import {useTranslation} from "react-i18next";
@@ -31,12 +31,26 @@ import {Helmet} from "react-helmet-async";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const modalIdMapping = {
+    'about': { language: 'en', location: 'about' },
+    'ueber': { language: 'de', location: 'about' },
+    'events': { location: 'events' },
+    'speisekarte': { language: 'de', location: 'menu' },
+    'menu': { language: 'en', location: 'menu' },
+    'locations': { language: 'en', location: 'locations' },
+    'standorte': { language: 'de', location: 'locations' },
+    'contact': { language: 'en', location: 'contact' },
+    'kontakt': { language: 'de', location: 'contact' }
+};
+
 function Home() {
+    const navigate = useNavigate()
     const {t, i18n} = useTranslation();
     const {menuContainerRef} = useContext(ReferenceContext)
     const {modalId} = useParams();
     const {openModal, paramOnClose} = useModal();
     const [currentSeo, setCurrentSeo] = useState();
+
 
     let insertionTitle = "heyzeln"
     let insertionSubTitle = "[hɛɨzɫɲ / ˈheɪzəln]"
@@ -71,37 +85,15 @@ function Home() {
     ]
 
     let colors = getDistinctRandomHex(4)
-    const scrollToOptions = (offsetHeight) => ({
-        offset: -offsetHeight,
-        duration: 1.5,
-        easing: (x) => x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2,
-        immediate: false,
-        lock: false,
-        force: false,
-    });
+
     function handleNavigation(id) {
         const element = document.getElementById(id);
         if (element) {
-            element.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"})
+            element.scrollIntoView({behavior: "instant", block: "start", inline: "nearest"})
         }
     }
 
-
-
-
     useEffect(() => {
-        // Mapping object for modalIds to language and location
-        const modalIdMapping = {
-            'about': { language: 'en', location: 'about' },
-            'ueber': { language: 'de', location: 'about' },
-            'events': { location: 'events' },
-            'speisekarte': { language: 'de', location: 'menu' },
-            'menu': { language: 'en', location: 'menu' },
-            'locations': { language: 'en', location: 'locations' },
-            'standorte': { language: 'de', location: 'locations' },
-            'contact': { language: 'en', location: 'contact' },
-            'kontakt': { language: 'de', location: 'contact' }
-        };
         let identifier
         if(modalId) {
             if (modalIdMapping[modalId]) {

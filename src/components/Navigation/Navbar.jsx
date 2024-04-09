@@ -43,7 +43,7 @@ function Navbar() {
                 const linkHeap = document.getElementById('linkHeapTwin');
                 let heapHeight = linkHeap.offsetHeight
                 navbar.style.marginTop = `${heapHeight - 66}px`
-                ScrollTrigger.refresh() // TODO Causes scroll up and down issues
+                ScrollTrigger.refresh()
             }
         }
 
@@ -223,9 +223,9 @@ function Navbar() {
         })
     }
 
-    // TODO When /kontakt, lösche das nach einer Zeit, damit beim refresh nicht wieder angesteuert wird.
     function handleLinkClick(event) {
         event.preventDefault();
+        navigate("/")
         const target = event.target.closest('a');
         if (!target) return
         const href = target.getAttribute('href');
