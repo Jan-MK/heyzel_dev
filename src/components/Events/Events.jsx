@@ -43,6 +43,14 @@ function Events() {
             });
     }
 
+    function setupInsta(){
+        let appId = "1264563427554579";
+        let redUri = window.location.origin + "/insta";
+        console.log(redUri)
+        let url = `https://api.instagram.com/oauth/authorize?client_id=${appId}&redirect_uri=${redUri}&scope=user_profile,user_media&response_type=code`;
+        window.open(url, "_blank").focus();
+    }
+
 
 
     useEffect(() => {
@@ -61,6 +69,7 @@ function Events() {
                     {error ? <div>Error: {error}</div> : instaData.map((post) => <PostCard key={post.id} post={post}/>)}
                 </div>
             </div>
+            <button onClick={() => setupInsta()}>SETUP</button>
         </div>
     );
 }
