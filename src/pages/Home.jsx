@@ -174,9 +174,6 @@ function Home() {
                 </Suspense>
                 <section className={`${classes.contentSection}`} id={"events"}>
                     <div className={`${classes.bgSectionHeading} ${classes.centered}`}>
-                        <h1>
-                            {t('menu.events')}
-                        </h1>
                         <Suspense fallback={<Loading/>}>
                             <Events/>
                         </Suspense>

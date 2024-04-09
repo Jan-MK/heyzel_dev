@@ -57,6 +57,20 @@ i18n
                             dscr: "Whether you're grabbing your morning wake-up call on your way to work, uni, or school, or chilling on the weekend with friends over ice-cold margaritas, we're here to make every visit epic. Drop by for some sunny vibes on the Rathausplatz terrace, relaxed drinks at Königsplatz, or a quick escape between lectures at uni and see how passion, quality, and an amazing team make all the difference in every cup."
                         }
                     },
+                    events: {
+                        dscr1: "Immerse yourself in days and nights that sparkle with the sounds of live music, the laughter of good company, and the clinking of cocktails. Find relaxation under the canopy of stars, embraced by an atmosphere alive with the season's vibrant spirit.",
+                        dscr2: "The best parties start with <1>YOU</1>!",
+                        inside: {
+                            heading1: "Live-DJs",
+                            dscr1: "Experience the energy as our DJs mix pulsating electronic beats, creating unforgettable nights made for dancing.",
+                            heading2: "Live-Entertainment",
+                            dscr2: "Enjoy everything from cozy acoustic melodies to hilarious comedy shows, all showcasing the magic of live performances.",
+                            heading3: "Themed Events",
+                            dscr3: "Step into unique events, from retro fashion to modern art, each designed to spark inspiration and foster shared moments.",
+                            outro: "Stay updated on HEYZEL's exciting events. Follow us on Instagram for all the details. <1>#heyzelevents</1>",
+                            btn: "@heyzel",
+                        }
+                    },
                     menu: {
                         hours: "Opening hours",
                         goTo: "Quicklinks",
@@ -673,6 +687,20 @@ i18n
                             subtitle: "wir sind",
                             title: "für <1>dich</1> da",
                             dscr: "Ob Du Dir Deinen morgendlichen Muntermacher auf dem Weg zur Arbeit, Uni oder Schule schnappst oder am Wochenende mit Freunden bei eiskalten Margaritas entspannst, wir sind hier, um jeden Besuch unvergesslich zu machen. Komm vorbei auf der Sonnnenterrasse am Rathausplatz, auf entspannte Drinks am Königsplatz oder zwischen Deinen Vorlesungen an der Uni und erlebe den Unterschied, den Leidenschaft, Qualität und ein grandioses Team in jeder Tasse ausmachen können."
+                        }
+                    },
+                    events: {
+                        dscr1: "Tauche ein in Events, die mit den Klängen von Live-Musik, dem Lachen des Publikums und dem Klingen von Cocktails leuchten. Finde Entspannung unter dem Sternenzelt, umarmt von einer Atmosphäre, die mit dem lebendigen Geist der Saison erfüllt ist.",
+                        dscr2: "Die besten Parties starten mit <1>DIR</1>!",
+                        inside: {
+                            heading1: "Live-DJs",
+                            dscr1: "Erlebe die Energie, wenn unsere DJs pulsierende elektronische Beats mischen, die unvergessliche Tanznächte schaffen.",
+                            heading2: "Live-Unterhaltung",
+                            dscr2: "Genieße alles, von gemütlichen Akustikmelodien bis zu humorvollen Comedyshows, die alle die Magie der Live-Aufführungen zeigen.",
+                            heading3: "Themen Events",
+                            dscr3: "Tauche ein in einzigartige Veranstaltungen, von Retro-Mode bis zu moderner Kunst, jede darauf ausgelegt, Inspiration zu wecken und gemeinsame Momente zu fördern.",
+                            outro: "Bleibe auf dem Laufenden über die spannenden Veranstaltungen unter dem HEYZEL-Himmel. Folge uns auf Instagram für alle Details. <1>#heyzelevents</1>!",
+                            btn: "@heyzel",
                         }
                     },
                     menu: {

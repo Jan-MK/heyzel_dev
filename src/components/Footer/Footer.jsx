@@ -29,7 +29,7 @@ function Footer() {
                     <p>Follow us</p>
                     <div className={classes.socialNav}>
                         <a href="https://www.instagram.com/heyzelcoffee/" className={classes.socialLink} target="_blank"
-                           aria-label="Facebook" rel="noreferrer">
+                           aria-label="Instagram" rel="noreferrer">
                             <div className={classes.socialLogoWrapper}>
                                 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg"
                                      viewBox="0 0 1000 1000" className={classes.socialLogo}>

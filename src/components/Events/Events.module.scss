@@ -1,6 +1,112 @@
-.eventCarousel {
+@import "../../App.scss";
+
+.eventWrapper {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  gap: 25px;
+  justify-content: center;
+  align-items: center;
+  max-width: min(1080px, 100%);
+
+  p {
+    text-align: center;
+    font-size: clamp(0.5em, 10vw, 1.25em);
+
+    span {
+      color: var(--accent)
+    }
+  }
+
+  .aboutEvents {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+
+    p span {
+      font-weight: 600;
+    }
+  }
+
+  .eventCarousel {
+    display: flex;
+    flex-direction: row;
     justify-content: space-between;
-  gap: 20px;
+    gap: 20px;
+  }
+
+  .splitView {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 25px;
+
+    @include mobile {
+      flex-direction: column-reverse;
+    }
+
+    .eventImages {
+
+      div {
+        .eventImage{
+          border-radius: 5px;
+        box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
+        -webkit-box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
+        -moz-box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
+        }
+      }
+    }
+
+    div {
+      width: 50% !important;
+
+      @include mobile {
+        width: 95% !important;
+      }
+      p, a, .instaHint {
+        text-align: center;
+        font-size: clamp(0.5em, 10vw, 1.25em);
+
+        span {
+          color: var(--accent);
+          word-break: keep-all;
+          hyphens: none;
+          font-weight: 600;
+        }
+      }
+      &.right {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        justify-content: flex-start;
+        align-items: center;
+
+        h2 {
+          margin-top: 15px;
+          font-size: clamp(0.8em, 10vw, 1.5em);
+        }
+
+
+        .instaLink {
+          text-decoration: none;
+          margin: 15px 30px;
+          padding: 15px 30px;
+          border: 2px solid var(--accent);
+          border-radius: 5px;
+          font-weight: 500;
+          transition: scale, font-weight 150ms ease;
+
+          box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
+          -webkit-box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
+          -moz-box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
+          &:hover {
+            scale: 1.05;
+            color: inherit;
+            font-weight: 600;
+          }
+        }
+      }
+    }
+  }
 }

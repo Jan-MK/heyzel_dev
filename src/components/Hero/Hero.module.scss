@@ -169,6 +169,10 @@
         align-items: center;
       }
 
+      @include tablet {
+        padding-left: 15px;
+      }
+
       .headLine {
         display: flex;
         flex-direction: column-reverse;
