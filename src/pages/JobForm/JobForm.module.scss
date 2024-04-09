@@ -101,7 +101,7 @@
   max-height: 100%;
   gap: 10px;
   transition: height, max-height .25s ease;
-  padding: 0 15px 0 15px;
+  padding: 0 5px 0 5px;
 
   button {
     font-weight: 500;
@@ -115,17 +115,22 @@
     display: flex; // Makes it a flex container
     justify-content: center; // Centers children horizontally
     align-items: center; // Centers children vertically
-    width: 100%;
+    width: 100vw;
+    max-width: 100%;
 
 
     section.scrollable {
+
+
       position: absolute;
       top: auto;
       left: 0;
-      width: 100%; // Full width of its parent
+      width: 100vw;
+      max-width: 100%; // Full width of its parent
       max-height: 100%; // Full height of its parent
       overflow-y: auto; // Makes this element scrollable vertically
       overflow-x: hidden;
+      padding: 0 10px 0 10px;
 
 
       display: flex;
@@ -136,6 +141,9 @@
       transition: transform 0.5s cubic-bezier(1.000, 0.000, 0.000, 1.000); // Add transition
 
       @include mobile {
+        h1, h2, h3 {
+          font-size: 26px;
+        }
         display: flex;
         flex-direction: column;
         align-self: center !important;
@@ -148,16 +156,14 @@
         justify-content: center;
         align-items: center !important;
         gap: 25px;
-        max-width: 100vw;
-        padding: 5px;
+        max-width: 100%;
 
         margin-top: auto;
         margin-bottom: auto;
 
         @include mobile {
-          max-width: 100vw;
+          max-width: 100%;
           justify-content: flex-start !important;
-          padding: 5px;
         }
 
         .fieldWrapper {

@@ -50,6 +50,7 @@ body, html {
   /* FallBackFonts */
   a, p, h1, h2, h3, h4, h5, h6 {
     font-family: var(--standard-font-family);
+    hyphens: auto;
   }
 
   /* Heading and body texts */
@@ -213,7 +214,6 @@ body, html {
 
   .verificationBox {
     width: 100%;
-    height: 150px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -221,8 +221,10 @@ body, html {
     outline: unset;
     transition: outline 300ms;
     position: relative;
+    padding: 10px 10px;
 
     .cookieInForm {
+
       h4, p {
         text-align: center;
       }
