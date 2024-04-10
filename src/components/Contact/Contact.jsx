@@ -35,7 +35,6 @@ function Contact() {
         handleSubmit,
         watch,
         formState: {errors, isValid, isSubmitting, isSubmitted},
-        reset
     } = useForm({
         resolver: zodResolver(createSchema(typeIsOther)),
         mode: 'onChange',
@@ -75,10 +74,6 @@ function Contact() {
 
     function handleSave(formContent) {
         const dataToSend = new FormData();
-        console.log(formContent)
-
-
-
 
         setTimeout(() => {
             try {
@@ -93,7 +88,6 @@ function Contact() {
                         },
                     })
                         .then(response => {
-                            console.log(response)
                             if (response.status === 500) throw new Error();
                             setIsAnswered(true)
                             setIsSubmitSuccessful(true);

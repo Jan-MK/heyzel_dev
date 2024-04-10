@@ -184,7 +184,6 @@ function JobForm() {
     }))
 
     function resetForm() {
-        console.log("RESET")
         setResetting(true)
         cleanForm()
         watched = steps.map(step => {
@@ -749,7 +748,6 @@ function JobForm() {
     });
 
     function handleSave(formContent) {
-        console.log("SUBMITTED")
         setSubmitted(true)
         const dataToSend = new FormData();
         let renderedFormData = prepareDataHTML(formContent);
@@ -770,7 +768,6 @@ function JobForm() {
                     if (response.status === 202) {
                         console.log('Message sent but photo could not be attached');
                     } else {
-                        console.log('Message sent successfully');
                     }
                     setAnswered(true)
                     setSuccessful(true);
