@@ -92,14 +92,14 @@ export function prepareData(formData) {
     content.push(daysStr)
     let str = "";
     let daysArr = []
-    days.forEach((day, dayIndex) => {
+    days.forEach((day) => {
         // Access the availability for the current shift on the current day
         let availabilityElement = formData.availability[day];
         daysArr.push(availabilityElement)
     });
     shifts.forEach((shift, idx) => {
         str += `${shift}\t`
-        daysArr.forEach((day, dayIdx) => {
+        daysArr.forEach((day) => {
             str += `${day[idx] ? 'J' : 'N'}\t`
         })
         str += "\n"

@@ -2,6 +2,7 @@ import classes from "./VerticalTable.module.scss"
 
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+// eslint-disable-next-line react/prop-types
 function VerticalTable({contentSizeBig, heading, entries, hierarchy}) {
     let headLine
     switch (hierarchy) {

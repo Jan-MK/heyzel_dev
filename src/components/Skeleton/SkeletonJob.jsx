@@ -1,9 +1,7 @@
 import styles from "./Skeleton.module.scss"
-import Skeleton from "./Skeleton.jsx";
-import {IoChevronBackOutline, IoTrashOutline} from "react-icons/io5";
-import classes from "../../pages/JobForm/JobForm.module.scss";
 
-function SkeletonJob(props) {
+
+function SkeletonJob() {
     return (
         <div className={`${styles.skeleton} ${styles.col} ${styles.fullPage}`}>
             <div className={`${styles.skeleton} ${styles.topNav} ${styles.animatePulse}`}>

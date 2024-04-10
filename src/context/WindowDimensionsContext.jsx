@@ -27,6 +27,7 @@ function getWindowDimensions() {
 
 function debounce(fn, ms) {
     let timer;
+    // eslint-disable-next-line no-unused-vars
     return _ => {
         clearTimeout(timer);
         timer = setTimeout(_ => {
@@ -37,6 +38,7 @@ function debounce(fn, ms) {
 }
 
 
+// eslint-disable-next-line react/prop-types
 export function WindowDimensionsProvider({children}) {
     const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
 

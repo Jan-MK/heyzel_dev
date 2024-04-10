@@ -1,4 +1,4 @@
-import {createContext, useCallback, useContext, useEffect, useRef, useState} from 'react';
+import {createContext, useContext, useRef, useState} from 'react';
 import Modal from './Modal/Modal.jsx';
 import {useNavigate} from "react-router-dom";
 

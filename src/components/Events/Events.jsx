@@ -8,15 +8,9 @@ import live from "../../assets/media/events/live-music-at-heyzel-tn.webp"
 import cheers from "../../assets/media/events/cheers-at-heyzel-tn.webp"
 import BlurryLoadingImage from "../Image/BlurryLoadingImage.jsx";
 import {Trans, useTranslation} from "react-i18next";
-import gsap from "gsap";
-import {ScrollTrigger} from "gsap/ScrollTrigger";
-import {useGSAP} from "@gsap/react";
-import {maxWidthMobile, minWidthTablet} from "../../utility/Vars.jsx";
-
-gsap.registerPlugin(ScrollTrigger);
 
 
-const wordFilter = [" "]
+/*const wordFilter = [" "]
 const postCount = 4;
 
 function isValidPost(post) {
@@ -26,7 +20,7 @@ function isValidPost(post) {
 
     const caption = post.caption.toLowerCase();
     return wordFilter.some(word => caption.includes(word.toLowerCase()));
-}
+}*/
 
 
 function Events() {
@@ -54,14 +48,14 @@ function Events() {
                 });
         }*/
 
-    useGSAP(() => {
+    /*useGSAP(() => {
         let imageContainer = document.getElementById('events')
         if (imageContainer) {
             let images = Array.from(imageContainer.getElementsByClassName(`${classes.eventImage}`));
             let gallery = images[0].parentElement
             let match = gsap.matchMedia()
             match.add(`(min-width: ${minWidthTablet}px)`, () => {
-/*                gsap.from(images, {
+                gsap.from(images, {
                     opacity: 0,
                     stagger: 0.5,
                     scrollTrigger: {
@@ -70,7 +64,7 @@ function Events() {
                         end: "top 40%",
                         scrub: 1,
                     }
-                })*/
+                })
             })
             match.add(`(max-width: ${maxWidthMobile}px)`, () => {
                 gsap.from(images, {
@@ -86,7 +80,7 @@ function Events() {
             })
 
         }
-    })
+    })*/
 
     let images = [
         ["/assets/media/events/dj-live-mixing-at-heyzel.webp", dj1, "Enjoy live DJ's"],

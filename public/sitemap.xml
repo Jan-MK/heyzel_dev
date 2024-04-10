@@ -1,117 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+        xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 ">
     <!-- Home Page with Automatic Language Detection -->
     <url>
         <loc>https://heyzel.de/</loc>
-        <xhtml:link 
-            rel="alternate"
-            hreflang="x-default"
-            href="https://heyzel.de/"/>
-        <xhtml:link 
-            rel="alternate"
-            hreflang="en"
-            href="https://heyzel.de/"/>
-        <xhtml:link 
-            rel="alternate"
-            hreflang="de"
-            href="https://heyzel.de/"/>
+        <xhtml:link
+                rel="alternate"
+                hreflang="x-default"
+                href="https://heyzel.de/"/>
+        <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://heyzel.de/"/>
+        <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://heyzel.de/"/>
     </url>
-    
+
     <!-- English Pages -->
     <url>
         <loc>https://heyzel.de/about</loc>
-        <xhtml:link 
-            rel="alternate"
-            hreflang="en"
-            href="https://heyzel.de/about"/>
-        <xhtml:link 
-            rel="alternate"
-            hreflang="de"
-            href="https://heyzel.de/ueber"/>
+        <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://heyzel.de/about"/>
+        <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://heyzel.de/ueber"/>
     </url>
     <url>
         <loc>https://heyzel.de/events</loc>
-        <xhtml:link 
-            rel="alternate"
-            hreflang="en"
-            href="https://heyzel.de/events"/>
-        <xhtml:link 
-            rel="alternate"
-            hreflang="de"
-            href="https://heyzel.de/veranstaltungen"/>
+        <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://heyzel.de/events"/>
+        <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://heyzel.de/veranstaltungen"/>
     </url>
     <url>
         <loc>https://heyzel.de/menu</loc>
-        <xhtml:link 
-            rel="alternate"
-            hreflang="en"
-            href="https://heyzel.de/menu"/>
-        <xhtml:link 
-            rel="alternate"
-            hreflang="de"
-            href="https://heyzel.de/speisekarte"/>
+        <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://heyzel.de/menu"/>
+        <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://heyzel.de/speisekarte"/>
     </url>
     <url>
         <loc>https://heyzel.de/locations</loc>
-        <xhtml:link 
-            rel="alternate"
-            hreflang="en"
-            href="https://heyzel.de/locations"/>
-        <xhtml:link 
-            rel="alternate"
-            hreflang="de"
-            href="https://heyzel.de/standorte"/>
+        <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://heyzel.de/locations"/>
+        <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://heyzel.de/standorte"/>
     </url>
     <url>
         <loc>https://heyzel.de/contact</loc>
-        <xhtml:link 
-            rel="alternate"
-            hreflang="en"
-            href="https://heyzel.de/contact"/>
-        <xhtml:link 
-            rel="alternate"
-            hreflang="de"
-            href="https://heyzel.de/kontakt"/>
+        <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://heyzel.de/contact"/>
+        <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://heyzel.de/kontakt"/>
     </url>
     <url>
         <loc>https://heyzel.de/privacy</loc>
-        <xhtml:link 
-            rel="alternate"
-            hreflang="en"
-            href="https://heyzel.de/privacy"/>
-        <xhtml:link 
-            rel="alternate"
-            hreflang="de"
-            href="https://heyzel.de/datenschutz"/>
+        <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://heyzel.de/privacy"/>
+        <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://heyzel.de/datenschutz"/>
     </url>
     <url>
         <loc>https://heyzel.de/legal</loc>
-        <xhtml:link 
-            rel="alternate"
-            hreflang="en"
-            href="https://heyzel.de/legal"/>
-        <xhtml:link 
-            rel="alternate"
-            hreflang="de"
-            href="https://heyzel.de/impressum"/>
+        <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://heyzel.de/legal"/>
+        <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://heyzel.de/impressum"/>
     </url>
 
     <!-- Jobs Page with Automatic Language Detection -->
     <url>
         <loc>https://heyzel.de/jobs</loc>
-        <xhtml:link 
-            rel="alternate"
-            hreflang="x-default"
-            href="https://heyzel.de/jobs"/>
-        <xhtml:link 
-            rel="alternate"
-            hreflang="en"
-            href="https://heyzel.de/jobs"/>
-        <xhtml:link 
-            rel="alternate"
-            hreflang="de"
-            href="https://heyzel.de/jobs"/>
+        <xhtml:link
+                rel="alternate"
+                hreflang="x-default"
+                href="https://heyzel.de/jobs"/>
+        <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://heyzel.de/jobs"/>
+        <xhtml:link
+                rel="alternate"
+                hreflang="de"
+                href="https://heyzel.de/jobs"/>
     </url>
 
     <!-- German Pages -->

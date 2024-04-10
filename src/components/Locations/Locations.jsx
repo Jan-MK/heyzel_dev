@@ -10,7 +10,6 @@ import {useWindowDimensions} from "../../context/WindowDimensionsContext.jsx";
 import {useEffect} from "react";
 import {maxWidthMobile, minWidthTablet} from "../../utility/Vars.jsx";
 import {useTranslation} from "react-i18next";
-import Image from "../Image/BlurryLoadingImage.jsx";
 import BlurryLoadingImage from "../Image/BlurryLoadingImage.jsx";
 
 gsap.registerPlugin(ScrollTrigger);

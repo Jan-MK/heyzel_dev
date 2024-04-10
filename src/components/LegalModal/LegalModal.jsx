@@ -2,7 +2,6 @@ import classes from './LegalModal.module.scss'
 import {legalArray} from "../../utility/Vars.jsx";
 import ReactCountryFlag from "react-country-flag";
 import {useTranslation} from "react-i18next";
-import {useParams} from "react-router-dom";
 
 
 function LegalModal({showImprint}) {
