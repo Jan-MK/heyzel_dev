@@ -93,16 +93,16 @@ function HeroComponent() {
                     opacity: 0,
                     ease: "power2.inOut"
                 })
-                gsap.to(leftColumn, {yPercent: -20, scrollTrigger: trigger});
-                gsap.to(rightColumn, {yPercent: -15, scrollTrigger: trigger});
+                gsap.to(leftColumn, {yPercent: -10, scrollTrigger: trigger});
+                gsap.to(rightColumn, {yPercent: -5, scrollTrigger: trigger});
             })
             mm.add(`(max-width: ${maxWidthMobile}px)`, () => {
                 /*gsap.from(`.${classes.textContent}`, .15, {
                     opacity: 0,
                     ease: "power2.inOut",
                 })*/
-                gsap.to(leftColumn, {xPercent: 10, scrollTrigger: trigger});
-                gsap.to(rightColumn, {xPercent: -5, scrollTrigger: trigger});
+                gsap.to(leftColumn, {xPercent: 7, scrollTrigger: trigger});
+                gsap.to(rightColumn, {xPercent: -4, scrollTrigger: trigger});
             })
         }
     })
