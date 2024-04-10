@@ -121,14 +121,11 @@ function Home() {
             <Navbar/>
             <main className={`${classes.mainContent}`} id={"home"}>
                 <section className={`${classes.contentSection} `} id={"about"}>
-                    <div className={`${classes.bgSectionHeading} ${classes.centered} container`}>
-
-                        <Suspense fallback={<Loading/>}>
-                            <About/>
-                        </Suspense>
-                    </div>
+                    <Suspense fallback={<Loading/>}>
+                        <About/>
+                    </Suspense>
                 </section>
-                <Suspense fallback={<Loading/>}>
+                <Suspense fallback={<Loading divOverlay={true}/>}>
                     <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle}
                                     order={false}
                                     boldIntro={insertionIntro} idx={1}
@@ -136,13 +133,11 @@ function Home() {
                                     bg={colors[0].bg} text={colors[0].text}/>
                 </Suspense>
                 <section className={`${classes.contentSection}`} id={"events"}>
-                    <div className={`${classes.bgSectionHeading} ${classes.centered}`}>
-                        <Suspense fallback={<Loading/>}>
-                            <Events/>
-                        </Suspense>
-                    </div>
+                    <Suspense fallback={<Loading/>}>
+                        <Events/>
+                    </Suspense>
                 </section>
-                <Suspense fallback={<Loading/>}>
+                <Suspense fallback={<Loading divOverlay={true}/>}>
                     <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle}
                                     order={true} boldIntro={"..."}
                                     idx={3}
@@ -152,7 +147,7 @@ function Home() {
                 </Suspense>
                 <section className={`${classes.contentSection} ${classes.imageOverlay} ${classes.fullHeight}`}
                          ref={menuContainerRef} id={"menu"}>
-                    <Suspense fallback={<Loading/>}>
+                    <Suspense fallback={<Loading divOverlay={true}/>}>
                         <Menu/>
                     </Suspense>
                 </section>
@@ -169,7 +164,7 @@ function Home() {
                         <Locations/>
                     </Suspense>
                 </section>
-                <Suspense fallback={<Loading/>}>
+                <Suspense fallback={<Loading divOverlay={true}/>}>
                     <InsertionBlock title={insertionTitle} subtitle={insertionSubTitle}
                                     order={true} boldIntro={"..."}
                                     idx={7}
