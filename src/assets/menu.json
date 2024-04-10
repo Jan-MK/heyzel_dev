@@ -396,9 +396,14 @@
           "price2": "menu.sizes.size4"
         },
         {
-          "name": "menu.cat3.products.pasSa",
-          "description": " ",
-          "price2": "4,80€"
+        "name": "menu.cat3.products.nuSa",
+        "description": " ",
+        "price2": "4,80€"
+        },
+        {
+        "name": "menu.cat3.products.pasSa",
+        "description": " ",
+        "price2": "4,80€"
         },
         {
           "name": "menu.cat3.products.couFeSa",

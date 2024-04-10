@@ -1,8 +1,5 @@
 import classes from "./Events.module.scss"
-import PostCard from "./EventCard/PostCard";
-import {useEffect, useMemo, useState} from "react";
-import instagram from "/public/instagram_data.json"
-import axios from 'axios';
+import {useMemo} from "react";
 import Masonry from "react-responsive-masonry";
 import dj1 from "../../assets/media/events/dj-live-mixing-at-heyzel-tn.webp"
 import dj2 from "../../assets/media/events/dj-electro-at-heyzel-tn.webp"

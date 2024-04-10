@@ -28,7 +28,7 @@ function Navbar() {
     const [dimensions, setDimensions] = useState({marginRefWidth: 0, marginRefHeight: 0});
     const marginRef = useRef(null);
     const scrollToOptions = (offsetHeight) => ({
-        offset: -offsetHeight,
+        offset: offsetHeight,
         duration: 1.5,
         easing: (x) => x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2,
         immediate: false,
@@ -238,10 +238,17 @@ function Navbar() {
         const id = href.replace('#', '');
         const element = document.getElementById(id);
         const navbar = document.getElementById('navBar');
-        let offsetHeight = navbar?.offsetHeight || 0;
+        const linkHeap = document.getElementById('heapContainerTwin');
+        let offsetHeight
+        if (isSmartphone) {
+            offsetHeight = linkHeap ? linkHeap?.offsetHeight || 0 : navbar?.offsetHeight || 0;
+        } else {
+            offsetHeight = -navbar?.offsetHeight || 0;
+        }
 
         if (element) {
-            lenisScroll.scrollTo(element, scrollToOptions(offsetHeight));
+            element.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"})
+            //lenisScroll.scrollTo(element, scrollToOptions(-offsetHeight));
         }
     }
 

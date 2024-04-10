@@ -102,7 +102,7 @@ i18n
                         verSort: "Various Varieties",
                         cat1: {
                             title: "Coffee, Tea & shakes",
-                            dscr: "Enjoy our selection of fantastic coffees, other hot drinks and milkshakes.",
+                            dscr: "Did we mention that we love coffee?",
                             products: {
                                 title1: "Coffee",
                                 kaffee: "Coffee",
@@ -141,7 +141,7 @@ i18n
                         },
                         cat2: {
                             title: "Refreshments and Cocktails",
-                            dscr: "Throughout the day... Description Warning for alcohol?",
+                            dscr: "Day and night the right choice.",
                             products: {
                                 title1: "From the Fridge",
                                 biona: "Bionade",
@@ -173,8 +173,8 @@ i18n
                             }
                         },
                         cat3: {
-                            title: "Snacks",
-                            dscr: "Throughout the day... Description Additives??",
+                            title: "Food & Snacks",
+                            dscr: "To satisfy small and larger appetite.",
                             products: {
                                 title1: "Sandwiches & Wraps",
                                 toRiSa: "Tomato Ricotta Sandwich",
@@ -186,7 +186,7 @@ i18n
                                 chiWra: "Chicken-Caesar Wrap",
 
                                 title2: "Salads",
-                                nuSa: "Pasta Salad",
+                                nuSa: "Noodle Salad",
                                 pasSa: "Pasta Salad",
                                 couFeSa: "Couscous with Feta",
                                 couSa: "Couscous without Feta",
@@ -735,7 +735,7 @@ i18n
                         verSort: "Verschiedene Sorten",
                         cat1: {
                             title: "Kaffee,Tee & Shakes",
-                            dscr: "Genieße unsere Auswahl fantastischen Kaffees, anderen Heißgetränken und Milchshakes.",
+                            dscr: "Haben wir schon gesagt, dass wir Kaffee lieben?",
                             products: {
                                 title1: "Kaffee",
                                 kaffee: "Kaffee",
@@ -772,11 +772,9 @@ i18n
                             },
                         },
                         cat2: {
-                            title: "Erfrischung und Cocktails",
-                            dscr: "Über den Tag... Beschreibung Warnhinweis für Alkohol?",
+                            title: "Erfrischungen und Cocktails",
+                            dscr: "Tag und Nacht das Richtige!",
                             products: {
-
-
                                 title1: "Aus dem Kühlschrank",
                                 biona: "Bionade",
                                 spezi: "Spezi",
@@ -808,7 +806,7 @@ i18n
                         },
                         cat3: {
                             title: "Snacks",
-                            dscr: "Über den Tag... Beschreibung Zusätze??",
+                            dscr: "Für den kleinen & großen Hunger!",
                             products: {
                                 title1: "Sandwiches & Wraps",
                                 toRiSa: "Tomate Ricotta Sandwich",
@@ -821,7 +819,7 @@ i18n
 
                                 title2: "Salate",
                                 nuSa: "Nudelsalat",
-                                pasSa: "Pasta Salat (SAME!??!)",
+                                pasSa: "Pasta Salat",
                                 couFeSa: "Couscous mit Feta",
                                 couSa: "Couscous ohne Feta",
 

@@ -220,7 +220,6 @@ function JobForm() {
             resetForm();
         }
         requestAnimationFrame(() => setResetting(false))
-        //prefill(6)
     }, []);
 
     useEffect(() => {
@@ -835,12 +834,6 @@ function JobForm() {
                             </ul>
                         </div>
                         <div className={classes.buttons}>
-                            {/*                            <button tabIndex={991} onClick={(e) => {
-                                e.preventDefault()
-                                trigger(steps[currentStep].fields
-                            )}}
-                                    className={`${classes.ctrlBtn} ${classes.enabled} secondary`}>TRIGGER
-                            </button>*/}
                             {currentStep !== 0 && <button tabIndex={991} onClick={handleBackClick}
                                                           className={`${classes.ctrlBtn} ${classes.enabled} secondary`}>{t('jobForm.general.btn.back')}
                             </button>}

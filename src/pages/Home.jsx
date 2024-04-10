@@ -10,6 +10,14 @@ import {useModal} from '../context/ModalContext';
 import Navbar from "../components/Navigation/Navbar.jsx";
 import {useTranslation} from "react-i18next";
 
+/*import About from "../components/About/About.jsx"
+import InsertionBlock from "../components/InsertionBlock/InsertionBlock.jsx"
+import Locations from "../components/Locations/Locations.jsx"
+import Menu from "../components/Menu/Menu.jsx"
+import Footer from "../components/Footer/Footer.jsx"
+import LegalModal from "../components/LegalModal/LegalModal.jsx"
+import Contact from "../components/Contact/Contact.jsx"
+import Events from "../components/Events/Events.jsx"*/
 
 const About = lazy(() => import ("../components/About/About.jsx"));
 const InsertionBlock = lazy(() => import ("../components/InsertionBlock/InsertionBlock.jsx"));
