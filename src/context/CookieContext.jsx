@@ -22,7 +22,7 @@ export const CookieProvider = ({ children }) => {
             // Remove specific cookies based on your conditions
             const allCookies = cookies.getAll();
             Object.keys(allCookies).forEach(cookieName => {
-                if (cookieName.includes('heyzel_')) {
+                if (!cookieName.includes('heyzel_')) {
                     cookies.remove(cookieName);
                 }
             });
