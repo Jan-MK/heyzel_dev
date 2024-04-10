@@ -120,7 +120,6 @@ function HeroComponent() {
                                      src={image[0]}
                                      alt={idx}/>*/}
                             <BlurryLoadingImage
-                                fetchPrio={"high"}
                                 lazy={false}
                                 alt={`Heyzel-Coffee-HeroImage${idx}`}
                                 preview={image[1]}

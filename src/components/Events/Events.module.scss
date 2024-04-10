@@ -48,12 +48,18 @@
 
     .eventImages {
 
-      div {
-        .eventImage{
+      &.test {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+        img {
+          width: 45% !important;
+          height: auto;
           border-radius: 5px;
-        box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
-        -webkit-box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
-        -moz-box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
+          box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
+          -webkit-box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
+          -moz-box-shadow: 5px 5px 5px rgba(0,0,0,0.15);
         }
       }
     }

@@ -1,6 +1,5 @@
 import classes from "./Events.module.scss"
 import {useMemo} from "react";
-import Masonry from "react-responsive-masonry";
 import dj1 from "../../assets/media/events/dj-live-mixing-at-heyzel-tn.webp"
 import dj2 from "../../assets/media/events/dj-electro-at-heyzel-tn.webp"
 import dj3 from "../../assets/media/events/dj-live-electro-at-heyzel-tn.webp"
@@ -112,9 +111,9 @@ function Events() {
                 </Trans></p>
             </div>
             <div className={classes.splitView}>
-                <Masonry className={classes.eventImages} columnsCount={2} gutter={"10px"}>
+                <div className={`${classes.eventImages} ${classes.test}`}>
                     {renderedImages}
-                </Masonry>
+                </div>
                 <div className={classes.right}>
                     <h2>{t('events.inside.heading1')}</h2>
                     <p>{t('events.inside.dscr1')}</p>
