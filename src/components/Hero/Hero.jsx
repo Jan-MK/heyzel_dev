@@ -64,7 +64,8 @@ function HeroComponent() {
         let element = document.getElementById('navBar');
         if (!element) return
         let offsetHeight = isSmartphone ? parseInt(element.style.marginTop.replace('px', '')) : 0;
-        lenisScroll.scrollTo(element, scrollToOptions(offsetHeight));
+        element.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"})
+        //lenisScroll.scrollTo(element, scrollToOptions(offsetHeight));
     }
 
     useGSAP(() => {
