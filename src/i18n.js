@@ -964,7 +964,7 @@ i18n
                             errorDsc: "Sende uns eine E-Mail an info@heyzel.de"
                         },
                         form: {
-                            title: "KONTAKTFORMULAR",
+                            title: "FORMULAR",
                             fn: {
                                 label: "Vorname",
                                 ph: "Dein Vorname",
