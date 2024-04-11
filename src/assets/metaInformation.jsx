@@ -196,7 +196,7 @@ export function generateSeo(identifier, language) {
             <title>{seoData.title[language]}</title>
             <meta name="description" content={seoData.description[language]}/>
             <meta name="keywords" content={seoData.keywords[language]}/>
-            <link rel="icon" href={metaData.image}/>
+            {/*<link rel="icon" href={metaData.image}/>*/}
 
             {/* Open Graph / Facebook */}
             <meta property="og:type" content="website"/>
