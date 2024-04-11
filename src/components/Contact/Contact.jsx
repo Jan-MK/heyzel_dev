@@ -9,14 +9,15 @@ import {useModal} from "../../context/ModalContext.jsx";
 import LegalModal from "../LegalModal/LegalModal.jsx";
 import {Trans, useTranslation} from "react-i18next";
 import {Link} from "react-router-dom";
-import {IoArrowForward} from "react-icons/io5";
+//import {IoArrowForward} from "react-icons/io5";
 import Validation from "../Validation/Validation.jsx";
 import VerificationContext from "../../context/VerificationContext.jsx";
-import {prepareContactHtml, prepareDataHTML} from "../../utility/Utility.jsx";
+import {prepareContactHtml} from "../../utility/Utility.jsx";
 import axios from "axios";
 import Loading from "../Loading/Loading.jsx";
 import Submitted from "./Submitted/Submitted.jsx";
 import {useGSAP} from "@gsap/react";
+import Icon from "../Icons/Icon.jsx";
 
 function Contact() {
     const {t} = useTranslation();
@@ -121,7 +122,7 @@ function Contact() {
                         </h2>
                         <p>{t('contact.highlight.dscr')}</p>
                         <Link to={"/jobs"}>
-                            <div><IoArrowForward size={35}/> <p><span className={'bigger bold'}>{t('contact.highlight.btn')}</span>
+                            <div><Icon type={"forward"} width={35} /> <p><span className={'bigger bold'}>{t('contact.highlight.btn')}</span>
                             </p></div>
                         </Link>
                     </div>

@@ -5,12 +5,13 @@ import classes from './MobileMenu.module.scss';
 import ThemeSwitch from "../../components/ThemeSwitch/ThemeSwitch.jsx";
 import Logo from "../../components/Logo/Logo.jsx";
 import ReactDOM from "react-dom";
-import {IoCloseSharp} from "react-icons/io5";
+//import {IoCloseSharp} from "react-icons/io5";
 import {useMobileMenu} from "../MobileMenuContext.jsx";
 import {navigationItems} from "../../utility/Vars.jsx";
 import {useLenis} from "@studio-freight/react-lenis";
 import {useTranslation} from "react-i18next";
 import ReactCountryFlag from "react-country-flag";
+import Icon from "../../components/Icons/Icon.jsx";
 
 const MobileMenu = () => {
     const {t, i18n} = useTranslation();
@@ -110,7 +111,7 @@ const MobileMenu = () => {
         (isVisible || isOpen) &&
         <div data-lenis-prevent className={classes.menu} id={'mobileMenuContainer'} ref={menuRef}>
             <div className={classes.background}><Logo width={"90vw"}/></div>
-            <div className={classes.exit} onClick={closeMenu}><IoCloseSharp size={40}/></div>
+            <div className={classes.exit} onClick={closeMenu}><Icon type={"close"} width={"30"} measure={"px"}/></div>
             <div className={`${classes.menuContainer} ${classes.options}`} onClick={handleNavClick}>
                 <ul ref={(el) => (navItemsRef.current = el ? Array.from(el.children) : [])}>
                     {navigationItems.map((item, index) => (

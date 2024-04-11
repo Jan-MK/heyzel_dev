@@ -1,6 +1,6 @@
 import classes from "./Menu.module.scss";
 import menuArray from '../../assets/menu.json'
-import {useMemo, useRef} from "react";
+import {useEffect, useMemo, useRef} from "react";
 import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {useModal} from "../../context/ModalContext.jsx";
@@ -26,6 +26,9 @@ export default function Menu() {
     let drinks = "/assets/media/menu/drinks.webp"
     //let beans = "/assets/media/menu/beans.webp"
 
+/*    useEffect(() => {
+        toggleMount(1);
+    }, []);*/
 
     function toggleMount(idx) {
         openModal(<div className={classes.singleCatWrapper}>
@@ -72,10 +75,10 @@ export default function Menu() {
                         <div className={classes.headingWrapper}>
                             <h3 className={classes.rightItemHeading}>{t(item.name)}</h3>
                         </div>
-                        <div className={classes.priceWrapper}>
+{/*                        <div className={classes.priceWrapper}>
                             {item.price1 ? <p className={classes.itemPrice}>{item.headline ? t(item.price1) : item.price1}</p> : <p>-</p>}
                             {item.price2 ? <p className={classes.itemPrice}>{item.headline ? t(item.price2) : item.price2}</p> : <p>-</p>}
-                        </div>
+                        </div>*/}
                     </div>
                     <div>
                         {item.description && <p className={classes.itemDescription}>{item.description.length > 1 && t(item.description)}</p>}

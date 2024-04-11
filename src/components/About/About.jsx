@@ -9,6 +9,7 @@ import {Trans, useTranslation} from "react-i18next";
 import {useWindowDimensions} from "../../context/WindowDimensionsContext.jsx";
 import {minWidthTablet} from "../../utility/Vars.jsx";
 import BlurryLoadingImage from "../Image/BlurryLoadingImage.jsx";
+import Icon from "../Icons/Icon.jsx";
 
 gsap.registerPlugin(ScrollTrigger);
 

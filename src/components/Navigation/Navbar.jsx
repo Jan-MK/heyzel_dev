@@ -4,7 +4,7 @@ import gsap from "gsap";
 import {ScrollTrigger} from "gsap/ScrollTrigger";
 import {useGSAP} from "@gsap/react";
 import {useWindowDimensions} from "../../context/WindowDimensionsContext.jsx";
-import {IoMenu} from "react-icons/io5";
+//import {IoMenu} from "react-icons/io5";
 import Logo from "../Logo/Logo.jsx";
 import ThemeSwitch from "../ThemeSwitch/ThemeSwitch.jsx";
 import {useMobileMenu} from "../../context/MobileMenuContext.jsx";
@@ -16,6 +16,7 @@ import {
 import {useLenis} from "@studio-freight/react-lenis";
 import {useEffect, useRef, useState} from "react";
 import {useTranslation} from "react-i18next";
+import Icon from "../Icons/Icon.jsx";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -36,7 +37,7 @@ function Navbar() {
         force: false,
     });
 
-    useEffect(() => {
+/*    useEffect(() => {
         const fitMargin = () => {
             if (isSmartphone) {
                 const navbar = document.getElementById('navBar');
@@ -50,7 +51,7 @@ function Navbar() {
         if (isSmartphone) {
             fitMargin()
         }
-    }, [dimensions.marginRefWidth, dimensions.marginRefHeight]);
+    }, [dimensions.marginRefWidth, dimensions.marginRefHeight]);*/
 
 
     // Observer for the margin over the navbar to control the height continuously
@@ -240,11 +241,11 @@ function Navbar() {
         const navbar = document.getElementById('navBar');
         const linkHeap = document.getElementById('heapContainerTwin');
         let offsetHeight
-        if (isSmartphone) {
+/*        if (isSmartphone) {
             offsetHeight = linkHeap ? linkHeap?.offsetHeight || 0 : navbar?.offsetHeight || 0;
         } else {
             offsetHeight = -navbar?.offsetHeight || 0;
-        }
+        }*/
 
         if (element) {
             element.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"})
@@ -253,8 +254,7 @@ function Navbar() {
     }
 
     let menuIcon = <div className={classes.menuIconWrapper} style={{cursor: 'pointer'}} id={'menuIcon'}
-                        onClick={openMenu}><IoMenu
-        size={40}/></div>
+                        onClick={openMenu}><Icon type={"menu"} width={"40"} measure={"px"}/></div>
 
 // TODO Added li-Element for access => Still necessary?
     return <>
@@ -278,7 +278,7 @@ function Navbar() {
                         width={"175px"}/></a></div>
                     <div className={`${classes.navLinks}`} id={'desktopLinkContainer'}>
                         <ul className={`${classes.linkUl}`} id={'linkList'} onClick={handleLinkClick}>
-                            {menuItems}
+                            {/*{menuItems}*/}
                             {menuIcon}
                             <li className={classes.navLink}><ThemeSwitch isOnAbsolute={true}/></li>
                         </ul>
@@ -294,7 +294,7 @@ function Navbar() {
                             width={"175px"}/></a></div>
                         {menuIcon}
                     </div>
-                    <div className={classes.heapContainer} id={'heapContainer'}>
+{/*                    <div className={classes.heapContainer} id={'heapContainer'}>
                         <div className={classes.linkHeap} id={'linkHeap'}>
                             <h2 id={'heapHeading'}>{t('menu.goTo')}</h2>
                             <ul className={`${classes.heap} `} id={'heapList'}
@@ -302,15 +302,15 @@ function Navbar() {
                                 {gotoLinks}
                             </ul>
                         </div>
-                    </div>
-                    <div className={`${classes.heapContainer} ${classes.twin}`} id={'heapContainerTwin'}>
+                    </div>*/}
+{/*                    <div className={`${classes.heapContainer} ${classes.twin}`} id={'heapContainerTwin'}>
                         <div className={`${classes.linkHeap} ${classes.twin}`} ref={marginRef} id={'linkHeapTwin'}>
                             <h2 id={'heapHeading'}>{t('menu.goTo')}</h2>
                             <ul className={`${classes.heap} `}>
                                 {gotoLinks}
                             </ul>
                         </div>
-                    </div>
+                    </div>*/}
                 </nav>
 
             </>

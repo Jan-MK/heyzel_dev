@@ -2,8 +2,10 @@ import {useEffect, useRef, useState} from "react";
 import gsap from "gsap";
 import Backdrop from "./Backdrop.jsx";
 import classes from "./Modal.module.scss";
-import {IoCloseSharp} from "react-icons/io5";
+//import {Icon type={"close"} widt"h"={5} measure={"px}
+// } from "react-icons/io5";
 import {useLenis} from "@studio-freight/react-lenis";
+import Icon from "../../components/Icons/Icon.jsx";
 
 
 function Modal({showModal, closeModal, content}) {
@@ -57,7 +59,8 @@ function Modal({showModal, closeModal, content}) {
                     closeModal();
                 }}
             >
-                <IoCloseSharp/>
+                <Icon type={"close"} width={"30"} measure={"px"}
+                />
             </div>
             <div data-lenis-prevent className={classes.modal} ref={modalRef} onClick={(e) => e.stopPropagation()}>
                 {content}
