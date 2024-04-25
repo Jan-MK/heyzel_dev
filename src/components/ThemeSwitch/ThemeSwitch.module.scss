@@ -89,12 +89,12 @@ $transition-duration: 500ms; // Transition duration
     transition: color $transition-duration ease-in-out;
 
     &.left {
-      left: calc(#{$knob-offset} + 45%);
+      left: calc(#{$knob-offset} + 52%);
       opacity: 1;
     }
 
     &.right {
-      right: calc(#{$knob-offset} + 45%);
+      right: calc(#{$knob-offset} + 52%);
     }
   }
 }

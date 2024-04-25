@@ -9,7 +9,7 @@ import Logo from "../Logo/Logo.jsx";
 import ThemeSwitch from "../ThemeSwitch/ThemeSwitch.jsx";
 import {useMobileMenu} from "../../context/MobileMenuContext.jsx";
 import {
-    maxWidthMobile,
+    maxWidthMobile, maxWidthTablet, minWidthDesktop,
     minWidthTablet,
     navigationItems
 } from "../../utility/Vars.jsx";
@@ -157,14 +157,46 @@ function Navbar() {
         }
     }
 
+    const tabletAnimation = () => {
+        // Tablet
+        const linkContainer = document.getElementById('desktopLinkContainer');
+        const logo = document.getElementById('menuLogo');
+        const linkList = document.getElementById('linkList');
+        const navbar = document.getElementById('navBar');
+        /*const icon = document.getElementById('menuIcon');*/
+
+        if (navbar && logo && linkList && linkContainer) {
+            let sctr = {
+                trigger: navbar,
+                start: "center center",
+                end: "top 25%",
+                scrub: .5,
+                markers: false,
+                invalidateOnRefresh: true,
+            }
+
+            gsap.from(logo, {
+                opacity: 0,
+                scrollTrigger: {
+                    ...sctr,
+                    start: "center 35%"
+                }
+            })
+        }
+    }
+
     useGSAP(() => {
         const matchMedia = gsap.matchMedia()
         matchMedia.add(`(max-width: ${maxWidthMobile}px)`, () => {
             mobileAnimations()
         })
 
-        matchMedia.add(`(min-width: ${minWidthTablet}px)`, () => {
+        matchMedia.add(`(min-width: ${minWidthDesktop}px)`, () => {
             nonMobileAnimations()
+        })
+
+        matchMedia.add(`(max-width: ${maxWidthTablet}px)`, () => {
+            tabletAnimation()
         })
 
     }, [isSmartphone])
@@ -280,7 +312,7 @@ function Navbar() {
                         <ul className={`${classes.linkUl}`} id={'linkList'} onClick={handleLinkClick}>
                             {/*{menuItems}*/}
                             {menuIcon}
-                            <li className={classes.navLink}><ThemeSwitch isOnAbsolute={true}/></li>
+                            {/*<li className={classes.navLink}><ThemeSwitch isOnAbsolute={true}/></li>*/}
                         </ul>
                     </div>
                 </div>

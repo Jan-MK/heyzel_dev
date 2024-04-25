@@ -46,6 +46,11 @@ nav.navWrapper {
         justify-content: space-between;
         position: relative;
 
+        @include tablet {
+          width: 50%;
+          justify-content: flex-end;
+        }
+
         .navLink {
           position: relative;
 

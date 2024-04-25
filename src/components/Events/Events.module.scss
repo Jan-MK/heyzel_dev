@@ -44,10 +44,13 @@
 
     @include mobile {
       flex-direction: column-reverse;
+      align-items: center;
     }
 
     .eventImages {
-
+@include mobile {
+  justify-content: center;
+}
       &.test {
         display: flex;
         flex-direction: row;

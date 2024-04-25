@@ -1,6 +1,6 @@
 export const days = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
 export const shiftsJoFo = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
-export const shifts = ['7:30', '13:00', '16:00'];
+export const shifts = ['7:30-11:30', '12:00-16:00', 'ab 16:00'];
 export const randomColors = [
     {
         bg: '#68c1c9',
@@ -61,7 +61,9 @@ export function prepareData(formData) {
     const age = calculateAge(formData.birthday);
     content.push(`Geburtstag:\t\t${birthdayDateFormat} (${age} Jahre)`); // In Klammern das Alter in Jahre
 
+/*
     content.push(`Familienstand:\t${formData.marital}`);
+*/
     content.push(`Staatsangehörigkeit:\t${formData.nationality}`);
     content.push(`Konfession:\t${formData.confession}`);
     content.push(`Sozial-Vers.-Nr.:\t${formData.ssn}`);
@@ -100,7 +102,7 @@ export function prepareData(formData) {
     shifts.forEach((shift, idx) => {
         str += `${shift}\t`
         daysArr.forEach((day) => {
-            str += `${day[idx] ? 'J' : 'N'}\t`
+            str += `${day[idx] ? 'Ja' : 'Nein'}\t`
         })
         str += "\n"
     })
@@ -123,7 +125,7 @@ export function prepareDataHTML(formData) {
         const birthdayDateFormat = formatDate(formData.birthday);
         const age = calculateAge(formData.birthday);
         content.push(`<p><strong>Geburtstag:</strong> ${birthdayDateFormat} (${age} Jahre)</p>`);
-        content.push(`<p><strong>Familienstand:</strong> ${formData.marital}</p>`);
+        /*content.push(`<p><strong>Familienstand:</strong> ${formData.marital}</p>`);*/
         content.push(`<p><strong>Staatsangehörigkeit:</strong> ${formData.nationality}</p>`);
         content.push(`<p><strong>Konfession:</strong> ${formData.confession}</p>`);
         content.push(`<p><strong>Soz.-Vers.-Nr:</strong> ${formData.ssn}</p>`);

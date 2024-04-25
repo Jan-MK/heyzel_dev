@@ -7,8 +7,8 @@ import Icon from "../Icons/Icon.jsx";
 const ThemeSwitch = ({isOnAbsolute}) => {
     const {mode, toggleMode} = useContext(ThemeContext);
 
-    let IoMoonOutline = <Icon styling={`${classes.icon} ${classes.right}`} width={"18"} measure={"px"} type={"moon"}/>
-    let IoSunnyOutline = <Icon styling={`${classes.icon} ${classes.left}`} width={"18"} measure={"px"} type={"sun"}/>
+    let IoMoonOutline = <Icon styling={`${classes.icon} ${classes.right}`} width={"14"} measure={"px"} type={"moon"}/>
+    let IoSunnyOutline = <Icon styling={`${classes.icon} ${classes.left}`} width={"14"} measure={"px"} type={"sun"}/>
 
     return (
         <div className={classes.themeSwitch} onClick={isOnAbsolute ? toggleMode : () => {}}>

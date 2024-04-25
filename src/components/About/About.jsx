@@ -32,7 +32,6 @@ function About(props) {
         let pinAnchor = container
         let matchMedia = gsap.matchMedia()
         if (isTablet) {
-            pinAnchor = wrapper
             startPin = `top+=${wrapper.offsetTop} top+=64px`
         }
 
